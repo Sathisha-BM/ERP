@@ -1,0 +1,664 @@
+﻿@using MudBlazor
+@using V.SMART.Shared.BusinessLayer.BusinessService.IBusinessService.IMasterServices.IChatBox
+@using V.SMART.Shared.BusinessLayer.BusinessService.IBusinessService.IQimsIsoService
+@using V.SMART.Shared.Pages.QIMS_ISO_Pages
+@inherits LayoutComponentBase
+
+@inject IJSRuntime _js
+@inject ThemeStateService ThemeStateService
+@inject ILocalStorageService localStorage
+@inject AuthenticationStateProvider AuthStateProvider
+@inject IUserThemePreferenceService UserThemePreferenceService
+@inject NavigationManager NavigationManager
+@inject SessionTimeoutService SessionService
+@inject UserSession session
+@inject IUserRightService _rights
+@inject IQimsService QimsService
+@inject IDialogService DialogService
+@inject IMessengerService _messegeService
+@inject CurrentUserService _currentUserService
+
+
+
+<style>
+    .vsmart-appbar-status {
+        display: flex;
+        align-items: center;
+        height: 32px;
+        margin-right: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .vsmart-user-info {
+        display: flex;
+        align-items: center;
+        margin-right: 8px;
+        white-space: nowrap;
+    }
+</style>
+
+<MudThemeProvider Theme="@_appTheme" @bind-IsDarkMode="_isDark" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout Class="@($"vs-layout {(_isDark ? "vs-dark" : "vs-light")}")">
+
+    <!-- ══════════════════════════════════════════
+         APP BAR
+         ══════════════════════════════════════════ -->
+    <MudAppBar Elevation="0" Dense="true" Class="vs-appbar">
+
+        <MudIconButton Icon="@Icons.Material.Filled.Menu"
+                       Size="Size.Medium"
+                       Color="Color.Inherit"
+                       Edge="Edge.Start"
+                       OnClick="DrawerToggle"
+                       Class="vs-appbar-menu-btn" />
+
+        <div class="vs-appbar-brand">
+            <div class="vs-appbar-logo">
+                <img src="/_content/V.SMART.Shared/images/BSPLLOGO.jpg" alt="BSPL" />
+            </div>
+            <div class="vs-appbar-brand-text">
+                <span class="vs-appbar-kicker">ERP Workspace</span>
+                <span class="vs-appbar-company">Bhargavi Soft-Tech Pvt Ltd</span>
+            </div>
+        </div>
+
+        <MudSpacer />
+
+        <div class="vsmart-appbar-status">
+
+            <InternetStatus />
+
+        </div>
+
+        @* <div class="vsmart-user-info">
+
+            <MudIcon Icon="@Icons.Material.Filled.AccountCircle"
+                     Color="Color.Inherit"
+                     Class="me-1" />
+
+            <MudText Typo="Typo.body2"
+                     Class="text-white">
+                @(session?.UserName ?? "Guest")
+            </MudText>
+
+        </div> *@
+
+        <div class="vsmart-user-info d-flex align-items-center gap-2">
+
+            @if (!string.IsNullOrWhiteSpace(GetUserImage()))
+            {
+                <MudAvatar Size="Size.Small"
+                           Class="shadow-sm">
+                    <MudImage Src="@GetUserImage()"
+                              Alt="@(session?.UserName ?? "User")"
+                              ObjectFit="ObjectFit.Cover"
+                              Style="width:100%;height:100%;" />
+                </MudAvatar>
+            }
+            else
+            {
+                <MudAvatar Size="Size.Small"
+                           Color="Color.Primary">
+                    <MudIcon Icon="@Icons.Material.Filled.AccountCircle"
+                             Color="Color.Inherit" />
+                </MudAvatar>
+            }
+
+            <MudText Typo="Typo.body2"
+                     Class="text-white fw-semibold">
+                @(session?.UserName ?? "Guest")
+            </MudText>
+
+        </div>
+
+
+        <!-- Theme toggle -->
+        <MudIconButton Icon="@(_isDark? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode)"
+                       Color="Color.Inherit"
+                       Size="Size.Small"
+                       Class="vs-appbar-theme-btn me-2"
+                       OnClick="ToggleTheme" />
+
+        @*    <div class="vs-appbar-badge">V.SMART</div> *@
+
+        <MudBadge Content="@messages"
+                  Color="Color.Error"
+                  Overlap="true"
+                  Visible="@(messages > 0)">
+
+            <MudIconButton Icon="@Icons.Material.Filled.Notifications"
+                           Color="Color.Inherit"
+                           Size="Size.Small"
+                           Class="vs-appbar-theme-btn me-2"
+                           OnClick="OpenChatNotification" />
+
+        </MudBadge>
+
+    </MudAppBar>
+
+    <!-- ══════════════════════════════════════════
+         MINI SIDEBAR (outside MudDrawer so
+         flyouts can overflow freely)
+         ══════════════════════════════════════════ -->
+    @if (!_drawerOpen)
+    {
+        <div class="vs-mini-sidebar">
+            <NavMenu DrawerOpen="false" ToggleDrawer="DrawerToggle" />
+        </div>
+    }
+
+    <!-- ══════════════════════════════════════════
+         FULL DRAWER (temporary overlay)
+         ══════════════════════════════════════════ -->
+    @if (_drawerOpen)
+    {
+        <MudDrawer @bind-Open="_drawerOpen"
+                   Variant="DrawerVariant.Temporary"
+                   Width="300px"
+                   Elevation="0"
+                   ClipMode="DrawerClipMode.Always"
+                   Class="vs-drawer">
+            <NavMenu DrawerOpen="true" ToggleDrawer="DrawerToggle" />
+        </MudDrawer>
+    }
+
+    <!-- ══════════════════════════════════════════
+         MAIN CONTENT
+         ══════════════════════════════════════════ -->
+    <MudMainContent Class="@($"vs-main {(_drawerOpen ? "vs-main--open" : "vs-main--mini")}")"
+                    @onclick="TrackActivity"
+                    @onmousemove="TrackActivity"
+                    @onkeydown="TrackActivity">
+        <div class="vs-content-shell">
+            @Body
+        </div>
+    </MudMainContent>
+
+</MudLayout>
+@if (_showSessionWarning)
+{
+    <MudOverlay Visible="true" DarkBackground="true">
+        <MudPaper Class="pa-6 mx-auto mt-12"
+                  Elevation="10"
+                  Style="width:450px;">
+
+            <MudText Typo="Typo.h5"
+                     Color="Color.Warning"
+                     Align="MudBlazor.Align.Center">
+                Session Timeout Warning
+            </MudText>
+
+            <MudDivider Class="my-3" />
+
+            <MudText Typo="Typo.body1"
+                     Align="MudBlazor.Align.Center">
+                You have been inactive.
+            </MudText>
+
+            <MudText Typo="Typo.h4"
+                     Color="@(_countdown <= 10 ? Color.Error : Color.Warning)"
+                     Align="MudBlazor.Align.Center">
+                @_countdown Seconds
+            </MudText>
+
+            <MudText Align="MudBlazor.Align.Center">
+                Your session will be closed automatically.
+            </MudText>
+
+            <div class="d-flex justify-center mt-4">
+                <MudButton Color="Color.Success"
+                           Variant="Variant.Filled"
+                           OnClick="ContinueSession">
+                    Continue Session
+                </MudButton>
+            </div>
+
+        </MudPaper>
+    </MudOverlay>
+}
+
+
+@code
+{
+    private bool _drawerOpen = false;
+    private bool _isDark = false;
+
+    private bool _showSessionWarning;
+
+    private PeriodicTimer? _idleTimer;
+    private PeriodicTimer? _countdownTimer;
+    private PeriodicTimer? _messageTimer;
+
+    private int _countdown = 30;
+    private int messages;
+    private int loginuser;
+
+    private List<UserRight> userRights = new();
+    private UserVM? loggedUser;
+
+    // Background task control
+    private CancellationTokenSource _disposeCts = new();
+    private Task? _messageRefreshTask;
+    private Task? _idleMonitorTask;
+
+    // Prevent overlapping message refreshes
+    private int _isRefreshingMessages;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        NavigationManager.LocationChanged += OnLocationChanged;
+
+        SessionService.Touch();
+
+        loginuser = await _currentUserService.GetUserIdAsync();
+
+        await LoadRightsAsync();
+        await LoadMessagesCount();
+
+        _idleTimer = new PeriodicTimer(
+            TimeSpan.FromSeconds(1));
+
+        _messageTimer = new PeriodicTimer(
+            TimeSpan.FromSeconds(2));
+
+        // Start background monitors
+        _idleMonitorTask =
+            MonitorIdleTime(_disposeCts.Token);
+
+        _messageRefreshTask =
+            RefreshMessagesCount(_disposeCts.Token);
+    }
+
+
+    private void OnLocationChanged(object? sender,LocationChangedEventArgs e)
+    {
+        _drawerOpen = false;
+
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+
+    private void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await _js.InvokeVoidAsync("NavigationGuard.initialize");
+
+            _isDark =await UserThemePreferenceService.LoadLocalThemeAsync();
+
+            ThemeStateService.SetTheme(_isDark);
+
+            await UserThemePreferenceService
+                .SyncThemeFromDatabaseAsync(v =>
+                {
+                    _isDark = v;
+
+                    ThemeStateService.SetTheme(v);
+
+                    _ = InvokeAsync(StateHasChanged);
+                });
+        }
+
+        if (AuthStateProvider is CustomAuthStateProvider auth && auth.ExpiredNotificationShown)
+        {
+            auth.ExpiredNotificationShown = false;
+
+            await Task.Delay(500);
+
+            var docs = await QimsService.GetExpiredDocuments5daysAsync();
+
+            if (docs.Any())
+            {
+                var parameters = new DialogParameters
+                {
+                    ["Documents"] = docs
+                };
+
+                var options = new DialogOptions
+                {
+                    CloseButton = true,
+                    FullWidth = true,
+                    MaxWidth = MaxWidth.Medium
+                };
+
+                await DialogService.ShowAsync<ExpiredDocumentsDialog>("",parameters,options);
+            }
+        }
+    }
+
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+
+        // Stop background operations first
+        if (!_disposeCts.IsCancellationRequested)
+        {
+            _disposeCts.Cancel();
+        }
+
+        // Dispose timers
+        _messageTimer?.Dispose();
+        _idleTimer?.Dispose();
+        _countdownTimer?.Dispose();
+
+        _messageTimer = null;
+        _idleTimer = null;
+        _countdownTimer = null;
+
+        _disposeCts.Dispose();
+    }
+
+
+    private async Task ToggleTheme()
+    {
+        _isDark = !_isDark;
+
+        ThemeStateService.SetTheme(_isDark);
+
+        await UserThemePreferenceService
+            .SaveThemePreferenceAsync(_isDark);
+    }
+
+    private async Task MonitorIdleTime(CancellationToken cancellationToken)
+    {
+        try
+        {
+            while (_idleTimer != null &&  await _idleTimer.WaitForNextTickAsync(cancellationToken))
+            {
+                if (_showSessionWarning)
+                    continue;
+
+                if (!SessionService.IsIdle(5))
+                    continue;
+
+                if (IsLiveDashboard())
+                    continue;
+
+                await InvokeAsync(() =>
+                {
+                    _showSessionWarning = true;
+                    _countdown = 30;
+
+                    StateHasChanged();
+
+                    // Start countdown
+                    _ = StartCountdown(cancellationToken);
+
+                    return Task.CompletedTask;
+                });
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Expected when component is disposed
+        }
+        catch (ObjectDisposedException)
+        {
+            // Expected when timer is disposed
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(
+                $"Idle monitor error: {ex}");
+        }
+    }
+
+    private async Task StartCountdown(CancellationToken cancellationToken)
+    {
+        _countdownTimer?.Dispose();
+
+        _countdownTimer =
+            new PeriodicTimer(
+                TimeSpan.FromSeconds(1));
+
+        try
+        {
+            while (_showSessionWarning &&
+                   _countdownTimer != null &&
+                   await _countdownTimer.WaitForNextTickAsync(
+                       cancellationToken))
+            {
+                _countdown--;
+
+                await InvokeAsync(StateHasChanged);
+
+                if (_countdown <= 0)
+                {
+                    _showSessionWarning = false;
+
+                    await InvokeAsync(LogoutUser);
+
+                    return;
+                }
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Expected when component is disposed
+        }
+        catch (ObjectDisposedException)
+        {
+            // Expected when timer is disposed
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(
+                $"Countdown error: {ex}");
+        }
+    }
+
+    private void ContinueSession()
+    {
+        SessionService.Touch();
+
+        _showSessionWarning = false;
+
+        _countdown = 30;
+
+        _countdownTimer?.Dispose();
+
+        _countdownTimer = null;
+
+        StateHasChanged();
+    }
+
+
+    private void TrackActivity()
+    {
+        SessionService.Touch();
+
+        if (_showSessionWarning)
+        {
+            ContinueSession();
+        }
+    }
+
+
+    private void LogoutUser()
+    {
+        NavigationManager.NavigateTo("/login",true);
+    }
+
+    private bool IsLiveDashboard()
+    {
+        return NavigationManager.Uri
+            .TrimEnd('/')
+            .EndsWith(
+                "/live-dashboard",
+                StringComparison.OrdinalIgnoreCase);
+    }
+
+    private async Task LoadMessagesCount()
+    {
+        try
+        {
+            if (loginuser <= 0)
+            {
+                messages = 0;
+                return;
+            }
+
+            bool hasRight =
+                RightsHelper.HasViewRight(
+                    userRights,
+                    "ERPScreenChatNotification");
+
+            if (!hasRight)
+            {
+                messages = 0;
+                return;
+            }
+
+            messages =
+                await _messegeService
+                    .GetTodayMeaasagesCountAsync(
+                        loginuser);
+        }
+        catch (Exception ex)
+        {
+            messages = 0;
+
+            Console.WriteLine(
+                $"Error loading message count: {ex}");
+        }
+    }
+
+    private void OpenChatNotification()
+    {
+        NavigationManager.NavigateTo("/messenger");
+    }
+
+    private async Task RefreshMessagesCount(CancellationToken cancellationToken)
+    {
+        try
+        {
+            while (_messageTimer != null &&
+                   await _messageTimer.WaitForNextTickAsync(
+                       cancellationToken))
+            {
+                // Prevent overlapping refreshes
+                if (Interlocked.Exchange(
+                        ref _isRefreshingMessages,
+                        1) == 1)
+                {
+                    continue;
+                }
+
+                try
+                {
+                    await LoadMessagesCount();
+
+                    await InvokeAsync(
+                        StateHasChanged);
+                }
+                finally
+                {
+                    Interlocked.Exchange(
+                        ref _isRefreshingMessages,
+                        0);
+                }
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Expected when component is disposed
+        }
+        catch (ObjectDisposedException)
+        {
+            // Expected when timer is disposed
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(
+                $"Message refresh error: {ex}");
+        }
+    }
+
+    private async Task LoadRightsAsync()
+    {
+        try
+        {
+            userRights =
+                await _rights
+                    .GetUserRightsByUserIdAsync(
+                        loginuser);
+
+            if (loginuser > 0)
+            {
+                loggedUser =
+                    await _rights
+                        .GetLoggedUserDetailsAsync(
+                            loginuser);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(
+                $"Failed to load user rights: {ex}");
+
+            userRights = new();
+        }
+    }
+
+    private string? GetUserImage()
+    {
+        if (loggedUser?.StaffImage == null ||
+            loggedUser.StaffImage.Length == 0)
+        {
+            return null;
+        }
+
+        return
+            $"data:image/jpeg;base64,{Convert.ToBase64String(loggedUser.StaffImage)}";
+    }
+
+    private readonly MudTheme _appTheme = new()
+    {
+        PaletteLight = new PaletteLight
+        {
+            Primary = "#14b8a6",
+            Secondary = "#7c3aed",
+            AppbarBackground = "#1a4e6e",
+            AppbarText = "#ffffff",
+            DrawerBackground = "#0a0f1e",
+            DrawerText = "#e2e8f0",
+            Surface = "#ffffff",
+            Background = "#eaf0f8",
+            TextPrimary = "#1e293b",
+            TextSecondary = "#64748b",
+            LinesDefault = "#dbe4f0",
+            DrawerIcon = "rgba(148,163,184,0.65)",
+            ActionDefault = "#64748b",
+        },
+
+        PaletteDark = new PaletteDark
+        {
+            Primary = "#14b8a6",
+            Secondary = "#a78bfa",
+            Background = "#0a0f1e",
+            Surface = "#111827",
+            AppbarBackground = "#0d1526",
+            AppbarText = "#f1f5f9",
+            DrawerBackground = "#080c1a",
+            DrawerText = "#e2e8f0",
+            TextPrimary = "#f1f5f9",
+            TextSecondary = "#94a3b8",
+            LinesDefault = "#1e293b",
+            DrawerIcon = "#94a3b8",
+            ActionDefault = "#94a3b8",
+        },
+    };
+}

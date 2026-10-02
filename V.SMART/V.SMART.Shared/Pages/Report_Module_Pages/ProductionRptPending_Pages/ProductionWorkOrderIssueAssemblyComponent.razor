@@ -1,0 +1,4368 @@
+﻿@page "/ProductionWorkOrderIssueAssemblyComponent"
+
+@using ApexCharts
+@using MudBlazor
+@using System.Text
+@using System.Net
+@using V.SMART.Shared.BusinessLayer.BusinessService.ReportService.TrackReportService
+@using V.SMART.Shared.ViewModels.AccountsViewModel
+@using V.SMART.Shared.ViewModels.ReportViewModel.PoPendingModel
+@using V.SMART.Shared.ViewModels.ReportViewModel.ProductionWorkOrder
+@using VSmartGridColumn = V.SMART.Shared.ViewModels.GridColumn
+
+@inherits BaseUserRightsComponent
+
+@inject ILoggingService LoggingService
+@inject CurrentUserService CurrentUserService
+@inject IJSRuntime _JS
+@inject IProductionWorkOrderIssueAssemblyComponentService ProductionWorkOrderIssueAssemblyComponentService
+@inject IColumnPreferenceService PreferenceService
+@inject NavigationManager _navigation
+@inject IExcelTemplateService excelTemplateService
+
+
+
+
+<style>
+    .trans-in {
+        background: #198754;
+        color: white;
+        padding: 4px 14px;
+        border-radius: 20px;
+        font-weight: 600;
+        display: inline-block;
+        min-width: 60px;
+        text-align: center;
+    }
+
+    .trans-out {
+        background: #dc3545;
+        color: white;
+        padding: 4px 14px;
+        border-radius: 20px;
+        font-weight: 600;
+        display: inline-block;
+        min-width: 60px;
+        text-align: center;
+    }
+
+    .column-menu-up .dropdown-menu {
+        top: auto !important;
+        bottom: 100% !important;
+        transform: none !important;
+        margin-bottom: 4px !important;
+    }
+
+    .production-page {
+        min-height: 100vh;
+        background: linear-gradient( 135deg, #f4f7fb 0%, #eef3f8 100% );
+    }
+
+    .main-card {
+        background: white;
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 12px 45px rgba(15, 32, 39, .10);
+    }
+
+    /* HERO */
+
+    .production-banner {
+        margin: 20px;
+        padding: 30px;
+        border-radius: 20px;
+        color: white;
+        background: linear-gradient( 120deg, #0f2027, #203a43, #2c5364 );
+        position: relative;
+        overflow: hidden;
+    }
+
+        .production-banner::after {
+            content: "";
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            right: -90px;
+            top: -130px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.08);
+        }
+
+    .banner-icon {
+        width: 72px;
+        height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        font-size: 32px;
+        margin-right: 20px;
+        background: rgba(255,255,255,.15);
+        border: 1px solid rgba(255,255,255,.18);
+    }
+
+    .banner-badge {
+        display: inline-block;
+        padding: 5px 12px;
+        margin-bottom: 10px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        border-radius: 50px;
+        background: rgba(255,255,255,.13);
+    }
+
+    .date-card {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        padding: 17px;
+        border-radius: 15px;
+        background: rgba(255,255,255,.13);
+        border: 1px solid rgba(255,255,255,.15);
+    }
+
+    .date-icon {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        font-size: 21px;
+        background: rgba(255,255,255,.16);
+    }
+
+    /* FILTER */
+
+    .filter-card {
+        margin: 20px;
+        border-radius: 20px;
+        background: white;
+        border: 1px solid #e8edf3;
+        box-shadow: 0 8px 28px rgba(0,0,0,.05);
+    }
+
+    .filter-card-header {
+        padding: 20px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #edf0f4;
+    }
+
+        .filter-card-header h5 {
+            margin: 0;
+            color: #183b4e;
+            font-weight: 700;
+        }
+
+        .filter-card-header span {
+            font-size: 13px;
+            color: #7a8793;
+        }
+
+    .filter-status {
+        color: #198754;
+        font-weight: 600;
+        font-size: 13px;
+    }
+
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        display: inline-block;
+        border-radius: 50%;
+        background: #20c997;
+        margin-right: 6px;
+    }
+
+    .filter-card-body {
+        padding: 25px;
+    }
+
+    .filter-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 700;
+        font-size: 13px;
+        color: #34495e;
+    }
+
+    .production-input {
+        height: 46px;
+        border-radius: 11px;
+        border: 1px solid #dce3ea;
+    }
+
+        .production-input:focus {
+            border-color: #2c5364;
+            box-shadow: 0 0 0 .18rem rgba(44,83,100,.12);
+        }
+
+    /* RADIO */
+
+    .production-radio-group {
+        display: flex;
+        gap: 12px;
+    }
+
+    .production-radio {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 13px;
+        cursor: pointer;
+        border-radius: 12px;
+        border: 1px solid #dce3ea;
+        transition: all .25s ease;
+        background: #f9fbfc;
+    }
+
+        .production-radio:hover {
+            transform: translateY(-2px);
+            border-color: #2c5364;
+            box-shadow: 0 7px 16px rgba(44,83,100,.10);
+        }
+
+        .production-radio strong {
+            display: block;
+            font-size: 13px;
+            color: #263746;
+        }
+
+        .production-radio small {
+            display: block;
+            font-size: 11px;
+            color: #84919c;
+        }
+
+    .radio-icon {
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        color: white;
+    }
+
+    .component {
+        background: linear-gradient( 135deg, #007bff, #00a8ff );
+    }
+
+    .assembly {
+        background: linear-gradient( 135deg, #f59e0b, #ef4444 );
+    }
+
+    /* BUTTON */
+
+    .load-button {
+        height: 46px;
+        border: 0;
+        color: white;
+        font-weight: 700;
+        border-radius: 11px;
+        background: linear-gradient( 135deg, #0f2027, #2c5364 );
+        transition: all .25s ease;
+    }
+
+        .load-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(15,32,39,.25);
+        }
+
+    /* LIST */
+
+    .list-card {
+        margin: 20px;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid #e7edf2;
+    }
+
+    .list-toolbar {
+        padding: 20px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        background: linear-gradient( 90deg, #f8fafc, #ffffff );
+        border-bottom: 1px solid #e8edf2;
+    }
+
+    .list-title {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+    }
+
+    .list-title-icon {
+        width: 47px;
+        height: 47px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 13px;
+        color: white;
+        background: linear-gradient( 135deg, #0f766e, #14b8a6 );
+    }
+
+    .list-title h5 {
+        margin: 0;
+        font-weight: 700;
+        color: #263746;
+    }
+
+    .list-title span {
+        font-size: 12px;
+        color: #84919c;
+    }
+
+    .toolbar-actions {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .search-box {
+        position: relative;
+        width: 245px;
+    }
+
+        .search-box i {
+            position: absolute;
+            left: 13px;
+            top: 13px;
+            color: #84919c;
+        }
+
+        .search-box input {
+            padding-left: 38px;
+            height: 43px;
+            border-radius: 11px;
+        }
+
+    .detail-toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+        .detail-toggle input {
+            display: none;
+        }
+
+    .toggle-slider {
+        width: 39px;
+        height: 21px;
+        position: relative;
+        border-radius: 20px;
+        background: #cbd5df;
+        transition: .25s;
+    }
+
+        .toggle-slider::before {
+            content: "";
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            left: 3px;
+            top: 3px;
+            border-radius: 50%;
+            background: white;
+            transition: .25s;
+        }
+
+    .detail-toggle input:checked + .toggle-slider {
+        background: #198754;
+    }
+
+        .detail-toggle input:checked + .toggle-slider::before {
+            transform: translateX(18px);
+        }
+
+    .export-button {
+        height: 43px;
+        padding: 0 17px;
+        border: 0;
+        border-radius: 10px;
+        color: white;
+        font-weight: 700;
+        background: linear-gradient( 135deg, #198754, #20c997 );
+    }
+
+    .production-table-container {
+        min-height: 300px;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 70px 20px;
+    }
+
+    .empty-icon {
+        width: 75px;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto auto 18px;
+        border-radius: 22px;
+        font-size: 32px;
+        color: #2c5364;
+        background: #edf4f7;
+    }
+
+    .empty-state h5 {
+        font-weight: 700;
+        color: #34495e;
+    }
+
+    .empty-state p {
+        color: #87939e;
+    }
+
+    .production-table thead {
+        background: #203a43;
+        color: white;
+    }
+
+    .production-table th {
+        padding: 14px;
+    }
+
+    .pending-badge {
+        padding: 5px 11px;
+        border-radius: 50px;
+        color: #b45309;
+        background: #fff3cd;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    @@media(max-width: 992px) {
+
+        .production-radio-group {
+            flex-direction: column;
+        }
+
+        .toolbar-actions {
+            width: 100%;
+        }
+
+        .search-box {
+            width: 100%;
+        }
+    }
+
+    @@media(max-width: 576px) {
+
+        .production-banner {
+            padding: 22px;
+        }
+
+        .banner-icon {
+            width: 55px;
+            height: 55px;
+            font-size: 24px;
+        }
+
+        .filter-card-header {
+            align-items: flex-start;
+            gap: 10px;
+            flex-direction: column;
+        }
+
+
+    }
+
+</style>
+@if (isProcessing)
+{
+        <ProcessingOverlay Visible="@isProcessing"
+                           Message="Loading production work order details..." />
+}
+else if (!CanView)
+{
+        <RedirectToLogin />
+}
+else
+{
+
+        <div class="container-fluid px-2 px-md-4 mt-4">
+
+
+                <!-- PAGE HEADER -->
+                <PageHeader TitleText="Production Work Order Issue"
+                            TitleIcon="bi bi-gear-wide-connected"
+                            Breadcrumbs="@ProductionBreadcrumbs" />
+
+                 <div class="card shadow-lg border-0">
+
+                    <!-- Top Banner -->
+                    <div class="card-body">
+
+                    <div class="rounded-3 p-4 text-white"
+                         style="background: @(DateTime.Today == new DateTime(2026, 8, 15)
+                                                       ? "linear-gradient(120deg, #FF9933 0%, #d97720 35%, #ffffff 50%, #3a8f3a 70%, #138808 100%);"
+                                                       : "linear-gradient(120deg, #0b3c5d, #1d70a2, #328cc1);");">
+                    
+
+                        <div class="row align-items-center">
+
+                                <div class="col-lg-8">
+
+
+
+                                    <h2 class="fw-bold mb-2"
+                                        style="font-family: Georgia, serif;">
+                                       <i class="bi bi-gear-wide-connected me-2"></i>
+                                        Production WorkOrder Issue
+                                    </h2>
+                                          
+                                    <p class="mb-0">
+                                            Assembly / Component.
+                                    </p>
+
+                                </div>
+
+                                <div class="col-lg-4 text-end">
+
+
+                      
+
+                                    <small>
+                                        <i class="bi bi-calendar-event me-1"></i>
+                                        @DateTime.Now.ToString("dd MMM yyyy")
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                   @*  <!-- FILTER SECTION -->
+                <div class="filter-card"> *@
+
+            
+                   <!-- Filter -->
+                     <div class="card-body bg-light border-top">
+
+                           <div class="row align-items-center gy-3">
+
+                        <!-- FROM DATE -->
+                        <div class="col-12 col-md-6 col-xl-2">
+
+                            <label class="form-label fw-bold text-dark">
+                                <i class="bi bi-calendar2-week-fill text-primary me-2"></i>
+                                From Date
+                            </label>
+
+                            <input type="date"
+                                   class="form-control production-input"
+                                   @bind="FromDate" />
+
+                        </div>
+
+                        <!-- TO DATE -->
+                        <div class="col-12 col-md-6 col-xl-2">
+
+                            <label class="form-label fw-bold text-dark">
+                                <i class="bi bi-calendar2-week-fill text-primary me-2"></i>
+                                To Date
+                            </label>
+
+                            <input type="date"
+                                   class="form-control production-input @(ToDate < FromDate ? "is-invalid" : "")"
+                                   @bind="ToDate"
+                                   @bind:after="ValidateDateRange" />
+
+                    @if (ToDate < FromDate)
+                            {
+                                    <div class="text-danger fw-bold mt-1">
+                                        <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                                        To Date cannot be less than From Date.
+                                    </div>
+                            }
+
+                        </div>
+
+                                <!-- ISSUE TYPE -->
+                                <div class="col-12 col-xl-4">
+
+                                    <label class="form-label fw-bold text-primary">
+
+                                        <i class="bi bi-diagram-3-fill me-1"></i>
+
+                                        Production Issue Type
+
+                                    </label>
+
+                                    <InputRadioGroup TValue="string"
+                                                        Value="@SelectedType"
+                                                        ValueChanged="@OnPartyTypeChanged"
+                                                        ValueExpression="() => SelectedType">
+
+                                        <div class="production-radio-group">
+
+                                            <label class="production-radio">
+
+                                                <InputRadio Value="@("Production Component")" />
+
+                                                <span class="radio-icon component">
+
+                                                    <i class="bi bi-cpu"></i>
+
+                                                </span>
+
+                                                <span>
+
+                                                    <strong>
+                                                        Component Issue
+                                                    </strong>
+
+                                                    <small>
+                                                        Production components
+                                                    </small>
+
+                                                </span>
+
+                                            </label>
+
+                                            <label class="production-radio">
+
+                                                <InputRadio Value="@("Production Assembly")" />
+
+                                                <span class="radio-icon assembly">
+
+                                                    <i class="bi bi-gear-fill"></i>
+
+                                                </span>
+
+                                                <span>
+
+                                                    <strong>
+                                                        Assembly Issue
+                                                    </strong>
+
+                                                    <small>
+                                                        Assembly materials
+                                                    </small>
+
+                                                </span>
+
+                                            </label>
+
+                                        </div>
+
+                                    </InputRadioGroup>
+
+                                </div>
+
+                                <div class="col-12 col-xl-4">
+
+                                    <label class="form-label fw-bold text-success mb-2">
+                                        <i class="bi bi-person-badge-fill me-2"></i>
+                                         IssueToWhom
+                                    </label>
+
+                            <MudAutocomplete T="string"
+                                             Label="Select Party"
+                                             Value="@SelectedParty"
+                                             ValueChanged="@OnPartyChanged"
+                                             SearchFunc="@SearchCustomers"
+                                             ToStringFunc="@(s => s ?? "")"
+                                             Variant="Variant.Outlined"
+                                             Dense="true"
+                                             Margin="Margin.Dense"
+                                             OpenIcon="@Icons.Material.Filled.ArrowDropDown"
+                                             CloseIcon="@Icons.Material.Filled.ArrowDropUp"
+                                             ShowProgressIndicator="true"
+                                             MinCharacters="0"
+                                             OpenOnFocus="true"
+                                             ResetValueOnEmptyText="true"
+                                             CoerceText="true"
+                                             CoerceValue="false"
+                                             Placeholder="Select Party"
+                                             Clearable="true"
+                                             Style="width:100%;" />
+                                </div>
+                            </div>
+
+                    </div>
+
+
+                <div class="container-fluid">
+                <!-- HEADER CARD -->
+                    <div class="card border-0 shadow-sm rounded-3 mb-3 bg-primary bg-opacity-10">
+
+                    <div class="card-body p-3">
+
+                        <div class="row g-2 align-items-center">
+
+                            <!-- TITLE -->
+                            <div class="col-12 col-xl-4">
+
+                                <div class="d-flex align-items-center">
+
+                                    <div class="bg-primary text-white rounded-3
+                                            d-flex align-items-center justify-content-center
+                                            flex-shrink-0 me-2"
+                                         style="width:45px;height:45px;">
+
+                                        <i class="bi bi-clipboard-data fs-5"></i>
+
+                                    </div>
+
+                                    <div>
+                                        <h5 class="mb-0 fw-bold">
+                                            Production WorkOrder Issue List
+                                        </h5>
+
+                                        <small class="text-muted">
+                                                Track and manage production work order issues
+                                        </small>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- TOOLBAR -->
+                            <div class="col-12 col-xl-8">
+
+                                <div class="d-flex flex-wrap flex-xl-nowrap
+                                        justify-content-xl-end
+                                        align-items-center gap-2">
+                            @if (ShowDetailsView)
+                                {
+                                        <!-- SEARCH -->
+                                        <div class="input-group"
+                                        style="min-width:200px; max-width:300px;">
+
+                                            <span class="input-group-text bg-white">
+                                                <i class="bi bi-search"></i>
+                                            </span>
+
+                                            <input type="text"
+                                            class="form-control"
+                                            placeholder="Search Here..."
+                                            @bind="searchText"
+                                            @bind:event="oninput" />
+
+                                        </div>
+
+                                        <!-- COLUMN MENU -->
+                                        <div class="flex-shrink-0 column-menu-up">
+                                            <ColumnMenu Columns="Columns"
+                                            ScreenName="@ScreenName"
+                                            UserId="@UserName"
+                                            MaxVisible="int.MaxValue"
+                                            OnChanged="HandleColumnChange" />
+                                        </div>
+
+
+                                        <!-- DETAIL VIEW -->
+                                        <div class="form-check form-switch
+                                        d-flex align-items-center
+                                        flex-shrink-0 mb-0">
+
+                                            <input class="form-check-input"
+                                            type="checkbox"
+                                            checked="@DetailsView"
+                                            @onchange="OnDetailViewChanged" />
+
+                                            <label class="form-check-label ms-2 text-nowrap">
+                                                Detail View
+                                            </label>
+
+                                        </div>
+
+
+                                            @if (DetailsView)
+                                            {
+                                                    <button type="button"
+                                                            class="btn btn-light text-primary fw-semibold me-2 shadow-sm"
+                                                            @onclick="ToggleCharts">
+
+                                                        <i class="bi @(ShowCharts ? "bi-x-circle" : "bi-bar-chart-line") me-1"></i>
+
+                                                        @(ShowCharts ? "Close Graphs" : "Graphs")
+                                                    </button>
+                                            }
+
+
+
+                                        <!-- EXPORT -->
+                                        <button type="button"
+                                        class="btn btn-success
+                                            d-flex align-items-center
+                                            text-nowrap flex-shrink-0"
+                                        @onclick="OnPrintPendingTrack">
+
+                                            <i class="bi bi-file-earmark-excel-fill me-1"></i>
+                                            Export Excel
+
+                                        </button>
+                                }
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                
+
+                        <div class="table-responsive">
+
+                        @if (FilteredRatings.Any())
+                        {
+                                    <div class="table-responsive border rounded" style="max-height:600px; overflow-x:auto; overflow-y:auto;">
+
+                                        <table class="table table-bordered table-sm mb-0 align-middle" style="min-width:1500px; white-space:nowrap;">
+
+                                            <thead class="custom-blue text-center align-middle sticky-top">
+                                        
+                                                <tr>
+
+                                                @if (SelectedType == "Production Component")
+                                                {
+                                                        @if (IsVisible("SlNo"))
+                                                        {
+                                                                <th>Sl No</th>
+                                                        }
+                                                        @if (IsVisible("IssueNo"))
+                                                        {
+                                                                <th>Issue No</th>
+                                                        }
+                                                        @if (IsVisible("IssueDate"))
+                                                        {
+                                                                <th>Issue Date</th>
+                                                        }
+                                                        @if (IsVisible("IssueToWhom"))
+                                                        {
+                                                                <th>IssueToWhom</th>
+                                                        }
+
+                                                        @if (IsVisible("CreatedBy"))
+                                                        {
+                                                                <th>CreatedBy</th>
+                                                        }
+                                                        @if (IsVisible("CreatedDate"))
+                                                        {
+                                                                <th>CreatedDate</th>
+                                                        }
+
+                                                        @if (DetailsView)
+                                                        {
+                                                                @if (IsVisible("ItemCode"))
+                                                                {
+                                                                        <th>Item Code</th>
+                                                                }
+                                                                @if (IsVisible("ItemName"))
+                                                                {
+                                                                        <th>Item Name</th>
+                                                                }
+                                                                @if (IsVisible("CustName"))
+                                                                {
+                                                                        <th>Ref CustName</th>
+                                                                }
+                                                                @if (IsVisible("PONo"))
+                                                                {
+                                                                        <th>Ref PO No</th>
+                                                                }
+                                                                @if (IsVisible("PODate"))
+                                                                {
+                                                                        <th>Ref PO Date</th>
+                                                                }
+                                                                @if (IsVisible("Qty"))
+                                                                {
+                                                                        <th>Issue Qty</th>
+                                                                }
+                                                                @if (IsVisible("BalQty"))
+                                                                {
+                                                                        <th>Bal Qty</th>
+                                                                }
+                                                                @if (IsVisible("TransType"))
+                                                                {
+                                                                        <th>Trans Type</th>
+                                                                }
+                                                                @if (IsVisible("RefRcNo"))
+                                                                {
+                                                                        <th>RefRcNo</th>
+                                                                }
+                                                                @if (IsVisible("RCDATE"))
+                                                                {
+                                                                        <th>RCDATE</th>
+                                                                }
+                                                                @if (IsVisible("ProcessName"))
+                                                                {
+                                                                        <th>ProcessName</th>
+                                                                }
+                                                                @if (IsVisible("MachineName"))
+                                                                {
+                                                                        <th>MachineName</th>
+                                                                }
+                                                                @if (IsVisible("NoOfItems"))
+                                                                {
+                                                                        <th>NoOfItems</th>
+                                                                }
+                                              
+
+
+                                                        }
+                                                }
+                                                else if (SelectedType == "Production Assembly")
+                                                {
+                                                        @if (IsVisible("SlNo"))
+                                                        {
+                                                                <th>Sl No</th>
+                                                        }
+                                                        @if (IsVisible("IssueNo"))
+                                                        {
+                                                                <th>Issue No</th>
+                                                        }
+                                                        @if (IsVisible("IssueDate"))
+                                                        {
+                                                                <th>Issue Date</th>
+                                                        }
+                                                        @if (IsVisible("IssueToWhom"))
+                                                        {
+                                                                <th>IssueToWhom</th>
+                                                        }
+                                                        @if (IsVisible("CreatedBy"))
+                                                        {
+                                                                <th>CreatedBy</th>
+                                                        }
+                                                        @if (IsVisible("CreatedDate"))
+                                                        {
+                                                                <th>CreatedDate</th>
+                                                        }
+
+                                                        @if (DetailsView)
+                                                        {
+                                                                @if (IsVisible("CustName"))
+                                                                {
+                                                                        <th>Ref Customer</th>
+                                                                }
+                                                                @if (IsVisible("AssyItemCode"))
+                                                                {
+                                                                        <th>Assembly Item Code</th>
+                                                                }
+                                                                @if (IsVisible("AssyItemName"))
+                                                                {
+                                                                        <th>Assembly Item Name</th>
+                                                                }
+                                                                @if (IsVisible("ItemCode"))
+                                                                {
+                                                                        <th>Item Code</th>
+                                                                }
+                                                                @if (IsVisible("ItemName"))
+                                                                {
+                                                                        <th>Item Name</th>
+                                                                }
+                                                                @if (IsVisible("Qty"))
+                                                                {
+                                                                        <th>Issue Qty</th>
+                                                                }
+                                                                @if (IsVisible("BalQty"))
+                                                                {
+                                                                        <th>Bal Qty</th>
+                                                                }
+                                                                @if (IsVisible("JobNo"))
+                                                                {
+                                                                        <th>Ref Job No</th>
+                                                                }
+                                                                @if (IsVisible("PONo"))
+                                                                {
+                                                                        <th>Ref PONo</th>
+                                                                }
+                                                                @if (IsVisible("PODate"))
+                                                                {
+                                                                        <th>Ref PODate</th>
+                                                                }
+                                               
+                                                                @if (IsVisible("NoOfItems"))
+                                                                {
+                                                                        <th>NoOfItems</th>
+                                                                }
+                                               
+
+                                                    
+                                                        }
+                                                }
+
+                                            </tr>
+
+                                            </thead>
+                                 
+
+                                          <tbody>
+
+                                            @foreach (var item in FilteredRatings.Select((x, i) => new { x, i }))
+                                            {
+                                                    <tr>
+
+                                                        @if (SelectedType == "Production Component")
+                                                        {
+                                                                @if (IsVisible("SlNo"))
+                                                                {
+                                                                        <td>@(item.i + 1)</td>
+                                                                }
+                                                                @if (IsVisible("IssueNo"))
+                                                                {
+                                                                        <td>@item.x.IssueNo</td>
+                                                                }
+                                                                @if (IsVisible("IssueDate"))
+                                                                {
+                                                                        <td>@item.x.IssueDate</td>
+                                                                }
+                                                                @if (IsVisible("IssueToWhom"))
+                                                                {
+                                                                        <td>@item.x.IssueToWhom</td>
+                                                                }
+                                                                @if (IsVisible("CreatedBy"))
+                                                                {
+                                                                        <td>@item.x.CreatedBy</td>
+                                                                }
+                                                                @if (IsVisible("CreatedDate"))
+                                                                {
+                                                                        <td>@item.x.CreatedDate</td>
+                                                                }
+
+                                                                @if (DetailsView)
+                                                                {
+                                                                        @if (IsVisible("ItemCode"))
+                                                                        {
+                                                                                <td>@item.x.ItemCode</td>
+                                                                        }
+                                                                        @if (IsVisible("ItemName"))
+                                                                        {
+                                                                                <td>@item.x.ItemName</td>
+                                                                        }
+                                                                        @if (IsVisible("CustName"))
+                                                                        {
+                                                                                <td>@item.x.CustName</td>
+                                                                        }
+                                                                        @if (IsVisible("PONo"))
+                                                                        {
+                                                                                <td>@item.x.PONo</td>
+                                                                        }
+                                                                        @if (IsVisible("PODate"))
+                                                                        {
+                                                                                <td>@item.x.PODate</td>
+                                                                        }
+                                                                        @if (IsVisible("Qty"))
+                                                                        {
+                                                                                <td>@item.x.Qty</td>
+                                                                        }
+                                                                        @if (IsVisible("BalQty"))
+                                                                        {
+                                                                                <td>@item.x.BalQty</td>
+                                                                        }
+                                                                        @if (IsVisible("TransType"))
+                                                                        {
+                                                                                <td>
+                                                                                    <span class="@(item.x.TransType == "In" ? "trans-in" : "trans-out")">
+                                                                                        @item.x.TransType
+                                                                                    </span>
+                                                                                </td>
+                                                                        }
+                                                                        @if (IsVisible("RefRcNo"))
+                                                                        {
+                                                                                <td>@item.x.RefRcNo</td>
+                                                                        }
+                                                                        @if (IsVisible("RCDATE"))
+                                                                        {
+                                                                                <td>@item.x.RCDATE</td>
+                                                                        }
+                                                                        @if (IsVisible("ProcessName"))
+                                                                        {
+                                                                                <td>@item.x.ProcessName</td>
+                                                                        }
+                                                                        @if (IsVisible("MachineName"))
+                                                                        {
+                                                                                <td>@item.x.MachineName</td>
+                                                                        }
+                                                                        @if (IsVisible("NoOfItems"))
+                                                                        {
+                                                                                <td>@item.x.NoOfItems</td>
+                                                                        }
+                                                   
+
+                                                                }
+                                                        }
+                                                        else if (SelectedType == "Production Assembly")
+                                                        {
+                                                                @if (IsVisible("SlNo"))
+                                                                {
+                                                                        <td>@(item.i + 1)</td>
+                                                                }
+                                                                @if (IsVisible("IssueNo"))
+                                                                {
+                                                                        <td>@item.x.IssueNo</td>
+                                                                }
+                                                                @if (IsVisible("IssueDate"))
+                                                                {
+                                                                        <td>@item.x.IssueDate</td>
+                                                                }
+                                                                @if (IsVisible("IssueToWhom"))
+                                                                {
+                                                                        <td>@item.x.IssueToWhom</td>
+                                                                }
+                                                                @if (IsVisible("CreatedBy"))
+                                                                {
+                                                                        <td>@item.x.CreatedBy</td>
+                                                                }
+                                                                @if (IsVisible("CreatedDate"))
+                                                                {
+                                                                        <td>@item.x.CreatedDate</td>
+                                                                }
+
+                                                                @if (DetailsView)
+                                                                {
+                                                                        @if (IsVisible("CustName"))
+                                                                        {
+                                                                                <td>@item.x.CustName</td>
+                                                                        }
+                                                                        @if (IsVisible("AssyItemCode"))
+                                                                        {
+                                                                                <td>@item.x.AssyItemCode</td>
+                                                                        }
+                                                                        @if (IsVisible("AssyItemName"))
+                                                                        {
+                                                                                <td>@item.x.AssyItemName</td>
+                                                                        }
+                                                                        @if (IsVisible("ItemCode"))
+                                                                        {
+                                                                                <td>@item.x.ItemCode</td>
+                                                                        }
+                                                                        @if (IsVisible("ItemName"))
+                                                                        {
+                                                                                <td>@item.x.ItemName</td>
+                                                                        }
+                                                                        @if (IsVisible("Qty"))
+                                                                        {
+                                                                                <td>@item.x.Qty</td>
+                                                                        }
+                                                                        @if (IsVisible("BalQty"))
+                                                                        {
+                                                                                <td>@item.x.BalQty</td>
+                                                                        }
+                                                                        @if (IsVisible("JobNo"))
+                                                                        {
+                                                                                <td>@item.x.JobNo</td>
+                                                                        }
+                                                                        @if (IsVisible("PONo"))
+                                                                        {
+                                                                                <td>@item.x.PONo</td>
+                                                                        }
+                                                                        @if (IsVisible("PODate"))
+                                                                        {
+                                                                                <td>@item.x.PODate</td>
+                                                                        }
+                                                  
+                                                                        @if (IsVisible("NoOfItems"))
+                                                                        {
+                                                                                <td>@item.x.NoOfItems</td>
+                                                                        }
+                                                   
+                                                                }
+                                                        }
+
+                                                    </tr>
+                                            }
+
+                                        </tbody>
+
+                                        </table>
+                                    </div>
+
+                        }
+                        else
+                        {
+                                <div class="text-center p-4">
+
+                                    <h5 class="text-muted mb-0">
+                                        No Records Found
+                                    </h5>
+
+                                </div>
+                        }
+                        @if (DetailsView && ShowCharts)
+                        {
+                                <div class="container-fluid px-0 mb-4">
+
+                                    <!-- ====================================================== -->
+                                    <!-- HEADER -->
+                                    <!-- ====================================================== -->
+
+                                    <div class="rounded-3 p-4 text-white mb-4"
+                                         style="background: linear-gradient(120deg, #0b3c5d, #1d70a2, #328cc1);">
+
+                              
+                                 
+                                         <div class="d-flex align-items-center justify-content-between">
+
+                                            <div>
+
+                                                <h3 class="mb-1"
+                                                    style="font-family: Georgia, serif;">
+
+                                                    <i class="bi bi-bar-chart-fill me-2"></i>
+
+                                                    Production WorkOrder Issue Analysis
+
+                                                </h3>
+
+                                                <small>
+                                                    @SelectedType
+                                                </small>
+
+                                            </div>
+
+                                   
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <!-- ====================================================== -->
+                                    <!-- PRODUCTION COMPONENT -->
+                                    <!-- ====================================================== -->
+                                    @if (SelectedType == "Production Component")
+                                    {
+
+                                            <div class="row g-3 mb-4">
+
+                                                <!-- TOTAL -->
+                                                <div class="col-12 col-md-6 col-xl-2">
+
+                                                    <div class="card border-0 shadow-sm h-100">
+
+                                                        <div class="card-body">
+
+                                                            <small class="text-muted fw-bold">
+                                                                TOTAL ISSUES
+                                                            </small>
+
+                                                            <h3 class="fw-bold text-primary mb-0">
+                                                                @TotalIssueCount
+                                                            </h3>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- IN -->
+                                                <div class="col-12 col-md-6 col-xl-2">
+
+                                                    <div class="card border-0 shadow-sm h-100">
+
+                                                        <div class="card-body">
+
+                                                            <small class="text-muted fw-bold">
+                                                                IN ISSUE QUANTITY
+                                                            </small>
+
+                                                            <h3 class="fw-bold text-success mb-0">
+                                                                @TotalBalanceQtyIn.ToString("N2")
+                                                            </h3>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- OUT -->
+                                                <div class="col-12 col-md-6 col-xl-2">
+
+                                                    <div class="card border-0 shadow-sm h-100">
+
+                                                        <div class="card-body">
+
+                                                            <small class="text-muted fw-bold">
+                                                                OUT ISSUE QUANTITY
+                                                            </small>
+
+                                                            <h3 class="fw-bold text-danger mb-0">
+                                                                @TotalBalanceQtyOut.ToString("N2")
+                                                            </h3>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- IN BALANCE -->
+                                                <div class="col-12 col-md-6 col-xl-3">
+
+                                                    <div class="card border-0 shadow-sm h-100">
+
+                                                        <div class="card-body">
+
+                                                            <small class="text-muted fw-bold">
+                                                                IN BALANCE QUANTITY
+                                                            </small>
+
+                                                            <h3 class="fw-bold text-success mb-0">
+                                                                @TotalBalanceQtyIn.ToString("N2")
+                                                            </h3>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- OUT BALANCE -->
+                                                <div class="col-12 col-md-6 col-xl-3">
+
+                                                    <div class="card border-0 shadow-sm h-100">
+
+                                                        <div class="card-body">
+
+                                                            <small class="text-muted fw-bold">
+                                                                OUT BALANCE QUANTITY
+                                                            </small>
+
+                                                            <h3 class="fw-bold text-danger mb-0">
+                                                                @TotalBalanceQtyOut.ToString("N2")
+                                                            </h3>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+
+                                            <!-- ====================================================== -->
+                                            <!-- MONTHLY TREND -->
+                                            <!-- ====================================================== -->
+
+                                            <div class="card shadow-sm border-0 mb-4">
+
+                                                <div class="card-header bg-white border-0 pt-3">
+
+                                                    <h5 class="fw-bold mb-1">
+
+                                                        <i class="bi bi-graph-up-arrow text-primary me-2"></i>
+
+                                                        Monthly Production WorkOrder Issue Trend
+
+                                                    </h5>
+
+                                                    <small class="text-muted">
+                                                        Issue quantity based on Issue Date
+                                                    </small>
+
+                                                </div>
+
+                                                <div class="card-body">
+
+                                                    @if (MonthlyIssueChartData1.Any())
+                                                    {
+                                                            <ApexChart TItem="MonthlyIssueChartVM"
+                                                                       Options="MonthlyIssueChartOptions1"
+                                                                       Height="350">
+
+                                                                <ApexPointSeries TItem="MonthlyIssueChartVM"
+                                                                                 Items="MonthlyIssueChartData1"
+                                                                                 Name="Out Quantity"
+                                                                                 SeriesType="SeriesType.Line"
+                                                                                 XValue="e => e.Month"
+                                                                                 YValue="e => e.OutQty" />
+
+                                                                <ApexPointSeries TItem="MonthlyIssueChartVM"
+                                                                                 Items="MonthlyIssueChartData1"
+                                                                                 Name="In Quantity"
+                                                                                 SeriesType="SeriesType.Line"
+                                                                                 XValue="e => e.Month"
+                                                                                 YValue="e => e.InQty" />
+
+                                                            </ApexChart>
+                                                    }
+                                                    else
+                                                    {
+                                                            <div class="text-center text-muted p-5">
+                                                                No Monthly Data Found
+                                                            </div>
+                                                    }
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <!-- ====================================================== -->
+                                            <!-- COMMON CHARTS -->
+                                            <!-- ====================================================== -->
+
+                                            <div class="row g-4 mb-4">
+
+
+                                                <!-- QUANTITY -->
+                                                <div class="col-12 col-xl-6">
+
+                                                    <div class="card shadow-sm border-0 h-100">
+
+                                                        <div class="card-header bg-white border-0 pt-3">
+
+                                                            <h5 class="fw-bold mb-0">
+
+                                                                <i class="bi bi-bar-chart-fill text-success me-2"></i>
+
+                                                                Issue Quantity vs Balance Quantity
+
+                                                            </h5>
+
+                                                        </div>
+
+                                                        <div class="card-body">
+
+                                                            @if (MonthlyIssueChartData.Any())
+                                                            {
+                                                                    <ApexChart TItem="MonthlyIssueChartVM"
+                                                                               Options="MonthlyIssueChartOptions"
+                                                                               Height="350">
+
+                                                                        <ApexPointSeries TItem="MonthlyIssueChartVM"
+                                                                                         Items="MonthlyIssueChartData"
+                                                                                         Name="In Quantity"
+                                                                                         SeriesType="SeriesType.Line"
+                                                                                         XValue="e => e.Month"
+                                                                                         YValue="e => e.InQty" />
+
+                                                                        <ApexPointSeries TItem="MonthlyIssueChartVM"
+                                                                                         Items="MonthlyIssueChartData"
+                                                                                         Name="Out Quantity"
+                                                                                         SeriesType="SeriesType.Line"
+                                                                                         XValue="e => e.Month"
+                                                                                         YValue="e => e.OutQty" />
+
+                                                                        <ApexPointSeries TItem="MonthlyIssueChartVM"
+                                                                                         Items="MonthlyIssueChartData"
+                                                                                         Name="In Balance Quantity"
+                                                                                         SeriesType="SeriesType.Line"
+                                                                                         XValue="e => e.Month"
+                                                                                         YValue="e => e.BalanceQtyIn" />
+
+                                                                        <ApexPointSeries TItem="MonthlyIssueChartVM"
+                                                                                         Items="MonthlyIssueChartData"
+                                                                                         Name="Out Balance Quantity"
+                                                                                         SeriesType="SeriesType.Line"
+                                                                                         XValue="e => e.Month"
+                                                                                         YValue="e => e.BalanceQtyOut" />
+
+                                                                    </ApexChart>
+                                                            }
+                                                            else
+                                                            {
+                                                                    <div class="text-center text-muted p-5">
+                                                                        No Data Found
+                                                                    </div>
+                                                            }
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- TRANSACTION -->
+                                                <div class="col-12 col-xl-6">
+
+                                                    <div class="card shadow-sm border-0 h-100">
+
+                                                        <div class="card-header bg-white border-0 pt-3">
+
+                                                            <h5 class="fw-bold mb-0">
+
+                                                                <i class="bi bi-arrow-left-right text-primary me-2"></i>
+
+                                                                Transaction Type
+
+                                                            </h5>
+
+                                                        </div>
+
+                                                        <div class="card-body">
+
+                                                            @if (TransactionChartData.Any())
+                                                            {
+                                                                    <ApexChart TItem="TransactionChartVM"
+                                                                               Options="TransactionChartOptions"
+                                                                               Height="350">
+
+                                                                        <ApexPointSeries TItem="TransactionChartVM"
+                                                                                         Items="TransactionChartData"
+                                                                                         Name="Quantity"
+                                                                                         SeriesType="SeriesType.Bar"
+                                                                                         XValue="e => e.TransType"
+                                                                                         YValue="e => e.Qty" />
+
+                                                                    </ApexChart>
+                                                            }
+                                                            else
+                                                            {
+                                                                    <div class="text-center text-muted p-5">
+                                                                        No Transaction Data Found
+                                                                    </div>
+                                                            }
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                          
+
+                                            <!-- ROW 1 -->
+                                            <div class="row g-4 mb-4">
+
+
+                                                <!-- PROCESS -->
+                                                <div class="col-12 col-xl-6">
+
+                                                    <div class="card shadow-sm border-0 h-100">
+
+                                                        <div class="card-header bg-white border-0 pt-3">
+
+                                                            <h5 class="fw-bold mb-1">
+
+                                                                <i class="bi bi-diagram-3-fill text-info me-2"></i>
+
+                                                                Process-wise Issue Quantity
+
+                                                            </h5>
+
+                                                            <small class="text-muted">
+                                                                Quantity grouped by Process
+                                                            </small>
+
+                                                        </div>
+
+                                                        <div class="card-body">
+
+                                                            @if (ProcessChartData.Any())
+                                                            {
+                                                                    <ApexChart TItem="CategoryQtyChartVM"
+                                                                               Options="ProcessChartOptions"
+                                                                               Height="350">
+
+                                                                        <ApexPointSeries TItem="CategoryQtyChartVM"
+                                                                                         Items="ProcessChartData"
+                                                                                         Name="Issue Quantity"
+                                                                                         SeriesType="SeriesType.Bar"
+                                                                                         XValue="e => e.Category"
+                                                                                         YValue="e => e.Qty" />
+
+                                                                    </ApexChart>
+                                                            }
+                                                            else
+                                                            {
+                                                                    <div class="text-center text-muted p-5">
+                                                                        No Process Data Found
+                                                                    </div>
+                                                            }
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- MACHINE -->
+                                                <div class="col-12 col-xl-6">
+
+                                                    <div class="card shadow-sm border-0 h-100">
+
+                                                        <div class="card-header bg-white border-0 pt-3">
+
+                                                            <h5 class="fw-bold mb-1">
+
+                                                                <i class="bi bi-gear-wide-connected text-warning me-2"></i>
+
+                                                                Machine-wise Issue Quantity
+
+                                                            </h5>
+
+                                                            <small class="text-muted">
+                                                                Quantity grouped by Machine
+                                                            </small>
+
+                                                        </div>
+
+                                                        <div class="card-body">
+
+                                                            @if (MachineChartData.Any())
+                                                            {
+                                                                    <ApexChart TItem="CategoryQtyChartVM"
+                                                                               Options="MachineChartOptions"
+                                                                               Height="350">
+
+                                                                        <ApexPointSeries TItem="CategoryQtyChartVM"
+                                                                                         Items="MachineChartData"
+                                                                                         Name="Issue Quantity"
+                                                                                         SeriesType="SeriesType.Bar"
+                                                                                         XValue="e => e.Category"
+                                                                                         YValue="e => e.Qty" />
+
+                                                                    </ApexChart>
+                                                            }
+                                                            else
+                                                            {
+                                                                    <div class="text-center text-muted p-5">
+                                                                        No Machine Data Found
+                                                                    </div>
+                                                            }
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <!-- ROW 2 -->
+                                            <div class="row g-4 mb-4">
+
+
+                                                <!-- CUSTOMER -->
+                                                <div class="col-12 col-xl-6">
+
+                                                    <div class="card shadow-sm border-0 h-100">
+
+                                                        <div class="card-header bg-white border-0 pt-3">
+
+                                                            <h5 class="fw-bold mb-1">
+
+                                                                <i class="bi bi-people-fill text-primary me-2"></i>
+
+                                                                Person-wise Issue Quantity
+
+                                                            </h5>
+
+                                                            <small class="text-muted">
+                                                                Quantity grouped by Person
+                                                            </small>
+
+                                                        </div>
+
+                                                        <div class="card-body">
+
+                                                            @if (CustomerChartData.Any())
+                                                            {
+                                                                    <ApexChart TItem="CategoryQtyChartVM"
+                                                                               Options="CustomerChartOptions"
+                                                                               Height="350">
+
+                                                                        <ApexPointSeries TItem="CategoryQtyChartVM"
+                                                                                         Items="CustomerChartData"
+                                                                                         Name="Issue Quantity"
+                                                                                         SeriesType="SeriesType.Bar"
+                                                                                         XValue="e => e.Category"
+                                                                                         YValue="e => e.Qty" />
+
+                                                                    </ApexChart>
+                                                            }
+                                                            else
+                                                            {
+                                                                    <div class="text-center text-muted p-5">
+                                                                        No Customer Data Found
+                                                                    </div>
+                                                            }
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- ITEM -->
+                                                <div class="col-12 col-xl-6">
+
+                                                    <div class="card shadow-sm border-0 h-100">
+
+                                                        <div class="card-header bg-white border-0 pt-3">
+
+                                                            <h5 class="fw-bold mb-1">
+
+                                                                <i class="bi bi-box-seam-fill text-success me-2"></i>
+
+                                                                Item-wise Issue Quantity
+
+                                                            </h5>
+
+                                                            <small class="text-muted">
+                                                                Quantity grouped by Item
+                                                            </small>
+
+                                                        </div>
+
+                                                        <div class="card-body">
+
+                                                            @if (ItemChartData.Any())
+                                                            {
+                                                                    <ApexChart TItem="CategoryQtyChartVM"
+                                                                               Options="ItemChartOptions"
+                                                                               Height="350">
+
+                                                                        <ApexPointSeries TItem="CategoryQtyChartVM"
+                                                                                         Items="ItemChartData"
+                                                                                         Name="Issue Quantity"
+                                                                                         SeriesType="SeriesType.Bar"
+                                                                                         XValue="e => e.Category"
+                                                                                         YValue="e => e.Qty" />
+
+                                                                    </ApexChart>
+                                                            }
+                                                            else
+                                                            {
+                                                                    <div class="text-center text-muted p-5">
+                                                                        No Item Data Found
+                                                                    </div>
+                                                            }
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                    }
+
+
+                                    <!-- ====================================================== -->
+                                    <!-- PRODUCTION ASSEMBLY -->
+                                    <!-- ====================================================== -->
+                                    @if (SelectedType == "Production Assembly")
+                                    {
+
+                                            <div class="row g-3 mb-4">
+
+                                                <!-- TOTAL -->
+                                                <div class="col-12 col-md-6 col-xl-4">
+
+                                                    <div class="card border-0 shadow-sm h-100">
+
+                                                        <div class="card-body">
+
+                                                            <small class="text-muted fw-bold">
+                                                                TOTAL ISSUES
+                                                            </small>
+
+                                                            <h3 class="fw-bold text-primary mb-0">
+                                                                @TotalIssueCount1
+                                                            </h3>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- IN -->
+                                                <div class="col-12 col-md-6 col-xl-4">
+
+                                                    <div class="card border-0 shadow-sm h-100">
+
+                                                        <div class="card-body">
+
+                                                            <small class="text-muted fw-bold">
+                                                                IN ISSUE QUANTITY
+                                                            </small>
+
+                                                            <h3 class="fw-bold text-success mb-0">
+                                                                @TotalIssueQty.ToString("N2")
+                                                            </h3>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- OUT -->
+                                                <div class="col-12 col-md-6 col-xl-4">
+
+                                                    <div class="card border-0 shadow-sm h-100">
+
+                                                        <div class="card-body">
+
+                                                            <small class="text-muted fw-bold">
+                                                                OUT ISSUE QUANTITY
+                                                            </small>
+
+                                                            <h3 class="fw-bold text-danger mb-0">
+                                                                @TotalBalanceQty.ToString("N2")
+                                                            </h3>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                   
+                                            </div>
+
+
+                                            <div class="card shadow-sm border-0 mb-4">
+
+                                                <div class="card-header bg-white border-0 pt-3">
+
+                                                    <h5 class="fw-bold mb-1">
+
+                                                        <i class="bi bi-graph-up-arrow text-primary me-2"></i>
+
+                                                        Monthly Production WorkOrder Issue Trend
+
+                                                    </h5>
+
+                                                    <small class="text-muted">
+                                                        Issue quantity based on Issue Date
+                                                    </small>
+
+                                                </div>
+
+                                                <div class="card-body">
+
+                                                    @if (MonthlyIssueChartData2.Any())
+                                                    {
+                                                            <ApexChart TItem="MonthlyIssueAssemblyChartVM"
+                                                                       Options="MonthlyIssueChartOptions2"
+                                                                       Height="350">
+
+                                                                <ApexPointSeries TItem="MonthlyIssueAssemblyChartVM"
+                                                                                 Items="MonthlyIssueChartData2"
+                                                                                 Name="Quantity"
+                                                                                 SeriesType="SeriesType.Line"
+                                                                                 XValue="e => e.Month"
+                                                                                 YValue="e => e.Qty" />
+
+                                                                <ApexPointSeries TItem="MonthlyIssueAssemblyChartVM"
+                                                                                 Items="MonthlyIssueChartData2"
+                                                                                 Name="Bal Quantity"
+                                                                                 SeriesType="SeriesType.Line"
+                                                                                 XValue="e => e.Month"
+                                                                                 YValue="e => e.BQty" />
+
+                                                            </ApexChart>
+                                                    }
+                                                    else
+                                                    {
+                                                            <div class="text-center text-muted p-5">
+                                                                No Monthly Data Found
+                                                            </div>
+                                                    }
+
+                                                </div>
+
+                                            </div>
+
+                                            <!-- ROW 1 -->
+                                            <div class="row g-4 mb-4">
+
+
+                                                <!-- CUSTOMER -->
+                                                <div class="col-12 col-xl-6">
+
+                                                    <div class="card shadow-sm border-0 h-100">
+
+                                                        <div class="card-header bg-white border-0 pt-3">
+
+                                                            <h5 class="fw-bold mb-1">
+
+                                                                <i class="bi bi-people-fill text-primary me-2"></i>
+
+                                                                Assembly Person-wise Issue Quantity
+
+                                                            </h5>
+
+                                                            <small class="text-muted">
+                                                                Quantity grouped by Person
+                                                            </small>
+
+                                                        </div>
+
+                                                        <div class="card-body">
+
+                                                            @if (AssemblyCustomerChartData.Any())
+                                                            {
+                                                                    <ApexChart TItem="CategoryQtyChartVM"
+                                                                               Options="AssemblyCustomerChartOptions"
+                                                                               Height="350">
+
+                                                                        <ApexPointSeries TItem="CategoryQtyChartVM"
+                                                                                         Items="AssemblyCustomerChartData"
+                                                                                         Name="Issue Quantity"
+                                                                                         SeriesType="SeriesType.Bar"
+                                                                                         XValue="e => e.Category"
+                                                                                         YValue="e => e.Qty" />
+
+                                                                    </ApexChart>
+                                                            }
+                                                            else
+                                                            {
+                                                                    <div class="text-center text-muted p-5">
+                                                                        No Assembly Customer Data Found
+                                                                    </div>
+                                                            }
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- ITEM -->
+                                                <div class="col-12 col-xl-6">
+
+                                                    <div class="card shadow-sm border-0 h-100">
+
+                                                        <div class="card-header bg-white border-0 pt-3">
+
+                                                            <h5 class="fw-bold mb-1">
+
+                                                                <i class="bi bi-box-seam-fill text-success me-2"></i>
+
+                                                                Assembly Item-wise Issue Quantity
+
+                                                            </h5>
+
+                                                            <small class="text-muted">
+                                                                Quantity grouped by Item
+                                                            </small>
+
+                                                        </div>
+
+                                                        <div class="card-body">
+
+                                                            @if (AssemblyItemChartData.Any())
+                                                            {
+                                                                    <ApexChart TItem="CategoryQtyChartVM"
+                                                                               Options="AssemblyItemChartOptions"
+                                                                               Height="350">
+
+                                                                        <ApexPointSeries TItem="CategoryQtyChartVM"
+                                                                                         Items="AssemblyItemChartData"
+                                                                                         Name="Issue Quantity"
+                                                                                         SeriesType="SeriesType.Bar"
+                                                                                         XValue="e => e.Category"
+                                                                                         YValue="e => e.Qty" />
+
+                                                                    </ApexChart>
+                                                            }
+                                                            else
+                                                            {
+                                                                    <div class="text-center text-muted p-5">
+                                                                        No Assembly Item Data Found
+                                                                    </div>
+                                                            }
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <!-- ROW 2 -->
+                                            <div class="row g-4 mb-4">
+
+
+                                                <!-- JOB -->
+                                                <div class="col-12 col-xl-6">
+
+                                                    <div class="card shadow-sm border-0 h-100">
+
+                                                        <div class="card-header bg-white border-0 pt-3">
+
+                                                            <h5 class="fw-bold mb-1">
+
+                                                                <i class="bi bi-briefcase-fill text-warning me-2"></i>
+
+                                                                Assembly Job-wise Issue Quantity
+
+                                                            </h5>
+
+                                                            <small class="text-muted">
+                                                                Quantity grouped by Job
+                                                            </small>
+
+                                                        </div>
+
+                                                        <div class="card-body">
+
+                                                            @if (AssemblyJobChartData.Any())
+                                                            {
+                                                                    <ApexChart TItem="CategoryQtyChartVM"
+                                                                               Options="AssemblyJobChartOptions"
+                                                                               Height="350">
+
+                                                                        <ApexPointSeries TItem="CategoryQtyChartVM"
+                                                                                         Items="AssemblyJobChartData"
+                                                                                         Name="Issue Quantity"
+                                                                                         SeriesType="SeriesType.Bar"
+                                                                                         XValue="e => e.Category"
+                                                                                         YValue="e => e.Qty" />
+
+                                                                    </ApexChart>
+                                                            }
+                                                            else
+                                                            {
+                                                                    <div class="text-center text-muted p-5">
+                                                                        No Assembly Job Data Found
+                                                                    </div>
+                                                            }
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- PROCESS -->
+                                                <div class="col-12 col-xl-6">
+
+                                                    <div class="card shadow-sm border-0 h-100">
+
+                                                        <div class="card-header bg-white border-0 pt-3">
+
+                                                            <h5 class="fw-bold mb-1">
+
+                                                                <i class="bi bi-diagram-3-fill text-info me-2"></i>
+
+                                                                Assembly Process-wise Issue Quantity
+
+                                                            </h5>
+
+                                                            <small class="text-muted">
+                                                                Quantity grouped by Process
+                                                            </small>
+
+                                                        </div>
+
+                                                        <div class="card-body">
+
+                                                            @if (AssemblyProcessChartData.Any())
+                                                            {
+                                                                    <ApexChart TItem="CategoryQtyChartVM"
+                                                                               Options="AssemblyProcessChartOptions"
+                                                                               Height="350">
+
+                                                                        <ApexPointSeries TItem="CategoryQtyChartVM"
+                                                                                         Items="AssemblyProcessChartData"
+                                                                                         Name="Issue Quantity"
+                                                                                         SeriesType="SeriesType.Bar"
+                                                                                         XValue="e => e.Category"
+                                                                                         YValue="e => e.Qty" />
+
+                                                                    </ApexChart>
+                                                            }
+                                                            else
+                                                            {
+                                                                    <div class="text-center text-muted p-5">
+                                                                        No Assembly Process Data Found
+                                                                    </div>
+                                                            }
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                    }
+
+                                </div>
+                        }
+                  
+                          </div>
+
+                
+
+                    </div>
+
+
+                </div>
+        </div>
+
+
+}
+
+
+@code {
+
+
+    protected override string ScreenName => "Production WorkOrder Issue";
+
+
+    private List<ProductionWorkOrderVM> ProductionWorkOrderIssueList = new();
+
+    private string SelectedComponentType = "Production Component Issue";
+
+    private string SelectedAssemblyType = "Production Assembly Issue";
+
+    private string SelectedType = "Production Component";
+
+    private bool isProcessing=true;
+
+    private bool IsVisible(string field)
+    {
+        return Columns?.FirstOrDefault(x => x.Field == field)?.IsVisible ?? true;
+    }
+
+    private int? SelectedPartyCode = null;
+
+    private string? SelectedParty;
+
+    private bool ShowDetailsView = false;
+
+    private bool ShowRatings = false;
+
+    private bool CanView = true;
+
+
+
+    private List<V.SMART.Shared.ViewModels.GridColumn> Columns = new();
+
+    public DateTime? FromDate
+    { get; set; }
+
+    public DateTime? ToDate
+    { get; set; }
+
+    public bool DetailsView
+    { get; set; }
+
+    private string? UserName;
+
+    private List<PartyVM> Parties = new();
+
+    private string searchText
+        = string.Empty;
+
+    private List<PageHeader.BreadcrumbItem>
+        ProductionBreadcrumbs = new()
+    {
+    new PageHeader.BreadcrumbItem
+    {
+        Text = "Reports",Url="reports-home"
+    },
+
+    new PageHeader.BreadcrumbItem
+    {
+        Text = "Production",Url="reports-home"
+    },
+
+    new PageHeader.BreadcrumbItem
+    {
+        Text = "Production WorkOrderIssue Assembly/Component",
+        IsLast = true
+    }
+    };
+
+
+    private void ValidateDateRange()
+    {
+        if (ToDate < FromDate)
+        {
+            // Keep ToDate from being less than FromDate
+            ToDate = FromDate;
+        }
+    }
+   
+
+    private async Task InitializeColumns()
+    {
+        try
+        {
+            Columns = new List<VSmartGridColumn>();
+
+            // =====================================================
+            // PRODUCTION COMPONENT - NORMAL VIEW
+            // =====================================================
+            if (SelectedType == "Production Component" && !DetailsView)
+            {
+                Columns.AddRange(new List<VSmartGridColumn>
+            {
+                new VSmartGridColumn
+                {
+                    Title = "Sl No",
+                    Field = "SlNo",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Issue No",
+                    Field = "IssueNo",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Issue Date",
+                    Field = "IssueDate",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Issue To Whom",
+                    Field = "IssueToWhom",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Created By",
+                    Field = "CreatedBy",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Created Date",
+                    Field = "CreatedDate",
+                    IsVisible = true
+                }
+            });
+
+                return;
+            }
+
+
+            // =====================================================
+            // PRODUCTION ASSEMBLY - NORMAL VIEW
+            // =====================================================
+            if (SelectedType == "Production Assembly" && !DetailsView)
+            {
+                Columns.AddRange(new List<VSmartGridColumn>
+            {
+                new VSmartGridColumn
+                {
+                    Title = "Sl No",
+                    Field = "SlNo",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Issue No",
+                    Field = "IssueNo",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Issue Date",
+                    Field = "IssueDate",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Issue To Whom",
+                    Field = "IssueToWhom",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Created By",
+                    Field = "CreatedBy",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Created Date",
+                    Field = "CreatedDate",
+                    IsVisible = true
+                }
+            });
+
+                return;
+            }
+
+
+            // =====================================================
+            // PRODUCTION COMPONENT - DETAILS VIEW
+            // =====================================================
+            if (SelectedType == "Production Component" && DetailsView)
+            {
+                Columns.AddRange(new List<VSmartGridColumn>
+            {
+                new VSmartGridColumn
+                {
+                    Title = "Sl No",
+                    Field = "SlNo",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Issue No",
+                    Field = "IssueNo",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Issue Date",
+                    Field = "IssueDate",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Issue To Whom",
+                    Field = "IssueToWhom",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Created By",
+                    Field = "CreatedBy",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Created Date",
+                    Field = "CreatedDate",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Item Code",
+                    Field = "ItemCode",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Item Name",
+                    Field = "ItemName",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Ref PO No",
+                    Field = "PONo",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Ref CustName",
+                    Field = "CustName",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Ref PO Date",
+                    Field = "PODate",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Issue Qty",
+                    Field = "Qty",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Bal Qty",
+                    Field = "BalQty",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Trans Type",
+                    Field = "TransType",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Ref RC No",
+                    Field = "RefRcNo",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "RC Date",
+                    Field = "RCDATE",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Process Name",
+                    Field = "ProcessName",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Machine Name",
+                    Field = "MachineName",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "No Of Items",
+                    Field = "NoOfItems",
+                    IsVisible = true
+                }
+            });
+
+                return;
+            }
+
+
+            // =====================================================
+            // PRODUCTION ASSEMBLY - DETAILS VIEW
+            // =====================================================
+            if (SelectedType == "Production Assembly" && DetailsView)
+            {
+                Columns.AddRange(new List<VSmartGridColumn>
+            {
+                new VSmartGridColumn
+                {
+                    Title = "Sl No",
+                    Field = "SlNo",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Issue No",
+                    Field = "IssueNo",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Issue Date",
+                    Field = "IssueDate",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Issue To Whom",
+                    Field = "IssueToWhom",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Created By",
+                    Field = "CreatedBy",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Created Date",
+                    Field = "CreatedDate",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Ref Customer",
+                    Field = "CustName",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Assembly Item Code",
+                    Field = "AssyItemCode",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Assembly Item Name",
+                    Field = "AssyItemName",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Item Code",
+                    Field = "ItemCode",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Item Name",
+                    Field = "ItemName",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Issue Qty",
+                    Field = "Qty",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Bal Qty",
+                    Field = "BalQty",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Ref Job No",
+                    Field = "JobNo",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Ref PO No",
+                    Field = "PONo",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "Ref PO Date",
+                    Field = "PODate",
+                    IsVisible = true
+                },
+
+                new VSmartGridColumn
+                {
+                    Title = "No Of Items",
+                    Field = "NoOfItems",
+                    IsVisible = true
+                }
+            });
+
+                return;
+            }
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(
+                ex,
+                "Error in InitializeColumns()");
+        }
+    }
+
+    private IEnumerable<ProductionWorkOrderVM> FilteredRatings
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(searchText) || searchText.Length < 3)
+                return ProductionWorkOrderIssueList;
+
+            return ProductionWorkOrderIssueList.Where(x =>
+                (x.CustName ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+                || (x.ItemCode ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+                || (x.ItemName ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+                || (x.IssueNo ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+                || (x.PONo ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+                   
+                || (x.IssueToWhom ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+                 || (x.RefRcNo ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+                 || (x.MachineName ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+                 || (x.ProcessName ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+                  || (x.RefGrnNo ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+
+                  || (x.RefIssueNo ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+
+                  || (x.JobNo ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+
+            );
+        }
+    }
+
+    private Task<IEnumerable<string>> SearchCustomers(
+      string? value,
+      CancellationToken cancellationToken)
+    {
+        IEnumerable<string> result = Parties
+            .Where(x => !string.IsNullOrWhiteSpace(x.PartyName))
+            .Select(x => x.PartyName);
+
+        if (!string.IsNullOrWhiteSpace(value))
+        {
+            result = result.Where(x =>
+                x.Contains(value, StringComparison.OrdinalIgnoreCase));
+        }
+
+        return Task.FromResult(result);
+    }
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            isProcessing = true;
+
+            await LoadRightsAsync();
+
+            if (!CanView)
+            {
+                _navigation.NavigateTo(
+                    "/access-denied"
+                );
+
+                return;
+            }
+
+            UserName =  await CurrentUserService.GetUsernameAsync();
+
+            ToDate = DateTime.Today;
+
+            FromDate = DateTime.Today.AddMonths(-1);
+
+            SelectedType = "Production Component";
+            await LoadVendorsAsync();
+
+        }
+        catch (Exception ex)
+        {
+            await LoggingService
+                .LogDeveloperError(ex,"Error while loading Production Work Order Issue screen." );
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+
+
+    private async Task OnPartyTypeChanged(string value)
+    {
+        SelectedType = value;
+        ProductionWorkOrderIssueList.Clear();
+        DetailsView = false;
+        ShowCharts = false;
+        ShowDetailsView = false;
+
+        Parties.Clear();
+
+        SelectedPartyCode = null;
+        SelectedParty = null;
+
+        
+        ShowRatings = false;
+    
+        await InitializeColumns();
+        await LoadVendorsAsync();
+
+    }
+
+    private async Task LoadVendorsAsync()
+    {
+        try
+        {
+           var customers = await ProductionWorkOrderIssueAssemblyComponentService
+                .GetAllCustomerAsync(
+                    SelectedType,
+                    FromDate!.Value,
+                    ToDate!.Value);
+
+            Parties = customers?
+                .OfType<CustomerVM>()
+                .Where(x => !string.IsNullOrWhiteSpace(x.CustName))
+                .DistinctBy(x => x.CustName)
+                .Select(x => new PartyVM
+                {
+                    PartyName = x.CustName
+                })
+                .OrderBy(x => x.PartyName)
+                .ToList()
+                ?? new List<PartyVM>();
+
+            if (Parties.Any())
+            {
+                Parties.Insert(0, new PartyVM
+                {
+                    PartyCode = 0,
+                    PartyName = "All Parties"
+                });
+            }
+
+        }
+        catch (Exception ex)
+        {
+            
+            throw;
+        }
+    }
+
+  
+
+
+    private async Task OnPartyChanged(string? party)
+    {
+        try
+        {
+            isProcessing = true;
+
+            DetailsView = false;
+            ShowCharts = false;
+
+            SelectedParty = party;
+
+            // No party selected
+            if (string.IsNullOrWhiteSpace(SelectedParty))
+            {
+                ProductionWorkOrderIssueList =
+                    new List<ProductionWorkOrderVM>();
+
+                ShowRatings = false;
+                ShowDetailsView = false;
+
+                return;
+            }
+
+            // Specific IssueToWhom selected
+            ShowDetailsView = true;
+
+            ProductionWorkOrderIssueList =
+            await ProductionWorkOrderIssueAssemblyComponentService
+            .GetProductionWorkOrderIssueAsync(
+             DetailsView,
+             SelectedType,
+             SelectedParty,
+             FromDate,
+             ToDate);
+
+            ShowRatings =
+                ProductionWorkOrderIssueList?.Any() == true;
+        }
+        catch (Exception ex)
+        {
+            ProductionWorkOrderIssueList =
+                new List<ProductionWorkOrderVM>();
+
+            ShowRatings = false;
+
+            await LoggingService.LogDeveloperError(
+                ex,
+                "Error loading Production WorkOrder Issue");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+  
+
+
+
+
+    private async Task HandleColumnChange(List<VSmartGridColumn> updated)
+    {
+        try
+        {
+            Columns = updated;
+
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(
+                ex,
+                "An error occurred while handling the ProductionWorkOrderIssue HandleColumnChange() Method");
+        }
+    }
+
+    private async Task OnDetailViewChanged(ChangeEventArgs e)
+    {
+        try
+        {
+            isProcessing = true;
+           // await _JS.InvokeVoidAsync("HideConfirmationModal");
+
+            DetailsView = Convert.ToBoolean(e.Value);
+
+            // Charts must be closed whenever DetailsView changes
+            ShowCharts = false;
+
+            // Apply SelectedParty only in Detail View
+            string? party = DetailsView
+                ? SelectedParty?.ToString()
+                : null;
+
+            ProductionWorkOrderIssueList =
+                await ProductionWorkOrderIssueAssemblyComponentService
+                    .GetProductionWorkOrderIssueAsync(
+                        DetailsView,
+                        SelectedType,
+                        SelectedParty,
+                        FromDate,
+                        ToDate);
+
+            await InitializeColumns();
+
+            await InvokeAsync(StateHasChanged);
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    private void OnSearchChanged(ChangeEventArgs args)
+    {
+        searchText = args.Value?.ToString() ?? string.Empty;
+
+        StateHasChanged();
+    }
+
+    
+   
+
+    private async Task OnPrintPendingTrack()
+    {
+        try
+        {
+            var data = FilteredRatings?.ToList();
+
+            // ============================================================
+            // VALIDATE DATA
+            // ============================================================
+
+            if (data == null || !data.Any())
+            {
+                await _JS.InvokeVoidAsync(
+                    "alert",
+                    "No data found to export.");
+
+                return;
+            }
+
+            // ============================================================
+            // VALIDATE PRODUCTION TYPE
+            // ============================================================
+
+            if (SelectedType != "Production Component" &&
+                SelectedType != "Production Assembly")
+            {
+                await _JS.InvokeVoidAsync(
+                    "alert",
+                    "Invalid production type.");
+
+                return;
+            }
+
+            // ============================================================
+            // PRODUCTION COMPONENT
+            // ============================================================
+
+            if (SelectedType == "Production Component")
+            {
+                // --------------------------------------------------------
+                // HEADERS
+                // --------------------------------------------------------
+
+                var headers = new List<string>();
+
+                if (IsVisible("SlNo"))
+                    headers.Add("Sl No");
+
+                if (IsVisible("IssueNo"))
+                    headers.Add("Issue No");
+
+                if (IsVisible("IssueDate"))
+                    headers.Add("Issue Date");
+
+                if (IsVisible("IssueToWhom"))
+                    headers.Add("Issue To Whom");
+
+                if (IsVisible("CreatedBy"))
+                    headers.Add("Created By");
+
+                if (IsVisible("CreatedDate"))
+                    headers.Add("Created Date");
+
+                if (DetailsView)
+                {
+                    if (IsVisible("ItemCode"))
+                        headers.Add("Item Code");
+
+                    if (IsVisible("ItemName"))
+                        headers.Add("Item Name");
+
+                    @if (IsVisible("CustName"))
+                    {
+                        headers.Add("Ref CustName");
+                        
+                    }
+                    if (IsVisible("PONo"))
+                        headers.Add("Ref PO No");
+
+                    if (IsVisible("PODate"))
+                        headers.Add("Ref PO Date");
+
+                    if (IsVisible("Qty"))
+                        headers.Add("Issue Qty");
+
+                    if (IsVisible("BalQty"))
+                        headers.Add("Bal Qty");
+
+                    if (IsVisible("TransType"))
+                        headers.Add("Trans Type");
+
+                    if (IsVisible("RefRcNo"))
+                        headers.Add("RefRcNo");
+
+                    if (IsVisible("RCDATE"))
+                        headers.Add("RCDATE");
+
+                    if (IsVisible("ProcessName"))
+                        headers.Add("Process Name");
+
+                    if (IsVisible("MachineName"))
+                        headers.Add("Machine Name");
+
+                    if (IsVisible("NoOfItems"))
+                        headers.Add("No Of Items");
+
+
+                }
+
+                // --------------------------------------------------------
+                // CHECK HEADERS
+                // --------------------------------------------------------
+
+                if (headers.Count == 0)
+                {
+                    await _JS.InvokeVoidAsync(
+                        "alert",
+                        "No visible columns found.");
+
+                    return;
+                }
+
+                // --------------------------------------------------------
+                // CREATE EXPORT DATA
+                // --------------------------------------------------------
+
+                var exportRows = new List<Dictionary<string, object?>>();
+
+                foreach (var x in data)
+                {
+                    var row = new Dictionary<string, object?>();
+
+                    if (IsVisible("SlNo"))
+                        row["SlNo"] = exportRows.Count + 1;
+
+                    if (IsVisible("IssueNo"))
+                        row["IssueNo"] = x.IssueNo;
+
+                    if (IsVisible("IssueDate"))
+                        row["IssueDate"] = x.IssueDate;
+
+                    if (IsVisible("IssueToWhom"))
+                        row["IssueToWhom"] = x.IssueToWhom;
+
+                    if (IsVisible("CreatedBy"))
+                        row["CreatedBy"] = x.CreatedBy;
+
+                    if (IsVisible("CreatedDate"))
+                        row["CreatedDate"] = x.CreatedDate;
+
+                    if (DetailsView)
+                    {
+                        if (IsVisible("ItemCode"))
+                            row["ItemCode"] = x.ItemCode;
+
+                        if (IsVisible("ItemName"))
+                            row["ItemName"] = x.ItemName;
+
+                        if (IsVisible("CustName"))
+                            row["CustName"] = x.CustName;
+
+                        if (IsVisible("PONo"))
+                            row["PONo"] = x.PONo;
+
+                        if (IsVisible("PODate"))
+                            row["PODate"] = x.PODate;
+
+                        if (IsVisible("Qty"))
+                            row["Qty"] = x.Qty;
+
+                        if (IsVisible("BalQty"))
+                            row["BalQty"] = x.BalQty;
+
+                        if (IsVisible("TransType"))
+                        {
+                            row["TransType"] = x.TransType == "InCode"
+                                ? $"<span class=\"text-success fw-bold\">{x.TransType}</span>"
+                                : x.TransType == "OutCode"
+                                    ? $"<span class=\"text-danger fw-bold\">{x.TransType}</span>"
+                                    : x.TransType;
+                        }
+
+                        if (IsVisible("RefRcNo"))
+                            row["RefRcNo"] = x.RefRcNo;
+
+                        if (IsVisible("RCDATE"))
+                            row["RCDATE"] = x.RCDATE;
+
+                        if (IsVisible("ProcessName"))
+                            row["ProcessName"] = x.ProcessName;
+
+                        if (IsVisible("MachineName"))
+                            row["MachineName"] = x.MachineName;
+
+
+                        if (IsVisible("NoOfItems"))
+                            row["NoOfItems"] = x.NoOfItems;
+
+
+                    }
+
+                    exportRows.Add(row);
+                }
+
+                // --------------------------------------------------------
+                // CREATE OBJECTS WITH ONLY VISIBLE PROPERTIES
+                // --------------------------------------------------------
+
+                var exportData = CreateExportObjects(
+                    exportRows,
+                    headers.Count);
+
+                // --------------------------------------------------------
+                // CREATE EXCEL
+                // --------------------------------------------------------
+
+                var fileBytes =
+                    await excelTemplateService.CreateTemplateAsync(
+                        sheetName: "Production Component",
+                        headers: headers.ToArray(),
+                        sampleData: exportData);
+
+                // --------------------------------------------------------
+                // DOWNLOAD
+                // --------------------------------------------------------
+
+                await _JS.InvokeVoidAsync(
+                    "downloadExcelFile",
+                    Convert.ToBase64String(fileBytes),
+                    "Production_Workorder_Component Issue.xlsx");
+
+                return;
+            }
+
+            // ============================================================
+            // PRODUCTION ASSEMBLY
+            // ============================================================
+
+            if (SelectedType == "Production Assembly")
+            {
+                // --------------------------------------------------------
+                // HEADERS
+                // --------------------------------------------------------
+
+                var headers = new List<string>();
+
+                if (IsVisible("SlNo"))
+                    headers.Add("Sl No");
+
+                if (IsVisible("IssueNo"))
+                    headers.Add("Issue No");
+
+                if (IsVisible("IssueDate"))
+                    headers.Add("Issue Date");
+
+                if (IsVisible("IssueToWhom"))
+                    headers.Add("Issue To Whom");
+
+                if (IsVisible("CreatedBy"))
+                    headers.Add("Created By");
+
+                if (IsVisible("CreatedDate"))
+                    headers.Add("Created Date");
+
+                if (DetailsView)
+                {
+                    if (IsVisible("CustName"))
+                        headers.Add("Ref Customer");
+
+                    if (IsVisible("AssyItemCode"))
+                        headers.Add("Assembly Item Code");
+
+                    if (IsVisible("AssyItemName"))
+                        headers.Add("Assembly Item Name");
+
+                    if (IsVisible("ItemCode"))
+                        headers.Add("Item Code");
+
+                    if (IsVisible("ItemName"))
+                        headers.Add("Item Name");
+
+                    if (IsVisible("Qty"))
+                        headers.Add("Issue Qty");
+
+                    if (IsVisible("BalQty"))
+                        headers.Add("Bal Qty");
+
+                    if (IsVisible("JobNo"))
+                        headers.Add("Ref Job No");
+
+                    if (IsVisible("PONo"))
+                        headers.Add("Ref PO No");
+
+                    if (IsVisible("PODate"))
+                        headers.Add("Ref PO Date");
+
+                    if (IsVisible("IssueToWhom"))
+                        headers.Add("Issue To Whom");
+
+                    if (IsVisible("NoOfItems"))
+                        headers.Add("No Of Items");
+
+                    if (IsVisible("CreatedBy"))
+                        headers.Add("Created By");
+
+                    if (IsVisible("CreatedDate"))
+                        headers.Add("Created Date");
+                }
+
+                // --------------------------------------------------------
+                // CHECK HEADERS
+                // --------------------------------------------------------
+
+                if (headers.Count == 0)
+                {
+                    await _JS.ToastrWarning("No visible columns found.");
+
+                    return;
+                }
+
+                // --------------------------------------------------------
+                // CREATE EXPORT DATA
+                // --------------------------------------------------------
+
+                var exportRows = new List<Dictionary<string, object?>>();
+
+                foreach (var x in data)
+                {
+                    var row = new Dictionary<string, object?>();
+
+                    if (IsVisible("SlNo"))
+                        row["SlNo"] = exportRows.Count + 1;
+
+                    if (IsVisible("IssueNo"))
+                        row["IssueNo"] = x.IssueNo;
+
+                    if (IsVisible("IssueDate"))
+                        row["IssueDate"] = x.IssueDate;
+
+                    if (IsVisible("IssueToWhom"))
+                        row["IssueToWhom"] = x.IssueToWhom;
+
+                    if (IsVisible("CreatedBy"))
+                        row["CreatedBy"] = x.CreatedBy;
+
+                    if (IsVisible("CreatedDate"))
+                        row["CreatedDate"] = x.CreatedDate;
+
+                    if (DetailsView)
+                    {
+                        if (IsVisible("CustName"))
+                            row["CustName"] = x.CustName;
+
+                        if (IsVisible("AssyItemCode"))
+                            row["AssyItemCode"] = x.AssyItemCode;
+
+                        if (IsVisible("AssyItemName"))
+                            row["AssyItemName"] = x.AssyItemName;
+
+                        if (IsVisible("ItemCode"))
+                            row["ItemCode"] = x.ItemCode;
+
+                        if (IsVisible("ItemName"))
+                            row["ItemName"] = x.ItemName;
+
+                        if (IsVisible("Qty"))
+                            row["Qty"] = x.Qty;
+
+                        if (IsVisible("BalQty"))
+                            row["BalQty"] = x.BalQty;
+
+                        if (IsVisible("JobNo"))
+                            row["JobNo"] = x.JobNo;
+
+                        if (IsVisible("PONo"))
+                            row["PONo"] = x.PONo;
+
+                        if (IsVisible("PODate"))
+                            row["PODate"] = x.PODate;
+
+                        if (IsVisible("IssueToWhom"))
+                            row["IssueToWhom"] = x.IssueToWhom;
+
+                        if (IsVisible("NoOfItems"))
+                            row["NoOfItems"] = x.NoOfItems;
+
+                        if (IsVisible("CreatedBy"))
+                            row["CreatedBy"] = x.CreatedBy;
+
+                        if (IsVisible("CreatedDate"))
+                            row["CreatedDate"] = x.CreatedDate;
+                    }
+
+                    exportRows.Add(row);
+                }
+
+                // --------------------------------------------------------
+                // CREATE OBJECTS WITH ONLY VISIBLE PROPERTIES
+                // --------------------------------------------------------
+
+                var exportData = CreateExportObjects(
+                    exportRows,
+                    headers.Count);
+
+                // --------------------------------------------------------
+                // CREATE EXCEL
+                // --------------------------------------------------------
+
+                var fileBytes =
+                    await excelTemplateService.CreateTemplateAsync(
+                        sheetName: "Production Assembly",
+                        headers: headers.ToArray(),
+                        sampleData: exportData);
+
+                // --------------------------------------------------------
+                // DOWNLOAD
+                // --------------------------------------------------------
+
+                await _JS.InvokeVoidAsync(
+                    "downloadExcelFile",
+                    Convert.ToBase64String(fileBytes),
+                    "Production_Workorder_Assembly Issue.xlsx");
+
+                return;
+            }
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(
+                ex,
+                "Error in OnPrintPendingTrack()");
+        }
+    }
+
+    private List<object> CreateExportObjects(
+    List<Dictionary<string, object?>> rows,
+    int totalColumns)
+    {
+        var result = new List<object>();
+
+        if (rows == null || rows.Count == 0)
+            return result;
+
+        // Get property names from first row
+        var propertyNames = rows[0].Keys.ToList();
+
+        // Create dynamic runtime type
+        var assemblyName =
+            new System.Reflection.AssemblyName(
+                "DynamicExcelExportAssembly");
+
+        var assemblyBuilder =
+            System.Reflection.Emit.AssemblyBuilder.DefineDynamicAssembly(
+                assemblyName,
+                System.Reflection.Emit.AssemblyBuilderAccess.Run);
+
+        var moduleBuilder =
+            assemblyBuilder.DefineDynamicModule(
+                "DynamicExcelExportModule");
+
+        var typeBuilder =
+            moduleBuilder.DefineType(
+                "DynamicExportRow_" + Guid.NewGuid().ToString("N"),
+                System.Reflection.TypeAttributes.Public |
+                System.Reflection.TypeAttributes.Class);
+
+        // ------------------------------------------------------------
+        // CREATE ONLY REQUIRED PROPERTIES
+        // ------------------------------------------------------------
+
+        foreach (var propertyName in propertyNames)
+        {
+            // Find actual value from first row
+            object? sampleValue = null;
+
+            foreach (var row in rows)
+            {
+                if (row.TryGetValue(propertyName, out var value) &&
+                    value != null)
+                {
+                    sampleValue = value;
+                    break;
+                }
+            }
+
+            Type propertyType;
+
+            if (sampleValue != null)
+            {
+                propertyType = sampleValue.GetType();
+
+                // Nullable handling is not needed for most values,
+                // because Excel can accept the underlying value.
+                if (propertyType.IsValueType)
+                {
+                    propertyType = Nullable.GetUnderlyingType(propertyType)
+                        ?? propertyType;
+                }
+            }
+            else
+            {
+                propertyType = typeof(string);
+            }
+
+            // --------------------------------------------------------
+            // PROPERTY
+            // --------------------------------------------------------
+
+            var fieldBuilder =
+                typeBuilder.DefineField(
+                    "_" + propertyName,
+                    propertyType,
+                    System.Reflection.FieldAttributes.Private);
+
+            var propertyBuilder =
+                typeBuilder.DefineProperty(
+                    propertyName,
+                    System.Reflection.PropertyAttributes.None,
+                    propertyType,
+                    null);
+
+            // --------------------------------------------------------
+            // GETTER
+            // --------------------------------------------------------
+
+            var getterBuilder =
+                typeBuilder.DefineMethod(
+                    "get_" + propertyName,
+                    System.Reflection.MethodAttributes.Public |
+                    System.Reflection.MethodAttributes.SpecialName |
+                    System.Reflection.MethodAttributes.HideBySig,
+                    propertyType,
+                    Type.EmptyTypes);
+
+            var getterIL =
+                getterBuilder.GetILGenerator();
+
+            getterIL.Emit(
+                System.Reflection.Emit.OpCodes.Ldarg_0);
+
+            getterIL.Emit(
+                System.Reflection.Emit.OpCodes.Ldfld,
+                fieldBuilder);
+
+            getterIL.Emit(
+                System.Reflection.Emit.OpCodes.Ret);
+
+            // --------------------------------------------------------
+            // SETTER
+            // --------------------------------------------------------
+
+            var setterBuilder =
+                typeBuilder.DefineMethod(
+                    "set_" + propertyName,
+                    System.Reflection.MethodAttributes.Public |
+                    System.Reflection.MethodAttributes.SpecialName |
+                    System.Reflection.MethodAttributes.HideBySig,
+                    null,
+                    new[] { propertyType });
+
+            var setterIL =
+                setterBuilder.GetILGenerator();
+
+            setterIL.Emit(
+                System.Reflection.Emit.OpCodes.Ldarg_0);
+
+            setterIL.Emit(
+                System.Reflection.Emit.OpCodes.Ldarg_1);
+
+            setterIL.Emit(
+                System.Reflection.Emit.OpCodes.Stfld,
+                fieldBuilder);
+
+            setterIL.Emit(
+                System.Reflection.Emit.OpCodes.Ret);
+
+            propertyBuilder.SetGetMethod(getterBuilder);
+            propertyBuilder.SetSetMethod(setterBuilder);
+        }
+
+        // ------------------------------------------------------------
+        // CREATE TYPE
+        // ------------------------------------------------------------
+
+        var dynamicType =
+            typeBuilder.CreateType();
+
+        if (dynamicType == null)
+            return result;
+
+        // ------------------------------------------------------------
+        // CREATE OBJECT FOR EACH ROW
+        // ------------------------------------------------------------
+
+        foreach (var row in rows)
+        {
+            var obj =
+                Activator.CreateInstance(dynamicType);
+
+            if (obj == null)
+                continue;
+
+            foreach (var propertyName in propertyNames)
+            {
+                var property =
+                    dynamicType.GetProperty(propertyName);
+
+                if (property == null)
+                    continue;
+
+                row.TryGetValue(
+                    propertyName,
+                    out var value);
+
+                if (value == null)
+                {
+                    continue;
+                }
+
+                try
+                {
+                    var targetType =
+                        property.PropertyType;
+
+                    if (value.GetType() != targetType)
+                    {
+                        if (Nullable.GetUnderlyingType(targetType) != null)
+                        {
+                            targetType =
+                                Nullable.GetUnderlyingType(targetType)!;
+                        }
+
+                        value =
+                            Convert.ChangeType(
+                                value,
+                                targetType);
+                    }
+
+                    property.SetValue(
+                        obj,
+                        value);
+                }
+                catch
+                {
+                    // If conversion fails, keep default value
+                }
+            }
+
+            result.Add(obj);
+        }
+
+        return result;
+    }
+
+    #region Production WorkOrder Charts
+
+    // ============================================================
+    // CHART VIEW MODELS
+    // ============================================================
+
+    public class MonthlyIssueChartVM
+    {
+        public string Month { get; set; } = string.Empty;
+
+        public decimal InQty { get; set; }
+
+        public decimal OutQty { get; set; }
+
+        public decimal BalanceQtyIn { get; set; }
+
+
+        public decimal BalanceQtyOut { get; set; }
+    }
+
+
+    public class CategoryQtyChartVM
+    {
+        public string Category { get; set; } = string.Empty;
+
+        public decimal Qty { get; set; }
+    }
+
+
+    public class TransactionChartVM
+    {
+        public string TransType { get; set; } = string.Empty;
+
+        public decimal Qty { get; set; }
+
+        public int Count { get; set; }
+    }
+
+
+    // ============================================================
+    // SUMMARY VALUES
+    // ============================================================
+
+    private int TotalIssueCount =>
+     FilteredRatings?
+     .Where(x => x.TransType == "Out")
+     .Count() ?? 0;
+
+
+
+    private int TotalIssueCount1 =>
+   FilteredRatings?
+       .Select(x => x.IssueNo)
+       .Distinct()
+       .Count() ?? 0;
+    // private decimal TotalIssueQty =>
+    //     FilteredRatings?.Sum(x => Convert.ToDecimal(x.Qty)) ?? 0m;
+
+    private decimal TotalIssueQtyOut =>
+    FilteredRatings?
+        .Where(x => x.TransType == "Out")
+        .Sum(x => Convert.ToDecimal(x.Qty)) ?? 0m;
+
+
+    private decimal TotalIssueQty =>
+    FilteredRatings?
+    .Sum(x => Convert.ToDecimal(x.Qty)) ?? 0m;
+
+
+    private decimal TotalBalanceQty =>
+   FilteredRatings?
+   .Sum(x => Convert.ToDecimal(x.BalQty)) ?? 0m;
+
+
+
+    private decimal TotalIssueQtyIn =>
+    FilteredRatings?
+   .Where(x => x.TransType == "In")
+   .Sum(x => Convert.ToDecimal(x.Qty)) ?? 0m;
+
+
+    private decimal TotalBalanceQtyOut =>
+        FilteredRatings?
+        .Where(x => x.TransType == "Out")
+        .Sum(x => Convert.ToDecimal(x.BalQty)) ?? 0m;
+
+
+
+    private decimal TotalBalanceQtyIn =>
+  FilteredRatings?
+  .Where(x => x.TransType == "In")
+  .Sum(x => Convert.ToDecimal(x.BalQty)) ?? 0m;
+
+
+    private int TotalNoOfItems =>
+        FilteredRatings?.Sum(x => Convert.ToInt32(x.NoOfItems)) ?? 0;
+
+
+    // ============================================================
+    // MONTHLY ISSUE DATA
+    // ============================================================
+
+    private List<MonthlyIssueChartVM> MonthlyIssueChartData =>
+      GetMonthlyIssueBalanceChartData;
+
+    private List<MonthlyIssueChartVM> MonthlyIssueChartData1 =>
+    GetMonthlyIssueChartData;
+
+
+    private List<MonthlyIssueChartVM> GetMonthlyIssueChartData =>
+    FilteredRatings?
+      .GroupBy(x => new
+      {
+          Year = DateTime.Parse(x.IssueDate).Year,
+          Month = DateTime.Parse(x.IssueDate).Month
+      })
+      .OrderBy(g => g.Key.Year)
+      .ThenBy(g => g.Key.Month)
+      .Select(g => new MonthlyIssueChartVM
+      {
+          Month = new DateTime(
+              g.Key.Year,
+              g.Key.Month,
+              1).ToString("MMM yyyy"),
+
+          // ONLY TransType = In
+          InQty = g
+              .Where(x => x.TransType == "In")
+              .Sum(x => Convert.ToDecimal(x.Qty)),
+
+          // ONLY TransType = Out
+          OutQty = g
+              .Where(x => x.TransType == "Out")
+              .Sum(x => Convert.ToDecimal(x.Qty)),
+
+       
+      })
+      .ToList()
+  ?? new List<MonthlyIssueChartVM>();
+
+    private List<MonthlyIssueChartVM> GetMonthlyIssueBalanceChartData =>
+    FilteredRatings?
+        .GroupBy(x => new
+        {
+            Year = DateTime.Parse(x.IssueDate).Year,
+            Month = DateTime.Parse(x.IssueDate).Month
+        })
+        .OrderBy(g => g.Key.Year)
+        .ThenBy(g => g.Key.Month)
+        .Select(g => new MonthlyIssueChartVM
+        {
+            Month = new DateTime(
+                g.Key.Year,
+                g.Key.Month,
+                1).ToString("MMM yyyy"),
+
+            // ONLY TransType = In
+            InQty = g
+                .Where(x => x.TransType == "In")
+                .Sum(x => Convert.ToDecimal(x.Qty)),
+
+            // ONLY TransType = Out
+            OutQty = g
+                .Where(x => x.TransType == "Out")
+                .Sum(x => Convert.ToDecimal(x.Qty)),
+
+            // Balance
+            BalanceQtyIn = g
+                .Where(x => x.TransType == "In")
+                .Sum(x => Convert.ToDecimal(x.BalQty)),
+
+            BalanceQtyOut = g
+                .Where(x => x.TransType == "Out")
+                .Sum(x => Convert.ToDecimal(x.BalQty)),
+        })
+        .ToList()
+    ?? new List<MonthlyIssueChartVM>();
+
+
+    private bool TryGetIssueDate(
+        object? value,
+        out DateTime date)
+    {
+        date = default;
+
+        if (value == null)
+            return false;
+
+        if (value is DateTime dt)
+        {
+            date = dt;
+            return true;
+        }
+
+        if (value is DateTime?)
+        {
+            var nullableDate = (DateTime?)value;
+
+            if (nullableDate.HasValue)
+            {
+                date = nullableDate.Value;
+                return true;
+            }
+        }
+
+        return DateTime.TryParse(
+            value.ToString(),
+            out date);
+    }
+
+
+    // ============================================================
+    // TRANSACTION TYPE
+    // ============================================================
+
+    private List<TransactionChartVM> TransactionChartData =>
+        GetTransactionChartData();
+
+
+    private List<TransactionChartVM> GetTransactionChartData()
+    {
+        if (FilteredRatings == null || !FilteredRatings.Any())
+            return new List<TransactionChartVM>();
+
+        return FilteredRatings
+            .GroupBy(x =>
+                string.IsNullOrWhiteSpace(x.TransType)
+                    ? "Unknown"
+                    : x.TransType)
+            .Select(g => new TransactionChartVM
+            {
+                TransType = g.Key,
+
+                Qty = g.Sum(x =>
+                    Convert.ToDecimal(x.Qty)),
+
+                Count = g.Count()
+            })
+            .OrderByDescending(x => x.Qty)
+            .ToList();
+    }
+
+
+    // ============================================================
+    // PROCESS-WISE
+    // ============================================================
+
+    private List<CategoryQtyChartVM> ProcessChartData =>
+        GetCategoryChartData(
+            FilteredRatings,
+            x => x.ProcessName);
+
+
+    // ============================================================
+    // MACHINE-WISE
+    // ============================================================
+
+    private List<CategoryQtyChartVM> MachineChartData =>
+        GetCategoryChartData(
+            FilteredRatings,
+            x => x.MachineName);
+
+
+    // ============================================================
+    // CUSTOMER-WISE
+    // ============================================================
+
+    private List<CategoryQtyChartVM> CustomerChartData =>
+     GetCategoryChartData(
+         FilteredRatings?
+             .Where(x => x.TransType == "Out")
+             .ToList(),
+         x => x.IssueToWhom);
+
+
+    // ============================================================
+    // ITEM-WISE
+    // ============================================================
+
+    private List<CategoryQtyChartVM> ItemChartData =>
+        GetCategoryChartData(
+            FilteredRatings,
+            x => x.ItemCode);
+
+
+    // ============================================================
+    // COMMON CATEGORY GROUPING
+    // ============================================================
+
+    private List<CategoryQtyChartVM> GetCategoryChartData(
+        IEnumerable<dynamic> data,
+        Func<dynamic, string?> selector)
+    {
+        if (data == null)
+            return new List<CategoryQtyChartVM>();
+
+        return data
+            .Select(x => new
+            {
+                Category = selector(x),
+
+                Qty = Convert.ToDecimal(x.Qty)
+            })
+            .Where(x => !string.IsNullOrWhiteSpace(x.Category))
+            .GroupBy(x => x.Category!)
+            .Select(g => new CategoryQtyChartVM
+            {
+                Category = g.Key,
+
+                Qty = g.Sum(x => x.Qty)
+            })
+            .OrderByDescending(x => x.Qty)
+            .Take(10)
+            .ToList();
+    }
+
+    #endregion
+    private List<CategoryQtyChartVM> GetCategoryChartData(
+     IEnumerable<ProductionWorkOrderVM> data,
+     Func<ProductionWorkOrderVM, string?> selector)
+    {
+        if (data == null || !data.Any())
+            return new List<CategoryQtyChartVM>();
+
+        return data
+            .Select(x => new
+            {
+                Category = selector(x),
+                Qty = Convert.ToDecimal(x.Qty)
+            })
+            .Where(x => !string.IsNullOrWhiteSpace(x.Category))
+            .GroupBy(x => x.Category!)
+            .Select(g => new CategoryQtyChartVM
+            {
+                Category = g.Key,
+                Qty = g.Sum(x => x.Qty)
+            })
+            .OrderByDescending(x => x.Qty)
+            .Take(10)
+            .ToList();
+    }
+
+    #region Apex Chart Options
+
+    private ApexChartOptions<MonthlyIssueChartVM> MonthlyIssueChartOptions
+        = new ApexChartOptions<MonthlyIssueChartVM>
+        {
+            Chart = new Chart
+            {
+                Toolbar = new Toolbar
+                {
+                    Show = true
+                }
+            },
+
+            Stroke = new Stroke
+            {
+                Curve = Curve.Smooth,
+                Width = 3
+            },
+
+            DataLabels = new DataLabels
+            {
+                Enabled = false
+            },
+
+            Xaxis = new XAxis
+            {
+                Title = new AxisTitle
+                {
+                    Text = "Month"
+                }
+            },
+
+            Yaxis = new List<YAxis>
+            {
+            new YAxis
+            {
+                Title = new AxisTitle
+                {
+                    Text = "Issue Quantity"
+                }
+            }
+            },
+
+            Legend = new Legend
+            {
+                Position = LegendPosition.Top
+            }
+        };
+
+
+
+    private ApexChartOptions<MonthlyIssueChartVM> MonthlyIssueChartOptions1
+    = new ApexChartOptions<MonthlyIssueChartVM>
+    {
+        Chart = new Chart
+        {
+            Toolbar = new Toolbar
+            {
+                Show = true
+            }
+        },
+
+        Stroke = new Stroke
+        {
+            Curve = Curve.Smooth,
+            Width = 3
+        },
+
+        DataLabels = new DataLabels
+        {
+            Enabled = false
+        },
+
+        Xaxis = new XAxis
+        {
+            Title = new AxisTitle
+            {
+                Text = "Month"
+            }
+        },
+
+        Yaxis = new List<YAxis>
+        {
+            new YAxis
+            {
+                Title = new AxisTitle
+                {
+                    Text = "Issue Quantity"
+                }
+            }
+        },
+
+        Legend = new Legend
+        {
+            Position = LegendPosition.Top
+        }
+    };
+
+
+    private ApexChartOptions<MonthlyIssueChartVM> QtyBalanceChartOptions
+        = new ApexChartOptions<MonthlyIssueChartVM>
+        {
+            Chart = new Chart
+            {
+                Toolbar = new Toolbar
+                {
+                    Show = true
+                }
+            },
+
+            DataLabels = new DataLabels
+            {
+                Enabled = false
+            },
+
+            PlotOptions = new PlotOptions
+            {
+                Bar = new PlotOptionsBar
+                {
+                    Horizontal = false,
+                    ColumnWidth = "55%"
+                }
+            },
+
+            Xaxis = new XAxis
+            {
+                Title = new AxisTitle
+                {
+                    Text = "Month"
+                }
+            },
+
+            Yaxis = new List<YAxis>
+            {
+            new YAxis
+            {
+                Title = new AxisTitle
+                {
+                    Text = "Quantity"
+                }
+            }
+            },
+
+            Legend = new Legend
+            {
+                Position = LegendPosition.Top
+            }
+        };
+
+
+    private ApexChartOptions<TransactionChartVM> TransactionChartOptions
+        = new ApexChartOptions<TransactionChartVM>
+        {
+            Chart = new Chart
+            {
+                Toolbar = new Toolbar
+                {
+                    Show = true
+                }
+            },
+
+            DataLabels = new DataLabels
+            {
+                Enabled = false
+            },
+
+            PlotOptions = new PlotOptions
+            {
+                Bar = new PlotOptionsBar
+                {
+                    Horizontal = false,
+                    ColumnWidth = "55%"
+                }
+            },
+
+            Xaxis = new XAxis
+            {
+                Title = new AxisTitle
+                {
+                    Text = "Transaction Type"
+                }
+            },
+
+            Yaxis = new List<YAxis>
+            {
+            new YAxis
+            {
+                Title = new AxisTitle
+                {
+                    Text = "Quantity"
+                }
+            }
+            }
+        };
+
+
+    private ApexChartOptions<CategoryQtyChartVM> ProcessChartOptions
+        = CreateCategoryChartOptions("Process", "Issue Quantity");
+
+
+    private ApexChartOptions<CategoryQtyChartVM> MachineChartOptions
+        = CreateCategoryChartOptions("Machine", "Issue Quantity");
+
+
+    private ApexChartOptions<CategoryQtyChartVM> CustomerChartOptions
+        = CreateCategoryChartOptions("Customer", "Issue Quantity");
+
+
+    private ApexChartOptions<CategoryQtyChartVM> ItemChartOptions
+        = CreateCategoryChartOptions("Item", "Issue Quantity");
+
+
+    private static ApexChartOptions<CategoryQtyChartVM>
+        CreateCategoryChartOptions(
+            string xAxisTitle,
+            string yAxisTitle)
+    {
+        return new ApexChartOptions<CategoryQtyChartVM>
+        {
+            Chart = new Chart
+            {
+                Toolbar = new Toolbar
+                {
+                    Show = true
+                }
+            },
+
+            DataLabels = new DataLabels
+            {
+                Enabled = false
+            },
+
+            PlotOptions = new PlotOptions
+            {
+                Bar = new PlotOptionsBar
+                {
+                    Horizontal = true,
+                    BarHeight = "65%"
+                }
+            },
+
+            Xaxis = new XAxis
+            {
+                Title = new AxisTitle
+                {
+                    Text = xAxisTitle
+                }
+            },
+
+            Yaxis = new List<YAxis>
+        {
+            new YAxis
+            {
+                Title = new AxisTitle
+                {
+                    Text = yAxisTitle
+                }
+            }
+        },
+
+            Legend = new Legend
+            {
+                Position = LegendPosition.Top
+            }
+        };
+    }
+
+
+    private ApexChartOptions<CategoryQtyChartVM>
+        AssemblyCustomerChartOptions = new();
+
+    private ApexChartOptions<CategoryQtyChartVM>
+        AssemblyItemChartOptions = new();
+
+    private ApexChartOptions<CategoryQtyChartVM>
+        AssemblyJobChartOptions = new();
+
+    private ApexChartOptions<CategoryQtyChartVM>
+        AssemblyProcessChartOptions = new();
+
+
+ 
+
+    private List<CategoryQtyChartVM> AssemblyCustomerChartData =>
+       GetCategoryChartData(
+           FilteredRatings?.ToList(),
+           x => x.IssueToWhom);
+
+
+
+    private List<CategoryQtyChartVM> AssemblyItemChartData =>
+    GetCategoryChartData(
+    FilteredRatings,
+    x => x.ItemCode);
+
+   
+    
+    private List<CategoryQtyChartVM> AssemblyJobChartData =>
+        FilteredRatings?
+            .GroupBy(x => GetText(x.JobNo))
+            .Select(g => new CategoryQtyChartVM
+            {
+                Category = g.Key,
+                Qty = g.Sum(GetQty)
+            })
+            .OrderByDescending(x => x.Qty)
+            .ToList()
+        ?? new List<CategoryQtyChartVM>();
+
+
+
+    private List<CategoryQtyChartVM> AssemblyProcessChartData =>
+    FilteredRatings?
+    .GroupBy(x => GetText(x.ProcessName))
+    .Select(g => new CategoryQtyChartVM
+    {
+        Category = g.Key,
+        Qty = g.Sum(GetQty)
+    })
+    .OrderByDescending(x => x.Qty)
+    .ToList()
+    ?? new List<CategoryQtyChartVM>();
+
+
+  
+   
+    #endregion
+
+  
+
+    // ============================================================
+    // COMMON HELPER METHODS
+    // ============================================================
+
+    private string GetText(object? value)
+    {
+        return value?.ToString()?.Trim() ?? "Unknown";
+    }
+
+    private decimal GetQty(ProductionWorkOrderVM x)
+    {
+        if (x == null)
+            return 0m;
+
+        // If Qty is decimal
+        return Convert.ToDecimal(x.Qty);
+    }
+
+    private bool IsOutTransaction(ProductionWorkOrderVM x)
+    {
+        if (x == null)
+            return false;
+
+        return string.Equals(
+            x.TransType?.ToString()?.Trim(),
+            "OUT",
+            StringComparison.OrdinalIgnoreCase);
+    }
+
+
+    public class MonthlyIssueAssemblyChartVM
+    {
+        public string Month { get; set; } = string.Empty;
+
+        // Out Quantity
+        public decimal Qty { get; set; }
+
+        // In Quantity
+        public decimal BQty { get; set; }
+    }
+
+
+    private List<MonthlyIssueAssemblyChartVM> MonthlyIssueChartData2 =>
+     GetMonthlyIssueAssemblyChartData;
+
+
+    private List<MonthlyIssueAssemblyChartVM> GetMonthlyIssueAssemblyChartData =>
+        FilteredRatings?
+            .Where(x => !string.IsNullOrWhiteSpace(x.IssueDate))
+            .GroupBy(x => new
+            {
+                Year = DateTime.Parse(x.IssueDate).Year,
+                Month = DateTime.Parse(x.IssueDate).Month
+            })
+            .OrderBy(g => g.Key.Year)
+            .ThenBy(g => g.Key.Month)
+            .Select(g => new MonthlyIssueAssemblyChartVM
+            {
+                Month = new DateTime(
+                    g.Key.Year,
+                    g.Key.Month,
+                    1
+                ).ToString("MMM yyyy"),
+
+                Qty = g
+                    .Sum(x => Convert.ToDecimal(x.Qty)),
+
+                BQty = g
+                    .Sum(x => Convert.ToDecimal(x.BalQty))
+            })
+            .ToList()
+     ?? new List<MonthlyIssueAssemblyChartVM>();
+
+
+
+    private ApexChartOptions<MonthlyIssueAssemblyChartVM> MonthlyIssueChartOptions2
+    = new ApexChartOptions<MonthlyIssueAssemblyChartVM>
+    {
+        Chart = new Chart
+        {
+            Toolbar = new Toolbar
+            {
+                Show = true
+            }
+        },
+        Stroke = new Stroke
+        {
+            Curve = Curve.Smooth,
+            Width = 3
+        },
+        Xaxis = new XAxis
+        {
+            Title = new AxisTitle
+            {
+                Text = "Month"
+            }
+        },
+        Yaxis = new List<YAxis>
+        {
+            new YAxis
+            {
+                Title = new AxisTitle
+                {
+                    Text = "Quantity"
+                }
+            }
+        },
+        Legend = new Legend
+        {
+            Show = true,
+            Position = LegendPosition.Top
+        },
+        DataLabels = new DataLabels
+        {
+            Enabled = false
+        }
+    };
+
+    private bool ShowCharts = false;
+
+    private void ToggleCharts()
+    {
+        ShowCharts = !ShowCharts;
+    }
+}

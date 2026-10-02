@@ -1,0 +1,80 @@
+@string/appbar_scrolling_view_behavior;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\layout\fragment_backstack.xml
+@string/appbar_scrolling_view_behavior;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\layout\navigationlayout.xml
+adaptive-icon;obj\Release\net9.0-android\resizetizer\r\mipmap-anydpi-v26\appicon.xml
+adaptive-icon;obj\Release\net9.0-android\resizetizer\r\mipmap-anydpi-v26\appicon_round.xml
+alpha;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\158\jl\res\anim\enterfromleft.xml
+alpha;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\158\jl\res\anim\exittoleft.xml
+alpha;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\anim\nav_default_enter_anim.xml
+alpha;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\anim\nav_default_exit_anim.xml
+alpha;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\anim\nav_default_pop_enter_anim.xml
+alpha;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\anim\nav_default_pop_exit_anim.xml
+androidx.coordinatorlayout.widget.CoordinatorLayout;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\158\jl\res\layout\shellcontent.xml
+androidx.coordinatorlayout.widget.CoordinatorLayout;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\layout\navigationlayout.xml
+androidx.drawerlayout.widget.DrawerLayout;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\layout\drawer_layout.xml
+androidx.fragment.app.FragmentContainerView;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\layout\fragment_backstack.xml
+androidx.fragment.app.FragmentContainerView;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\layout\navigationlayout.xml
+attr;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\values\attr.xml
+background;obj\Release\net9.0-android\resizetizer\r\mipmap-anydpi-v26\appicon.xml
+background;obj\Release\net9.0-android\resizetizer\r\mipmap-anydpi-v26\appicon_round.xml
+bitmap;obj\Release\net9.0-android\resizetizer\sp\drawable\maui_splash_image.xml
+bitmap;obj\Release\net9.0-android\resizetizer\sp\drawable-v31\maui_splash_image.xml
+cache-path;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\161\jl\res\xml\microsoft_maui_essentials_fileprovider_file_paths.xml
+color;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\values\colors.xml
+color;obj\Release\net9.0-android\res\values\colors.xml
+color;obj\Release\net9.0-android\resizetizer\sp\values\maui_colors.xml
+com.google.android.material.appbar.AppBarLayout;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\158\jl\res\layout\flyoutcontent.xml
+com.google.android.material.appbar.AppBarLayout;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\158\jl\res\layout\shellcontent.xml
+com.google.android.material.appbar.AppBarLayout;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\layout\navigationlayout.xml
+declare-styleable;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\values\attr.xml
+external-cache-path;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\161\jl\res\xml\microsoft_maui_essentials_fileprovider_file_paths.xml
+external-path;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\161\jl\res\xml\microsoft_maui_essentials_fileprovider_file_paths.xml
+foreground;obj\Release\net9.0-android\resizetizer\r\mipmap-anydpi-v26\appicon.xml
+foreground;obj\Release\net9.0-android\resizetizer\r\mipmap-anydpi-v26\appicon_round.xml
+item;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\159\jl\res\values\values.xml
+item;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\drawable\maui_splash.xml
+item;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\values\styles.xml
+item;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\values-v35\styles.xml
+item;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\164\jl\res\values\values.xml
+item;obj\Release\net9.0-android\resizetizer\sp\drawable\maui_splash_image.xml
+item;obj\Release\net9.0-android\resizetizer\sp\drawable-v31\maui_splash_image.xml
+layer-list;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\drawable\maui_splash.xml
+layer-list;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\drawable\maui_splash_image.xml
+layer-list;obj\Release\net9.0-android\resizetizer\sp\drawable\maui_splash_image.xml
+layer-list;obj\Release\net9.0-android\resizetizer\sp\drawable-v31\maui_splash_image.xml
+microsoft.maui.controls.platform.compatibility.ShellFlyoutLayout;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\158\jl\res\layout\flyoutcontent.xml
+monochrome;obj\Release\net9.0-android\resizetizer\r\mipmap-anydpi-v26\appicon.xml
+monochrome;obj\Release\net9.0-android\resizetizer\r\mipmap-anydpi-v26\appicon_round.xml
+paths;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\161\jl\res\xml\microsoft_maui_essentials_fileprovider_file_paths.xml
+resources;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\158\jl\res\values\strings.xml
+resources;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\159\jl\res\values\values.xml
+resources;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\values\attr.xml
+resources;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\values\colors.xml
+resources;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\values\styles.xml
+resources;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\values-v35\styles.xml
+resources;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\164\jl\res\values\values.xml
+resources;obj\Release\net9.0-android\res\values\colors.xml
+resources;obj\Release\net9.0-android\resizetizer\sp\values\maui_colors.xml
+set;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\158\jl\res\anim\enterfromleft.xml
+set;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\158\jl\res\anim\enterfromright.xml
+set;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\158\jl\res\anim\exittoleft.xml
+set;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\158\jl\res\anim\exittoright.xml
+set;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\anim\nav_default_enter_anim.xml
+set;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\anim\nav_default_exit_anim.xml
+set;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\anim\nav_default_pop_enter_anim.xml
+set;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\anim\nav_default_pop_exit_anim.xml
+set;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\anim\nav_modal_default_enter_anim.xml
+set;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\anim\nav_modal_default_exit_anim.xml
+string;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\158\jl\res\values\strings.xml
+string;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\159\jl\res\values\values.xml
+style;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\values\styles.xml
+style;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\values-v35\styles.xml
+translate;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\158\jl\res\anim\enterfromleft.xml
+translate;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\158\jl\res\anim\enterfromright.xml
+translate;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\158\jl\res\anim\exittoleft.xml
+translate;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\158\jl\res\anim\exittoright.xml
+translate;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\anim\nav_default_enter_anim.xml
+translate;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\anim\nav_default_exit_anim.xml
+translate;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\anim\nav_default_pop_enter_anim.xml
+translate;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\anim\nav_default_pop_exit_anim.xml
+translate;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\anim\nav_modal_default_enter_anim.xml
+translate;D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\obj\Release\net9.0-android\lp\160\jl\res\anim\nav_modal_default_exit_anim.xml

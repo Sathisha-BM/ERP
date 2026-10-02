@@ -1,0 +1,342 @@
+2026-08-27 17:29:41 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: UserRights OnUserChanged to Abhishek | Info: UserName: Abhishek
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: User, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Category, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: UOM, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: State, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Currency, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: User Rights, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Store, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Raw Material, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Factors, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Process, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Machine, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Grouping, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Item, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: HSN Master, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Customer, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Expense, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Screen Management, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Vendor, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: BOM, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Income, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Currency Today, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Bank, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Company, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Correspondences, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Master Upload, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Holiday List, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Staff, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: LeaveType, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Employee Leave Balance, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Leave Application, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Project Type Master, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Cost-Center, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: User Level Authorization, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Shift Allocation, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Item Rate-Updation, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Manufacturing Quotation, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Terms and Conditions, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Leads, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Enquiry Sales, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Authorization, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Sales Order, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Manufacturing DC, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: General Settings, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Store Map, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Performa Invoice, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Stock-Add, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Material Requisition, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Material Issue-Note, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Enquiry Purchase, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Material Requirement Analysis, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Print Management, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Enquiry Feasibility, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Job Order, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Production Issue WO Assembly, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Production Return GRN Assembly, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Production SCN Assembly, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Tool-Crib Issue, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Tool-Crib Return, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Instant Search, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Route Card, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Production Log Setting, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Daily Production Log, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Process Flow-RC, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: MaintenanceSchedule, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: MaintenanceProcess, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: BreakdownMaintenance, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: CalibrationHistoryAndMaintenance, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Production Issue WO Component, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Inter Store Transfer, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Production Return Component, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Production SCN Component, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Contract Review, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Contract Review CheckList, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Stock Position, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Purchase-Quotation, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Purchase Order, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Purchase GRN, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Purchase SCN, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Purchase Invoice, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Manufacturing Invoice, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Sub-Contract DC-Out, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Sub-Contrect GRN, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Sub-Contract SCN, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Sub-Contract Invoice, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Export Invoice, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: MasterInspection, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: FinalInspection, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: IncomingInspection, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: InspectionSettings, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: DefectInfo, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Assembly Requirement Analysis, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Labour GRN, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Labour SCN, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Labour Delivery Challan, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Labour Invoice, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Route Card Release, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Excel Upload, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Credit Note, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Printing Map, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: LabourCostManagement, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: BOMLabourCost, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Sales Track Report, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Debit Note, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Tags, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Labour Track Report, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Payments, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Advaceadjustment, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Receipts, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Fundtransactions, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Dashboard, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Stock Ledger, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Stock Analysis, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: ViewTallyDc-In-Out, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Bill Pending List, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Bill Paid List, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Service Bills, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Po Pendings, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Pending Statements, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: ToolCribIssue Summary, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: ItemHistory, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Confirmation Of Accounts, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Stock Position(Internal & External), View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: TaxDetails Report, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Profit & Loss Accounts, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Item Modification, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: RejectionMaster, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Day Book, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Labour Pending, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: View Po Track, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Production Pending Summary, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Rejection Analysis, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: GSTITC04, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: HRMaster, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Biometric Excel Set, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Salary Head Print Setting, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Salary, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Attendance, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: StaffLoan, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: BOM Labour, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Ratings, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Purchase Sales Track, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Estimation, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Route Card Analysis, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Stock Issue-Request, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: CreditDebit Summary Report, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: TDSummary Report, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: HSNSummary Report, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: PR PO Rating Report, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Candidate, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Offer Letter, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Appointment Letter, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Joborder Track, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Material_stockLeft, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Qmsdocuments, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: VendorPerformance, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: OperatorSummary, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: BOM PRSCN, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Summary and Graphs, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: CustomScreenSetting, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: ProcessEmployeeAssign, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: ProductionAttendancelog, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Store Add Summary, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Production WorkOrder Issue, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: MaterialIssueNote Report, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Inspection Report, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Daily Log Summary, View: False, Create: False,
+                       Edit: False, Delete: False, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: Production Live View, View: True, Create: True,
+                       Edit: True, Delete: True, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: MessengerScreenUserSetting, View: True, Create: True,
+                       Edit: True, Delete: True, Hide: False
+2026-08-27 17:30:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: Created rights for Abhishek | Info: Screen: ERPScreenChatNotification, View: True, Create: True,
+                       Edit: True, Delete: True, Hide: False
+2026-08-27 17:40:23 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: UserRights OnUserChanged to Abhishek | Info: UserName: Abhishek
+2026-08-27 18:21:55 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Material Requisition Created | Info: Material Requisition Created.
+

@@ -1,0 +1,4 @@
+2026-09-05 14:24:36 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Manufacturing PO Created | Info: Sales Order Created.
+
+2026-09-05 15:16:49 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Manufacturing PO Created | Info: Sales Order Created.
+

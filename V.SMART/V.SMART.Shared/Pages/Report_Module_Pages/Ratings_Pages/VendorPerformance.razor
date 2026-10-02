@@ -1,0 +1,2203 @@
+﻿@page "/VendorPerformance"
+@using System.Dynamic
+@using System.Collections.Generic;
+@using ApexCharts
+
+@using MudBlazor
+@using V.SMART.Shared.BusinessLayer.BusinessService.IBusinessService.IReportService.ITrackReportService
+
+@using V.SMART.Shared.ViewModels.AccountsViewModel
+@using V.SMART.Shared.ViewModels.ReportViewModel.VendorRaing
+@using V.SMART.Shared.ViewModels.ReportViewModel.VendorRatingVM
+
+@inherits BaseUserRightsComponent
+
+@inject ILoggingService LoggingService
+@inject CurrentUserService CurrentUserService
+@inject IJSRuntime _JS
+@inject IColumnPreferenceService PreferenceService
+@inject IVenderratingService venderratingService
+@inject NavigationManager _navigation
+@inject IExcelTemplateService excelTemplateService
+
+
+<style>
+    .chart-toolbar {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 8px;
+        width: 100%;
+    }
+
+    .chart-btn {
+        width: 100%;
+        height: 50px;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 8px;
+        white-space: nowrap;
+        transition: all 0.25s ease;
+    }
+
+        .chart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,.2);
+        }
+
+
+    /* Large screens */
+    @@media (max-width: 1400px) {
+        .chart-toolbar {
+            grid-template-columns: repeat(5, 1fr);
+        }
+    }
+
+    /* Tablet */
+    @@media (max-width: 992px) {
+        .chart-toolbar {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /* Mobile */
+    @@media (max-width: 576px) {
+        .chart-toolbar {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .chart-btn {
+            height: 45px;
+            font-size: 13px;
+        }
+    }
+
+    .chart-container {
+        width: 100%;
+        min-height: 350px;
+    }
+
+    @@media (max-width: 768px) {
+        .chart-container {
+            min-height: 250px;
+        }
+
+        .card-header h5 {
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .table {
+            font-size: 0.8rem;
+        }
+    }
+</style>
+@if (isProcessing)
+{
+    <ProcessingOverlay Visible="@isProcessing"
+                       Message="Please wait..." />
+}
+else if (!CanView)
+{
+    <RedirectToLogin />
+}
+else
+{
+    <div class="container-fluid px-2 px-md-4 mt-4">
+
+        <!-- Page Header -->
+        <PageHeader TitleText="Vendor Performance"
+                    TitleIcon="bi bi-speedometer2"
+                    Breadcrumbs="@VendorPerformanceBreadcrumbs" />
+
+        <div class="card shadow-lg border-0">
+
+
+            <!-- Top Banner -->
+            <div class="card-body">
+
+                <div class="rounded-3 p-4 text-white"
+                     style="background: linear-gradient(90deg, #0d6efd, #198754);">
+
+                    <div class="row align-items-center">
+
+                        <div class="col-lg-8">
+
+                            <h2 class="fw-bold mb-2">
+                                <i class="bi bi-speedometer2 me-2"></i>
+                                Vendor Performance Dashboard
+                            </h2>
+
+                            <p class="mb-0">
+                                Monitor Vendor Performance | Delivery | Quality | Rating
+                            </p>
+
+                        </div>
+
+                        <div class="col-lg-4 text-end">
+
+                            <h4 class="fw-bold mb-1">
+                                @FinancialYear
+                            </h4>
+
+                            <small>
+                                <i class="bi bi-calendar-event me-1"></i>
+                                @DateTime.Now.ToString("dd MMM yyyy")
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Filter -->
+            <div class="card-body bg-light border-top">
+
+                <div class="row align-items-center gy-3">
+
+                    <!-- Left -->
+                    <div class="col-lg-3">
+
+                        <div class="d-flex align-items-center">
+
+                            <div class="rounded-circle bg-success bg-opacity-10 d-flex justify-content-center align-items-center"
+                                 style="width:70px;height:70px">
+
+                                <i class="bi bi-shop fs-2 text-success"></i>
+
+                            </div>
+
+                            <div class="ms-3">
+
+                                <h5 class="fw-bold mb-1">
+                                    Vendor / Supplier Rating
+                                </h5>
+
+                                <div class="text-success fw-semibold">
+                                    Performance Overview
+                                </div>
+
+                                <small class="text-muted">
+                                    Financial Year
+                                </small>
+
+                                <br />
+
+                                <span class="badge bg-success rounded-pill px-3 py-2 mt-1">
+                                    @FinancialYear
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <label class="form-label fw-bold text-dark">
+                            <i class="bi bi-calendar2-week-fill text-primary me-2"></i>
+                            Financial Year
+                        </label>
+
+                        <select class="form-select shadow-sm"
+                                value="@SelectedFinancialYear"
+                                @onchange="OnFinancialYearChanged">
+                            @foreach (var fy in FinancialYears)
+                            {
+                                <option value="@fy.Year">@fy.DisplayText</option>
+                            }
+                        </select>
+                    </div>
+
+
+                    <!-- Type -->
+                    <div class="col-lg-2 col-md-6">
+                        <label class="form-label fw-bold text-primary">
+                            <i class="bi bi-tags-fill me-1"></i> Type
+                        </label>
+
+
+                        <InputSelect class="form-select shadow-sm"
+                                     Value="@SelectedType"
+                                     ValueChanged="@(async (string value) => await OnTypeChanged(value))"
+                                     ValueExpression="() => SelectedType">
+
+                            <option value="">Select Type</option>
+                            <option value="Purchase">Purchase</option>
+                            <option value="Subcontract">Subcontract</option>
+
+                        </InputSelect>
+                    </div>
+
+                    <!-- Center -->
+                    <div class="col-lg-3">
+
+                        <label class="form-label fw-bold text-success mb-2">
+                            <i class="bi bi-person-badge-fill me-2"></i>
+                            Select Vendor / Supplier
+                        </label>
+
+                        @* <MudAutocomplete T="int"
+                                         Class="w-100"
+                                         Dense="true"
+                                         Margin="Margin.Dense"
+                                         Variant="Variant.Outlined"
+                                         Placeholder="All Vendors (Search to filter)"
+                                         Value="@SelectedPartyVM"
+                                         ValueChanged="@OnPartyChanged"
+                                         SearchFunc="@SearchCustomers"
+                                         ToStringFunc="@(x => x?.PartyName ?? string.Empty)"
+                                         Clearable="true"
+                                         ShowProgressIndicator="true"
+                                         MinCharacters="0"
+                                         OpenOnFocus="true"
+                                         ResetValueOnEmptyText="true"
+                                         CoerceText="true"
+                                         CoerceValue="false" /> *@
+
+
+                        <MudAutocomplete T="int"
+                                         Label="Select Party"
+                                         Value="@SelectedPartyCode"
+                                         ValueChanged="@OnPartyChanged"
+                                         SearchFunc="@SearchCustomers"
+                                         ToStringFunc="@(s => Parties.FirstOrDefault(x => x.PartyCode == s)?.PartyName ?? "")"
+                                         Variant="Variant.Outlined"
+                                         Dense="true"
+                                         Margin="Margin.Dense"
+                                         OpenIcon="@Icons.Material.Filled.ArrowDropDown"
+                                         CloseIcon="@Icons.Material.Filled.ArrowDropUp"
+                                         ShowProgressIndicator="true"
+                                         MinCharacters="0"
+                                         OpenOnFocus="true"
+                                         ResetValueOnEmptyText="true"
+                                         CoerceText="true"
+                                         CoerceValue="false"
+                                         Placeholder="Select Party"
+                                         Style="width:100%;" />
+
+                    </div>
+
+
+
+
+                    @* 
+                <div class="btn-group mb-3">
+
+                    <MudBlazor.MudAutocomplete T="string"
+                     Class="w-100"
+                     Dense="true"
+                     Variant="MudBlazor.Variant.Outlined"
+                     Placeholder="Select Chart Type..."
+                      Value="@SelectedChart.ToString()"
+                     ValueChanged="@OnChartChanged"
+                     SearchFunc="@SearchChartTypes"
+                     ToStringFunc="@(x => x ?? string.Empty)"
+                     Clearable="true"
+                     MinCharacters="0"
+                     OpenOnFocus="true"
+                     ResetValueOnEmptyText="true" />
+
+                </div> *@
+
+
+
+
+
+                </div>
+
+            </div>
+
+
+            @if (ShowRatings)
+            {
+                <div class="card shadow mt-3">
+
+                    <!-- Header -->
+                    <div class="card-header bg-success text-white py-2">
+                        <div class="row align-items-center g-2">
+
+                            <div class="col-12 col-lg-3">
+                                <h5 class="mb-0">
+                                    <i class="bi bi-table me-2"></i>
+                                    Vendor Performance Details
+                                </h5>
+                            </div>
+
+
+
+
+                            <div class="col-lg-8 col-md-7 col-12">
+                                <div class="d-flex justify-content-lg-end justify-content-center gap-2">
+
+                                    <button type="button"
+                                            class="btn btn-light text-primary fw-semibold me-2 shadow-sm"
+                                            @onclick="OpenCalculationModal">
+                                        <i class="bi bi-calculator me-1"></i>
+                                        Calculation
+                                    </button>
+
+                                    <button class="btn btn-primary"
+                                            @onclick="ToggleChart">
+                                        <i class="bi bi-bar-chart-fill me-2"></i>
+                                        @(ShowChart ? "Hide Chart" : "Show Chart")
+                                    </button>
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 col-md-3 col-lg-3 ms-auto text-end">
+                                <button class="btn btn-primary w-100"
+                                        @onclick="OnPrintPendingTrack">
+                                    <i class="bi bi-download me-2"></i>
+                                    Export Excel
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="card border-0 shadow-sm">
+
+                        <div class="card-body p-2">
+
+                            <div class="chart-toolbar">
+
+                                <button class="btn btn-primary chart-btn"
+                                        @onclick="() => ChangeChart(ChartType.Overall)">
+                                    <i class="bi bi-speedometer2 me-1"></i> Overall
+                                </button>
+
+                                <button class="btn btn-success chart-btn"
+                                        @onclick="() => ChangeChart(ChartType.Monthly)">
+                                    <i class="bi bi-calendar3 me-1"></i> Monthly
+                                </button>
+
+                                <button class="btn btn-secondary chart-btn"
+                                        @onclick="() => ChangeChart(ChartType.Bar)">
+                                    <i class="bi bi-bar-chart-fill me-1"></i> Bar
+                                </button>
+
+                                <button class="btn btn-info text-white chart-btn"
+                                        @onclick="() => ChangeChart(ChartType.Line)">
+                                    <i class="bi bi-graph-up me-1"></i> Trend
+                                </button>
+
+                                <button class="btn btn-warning text-dark chart-btn"
+                                        @onclick="() => ChangeChart(ChartType.Area)">
+                                    <i class="bi bi-graph-up-arrow me-1"></i> Area
+                                </button>
+
+                                <button class="btn btn-primary chart-btn"
+                                        @onclick="() => ChangeChart(ChartType.Radar)">
+                                    <i class="bi bi-bullseye me-1"></i> Radar
+                                </button>
+
+                                <button class="btn btn-secondary chart-btn"
+                                        @onclick="() => ChangeChart(ChartType.RadialBar)">
+                                    <i class="bi bi-speedometer me-1"></i> RadialBar
+                                </button>
+
+                                @if (SelectedParty == null)
+                                {
+
+                                    <button class="btn btn-danger chart-btn"
+                                            @onclick="() => ChangeChart(ChartType.Pie)">
+                                        <i class="bi bi-pie-chart-fill me-1"></i> Pie
+                                    </button>
+
+                                    <button class="btn btn-dark chart-btn"
+                                            @onclick="() => ChangeChart(ChartType.Donut)">
+                                        <i class="bi bi-circle-fill me-1"></i> Donut
+                                    </button>
+                                }
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Report -->
+                    <div class="card-body">
+
+                        @if (VendorRatingVMs != null && VendorRatingVMs.Any())
+                        {
+                            <div class="table-responsive border rounded" style="max-height:600px; overflow-x:auto; overflow-y:auto;">
+
+                                <table class="table table-bordered table-sm mb-0 align-middle" style="min-width:1500px; white-space:nowrap;">
+
+                                    <thead class="custom-blue text-center align-middle sticky-top">
+                                        <tr>
+                                            <th>Sl No</th>
+                                            @*  <th>Vendor Code</th> *@
+                                            <th>Vendor Name</th>
+                                            <th>Apr</th>
+                                            <th>May</th>
+                                            <th>Jun</th>
+                                            <th>Jul</th>
+                                            <th>Aug</th>
+                                            <th>Sep</th>
+                                            <th>Oct</th>
+                                            <th>Nov</th>
+                                            <th>Dec</th>
+                                            <th>Jan</th>
+                                            <th>Feb</th>
+                                            <th>Mar</th>
+                                            <th>Overall Rating</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach (var item in VendorRatingVMs.Select((x, i) => new { x, i }))
+                                        {
+                                            <tr>
+                                                <td>@(item.i + 1)</td>
+                                                @* <td>@item.x.VendorCode</td> *@
+                                                <td>@item.x.VendorName</td>
+                                                <td>@(item.x.Apr.HasValue ? $"{item.x.Apr.Value:0.00}%" : "")</td>
+                                                <td>@(item.x.May.HasValue ? $"{item.x.May.Value:0.00}%" : "")</td>
+                                                <td>@(item.x.Jun.HasValue ? $"{item.x.Jun.Value:0.00}%" : "")</td>
+                                                <td>@(item.x.Jul.HasValue ? $"{item.x.Jul.Value:0.00}%" : "")</td>
+                                                <td>@(item.x.Aug.HasValue ? $"{item.x.Aug.Value:0.00}%" : "")</td>
+                                                <td>@(item.x.Sep.HasValue ? $"{item.x.Sep.Value:0.00}%" : "")</td>
+                                                <td>@(item.x.Oct.HasValue ? $"{item.x.Oct.Value:0.00}%" : "")</td>
+                                                <td>@(item.x.Nov.HasValue ? $"{item.x.Nov.Value:0.00}%" : "")</td>
+                                                <td>@(item.x.Dec.HasValue ? $"{item.x.Dec.Value:0.00}%" : "")</td>
+                                                <td>@(item.x.Jan.HasValue ? $"{item.x.Jan.Value:0.00}%" : "")</td>
+                                                <td>@(item.x.Feb.HasValue ? $"{item.x.Feb.Value:0.00}%" : "")</td>
+                                                <td>@(item.x.Mar.HasValue ? $"{item.x.Mar.Value:0.00}%" : "")</td>
+
+                                                <td class="text-center">
+                                                    <span class="badge bg-success">
+                                                        @($"{item.x.OverallRating:0.00}%")
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+
+                            @if (ShowChart)
+                            {
+                                <div class="row mt-3">
+                                    <div class="col-12">
+                                        <div class="card shadow-sm mb-3">
+
+                                            <div class="card-header bg-primary text-white">
+                                                <h5 class="mb-0 text-center text-md-start">
+                                                    <i class="bi bi-bar-chart-fill me-2"></i>
+                                                    Vendor Performance Overview
+                                                </h5>
+                                            </div>
+
+                                            <div class="card-body p-2 p-md-3">
+
+                                                <div class="w-100 overflow-auto">
+                                                    <div class="chart-container">
+
+                                                        @if (SelectedChart == ChartType.Overall)
+                                                        {
+
+
+                                                            <ApexChart TItem="VendorRatingVM"
+                                                                       Title="Overall Vendor Rating"
+                                                                       Options="ChartOptions">
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 Name="Overall Rating"
+                                                                                 SeriesType="SeriesType.Bar"
+                                                                                 XValue="x=>x.VendorName"
+                                                                                 YValue="x=>(decimal)x.OverallRating" />
+
+                                                            </ApexChart>
+
+                                                        }
+                                                        @if (SelectedChart == ChartType.Monthly)
+                                                        {
+
+                                                            <ApexChart TItem="VendorRatingVM"
+                                                                       Title="Vendor Monthly Performance"
+                                                                       Options="ChartOptions">
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Name="Apr"
+                                                                                 SeriesType="SeriesType.Bar"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 XValue="x => x.VendorName"
+                                                                                 YValue="x => x.Apr ?? 0" />
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Name="May"
+                                                                                 SeriesType="SeriesType.Bar"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 XValue="x => x.VendorName"
+                                                                                 YValue="x => x.May ?? 0" />
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Name="Jun"
+                                                                                 SeriesType="SeriesType.Bar"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 XValue="x => x.VendorName"
+                                                                                 YValue="x => x.Jun ?? 0" />
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Name="Jul"
+                                                                                 SeriesType="SeriesType.Bar"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 XValue="x => x.VendorName"
+                                                                                 YValue="x => x.Jul ?? 0" />
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Name="Aug"
+                                                                                 SeriesType="SeriesType.Bar"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 XValue="x => x.VendorName"
+                                                                                 YValue="x => x.Aug ?? 0" />
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Name="Sep"
+                                                                                 SeriesType="SeriesType.Bar"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 XValue="x => x.VendorName"
+                                                                                 YValue="x => x.Sep ?? 0" />
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Name="Oct"
+                                                                                 SeriesType="SeriesType.Bar"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 XValue="x => x.VendorName"
+                                                                                 YValue="x => x.Oct ?? 0" />
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Name="Nov"
+                                                                                 SeriesType="SeriesType.Bar"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 XValue="x => x.VendorName"
+                                                                                 YValue="x => x.Nov ?? 0" />
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Name="Dec"
+                                                                                 SeriesType="SeriesType.Bar"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 XValue="x => x.VendorName"
+                                                                                 YValue="x => x.Dec ?? 0" />
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Name="Jan"
+                                                                                 SeriesType="SeriesType.Bar"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 XValue="x => x.VendorName"
+                                                                                 YValue="x => x.Jan ?? 0" />
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Name="Feb"
+                                                                                 SeriesType="SeriesType.Bar"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 XValue="x => x.VendorName"
+                                                                                 YValue="x => x.Feb ?? 0" />
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Name="Mar"
+                                                                                 SeriesType="SeriesType.Bar"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 XValue="x => x.VendorName"
+                                                                                 YValue="x => x.Mar ?? 0" />
+
+                                                            </ApexChart>
+
+                                                        }
+
+                                                        @if (SelectedChart == ChartType.Bar)
+                                                        {
+
+
+                                                            <ApexChart TItem="VendorRatingVM"
+                                                                       Title="Vendor Rating - Bar Chart"
+                                                                       Options="ChartOptions">
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 Name="Overall Rating"
+                                                                                 SeriesType="SeriesType.Bar"
+                                                                                 XValue="x => x.VendorName"
+                                                                                 YValue="x => (decimal)x.OverallRating" />
+
+                                                            </ApexChart>
+
+                                                        }
+                                                        @if (SelectedChart == ChartType.Area)
+                                                        {
+
+                                                            <ApexChart TItem="VendorRatingVM"
+                                                                       Title="Vendor Rating - Area Chart"
+                                                                       Options="ChartOptions">
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 Name="Overall Rating"
+                                                                                 SeriesType="SeriesType.Area"
+                                                                                 XValue="x => x.VendorName"
+                                                                                 YValue="x => (decimal)x.OverallRating" />
+
+                                                            </ApexChart>
+
+                                                        }
+                                                        @if (SelectedChart == ChartType.Pie)
+                                                        {
+
+                                                            <ApexChart TItem="VendorRatingVM"
+                                                                       Title="Vendor Share"
+                                                                       Options="PieOptions">
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 Name="Overall"
+                                                                                 SeriesType="SeriesType.Pie"
+                                                                                 XValue="x=>x.VendorName"
+                                                                                 YValue="x=>(decimal)x.OverallRating" />
+
+                                                            </ApexChart>
+
+                                                        }
+                                                        @if (SelectedChart == ChartType.Line)
+                                                        {
+
+                                                            <ApexChart TItem="VendorRatingVM"
+                                                                       Title="Vendor Rating Trend"
+                                                                       Options="ChartOptions">
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 Name="Overall"
+                                                                                 SeriesType="SeriesType.Line"
+                                                                                 XValue="x=>x.VendorName"
+                                                                                 YValue="x=>(decimal)x.OverallRating" />
+
+                                                            </ApexChart>
+
+                                                        }
+                                                        @if (SelectedChart == ChartType.Donut)
+                                                        {
+
+                                                            <ApexChart TItem="VendorRatingVM"
+                                                                       Title="Vendor Rating Distribution"
+                                                                       Options="DonutOptions">
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 Name="Overall"
+                                                                                 SeriesType="SeriesType.Donut"
+                                                                                 XValue="x=>x.VendorName"
+                                                                                 YValue="x=>(decimal)x.OverallRating" />
+
+                                                            </ApexChart>
+
+                                                        }
+                                                        @if (SelectedChart == ChartType.Radar && VendorRatingVMs.Any())
+                                                        {
+
+                                                            <ApexChart TItem="VendorRatingVM"
+                                                                       Title="Vendor Rating - Radar Chart"
+                                                                       Options="ChartOptions1">
+
+                                                                <ApexPointSeries TItem="VendorRatingVM"
+                                                                                 Items="VendorRatingVMs"
+                                                                                 Name="Overall Rating"
+                                                                                 SeriesType="SeriesType.Radar"
+                                                                                 XValue="x => x.VendorName"
+                                                                                 YValue="x => x.OverallRating" />
+
+                                                            </ApexChart>
+
+                                                        }
+
+                                                        @if (SelectedChart == ChartType.RadialBar)
+                                                        {
+
+                                                            <ApexChart TItem="GaugeVM" Title="Overall Rating"
+                                                                       Options="ChartOptions2">
+
+                                                                <ApexPointSeries TItem="GaugeVM"
+                                                                                 Items="GaugeData"
+                                                                                 Name="Overall"
+                                                                                 SeriesType="SeriesType.RadialBar"
+                                                                                 XValue="x => x.Label"
+                                                                                 YValue="x => x.Value" />
+
+                                                            </ApexChart>
+
+                                                        }
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                            }
+                            @if (ShowCalculationModal)
+                            {
+                                <div class="modal fade show d-block"
+                                     tabindex="-1"
+                                     style="background-color: rgba(0,0,0,0.5);">
+
+                                    <div class="modal-dialog modal-lg modal-dialog-centered">
+
+                                        <div class="modal-content shadow-lg border-0">
+
+                                            <!-- Modal Header -->
+                                            <div class="modal-header bg-primary text-white">
+
+                                                <h5 class="modal-title fw-bold">
+                                                    <i class="bi bi-speedometer2 me-2"></i>
+                                                    Vendor Performance Rating Methodology
+                                                </h5>
+
+                                                <button type="button"
+                                                        class="btn-close btn-close-white"
+                                                        @onclick="CloseCalculationModal">
+                                                </button>
+
+                                            </div>
+
+
+                                            <!-- Modal Body -->
+                                            <div class="modal-body">
+
+                                                <!-- Information -->
+                                                <div class="alert alert-primary d-flex align-items-start">
+
+                                                    <i class="bi bi-info-circle-fill me-2 mt-1"></i>
+
+                                                    <div>
+                                                        <strong>Vendor Performance Evaluation</strong>
+                                                        <div class="small mt-1">
+                                                            Vendor performance is evaluated based on
+                                                            <strong>Delivery Performance</strong> and
+                                                            <strong>Quality Performance</strong>.
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- Rating Methodology -->
+                                                <div class="table-responsive">
+
+                                                    <table class="table table-bordered table-hover align-middle mb-0">
+
+                                                        <thead class="table-light">
+
+                                                            <tr>
+                                                                <th style="width: 22%;">
+                                                                    <i class="bi bi-list-check me-1"></i>
+                                                                    Rating Criteria
+                                                                </th>
+
+                                                                <th style="width: 58%;">
+                                                                    <i class="bi bi-calculator me-1"></i>
+                                                                    Evaluation Method
+                                                                </th>
+
+                                                                <th class="text-center" style="width: 20%;">
+                                                                    Maximum Score
+                                                                </th>
+                                                            </tr>
+
+                                                        </thead>
+
+
+                                                        <tbody>
+
+                                                            <!-- Delivery Rating -->
+                                                            <tr>
+
+                                                                <td>
+                                                                    <i class="bi bi-truck me-2 text-primary"></i>
+                                                                    <strong>Delivery Performance</strong>
+                                                                </td>
+
+                                                                <td>
+
+                                                                    <div>
+                                                                        Rating is determined based on the
+                                                                        difference between the
+                                                                        <strong>Due Date</strong> and
+                                                                        <strong>Delivery Date</strong>.
+                                                                    </div>
+
+                                                                    <div class="mt-3">
+
+                                                                        <div class="row g-2">
+
+                                                                            <div class="col-md-6">
+                                                                                <span class="badge bg-success w-100 py-2">
+                                                                                    0–2 Days : 100 Points
+                                                                                </span>
+                                                                            </div>
+
+                                                                            <div class="col-md-6">
+                                                                                <span class="badge bg-success w-100 py-2">
+                                                                                    3–6 Days : 90 Points
+                                                                                </span>
+                                                                            </div>
+
+                                                                            <div class="col-md-6">
+                                                                                <span class="badge bg-warning text-dark w-100 py-2">
+                                                                                    7–10 Days : 75 Points
+                                                                                </span>
+                                                                            </div>
+
+                                                                            <div class="col-md-6">
+                                                                                <span class="badge bg-warning text-dark w-100 py-2">
+                                                                                    11–14 Days : 50 Points
+                                                                                </span>
+                                                                            </div>
+
+                                                                            <div class="col-md-6">
+                                                                                <span class="badge bg-danger w-100 py-2">
+                                                                                    Above 14 Days : 0 Points
+                                                                                </span>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </td>
+
+                                                                <td class="text-center">
+
+                                                                    <span class="badge bg-success fs-6 px-3 py-2">
+                                                                        100
+                                                                    </span>
+
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <!-- Quality Rating -->
+                                                            <tr>
+
+                                                                <td>
+
+                                                                    <i class="bi bi-box-seam me-2 text-primary"></i>
+                                                                    <strong>Quality Performance</strong>
+
+                                                                </td>
+
+                                                                <td>
+
+                                                                    <div>
+                                                                        Quality performance is evaluated
+                                                                        based on the
+                                                                        <strong>Received Quantity</strong>,
+                                                                        <strong>Rejected Quantity</strong>
+                                                                        and
+                                                                        <strong>Reworked Quantity</strong>.
+                                                                    </div>
+
+                                                                    <div class="alert alert-light border mt-3 mb-0">
+
+                                                                        <div class="text-center">
+
+                                                                            <strong class="text-primary">
+                                                                                Quality Rating
+                                                                            </strong>
+
+                                                                            <div class="fs-6 mt-2">
+
+                                                                                (Received Quantity −
+                                                                                Reject Quantity −
+                                                                                Rework Quantity)
+                                                                                ÷ Received Quantity
+                                                                                × 100
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </td>
+
+                                                                <td class="text-center">
+
+                                                                    <span class="badge bg-success fs-6 px-3 py-2">
+                                                                        100
+                                                                    </span>
+
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <!-- Vendor Rating -->
+                                                            <tr>
+
+                                                                <td>
+
+                                                                    <i class="bi bi-award-fill me-2 text-primary"></i>
+                                                                    <strong>Overall Vendor Rating</strong>
+
+                                                                </td>
+
+                                                                <td>
+
+                                                                    <div>
+                                                                        The overall vendor rating is calculated
+                                                                        using the average of
+                                                                        <strong>Delivery Performance</strong>
+                                                                        and
+                                                                        <strong>Quality Performance</strong>.
+                                                                    </div>
+
+                                                                    <div class="alert alert-light border mt-3 mb-0">
+
+                                                                        <div class="text-center">
+
+                                                                            <strong class="text-primary">
+                                                                                Vendor Rating
+                                                                            </strong>
+
+                                                                            <div class="fs-6 mt-2">
+
+                                                                                (Delivery Rating +
+                                                                                Quality Rating)
+                                                                                ÷ 2
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </td>
+
+                                                                <td class="text-center">
+
+                                                                    <span class="badge bg-success fs-6 px-3 py-2">
+                                                                        100
+                                                                    </span>
+
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <!-- Overall Period Rating -->
+                                                            <tr>
+
+                                                                <td>
+
+                                                                    <i class="bi bi-star-fill me-2 text-warning"></i>
+                                                                    <strong>Period Performance Rating</strong>
+
+                                                                </td>
+
+                                                                <td>
+
+                                                                    The period performance rating represents
+                                                                    the average of all applicable
+                                                                    <strong>Vendor Ratings</strong>
+                                                                    within the selected evaluation period.
+
+                                                                </td>
+
+                                                                <td class="text-center">
+
+                                                                    <span class="badge bg-primary fs-6 px-3 py-2">
+                                                                        Average
+                                                                    </span>
+
+                                                                </td>
+
+                                                            </tr>
+
+                                                        </tbody>
+
+                                                    </table>
+
+                                                </div>
+
+
+                                                <!-- Delivery Rating Scale -->
+                                                <div class="card border-0 bg-light mt-4">
+
+                                                    <div class="card-body">
+
+                                                        <h6 class="fw-bold mb-3">
+
+                                                            <i class="bi bi-bar-chart-fill me-2 text-primary"></i>
+                                                            Delivery Performance Rating Scale
+
+                                                        </h6>
+
+
+                                                        <div class="row g-2">
+
+                                                            <div class="col-md">
+
+                                                                <div class="border rounded p-3 text-center bg-white">
+
+                                                                    <div class="fs-4 fw-bold text-success">
+                                                                        100
+                                                                    </div>
+
+                                                                    <small class="text-muted">
+                                                                        0–2 Days
+                                                                    </small>
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            <div class="col-md">
+
+                                                                <div class="border rounded p-3 text-center bg-white">
+
+                                                                    <div class="fs-4 fw-bold text-success">
+                                                                        90
+                                                                    </div>
+
+                                                                    <small class="text-muted">
+                                                                        3–6 Days
+                                                                    </small>
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            <div class="col-md">
+
+                                                                <div class="border rounded p-3 text-center bg-white">
+
+                                                                    <div class="fs-4 fw-bold text-warning">
+                                                                        75
+                                                                    </div>
+
+                                                                    <small class="text-muted">
+                                                                        7–10 Days
+                                                                    </small>
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            <div class="col-md">
+
+                                                                <div class="border rounded p-3 text-center bg-white">
+
+                                                                    <div class="fs-4 fw-bold text-warning">
+                                                                        50
+                                                                    </div>
+
+                                                                    <small class="text-muted">
+                                                                        11–14 Days
+                                                                    </small>
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            <div class="col-md">
+
+                                                                <div class="border rounded p-3 text-center bg-white">
+
+                                                                    <div class="fs-4 fw-bold text-danger">
+                                                                        0
+                                                                    </div>
+
+                                                                    <small class="text-muted">
+                                                                        Above 14 Days
+                                                                    </small>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- Rating Interpretation -->
+                                                <div class="card border-0 bg-light mt-3">
+
+                                                    <div class="card-body">
+
+                                                        <h6 class="fw-bold mb-3">
+
+                                                            <i class="bi bi-info-circle-fill me-2 text-primary"></i>
+                                                            Rating Interpretation
+
+                                                        </h6>
+
+
+                                                        <div class="row g-2">
+
+                                                            <div class="col-md">
+
+                                                                <div class="border rounded p-3 text-center bg-white">
+
+                                                                    <div class="fw-bold fs-5 text-success">
+                                                                        100
+                                                                    </div>
+
+                                                                    <small>
+                                                                        Excellent
+                                                                    </small>
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            <div class="col-md">
+
+                                                                <div class="border rounded p-3 text-center bg-white">
+
+                                                                    <div class="fw-bold fs-5 text-success">
+                                                                        90
+                                                                    </div>
+
+                                                                    <small>
+                                                                        Very Good
+                                                                    </small>
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            <div class="col-md">
+
+                                                                <div class="border rounded p-3 text-center bg-white">
+
+                                                                    <div class="fw-bold fs-5 text-warning">
+                                                                        75
+                                                                    </div>
+
+                                                                    <small>
+                                                                        Good
+                                                                    </small>
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            <div class="col-md">
+
+                                                                <div class="border rounded p-3 text-center bg-white">
+
+                                                                    <div class="fw-bold fs-5 text-warning">
+                                                                        50
+                                                                    </div>
+
+                                                                    <small>
+                                                                        Average
+                                                                    </small>
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            <div class="col-md">
+
+                                                                <div class="border rounded p-3 text-center bg-white">
+
+                                                                    <div class="fw-bold fs-5 text-danger">
+                                                                        0
+                                                                    </div>
+
+                                                                    <small>
+                                                                        Poor
+                                                                    </small>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- Final Calculation -->
+                                                <div class="alert alert-light border mt-4 mb-0">
+
+                                                    <h6 class="fw-bold">
+
+                                                        <i class="bi bi-calculator-fill me-2 text-primary"></i>
+                                                        Final Rating Calculation
+
+                                                    </h6>
+
+
+                                                    <div class="text-center mt-3">
+
+                                                        <div class="mb-2 text-muted">
+                                                            Overall Vendor Rating
+                                                        </div>
+
+                                                        <div class="fs-5 fw-bold">
+
+                                                            <span class="badge bg-primary px-3 py-2">
+                                                                Delivery Rating
+                                                            </span>
+
+                                                            <span class="mx-2">+</span>
+
+                                                            <span class="badge bg-primary px-3 py-2">
+                                                                Quality Rating
+                                                            </span>
+
+                                                            <span class="mx-2">÷</span>
+
+                                                            <span class="badge bg-dark px-3 py-2">
+                                                                2
+                                                            </span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- Methodology Note -->
+                                                <div class="alert alert-secondary mt-3 mb-0">
+
+                                                    <i class="bi bi-shield-check me-2"></i>
+
+                                                    <strong>Evaluation Note:</strong>
+
+                                                    Vendor performance is evaluated using the defined
+                                                    delivery and quality parameters for the selected
+                                                    evaluation period. The maximum achievable vendor
+                                                    performance score is <strong>100 points</strong>.
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <!-- Modal Footer -->
+                                            <div class="modal-footer">
+
+                                                <button type="button"
+                                                        class="btn btn-danger px-4"
+                                                        @onclick="CloseCalculationModal">
+
+                                                    <i class="bi bi-x-circle me-1"></i>
+                                                    Close
+
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            }
+                        }
+
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+}
+@code
+{
+    protected override string ScreenName => "VendorPerformance";
+
+    private bool ShowChart;
+
+    private void ToggleChart()
+    {
+        ShowChart = !ShowChart;
+    }
+
+    private bool isProcessing;
+    private string SelectedParty = "";
+
+    private string? UserName;
+
+    public DateTime? FromDate { get; set; }
+
+    public DateTime? ToDate { get; set; }
+
+    private int SelectedFinancialYear;
+
+
+    // private bool IsAllVendors => string.IsNullOrEmpty(SelectedParty);
+
+    private List<FinancialYearVM> FinancialYears = new();
+
+    // public List<GridColumn> Columns { get; set; } = new();
+    private List<V.SMART.Shared.ViewModels.GridColumn> Columns = new();
+
+    private List<PartyVM> Parties = new();
+
+    private PartyVM? SelectedPartyVM;
+    private int SelectedPartyCode = 0;
+
+    private string SelectedType = "";
+
+    private string searchText;
+
+    private bool ShowCalculationModal = false;
+
+    private bool ShowRatings = false;
+
+    private List<VendorRatingVM> VendorRatingVMs = new();
+
+
+
+    private List<PageHeader.BreadcrumbItem> VendorPerformanceBreadcrumbs = new()
+    {
+        new() { Text = "Reports",Url="reports-home" },
+        new() { Text = "Ratings",Url="reports-home" },
+        new() { Text = "Vendor Performance", IsLast = true }
+    };
+
+
+    private async Task OnFinancialYearChanged(ChangeEventArgs e)
+    {
+        try
+        {
+            isProcessing = true;
+
+            if (e.Value == null)
+                return;
+
+            if (!int.TryParse(e.Value.ToString(), out int selectedYear))
+                return;
+
+            SelectedFinancialYear = selectedYear;
+
+            // Set FY date range
+            SetFinancialYearDates();
+
+            // Clear selected vendor because FY changed
+            SelectedPartyVM = null;
+
+
+            // Clear existing vendor list
+            Parties.Clear();
+
+            SelectedType = null;
+            VendorRatingVMs.Clear();
+
+            // Load vendors only for selected FY and selected type
+            if (!string.IsNullOrWhiteSpace(SelectedType))
+            {
+                await LoadVendorsAsync();
+            }
+
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(
+                ex,
+                "Error occurred while changing Financial Year");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+
+    private void SetFinancialYearDates()
+    {
+        if (SelectedFinancialYear < 1)
+            return;
+
+        FromDate = new DateTime(
+            SelectedFinancialYear,
+            4,
+            1);
+
+        ToDate = new DateTime(
+            SelectedFinancialYear + 1,
+            3,
+            31);
+    }
+
+
+
+    private string FinancialYear =>
+    DateTime.Today.Month >= 4
+        ? $"{DateTime.Today.Year}-{(DateTime.Today.Year + 1).ToString().Substring(2)}"
+        : $"{DateTime.Today.Year - 1}-{DateTime.Today.Year.ToString().Substring(2)}";
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            isProcessing = true;
+
+            await LoadRightsAsync();
+
+            if (!CanView)
+            {
+                _navigation.NavigateTo("/access-denied");
+                return;
+            }
+
+            UserName = await CurrentUserService.GetUsernameAsync();
+
+            // =====================================================
+            // PURCHASE:
+            // PurchPo
+            // → PurchPoSub
+            // → PurchaseGRNSub
+            // → PurchaseSCNSub
+            // → PurchaseSCN
+            // =====================================================
+
+            var purchasePoDates =
+                from po in _unitOfWork.PurchPos.GetQueryable()
+
+                join poSub in _unitOfWork.PurchPoSubs.GetQueryable()
+                    on po.PoId equals poSub.PoId
+
+                join grnSub in _unitOfWork.PurchaseGRNSubs.GetQueryable()
+                    on poSub.PoSubId equals grnSub.RefPoSubId
+
+                join scnSub in _unitOfWork.PurchaseSCNSubs.GetQueryable()
+                    on grnSub.GRNSubId equals scnSub.RefGRNSubId
+
+                join scn in _unitOfWork.PurchaseSCNs.GetQueryable()
+                    on scnSub.SCNId equals scn.SCNId
+
+                where po.PODate != default
+                      && po.PurchORSubCon == true
+                      && scn.SCNId > 0
+
+                select po.PODate;
+
+
+            // =====================================================
+            // SUBCONTRACT:
+            // PurchPo
+            // → PurchPoSub
+            // → SubConDcOutSub
+            // → SubConGRNSub
+            // → SubConSCNSub
+            // → SubConSCN
+            // =====================================================
+
+            var subcontractPoDates =
+                from po in _unitOfWork.PurchPos.GetQueryable()
+
+                join poSub in _unitOfWork.PurchPoSubs.GetQueryable()
+                    on po.PoId equals poSub.PoId
+
+                join dcOutSub in _unitOfWork.SubConDCOutSubs.GetQueryable()
+                    on poSub.PoSubId equals dcOutSub.RefPoSubId
+
+                join grnSub in _unitOfWork.SubConGRNSubs.GetQueryable()
+                    on dcOutSub.DcSubId equals grnSub.RefDcSubId
+
+                join scnSub in _unitOfWork.SubConSCNSubs.GetQueryable()
+                    on grnSub.GRNSubId equals scnSub.RefGRNSubId
+
+                join scn in _unitOfWork.SubConSCNs.GetQueryable()
+                    on scnSub.SCNId equals scn.SCNId
+
+                where po.PODate != default
+                      && po.PurchORSubCon == false
+                      && scn.SCNId > 0
+
+                select po.PODate;
+
+
+            // =====================================================
+            // COMBINE PURCHASE + SUBCONTRACT PO DATES
+            // =====================================================
+
+            var poDates = await purchasePoDates
+                .Union(subcontractPoDates)
+                .Distinct()
+                .OrderByDescending(x => x)
+                .ToListAsync();
+            // Create unique Financial Years from PO dates
+            FinancialYears = poDates
+                .Select(d =>
+                {
+                    int year = d.Month >= 4
+                        ? d.Year
+                        : d.Year - 1;
+
+                    return new FinancialYearVM
+                    {
+                        Year = year,
+                        DisplayText = $"{year}-{(year + 1).ToString().Substring(2)}"
+                    };
+                })
+                .GroupBy(x => x.Year)
+                .Select(g => g.First())
+                .OrderByDescending(x => x.Year)
+                .ToList();
+
+            // Select latest available Financial Year
+            if (FinancialYears.Any())
+            {
+                SelectedFinancialYear = FinancialYears.First().Year;
+
+                SetFinancialYearDates();
+
+                // Load vendors for selected Financial Year
+                // await LoadVendorsAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(
+                ex,
+                "Error occurred while loading Vendor Performance Report");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    private async Task LoadChart()
+    {
+        ShowChart = true;
+
+        // If required, load chart data here
+        // VendorRatingVMs = await VendorRatingService.GetVendorRatings(...);
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+
+    private async Task OnTypeChanged(string value)
+    {
+        SelectedType = value;
+
+        // Reset selected party
+        SelectedParty = null;
+        SelectedPartyVM = null;
+        SelectedPartyCode = 0;
+        Parties.Clear();
+
+        // Load all vendors for the selected type
+        await LoadVendorsAsync();
+
+        // Get ratings for ALL parties
+        VendorRatingVMs = await venderratingService.GetRatings(
+            SelectedType,
+            null,           // Pass null to get all parties
+            FromDate,
+            ToDate);
+
+        ShowRatings = VendorRatingVMs.Any();
+
+        if (!_disposed)
+            await InvokeAsync(StateHasChanged);
+    }
+
+
+
+    private async Task LoadVendorsAsync()
+    {
+
+
+        var vendors = await venderratingService.GetAllVendorsAsync(
+        SelectedType,
+        FromDate!.Value,
+        ToDate!.Value);
+
+        Parties = vendors
+          .DistinctBy(x => x.VendorCode)
+          .Select(x => new PartyVM
+          {
+              PartyCode = x.VendorCode,
+              PartyName = x.VendorName
+          })
+          .OrderBy(x => x.PartyName)
+          .ToList();
+
+        // Add All Vendors at the top
+        // Parties.Insert(0, new PartyVM
+        // {
+        //     PartyCode = 0,
+        //     PartyName = "All Vendors / Suppliers"
+        // });
+    }
+
+
+    private bool IsVisible(string field)
+    {
+        return Columns.FirstOrDefault(x => x.Field == field)?.IsVisible ?? true;
+    }
+
+    private Task<IEnumerable<int>> SearchCustomers(string value, CancellationToken token)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return Task.FromResult(Parties.Select(x => x.PartyCode));
+
+        var result = Parties
+            .Where(x => x.PartyName.Contains(value, StringComparison.OrdinalIgnoreCase))
+            .Select(x => x.PartyCode);
+
+        return Task.FromResult(result);
+    }
+
+
+
+    private async Task OnPartyChanged(int value)
+    {
+        try
+        {
+            isProcessing = true;
+
+            // Update selected vendor
+            SelectedPartyCode = value;
+
+            // When × is clicked, load all vendors
+            if (value == null || SelectedPartyCode == 0)
+            {
+                SelectedParty = null;
+
+                await OnTypeChanged(SelectedType);
+
+                ShowRatings = VendorRatingVMs?.Any() == true;
+
+                return;
+            }
+
+
+            SelectedParty = SelectedPartyCode.ToString();
+
+            VendorRatingVMs = await venderratingService.GetRatings(
+                SelectedType,
+                SelectedParty,
+                FromDate,
+                ToDate);
+
+            ShowRatings = VendorRatingVMs?.Any() == true;
+        }
+        catch (Exception ex)
+        {
+            VendorRatingVMs = new List<VendorRatingVM>();
+            ShowRatings = false;
+
+            await LoggingService.LogDeveloperError(
+                ex,
+                "Error loading Vendor Ratings");
+        }
+        finally
+        {
+            isProcessing = false;
+
+            // Do not use:
+            // await InvokeAsync(StateHasChanged);
+        }
+    }
+
+
+    private async Task OnPrintPendingTrack()
+    {
+        try
+        {
+            if (VendorRatingVMs == null || !VendorRatingVMs.Any())
+            {
+                await _JS.InvokeVoidAsync(
+                    "alert",
+                    "No paid bills found to export."
+                );
+
+                return;
+            }
+
+            string[] headers =
+            {
+                "Sl No",
+                // "Vendor Code",
+                "Vendor Name",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec" ,
+                "Jan",
+                "Feb",
+                "Mar",
+               "Overall Rating"
+
+            };
+
+            var exportData = VendorRatingVMs.Select((x, i) => new
+            {
+                SlNo = i + 1,
+                // x.VendorCode,
+                x.VendorName,
+                Apr = x.Apr.HasValue ? $"{x.Apr.Value:0.00}%" : "",
+                May = x.May.HasValue ? $"{x.May.Value:0.00}%" : "",
+                Jun = x.Jun.HasValue ? $"{x.Jun.Value:0.00}%" : "",
+                Jul = x.Jul.HasValue ? $"{x.Jul.Value:0.00}%" : "",
+                Aug = x.Aug.HasValue ? $"{x.Aug.Value:0.00}%" : "",
+                Sep = x.Sep.HasValue ? $"{x.Sep.Value:0.00}%" : "",
+                Oct = x.Oct.HasValue ? $"{x.Oct.Value:0.00}%" : "",
+                Nov = x.Nov.HasValue ? $"{x.Nov.Value:0.00}%" : "",
+                Dec = x.Dec.HasValue ? $"{x.Dec.Value:0.00}%" : "",
+                Jan = x.Jan.HasValue ? $"{x.Jan.Value:0.00}%" : "",
+                Feb = x.Feb.HasValue ? $"{x.Feb.Value:0.00}%" : "",
+                Mar = x.Mar.HasValue ? $"{x.Mar.Value:0.00}%" : "",
+                OverallRating = $"{x.OverallRating:0.00}%"
+            }).ToList();
+
+
+            var fileBytes = await excelTemplateService.CreateTemplateAsync(
+                sheetName: "FPY_Report",
+                headers: headers,
+                sampleData: exportData
+            );
+
+            if (fileBytes == null || fileBytes.Length == 0)
+            {
+                await _JS.InvokeVoidAsync(
+                    "alert",
+                    "Failed to generate Excel file."
+                );
+
+                return;
+            }
+
+            var base64 = Convert.ToBase64String(fileBytes);
+
+            await _JS.InvokeVoidAsync(
+                "downloadExcelFile",
+                base64,
+                "FPY_Report.xlsx"
+            );
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(
+                ex,
+                "Error while exporting Paid Bills Excel"
+            );
+
+            await _JS.InvokeVoidAsync(
+                "alert",
+                "Error occurred while exporting Excel."
+            );
+        }
+    }
+
+
+    private ApexChartOptions<VendorRatingVM> ChartOptions1 = new()
+    {
+        Chart = new Chart
+        {
+            Type = ApexCharts.ChartType.Radar,
+            Height = 500,
+            Width = "100%",
+            Toolbar = new Toolbar
+            {
+                Show = true
+            }
+        },
+
+        Stroke = new Stroke
+        {
+            Width = 3
+        },
+
+        Markers = new Markers
+        {
+            Size = 5
+        },
+
+        DataLabels = new DataLabels
+        {
+            Enabled = false
+        },
+
+        Legend = new Legend
+        {
+            Show = true,
+            Position = LegendPosition.Bottom,
+            HorizontalAlign = ApexCharts.Align.Center
+        },
+
+        Responsive = new List<Responsive<VendorRatingVM>>
+    {
+        // Laptop / Small desktop
+        new Responsive<VendorRatingVM>
+        {
+            Breakpoint = 1200,
+            Options = new ApexChartOptions<VendorRatingVM>
+            {
+                Chart = new Chart
+                {
+                    Height = 450,
+                    Width = "100%"
+                },
+                Markers = new Markers
+                {
+                    Size = 15
+                }
+            }
+        },
+
+        // Tablet
+        new Responsive<VendorRatingVM>
+        {
+            Breakpoint = 768,
+            Options = new ApexChartOptions<VendorRatingVM>
+            {
+                Chart = new Chart
+                {
+                    Height = 380,
+                    Width = "100%"
+                },
+                Markers = new Markers
+                {
+                    Size = 6
+                }
+            }
+        },
+
+        // Mobile
+        new Responsive<VendorRatingVM>
+        {
+            Breakpoint = 480,
+            Options = new ApexChartOptions<VendorRatingVM>
+            {
+                Chart = new Chart
+                {
+                    Height = 320,
+                    Width = "100%"
+                },
+                Markers = new Markers
+                {
+                    Size = 4
+                },
+                Legend = new Legend
+                {
+                    Show = false
+                }
+            }
+        }
+    }
+    };
+
+
+
+    private ApexChartOptions<VendorRatingVM> ChartOptions = new()
+    {
+        Chart = new Chart
+        {
+            Height = 400,
+            Toolbar = new Toolbar
+            {
+                Show = true
+            },
+            Zoom = new Zoom
+            {
+                Enabled = true
+            }
+        },
+
+        PlotOptions = new PlotOptions
+        {
+            Bar = new PlotOptionsBar
+            {
+                Horizontal = false,
+                ColumnWidth = "45%",
+                BorderRadius = 4
+            }
+        },
+
+        DataLabels = new DataLabels
+        {
+            Enabled = false // Hide labels on mobile to avoid clutter
+        },
+
+        Legend = new Legend
+        {
+            Position = LegendPosition.Bottom,
+            HorizontalAlign = ApexCharts.Align.Center
+        },
+
+        Xaxis = new XAxis
+        {
+            TickPlacement = TickPlacement.On,
+            Labels = new XAxisLabels
+            {
+                Rotate = -45,
+                RotateAlways = true,
+                HideOverlappingLabels = false,
+                Trim = true,
+                MaxHeight = 120
+            },
+            Title = new AxisTitle
+            {
+                Text = "Vendor"
+            }
+        },
+
+        Yaxis = new List<YAxis>
+    {
+        new()
+        {
+            Min = 0,
+            Max = 100,
+            Title = new AxisTitle
+            {
+                Text = "Rating (%)"
+            }
+        }
+    }
+    };
+
+
+
+    public enum ChartType
+    {
+        None,
+        Overall,
+        Monthly,
+        Bar,
+        Line,
+        Area,
+        Pie,
+        Donut,
+        Radar,
+        RadialBar
+    }
+
+    private ChartType SelectedChart = ChartType.None;
+
+
+
+    private void ChangeChart(ChartType chart)
+    {
+        SelectedChart = chart;
+    }
+
+
+
+
+
+    private readonly List<string> ChartTypes = new()
+{
+    "Overall",
+    "Monthly",
+    "Bar",
+    "Line",
+    "Area",
+    "Pie",
+    "Donut",
+    "Radar",
+    "Heat Map",
+    "Radial Bar"
+};
+
+
+    private List<GaugeVM> GaugeData => new()
+{
+    new GaugeVM
+    {
+        Label = "Overall",
+        Value = VendorRatingVMs.Any()
+            ? VendorRatingVMs.Average(x => x.OverallRating).GetValueOrDefault()
+            : 0m
+    }
+};
+    private bool _disposed;
+
+    public void Dispose()
+    {
+        _disposed = true;
+    }
+
+
+    private ApexChartOptions<VendorRatingVM> PieOptions = new()
+    {
+        Chart = new Chart
+        {
+            Toolbar = new Toolbar
+            {
+                Show = true
+            },
+            Height = 450
+        },
+
+        Legend = new Legend
+        {
+            Show = true,
+            Position = LegendPosition.Bottom,
+            HorizontalAlign = ApexCharts.Align.Center
+        },
+
+        DataLabels = new DataLabels
+        {
+            Enabled = true
+        }
+    };
+
+
+    private ApexChartOptions<VendorRatingVM> DonutOptions = new()
+    {
+        Chart = new Chart
+        {
+            Toolbar = new Toolbar
+            {
+                Show = true
+            },
+            Height = 450
+        },
+
+        Legend = new Legend
+        {
+            Show = true,
+            Position = LegendPosition.Bottom,
+            HorizontalAlign = ApexCharts.Align.Center
+        },
+
+        DataLabels = new DataLabels
+        {
+            Enabled = true
+        }
+    };
+
+
+    private ApexChartOptions<GaugeVM> GaugeOptions = new()
+    {
+        Chart = new Chart
+        {
+            Height = 350,
+            Type = ApexCharts.ChartType.RadialBar,
+            Toolbar = new Toolbar
+            {
+                Show = true
+            }
+        },
+
+        PlotOptions = new PlotOptions
+        {
+            RadialBar = new PlotOptionsRadialBar
+            {
+                StartAngle = -135,
+                EndAngle = 135
+            }
+        },
+
+        DataLabels = new DataLabels
+        {
+            Enabled = true
+        },
+
+        Legend = new Legend
+        {
+            Show = true,
+            Position = LegendPosition.Bottom,
+            HorizontalAlign = ApexCharts.Align.Center
+        },
+
+        Labels = new List<string>
+    {
+        "Overall Rating"
+    }
+    };
+
+    private ApexChartOptions<GaugeVM> ChartOptions2 = new()
+    {
+        Chart = new Chart
+        {
+            Type = ApexCharts.ChartType.RadialBar,
+            Height = 450
+        },
+
+        PlotOptions = new PlotOptions
+        {
+            RadialBar = new PlotOptionsRadialBar
+            {
+                StartAngle = -135,
+                EndAngle = 135,
+                Hollow = new Hollow
+                {
+                    Size = "65%"
+                }
+            }
+        },
+
+        Stroke = new Stroke
+        {
+            LineCap = LineCap.Round
+        },
+
+        DataLabels = new DataLabels
+        {
+            Enabled = true
+        },
+
+        Legend = new Legend
+        {
+            Show = true,
+            Position = LegendPosition.Bottom,
+            HorizontalAlign = ApexCharts.Align.Center
+        }
+    };
+
+    private void OpenCalculationModal()
+    {
+        ShowCalculationModal = true;
+    }
+
+    private void CloseCalculationModal()
+    {
+        ShowCalculationModal = false;
+    }
+}

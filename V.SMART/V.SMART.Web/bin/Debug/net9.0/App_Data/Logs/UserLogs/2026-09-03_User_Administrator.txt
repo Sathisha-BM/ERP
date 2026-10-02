@@ -1,0 +1,7 @@
+2026-09-03 10:19:36 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Bill of Material | Action: BOM Created | Info: 3 BOM items removed.
+BOM Updated.
+
+2026-09-03 10:19:36 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Bill of Material | Action: BOM Created | Info: BOM Updated.
+
+2026-09-03 12:53:06 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Quotation Created | Info: Quotation Created.
+

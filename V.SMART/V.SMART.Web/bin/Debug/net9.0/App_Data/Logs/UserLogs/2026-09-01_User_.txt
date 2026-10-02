@@ -1,0 +1,2 @@
+2026-09-01 09:41:47 |UserName: | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: User Logout | Action: Log Out | Info: 
+2026-09-01 09:41:47 |UserName: | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: User Logout | Action: Log Out | Info: 

@@ -1,0 +1,414 @@
+﻿@page "/contractReviewCheckDetail/{Id:int}"
+@using MudBlazor
+@using V.SMART.Shared.BusinessLayer.BusinessService.IBusinessService.ISalesService
+@using V.SMART.Shared.Data.SalesAndLabour.ContractReview
+@using V.SMART.Shared.Services.ReportViewer
+@using V.SMART.Shared.ViewModels.EmailserviceVM
+@using V.SMART.Shared.ViewModels.Mail
+@using V.SMART.Shared.ViewModels.MfgAndlabourViewModel.ContractReviewVM
+
+@inherits BaseUserRightsComponent
+
+@inject IContractReviewService ContractReview
+@inject IJSRuntime _js
+
+@inject ILoggingService _logs
+
+@inject ReportService _reportService
+@inject NavigationManager _navigationManager
+
+@inject EmailService EmailService
+@inject IDialogService DialogService
+
+@if (isProcessing)
+{
+    <ProcessingOverlay Visible="@isProcessing" Message="Please wait..." />
+}
+else
+{
+    @if (!CanView)
+    {
+        <RedirectToLogin />
+        return;
+    }
+    else
+    {
+        <div class="container border rounded-3 shadow-sm bg-white my-5 mx-auto p-5" style="max-width: 1000px;">
+            <!-- Header -->
+            <MyCompanyDetails />
+
+          
+
+            <hr class="border-2 border-primary-subtle mb-4" />
+
+            <div class="text-center">
+                <h4 class="fw-semibold mt-3">Enquiry Details</h4>
+            </div>
+
+            <hr class="border-2 border-primary-subtle mb-4" />
+
+            <!-- Customer & Document Info -->
+            <div class="row g-3 mb-4">
+                <!-- Customer Details -->
+                <div class="col-md-6">
+                    <div class="card border-1 shadow-sm rounded-3 h-100">
+                        <div class="card-header bg-primary-subtle text-primary fw-semibold">
+                            Customer Details
+                        </div>
+                        <div class="card-body small">
+                            <p><strong>Name:</strong> @(!string.IsNullOrEmpty(ContractReviewVM?.CustName) ? ContractReviewVM.CustName : "N/A")</p>
+                            <p><strong>Address:</strong> @(!string.IsNullOrEmpty(ContractReviewVM?.CustAddress) ? ContractReviewVM.CustAddress : "N/A")</p>
+                            <p><strong>GST No.:</strong> @(!string.IsNullOrEmpty(ContractReviewVM?.CustGst) ? ContractReviewVM.CustGst : "N/A")</p>
+                            <p><strong>Contact No.:</strong> @(!string.IsNullOrEmpty(ContractReviewVM?.CustContactNo) ? ContractReviewVM.CustContactNo : "N/A")</p>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Details -->
+                <div class="col-md-6">
+                    <div class="card border-1 shadow-sm rounded-3 h-100">
+                        <div class="card-header bg-primary-subtle text-primary fw-semibold">
+                            Document Details
+                        </div>
+                        <div class="card-body small">
+                            
+                            <p><strong>Contract No:</strong> @(ContractReviewVM != null ? $"{ContractReviewVM.Prefix} {ContractReviewVM.ContractNo} {ContractReviewVM.Suffix}" : "N/A")</p>
+                            <p><strong>Contract Date:</strong> @(ContractReviewVM?.ContractDate != null ? ContractReviewVM.ContractDate.ToString("dd/MM/yyyy") : "N/A")</p>
+                            <p><strong>Approved By:</strong> @(!string.IsNullOrEmpty(ContractReviewVM?.ApprovedBy) ? ContractReviewVM.ApprovedBy : "N/A")</p>
+                            <p><strong>Revised  By:</strong> @(!string.IsNullOrEmpty(ContractReviewVM?.RevisedBy) ? ContractReviewVM.RevisedBy : "N/A")</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enquiry Items -->
+            <div class="card border-1 shadow-sm rounded-3 mb-4">
+                <div class="card-header bg-info-subtle text-info fw-semibold">
+                    Enquiry Items
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm align-middle mb-0">
+                        <thead class="custom-blue">
+                            <tr>
+                                <th>Sl No.</th>
+                                <th>Item Code</th>
+                                <th>Description</th>
+                                <th>UOM</th>
+                                <th>HSN</th>
+                                <th class="text-end">Qty</th>
+                                <th class="text-end">Bal. Qty</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody class="custom-size">
+                            @if (ContractReviewVM?.ContractReviewSubVMS != null && ContractReviewVM.ContractReviewSubVMS.Any())
+                            {
+                                @foreach (var item in ContractReviewVM.ContractReviewSubVMS)
+                                {
+                                    <tr>
+                                        <td class="text-center">@item.SlNo</td>
+                                        <td>@(item.ItemCode ?? "—")</td>
+                                        <td>@(item.ItemName ?? "—")</td>
+                                        <td class="text-center">@(!string.IsNullOrEmpty(item.MeasureUnit) ? item.MeasureUnit : "—")</td>
+                                        <td class="text-center">@(!string.IsNullOrEmpty(item.HSNCode) ? item.HSNCode : "—")</td>
+                                        <td class="text-end">@item.Qty</td>
+                                        @* <td class="text-end">@item.BalQty</td> *@
+                                        <td>@(item.Remarks ?? "—")</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="8" class="text-center text-muted">No items found</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="card border-1 shadow-sm rounded-3 mb-4">
+                <div class="card-header bg-warning-subtle text-primary fw-semibold">
+                    Notes / Remarks
+                </div>
+
+            </div>
+
+            <!-- Actions -->
+            <div class="d-flex gap-2 justify-content-end">
+                <a href="/contractReviewCheckList" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left-circle"></i> Back To List
+                </a>
+                <a href="@($"/contractReviewCheckList/update/{Id}")" class="btn btn-outline-primary">
+                    <i class="bi bi-pencil-square"></i> Modify
+                </a>
+
+                <button class="btn btn-outline-success" @onclick="GenerateAndOpenPdf">
+                    <i class="bi bi-printer"></i> Print
+                </button>
+
+                @if (emailSettings != null && emailSettings.IsDefaultMail)
+                {
+
+                    <button class="btn btn-outline-danger"
+                            @onclick="GenerateAndOpenEmail">
+                        <i class="bi bi-envelope-fill me-2"></i>
+                        Email
+                    </button>
+                }
+
+
+            </div>
+        </div>
+    }
+}
+
+@code {
+
+    protected override string ScreenName => "Contract Review";
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private string? pdfBase64 { get; set; } = string.Empty;
+    public EmailSettings emailSettings { get; set; } = new();
+
+    public bool isProcessing { get; set; } = true;
+
+    private ContractReviewVM ContractReviewVM { get; set; } = new ContractReviewVM();
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            isProcessing = true;
+            await LoadRightsAsync();
+
+            if (!CanView)
+
+            {
+                _navigationManager.NavigateTo("/access-denied");
+                return;
+            }
+
+            await GetDetails();
+            emailSettings = await EmailService.GetCurrentUserEmailSettingsAsync();
+
+
+            isProcessing = false;
+        }
+        catch (Exception ex)
+        {
+            await _logs.LogDeveloperError(ex, "Error in OnInitializedAsync ContractReview");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+
+    }
+
+    public async Task GetDetails()
+    {
+        try
+        {
+            if (Id > 0)
+            {
+                var existContractReview = await ContractReview.GetContractReviewByIdAsync(Id);
+                if (existContractReview != null)
+                {
+                    ContractReviewVM = existContractReview;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await _logs.LogDeveloperError(ex, "Error in GetDetails() ContractReview");
+            await _js.ToastrError("An unexpected error occurred while loading GetDetails() in ContractReview.");
+        }
+    }
+
+
+    private async Task GenerateAndOpenPdf()
+    {
+        try
+        {
+            var pdfBytes = await _reportService.Generate_Report(Id, "ContractReview.frx", "Id", false, ScreenName, "Sp_Print_ContractReview");
+
+            if (pdfBytes != null && pdfBytes.Length > 0)
+            {
+                pdfBase64 = Convert.ToBase64String(pdfBytes);
+                await _js.InvokeVoidAsync("openPdfFromBase64", pdfBase64);
+            }
+        }
+        catch (Exception ex)
+        {
+            await _logs.LogDeveloperError(ex, "Error in GenerateAndOpenPdf ContractReview");
+            await _js.ToastrError("An unexpected error occurred while generating the PDF in ContractReview.");
+        }
+    }
+
+
+    private async Task GenerateAndOpenEmail()
+    {
+        try
+        {
+            isProcessing = true;
+            pdfBase64 = null;
+
+
+
+            if (emailSettings == null)
+            {
+                await _js.ToastrError(
+                    "Email settings are not configured for the current user.");
+
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(emailSettings.SenderEmail))
+            {
+                await _js.ToastrError(
+                    "Sender email is not configured.");
+
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(emailSettings.SenderEmail))
+            {
+
+                await _js.ToastrError("Sender email is not configured.");
+
+                return;
+
+            }
+
+            if (string.IsNullOrWhiteSpace(emailSettings.SmtpServer))
+            {
+                await _js.ToastrError("SMTP server is not configured.");
+
+                return;
+            }
+
+
+
+            if (emailSettings.Port <= 0)
+            {
+                await _js.ToastrError("SMTP port is not configured.");
+
+                return;
+
+            }
+
+            if (string.IsNullOrWhiteSpace(emailSettings.UserName))
+            {
+                await _js.ToastrError("SMTP username is not configured.");
+
+                return;
+            }
+
+
+            if (string.IsNullOrWhiteSpace(emailSettings.Password))
+            {
+                await _js.ToastrError("SMTP password is not configured.");
+
+                return;
+            }
+
+
+            if (string.IsNullOrWhiteSpace(ContractReviewVM.Email))
+            {
+                await _js.ToastrError("Customer Email is not configured.");
+
+                return;
+            }
+
+
+            var pdfBytes = await _reportService.Generate_Report(Id, "ContractReview.frx", "Id", false, ScreenName, "Sp_Print_ContractReview");
+
+            if (pdfBytes == null || pdfBytes.Length == 0)
+            {
+                await _js.ToastrError("PDF generation failed.");
+                return;
+            }
+
+            string Subject = $"Contract No: {(string.IsNullOrEmpty(ContractReviewVM.Prefix) ? "" : ContractReviewVM.Prefix + "/")}{ContractReviewVM.ContractNo}{ContractReviewVM.Suffix ?? ""}";
+
+            var model = new EmailComposeVM
+            {
+                IsDefaultMail = emailSettings.IsDefaultMail,
+
+                FromEmail = emailSettings.SenderEmail,
+
+                To = ContractReviewVM.Email,
+
+                CC = "",
+
+                BCC = "",
+
+                // Subject
+                Subject = Subject,
+
+
+                Body = $"Dear {ContractReviewVM.CustName}<br><br>" +
+                $"Greetings!!<br><br>" +
+                $"Please find attached ContractReview.<br>" +
+                $"Contract No :{Subject}<br>" +
+                $"Contract Date : {ContractReviewVM.ContractDate:dd/MM/yyyy}<br><br>" +
+                $"Thank you.<br><br>" +
+                $"Regards,<br>" +
+                $"{emailSettings.SenderName}",
+
+
+                // PDF
+                AttachmentBytes = pdfBytes,
+
+                AttachmentName = $"{Subject}.pdf"
+            };
+
+
+            var parameters = new DialogParameters
+         {
+             {
+                 nameof(EmailComposeDialog.Model),
+                 model
+             }
+         };
+
+            var options = new DialogOptions
+            {
+                MaxWidth = MaxWidth.Large,
+                FullWidth = true,
+                CloseButton = true,
+                BackdropClick = false,
+                NoHeader = true,
+            };
+
+            await DialogService.ShowAsync<EmailComposeDialog>(
+                "New Message",
+                parameters,
+                options);
+        }
+        catch (InvalidOperationException ex)
+        {
+            await _js.ToastrError(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            await _logs.LogDeveloperError(ex, "Error in GenerateAndOpenEmail ContractReview");
+
+            await _js.ToastrError("An unexpected error occurred while generating the email.");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+
+}
+

@@ -1,0 +1,1691 @@
+﻿@page "/customscreensetting"
+
+
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
+@using MudBlazor
+@using V.SMART.Shared.ViewModels.CustomScreenViewModel
+
+@inject IJSRuntime JSRuntime
+@inherits BaseUserRightsComponent
+@inject NavigationManager _navigationManager
+@inject ILoggingService LoggingService
+@inject ICustomScreenSettingService _CustomScreenService
+@inject IFileOpener fileOpener
+
+<BsModal OnModalConfirmation="@HandleModalConfirmation"
+         ButtonBootstrapStyle="@btnColor"
+         ButtonText="@btnText"
+         Title=@ModalTitle
+         ShowReasonBox="@showCancelReasonBox"
+         Reason="@cancelReason"
+         OnReasonChanged="(value) => cancelReason = value">
+
+</BsModal>
+
+<style>
+
+    /* ----- Global Styles ----- */
+    :root {
+        --primary-color: #1a3a5c;
+        --secondary-color: #2c6fbb;
+        --accent-color: #e8a838;
+        --success-color: #28a745;
+        --danger-color: #dc3545;
+        --warning-color: #ffc107;
+        --info-color: #17a2b8;
+        --light-bg: #f4f7fc;
+        --border-color: #dce3ed;
+        --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+        --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+        --shadow-lg: 0 8px 32px rgba(0,0,0,0.16);
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --transition: all 0.3s ease;
+    }
+
+    body {
+        background: var(--light-bg);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* ----- Card Styles ----- */
+    .qms-card {
+        background: white;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border-color);
+        transition: var(--transition);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        height: 65vh;
+    }
+
+        .qms-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+    .qms-card-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: .7rem 1rem;
+        min-height: 55px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: none;
+    }
+
+    .qms-card-header .icon {
+        font-size: 1.25rem;
+        margin-right: 0.5rem;
+    }
+
+    .qms-card-body {
+        padding: 1.25rem;
+        flex: 1;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    
+
+    /* ----- Tree Styles ----- */
+    /*==========================================
+        TREE VIEW - Visual Studio Style
+    ==========================================*/
+
+    .tree-container {
+        padding: 8px;
+        background: #fafbfc;
+        border: 1px solid #dde5ef;
+        border-radius: 10px;
+        overflow-y: auto;
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        min-height: 0;
+    }
+
+    /* Node Container */
+    .tree-indent {
+        position: relative;
+        margin-left: 20px;
+        padding-left: 20px;
+    }
+
+        /* Vertical Line */
+        .tree-indent::before {
+            content: "";
+            position: absolute;
+            left: 8px;
+            top: -4px;
+            bottom: 0;
+            width: 1px;
+            background: #d0d7de;
+        }
+
+    /* Horizontal Line */
+    .tree-item::before {
+        content: "";
+        position: absolute;
+        left: -12px;
+        top: 18px;
+        width: 12px;
+        border-top: 1px solid #d0d7de;
+    }
+
+    /* Tree Item */
+    .tree-item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 10px;
+        margin: 2px 0;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: all .2s ease;
+        font-size: .92rem;
+        color: #2f3542;
+        user-select: none;
+    }
+
+        /* Hover */
+        .tree-item:hover {
+            background: #eef5ff;
+        }
+
+        /* Selected */
+        .tree-item.active {
+            background: #dbeafe;
+            border-left: 4px solid #2563eb;
+            color: #0d47a1;
+            font-weight: 600;
+        }
+
+    /* Expand Arrow */
+    .expand-icon {
+        width: 16px;
+        color: #6b7280;
+        font-size: 12px;
+    }
+
+    /* Folder */
+    .folder-icon {
+        color: #f4b400;
+        font-size: 18px;
+    }
+
+    /* Screen */
+    .file-icon {
+        color: #1976d2;
+        font-size: 17px;
+    }
+
+    /* Folder Text */
+    .tree-title {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Badge */
+    .badge-doc-count {
+        min-width: 24px;
+        text-align: center;
+        padding: 2px 8px;
+        border-radius: 30px;
+        font-size: 11px;
+        background: #1976d2;
+        color: white;
+        font-weight: 600;
+    }
+
+        .badge-doc-count.warning {
+            background: #ff9800;
+        }
+
+        .badge-doc-count.danger {
+            background: #d32f2f;
+        }
+
+    /* Root Item */
+    .tree-root > .tree-item {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        margin-bottom: 5px;
+    }
+
+        .tree-root > .tree-item:hover {
+            border-color: #1976d2;
+        }
+
+    /* Child */
+    .tree-child {
+        margin-top: 2px;
+    }
+
+    /* Screen Item */
+    .tree-screen {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: 34px;
+        padding: 6px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: .2s;
+        color: #495057;
+    }
+
+        .tree-screen:hover {
+            background: #f1f5ff;
+        }
+
+        .tree-screen.active {
+            background: #dbeafe;
+            color: #0d47a1;
+        }
+
+    /* Scrollbar */
+
+    .tree-container::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .tree-container::-webkit-scrollbar-thumb {
+        background: #b0bec5;
+        border-radius: 10px;
+    }
+
+    .tree-container::-webkit-scrollbar-thumb:hover {
+        background: #78909c;
+    }
+    /* ----- Expired Documents ----- */
+    .expired-doc {
+        background: #fff5f5 !important;
+        border-radius: var(--radius-sm);
+        padding: 2px 8px !important;
+    }
+
+        .expired-doc a {
+            color: var(--danger-color) !important;
+        }
+
+    .expired-badge {
+        background: var(--danger-color);
+        color: white;
+        font-size: 0.6rem;
+        padding: 0.1rem 0.6rem;
+        border-radius: 10px;
+        font-weight: 600;
+        margin-left: 4px;
+        animation: pulse-red 2s infinite;
+    }
+
+    .list-group-item-expired {
+        background: #fff5f5 !important;
+        border-left: 4px solid var(--danger-color) !important;
+    }
+
+    /* ----- Status Badges ----- */
+    .status-badge {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.9rem;
+        border-radius: 20px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+    .status-badge.active {
+        background: #d4edda;
+        color: #155724;
+    }
+
+    .status-badge.expired {
+        background: #f8d7da;
+        color: #721c24;
+        animation: pulse-red 2s infinite;
+    }
+
+    .status-badge.draft {
+        background: #fff3cd;
+        color: #856404;
+    }
+
+    .status-badge.review {
+        background: #d1ecf1;
+        color: #0c5460;
+    }
+
+    /* ----- Detail Panels ----- */
+    .doc-detail-card {
+        background: var(--light-bg);
+        border-radius: var(--radius-sm);
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .doc-detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px 30px;
+    }
+
+    .doc-detail-item {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .doc-detail-item .label {
+        font-weight: 600;
+        color: #495057;
+        min-width: 130px;
+        flex-shrink: 0;
+        font-size: 0.85rem;
+    }
+
+    .doc-detail-item .label i {
+        margin-right: 6px;
+        color: var(--secondary-color);
+        width: 18px;
+    }
+
+    .doc-detail-item .value {
+        color: #212529;
+        font-weight: 500;
+        word-break: break-word;
+    }
+
+    .header-detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px 30px;
+        background: var(--light-bg);
+        border-radius: var(--radius-sm);
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .header-detail-item {
+        display: flex;
+        align-items: center;
+        padding: 0.4rem 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .header-detail-item .label {
+        font-weight: 600;
+        color: #495057;
+        min-width: 100px;
+        flex-shrink: 0;
+        font-size: 0.85rem;
+    }
+
+    .header-detail-item .label i {
+        margin-right: 6px;
+        color: var(--secondary-color);
+        width: 18px;
+    }
+
+    /* ----- File Card ----- */
+    .file-card {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        transition: var(--transition);
+    }
+
+    .file-card:hover {
+        border-color: var(--secondary-color);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .file-card .file-info {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .file-card .file-icon-big {
+        font-size: 2.5rem;
+        color: var(--secondary-color);
+    }
+
+    /* ----- Buttons ----- */
+    .btn-qms-primary {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        border: none;
+        color: white;
+        padding: 0.4rem 1rem;
+        border-radius: var(--radius-sm);
+        font-weight: 500;
+        transition: var(--transition);
+    }
+
+    .btn-qms-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        color: white;
+    }
+
+    .btn-qms-success {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        border: none;
+        color: white;
+        padding: 0.4rem 1rem;
+        border-radius: var(--radius-sm);
+        font-weight: 500;
+        transition: var(--transition);
+    }
+
+    .btn-qms-success:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        color: white;
+    }
+
+    .btn-qms-danger {
+        background: linear-gradient(135deg, #dc3545, #e74c3c);
+        border: none;
+        color: white;
+        padding: 0.4rem 1rem;
+        border-radius: var(--radius-sm);
+        font-weight: 500;
+        transition: var(--transition);
+    }
+
+    .btn-qms-danger:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        color: white;
+    }
+
+    /* ----- Upload Button ----- */
+    .upload-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .upload-wrapper input[type=file] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+
+    /* ----- Responsive ----- */
+    @@media (max-width: 768px) {
+        .doc-detail-grid,
+        .header-detail-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .file-card {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 1rem;
+        }
+
+            .file-card .btn-group {
+                width: 100%;
+            }
+
+                .file-card .btn-group .btn {
+                    flex: 1;
+                }
+    }
+
+    /* ----- Scrollbar ----- */
+    .tree-container::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .tree-container::-webkit-scrollbar-track {
+        background: var(--light-bg);
+        border-radius: 3px;
+    }
+
+    .tree-container::-webkit-scrollbar-thumb {
+        background: var(--secondary-color);
+        border-radius: 3px;
+    }
+
+    .tree-container::-webkit-scrollbar-thumb:hover {
+        background: var(--primary-color);
+    }
+
+    /* ----- QMS Header Logo ----- */
+    .qms-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .qms-logo .logo-icon {
+        font-size: 1.75rem;
+        color: var(--accent-color);
+    }
+
+    .qms-logo .logo-text {
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+    .qms-logo .logo-text small {
+        font-weight: 300;
+        opacity: 0.8;
+        font-size: 0.7rem;
+        display: block;
+    }
+
+    .folder-icon {
+        color: #f4b400;
+        font-size: 18px;
+        margin-right: 6px;
+    }
+
+    .screen-icon {
+        color: #1976d2;
+        font-size: 17px;
+        margin-right: 6px;
+    }
+
+    .expand-icon {
+        width: 14px;
+        color: #6c757d;
+        margin-right: 4px;
+    }
+
+    /* Left Panel */
+    .module-header {
+        background: linear-gradient(135deg, #374151, #4b5563);
+        color: #fff;
+    }
+
+    .module-header .logo-icon {
+        color: #ffd54f;
+    }
+
+    .module-header .badge {
+        font-size: .8rem;
+    }
+
+    /* Right Panel */
+    .screen-header {
+        background: linear-gradient(135deg, #0f766e, #10b981);
+        color: white;
+    }
+
+    .screen-header .logo-icon {
+        color: #ffffff;
+    }
+</style>
+
+@if (isProcessing)
+{
+    <ProcessingOverlay Visible="@isProcessing" Message="Please wait..." />
+}
+else
+{
+    @if (!CanView)
+    {
+        <RedirectToLogin />
+    }
+    else
+    {
+        <div class="container-fluid px-2 px-md-5 mt-4">
+            <div class="card shadow-sm border-1">
+
+                <PageHeader TitleText="create/Update"
+                            TitleIcon="@incomeIcon"
+                            Breadcrumbs="@ScreenSettingBreadcrumbs" />
+
+
+                <div class="card-body">
+                    <EditForm Model="Headers" OnValidSubmit="UpsertScreenSetting">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+                        <div class="container-fluid mt-3">
+                            <div class="row">
+                                <!-- ============================================
+                                     LEFT PANEL: DOCUMENT TREE
+                                     ============================================ -->
+                                <div class="col-md-4">
+                                    <div class="qms-card">
+                                        <div class="qms-card-header module-header">
+                                            <div class="qms-logo">
+                                                <span class="logo-icon"><i class="bi bi-diagram-3"></i></span>
+                                                <div class="logo-text">
+                                                    Module Explorer
+                                                    <small>ERP Module Hierarchy</small>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span class="badge bg-light text-dark">
+                                                    <i class="bi bi-files"></i> @Headers.Count
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="qms-card-body">
+                                            <!-- Action Buttons -->
+                                            <div class="d-flex gap-2 mb-3 flex-wrap">
+                                                <button type="button" class="btn btn-qms-primary btn-sm" @onclick="NewHeader">
+                                                    <i class="bi bi-folder-plus"></i> New Module
+                                                </button>
+                                                <button type="button" class="btn btn-qms-success btn-sm" @onclick="NewDocument">
+                                                    <i class="bi bi-file-earmark-plus"></i> New Screen
+                                                </button>
+                                                <button type="button" class="btn btn-outline-secondary btn-sm" @onclick="RefreshTree">
+                                                    <i class="bi bi-arrow-clockwise"></i>
+                                                </button>
+                                            </div>
+
+                                            <hr class="my-2" />
+
+                                            <!-- Tree -->
+                                            <div class="tree-container" style="max-height: 70vh; overflow-y: auto;">
+                                                @if (Headers.Any())
+                                                {
+                                                    @foreach (var root in Headers.Where(x => x.CustomChildId == 0).OrderBy(x => x.CustomId))
+                                                    {
+                                                        @DrawTree(root, 0)
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <div class="text-center text-muted py-4">
+                                                        <i class="bi bi-folder2-open" style="font-size: 3rem; display: block; margin-bottom: 1rem;"></i>
+                                                        <p>No Module created yet</p>
+                                                        <button type="button" class="btn btn-qms-primary btn-sm" @onclick="NewHeader">
+                                                            <i class="bi bi-plus-circle"></i> Create First Module
+                                                        </button>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ============================================
+                                     RIGHT PANEL: DETAILS / EDIT FORM
+                                     ============================================ -->
+                                <div class="col-md-8">
+                                    <div class="qms-card">
+                                        <div class="qms-card-header screen-header">
+                                            <div>
+                                                <i class="icon bi bi-info-circle"></i>
+                                                @if (SelectedDocument != null)
+                                                {
+                                                    <span>Screen Details</span>
+                                                }
+                                                else if (SelectedHeader != null)
+                                                {
+                                                    <span>Module Details</span>
+                                                }
+                                                else if (IsHeader)
+                                                {
+                                                    <span><i class="bi bi-folder-plus"></i> New Module</span>
+                                                }
+                                                else if (IsDocument)
+                                                {
+                                                    <span><i class="bi bi-file-earmark-plus"></i> New Screen</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Screen Management</span>
+                                                }
+                                            </div>
+                                            @if (SelectedDocument != null || SelectedHeader != null)
+                                            {
+                                                <div>
+                                                    <button type="button" class="btn btn-sm btn-qms-danger" @onclick="() => { SelectedDocumentId = null; SelectedHeaderId = null; }">
+                                                        <i class="bi bi-x-lg"></i>
+                                                    </button>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="qms-card-body">
+                                            @if (SelectedHeader != null && !IsHeader && !IsDocument)
+                                            {
+
+                                                <!-- ===== HEADER DETAILS ===== -->
+                                                <div>
+
+                                                    <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                                        <h5 class="mb-0">
+                                                            <i class="bi bi-folder text-warning"></i>
+                                                            @SelectedHeader.Header
+                                                        </h5>
+
+                                                        <div class="d-flex gap-2 flex-wrap">
+
+                                                            <button type="button"
+                                                                    class="btn btn-qms-primary btn-sm"
+                                                                    @onclick="EditHeader">
+                                                                <i class="bi bi-pencil-square me-1"></i>
+                                                                Rename
+                                                            </button>
+
+                                                            <button type="button"
+                                                                    class="btn btn-qms-danger btn-sm"
+                                                                    @onclick="DeleteHeader">
+                                                                <i class="bi bi-trash me-1"></i>
+                                                                Delete
+                                                            </button>
+
+                                                            <button type="button"
+                                                                    class="btn btn-qms-success btn-sm"
+                                                                    @onclick="NewDocument">
+                                                                <i class="bi bi-file-earmark-plus me-1"></i>
+                                                                Add Screen
+                                                            </button>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="header-detail-grid">
+
+                                                        <div class="header-detail-item">
+                                                            <span class="label">
+                                                                <i class="bi bi-hash"></i> ID
+                                                            </span>
+
+                                                            <span class="value">
+                                                                @SelectedHeader.CustomId
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="header-detail-item">
+                                                            <span class="label">
+                                                                <i class="bi bi-diagram-2"></i> Parent
+                                                            </span>
+
+                                                            <span class="value">
+                                                                @(SelectedHeader.CustomChildId > 0
+                                                                ? Headers.FirstOrDefault(x => x.CustomId == SelectedHeader.CustomChildId)?.Header
+                                                                : "Root")
+                                                            </span>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <hr />
+
+                                                    <h6 class="mb-3">
+                                                        <i class="bi bi-files"></i>
+                                                        Documents
+                                                        <span class="badge bg-secondary rounded-pill">
+                                                            @DocumentsUnderSelectedHeader.Count()
+                                                        </span>
+                                                    </h6>
+
+                                                    @if (DocumentsUnderSelectedHeader.Any())
+                                                    {
+                                                        <ul class="list-group list-group-flush">
+
+                                                            @foreach (var doc in DocumentsUnderSelectedHeader)
+                                                            {
+
+                                                                <li class="list-group-item  d-flex justify-content-between align-items-center">
+
+                                                                    <span>
+
+                                                                        <a href="javascript:void(0)"
+                                                                           class="text-decoration-none"
+                                                                           @onclick="() => SelectDocument(doc.ScreenId)">
+
+                                                                            <i class="bi bi-file-earmark-text me-1"></i>
+
+                                                                            @doc.ScreenName
+
+                                                                            <small class="text-muted">
+                                                                                (@doc.Navigation)
+                                                                            </small>
+
+                                                                        </a>
+
+                                                                    </span>
+
+                                                                </li>
+                                                            }
+
+                                                        </ul>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="text-center text-muted py-4">
+
+                                                            <i class="bi bi-file-earmark"
+                                                               style="font-size:2rem;"></i>
+
+                                                            <p class="mt-2">
+                                                                No documents under this header
+                                                            </p>
+
+                                                        </div>
+                                                    }
+
+                                                </div>
+
+                                            }
+                                            else if (SelectedDocument != null && !IsHeader && !IsDocument)
+                                            {
+                                                <!-- ===== DOCUMENT DETAILS ===== -->
+
+
+                                                <div>
+
+                                                    <!-- Header -->
+                                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                                        <div>
+                                                            <h4 class="mb-1">
+                                                                <i class="bi bi-file-earmark-text text-primary me-2"></i>
+                                                                @SelectedDocument.ScreenName
+                                                            </h4>
+                                                            <small class="text-muted">
+                                                                @SelectedDocument.ScreenId
+                                                            </small>
+                                                        </div>
+
+                                                        <span class="badge bg-success fs-6">
+                                                            <i class="bi bi-check-circle-fill me-1"></i>
+                                                            Active
+                                                        </span>
+
+                                                    </div>
+
+                                                    <div class="row g-3">
+
+                                                        <!-- Header -->
+                                                        <div class="col-md-6">
+                                                            <label class="form-label fw-semibold">
+                                                                <i class="bi bi-folder me-1"></i> Header
+                                                            </label>
+
+                                                            <input class="form-control"
+                                                                   readonly
+                                                                   value="@Headers.FirstOrDefault(x => x.CustomId == SelectedDocument.CustomId)?.Header" />
+                                                        </div>
+
+                                                        <!-- Document No -->
+                                                        <div class="col-md-6">
+                                                            <label class="form-label fw-semibold">
+                                                                <i class="bi bi-hash me-1"></i> Screen Id
+                                                            </label>
+
+                                                            <input class="form-control"
+                                                                   readonly
+                                                                   value="@SelectedDocument.ScreenId" />
+                                                        </div>
+
+                                                        <!-- Document Name -->
+                                                        <div class="col-12">
+                                                            <label class="form-label fw-semibold">
+                                                                <i class="bi bi-file-earmark-text me-1"></i>
+                                                                Screen Name
+                                                            </label>
+
+                                                            <input class="form-control"
+                                                                   readonly
+                                                                   value="@SelectedDocument.ScreenName" />
+                                                        </div>
+
+                                                    </div>
+
+                                                    <hr class="my-4" />
+
+                                                    <div class="d-flex justify-content-end gap-2">
+
+                                                        <button type="button" class="btn btn-primary"
+                                                                @onclick="EditDocument">
+                                                            <i class="bi bi-pencil-square me-1"></i>
+                                                            Edit
+                                                        </button>
+
+                                                        <button type="button" class="btn btn-danger"
+                                                                @onclick="async () => await RemoveRow(SelectedDocument)">
+                                                            <i class="bi bi-trash me-1"></i>
+                                                            Delete
+                                                        </button>
+
+                                                    </div>
+
+                                                </div>
+                                            }
+                                            else if (IsHeader)
+                                            {
+                                                <!-- ===== NEW HEADER FORM ===== -->
+                                                <div class="row g-3">
+
+                                                    <!-- Module Name -->
+                                                    <div class="col-12 col-md-6 col-lg-4">
+                                                        <label class="form-label">
+                                                            <i class="bi bi-folder"></i>
+                                                            Module Name <span class="text-danger">*</span>
+                                                        </label>
+                                                        <input class="form-control"
+                                                               @bind="Header.Header"
+                                                               placeholder="Enter module name..." />
+                                                    </div>
+
+                                                    <!-- Icon -->
+                                                    <div class="col-12 col-md-6 col-lg-4">
+                                                        <label class="form-label">
+                                                            <i class="bi bi-stars"></i>
+                                                            Icon
+                                                        </label>
+
+                                                        <select class="form-select" @bind="Header.Icon">
+                                                            <option value="Folder">📁 Folder</option>
+                                                            <option value="MenuBook">📖 Menu Book</option>
+                                                            <option value="Dashboard">📊 Dashboard</option>
+                                                            <option value="AdminPanelSettings">🛡️ Admin Panel</option>
+                                                            <option value="ManageAccounts">👤 Manage Accounts</option>
+                                                            <option value="Warehouse">🏬 Warehouse</option>
+                                                            <option value="ShoppingCart">🛒 Shopping Cart</option>
+                                                            <option value="RequestQuote">💰 Request Quote</option>
+                                                            <option value="BuildCircle">🏭 Factory</option>
+                                                            <option value="Groups">👥 Groups</option>
+                                                            <option value="People">👨‍👩‍👧 People</option>
+                                                            <option value="AccountBalance">🏦 Account Balance</option>
+                                                            <option value="Settings">⚙️ Settings</option>
+                                                            <option value="Inventory">📦 Inventory</option>
+                                                            <option value="Assessment">📈 Reports</option>
+                                                            <option value="Construction">🔧 Construction</option>
+                                                            <option value="BusinessCenter">🏢 Business Center</option>
+                                                            <option value="Store">🏪 Store</option>
+                                                            <option value="LocalShipping">🚚 Transport</option>
+                                                            <option value="Star">⭐ Star</option>
+                                                            <option value="Work">💼 Work</option>
+                                                        </select>
+                                                        
+                                                    </div>
+
+                                                    <!-- Color -->
+                                                    <div class="col-12 col-md-6 col-lg-4">
+                                                        <label class="form-label">
+                                                            <i class="bi bi-palette"></i>
+                                                            Theme Color
+                                                        </label>
+                                                        <select class="form-select" @bind="Header.Color">
+                                                            <option value="Primary">Blue</option>
+                                                            <option value="Secondary">Gray</option>
+                                                            <option value="Success">Green</option>
+                                                            <option value="Danger">Red</option>
+                                                            <option value="Warning">Orange</option>
+                                                            <option value="Info">Sky Blue</option>
+                                                            <option value="Dark">Black</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label"><i class="bi bi-diagram-2"></i> Parent Module</label>
+                                                    <select class="form-select" @bind="Header.CustomChildId" disabled="@(IsEditing)">
+                                                        <option value="">Root</option>
+                                                        @foreach (var h in Headers.Where(x=>x.ScreenId<=0))
+                                                        {
+                                                            <option value="@h.CustomId">@h.Header</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <div class="d-flex gap-2">
+                                                    <button type="button" class="btn btn-qms-primary" @onclick="SaveHeader">
+                                                        <i class="bi bi-save"></i> Save Module
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-secondary" @onclick="CancelEdit">
+                                                        <i class="bi bi-x-circle"></i> Cancel
+                                                    </button>
+                                                </div>
+                                            }
+                                            else if (IsDocument)
+                                            {
+                                                <!-- ===== NEW DOCUMENT FORM ===== -->
+                                                <div class="row g-3">
+                                                    <div class="col-md-6">
+                                                        <label class="form-label">
+                                                            <i class="bi bi-folder"></i> Module
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+
+                                                        <select class="form-select"
+                                                                @bind="Document.CustomChildId"
+                                                                @bind:after="OnHeaderChanged">
+
+                                                            <option value="0">-- Select Module --</option>
+
+                                                            @foreach (var h in Headers.Where(x=>x.ScreenId<=0).OrderBy(x => x.CustomId))
+                                                            {
+                                                                <option value="@h.CustomId">@h.Header</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label">
+                                                            <i class="bi bi-window"></i> Screen
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+
+                                                      <MudAutocomplete T="ScreensVM"
+                                                             Label="Screen"
+                                                             Dense="true"
+                                                             SearchFunc="SearchScreens"
+                                                             ToStringFunc="@(x => x == null ? string.Empty : $"{x.ScreenCode} - {x.ScreenName}")"
+                                                             ValueChanged="ScreenSelected"
+                                                             Clearable="true" />
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label class="form-label"><i class="bi bi-file-earmark-text"></i> Screen Name <span class="text-danger">*</span></label>
+                                                        <input class="form-control" @bind="Document.ScreenName" placeholder="Select a Screen..." readonly />
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label class="form-label"><i class="bi bi-file-earmark-text"></i> Navigation <span class="text-danger">*</span></label>
+                                                        <input class="form-control" @bind="Document.Navigation" placeholder="Select a Screen..." readonly />
+                                                    </div>
+                                                   
+                                                </div>
+
+                                                <div class="mt-4 d-flex gap-2">
+                                                    <button type="button" class="btn btn-qms-success" @onclick="SaveDocument" disabled="@(Document.ScreenId <= 0)">
+                                                        <i class="bi bi-save"></i> Save Screen
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-secondary" @onclick="CancelEdit">
+                                                        <i class="bi bi-x-circle"></i> Cancel
+                                                    </button>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <!-- ===== DEFAULT VIEW ===== -->
+                                                <div class="text-center text-muted py-5">
+                                                    <i class="bi bi-folder2-open" style="font-size: 4rem; display: block; margin-bottom: 1rem; color: var(--border-color);"></i>
+                                                    <h5>Welcome to Screen Navigation Management</h5>
+                                                    <p class="mb-0">Select a Module or Screen from the tree to view its details.</p>
+                                                    <div class="mt-3 d-flex justify-content-center gap-2">
+                                                        <button type="button" class="btn btn-qms-primary btn-sm" @onclick="NewHeader">
+                                                            <i class="bi bi-folder-plus"></i> Create Module
+                                                        </button>
+                                                        <button type="button" class="btn btn-qms-success btn-sm" @onclick="NewDocument">
+                                                            <i class="bi bi-file-earmark-plus"></i> Create Screen
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+
+    }
+}
+
+@code {
+
+    protected override string ScreenName => "CustomScreenSetting";
+
+    private bool isProcessing = true;
+    private int screenCode { get; set; }
+
+    private List<PageHeader.BreadcrumbItem> ScreenSettingBreadcrumbs = new()
+    {
+        new PageHeader.BreadcrumbItem { Text = "Master",Url="master-home"},
+        new PageHeader.BreadcrumbItem { Text = "CustomScreenSetting",Url="settings-master"},
+        new PageHeader.BreadcrumbItem { Text = "CustomScreenSetting", IsLast = true }
+    };
+
+    private string ModalTitle = string.Empty;
+    private string btnText = string.Empty;
+    private string confirmation = string.Empty;
+    private string btnColor = string.Empty;
+    private bool showCancelReasonBox = false;
+    public string? cancelReason { get; set; }
+
+    private string incomeIcon = "bi bi-graph-up-arrow";
+
+    private CustomScreenSettingVM? rowToDelete;
+
+    CustomScreenSettingVM Header = new();
+    CustomScreenSettingVM Document = new();
+
+    List<CustomScreenSettingVM> Headers = new();
+    List<CustomScreenSettingVM> Documents = new();
+
+    bool IsHeader = false;
+    bool IsDocument = false;
+    bool IsEditing = false;
+
+    HashSet<int> ExpandedHeaders = new();
+    int? SelectedHeaderId = null;
+    int? SelectedDocumentId = null;
+
+    private List<ScreensVM> Screens = new();
+
+
+    CustomScreenSettingVM? SelectedHeader => SelectedHeaderId.HasValue ? Headers.FirstOrDefault(h => h.CustomId == SelectedHeaderId.Value) : null;
+    CustomScreenSettingVM? SelectedDocument => SelectedDocumentId.HasValue ? Documents.FirstOrDefault(d => d.CustomId == SelectedDocumentId.Value) : null;
+    IEnumerable<CustomScreenSettingVM> DocumentsUnderSelectedHeader => SelectedHeaderId.HasValue
+        ? Documents.Where(d => d.CustomId == SelectedHeaderId.Value)
+        : Enumerable.Empty<CustomScreenSettingVM>();
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await LoadRightsAsync();
+
+            if (!CanView)
+            {
+                _navigationManager.NavigateTo("/access-denied");
+                return;
+            }
+            screenCode = await _CustomScreenService.GetScreenCodeByScreenNameAsync(ScreenName);
+            Screens = await _CustomScreenService.GetAllScreensAsync();
+            await LoadData();
+
+            isProcessing = false;
+        }
+        catch (Exception ex)
+        {
+
+            await LoggingService.LogDeveloperError(ex, "An error occurred while handling the Income OnInitializedAsync() Method");
+        }
+    }
+
+    private async Task LoadData()
+    {
+        try
+        {
+            Headers = await _CustomScreenService.GetAllHeadersAsync();
+            Documents = await _CustomScreenService.GetAllCustomScreenAsync();
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "An error occurred while handling the  LoadData() Method");
+        }
+
+
+    }
+
+
+    RenderFragment DrawTree(CustomScreenSettingVM node, int level) => builder =>
+    {
+        int seq = 0;
+
+        bool isExpanded = ExpandedHeaders.Contains(node.CustomId);
+        bool isSelected = SelectedHeaderId == node.CustomId;
+
+        var children = Headers
+            .Where(x => x.CustomChildId == node.CustomId)
+            .OrderBy(x => x.CustomId)
+            .ToList();
+
+        bool isFolder = node.ScreenId == 0;
+
+        builder.OpenElement(seq++, "div");
+        builder.AddAttribute(seq++, "class", level == 0 ? "tree-root" : "tree-child");
+
+        //==================== Tree Item ====================
+
+        builder.OpenElement(seq++, "div");
+        builder.AddAttribute(seq++, "class", $"tree-item {(isSelected ? "active" : "")}");
+        builder.AddAttribute(seq++, "onclick",
+            EventCallback.Factory.Create(this, () => ToggleHeader(node.CustomId)));
+
+        // Expand / Collapse Arrow (Folders only)
+        if (isFolder && children.Any())
+        {
+            builder.OpenElement(seq++, "i");
+            builder.AddAttribute(seq++, "class",
+                isExpanded
+                    ? "bi bi-caret-down-fill expand-icon"
+                    : "bi bi-caret-right-fill expand-icon");
+            builder.CloseElement();
+        }
+        else
+        {
+            builder.OpenElement(seq++, "span");
+            builder.AddAttribute(seq++, "style", "display:inline-block;width:16px;");
+            builder.CloseElement();
+        }
+
+        // Icon
+        builder.OpenElement(seq++, "i");
+
+        if (isFolder)
+        {
+            builder.AddAttribute(seq++, "class",
+                isExpanded
+                    ? "bi bi-folder2-open folder-icon"
+                    : "bi bi-folder-fill folder-icon");
+        }
+        else
+        {
+            builder.AddAttribute(seq++, "class", "bi bi-window-stack screen-icon");
+            // You can also use:
+            // bi-display
+            // bi-window
+            // bi-layout-text-window
+        }
+
+        builder.CloseElement();
+
+        // Name
+        builder.OpenElement(seq++, "span");
+        builder.AddAttribute(seq++, "class", "tree-title");
+        builder.AddContent(seq++, node.Header);
+        builder.CloseElement();
+
+        builder.CloseElement(); // tree-item
+
+        //==================== Children ====================
+
+        if (isFolder && isExpanded && children.Any())
+        {
+            builder.OpenElement(seq++, "div");
+            builder.AddAttribute(seq++, "class", "tree-indent");
+
+            foreach (var child in children)
+            {
+                builder.AddContent(seq++, DrawTree(child, level + 1));
+            }
+
+            builder.CloseElement();
+        }
+
+        builder.CloseElement(); // tree-root
+    };
+
+    public void ToggleHeader(int headerId)
+    {
+
+        if (ExpandedHeaders.Contains(headerId))
+            ExpandedHeaders.Remove(headerId);
+        else
+            ExpandedHeaders.Add(headerId);
+
+        SelectHeader(headerId);
+    }
+
+    public void SelectHeader(int headerId)
+    {
+        SelectedHeaderId = headerId;
+        SelectedDocumentId = null;
+        IsHeader = false;
+        IsDocument = false;
+        IsEditing = false;
+        StateHasChanged();
+    }
+
+    public void SelectDocument(int documentId)
+    {
+        SelectedDocumentId = documentId;
+        SelectedHeaderId = null;
+        IsHeader = false;
+        IsDocument = false;
+        IsEditing = false;
+        StateHasChanged();
+    }
+
+    public async Task RefreshTree()
+    {
+        await LoadData();
+        StateHasChanged();
+    }
+
+    public void NewHeader()
+    {
+        Header = new CustomScreenSettingVM();
+        IsHeader = true;
+        IsDocument = false;
+        IsEditing = false;
+        SelectedHeaderId = null;
+        SelectedDocumentId = null;
+    }
+
+    public void CancelEdit()
+    {
+        IsHeader = false;
+        IsDocument = false;
+        IsEditing = false;
+        if (SelectedHeaderId == null && SelectedDocumentId == null)
+        {
+            var firstRoot = Headers.FirstOrDefault(h => h.CustomId == null);
+            if (firstRoot != null)
+                SelectHeader(firstRoot.CustomId);
+        }
+        StateHasChanged();
+    }
+
+    private async Task SaveHeader()
+    {
+        try
+        {
+
+            if (string.IsNullOrWhiteSpace(Header.Header))
+                return;
+
+            Header = await _CustomScreenService.UpsertCustomScreenAsync(Header, screenCode);
+
+            Headers = await _CustomScreenService.GetAllHeadersAsync();
+
+            ExpandedHeaders.Add(Header.CustomId);
+
+            int savedId = Header.CustomId;
+
+            Header = new CustomScreenSettingVM();
+            IsHeader = false;
+
+            SelectHeader(savedId);
+
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "An error occurred while handling the SaveHeader Method");
+        }
+    }
+
+    private async Task UpsertScreenSetting()
+    {
+        try
+        {
+            isProcessing = true;
+
+            foreach (var screen in Headers)
+            {
+                await _CustomScreenService.UpsertCustomScreenAsync(screen, screenCode);
+            }
+
+        }
+        catch (Exception ex)
+        {
+
+            await LoggingService.LogDeveloperError(ex, "An error occurred while handling the  UpsertScreenSetting() Method");
+        }
+
+    }
+
+    private async Task HandleModalConfirmation(bool isConfirmed)
+    {
+
+        try
+        {
+            await JSRuntime.InvokeVoidAsync("HideConfirmationModal");
+
+            if (!isConfirmed)
+                return;
+
+            switch (confirmation)
+            {
+                case "confirmDeleteRow_Click":
+                    await confirmDeleteRow_Click(true);
+                    break;
+                case "RemoveHeader":
+                    await CanRemove(true);
+                    break;
+                default:
+                    await JSRuntime.ToastrWarning("Unknown confirmation action.");
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"HandleModalConfirmation failed for action in HandleModalConfirmation: {confirmation}");
+            await JSRuntime.ToastrError("An error occurred while processing your action in HandleModalConfirmation. Please try again.");
+        }
+
+
+    }
+    private async Task CanRemove(bool isConfirmed)
+    {
+        try
+        {
+            await JSRuntime.InvokeVoidAsync("HideConfirmationModal");
+
+            if (!isConfirmed || SelectedHeader == null)
+            {
+                await JSRuntime.ToastrInfo("Action was not confirmed.");
+                return;
+            }
+
+            if (SelectedHeader.CustomId > 0)
+            {
+
+                await _CustomScreenService.DeleteHeaderAsync(SelectedHeader.CustomId, screenCode);
+
+                Headers = await _CustomScreenService.GetAllHeadersAsync();
+            }
+            else
+            {
+                // Remove only from UI
+                Headers.Remove(SelectedHeader);
+            }
+
+            SelectedHeaderId = null;
+            Header = new CustomScreenSettingVM();
+
+            StateHasChanged();
+
+            await JSRuntime.ToastrSuccess("Header deleted successfully.");
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"CanRemove failed for HeaderId: {SelectedHeader?.CustomId}");
+
+            await JSRuntime.ToastrError("An error occurred while deleting the header.");
+        }
+    }
+
+    private async Task RemoveRow(CustomScreenSettingVM item)
+    {
+        try
+        {
+
+            rowToDelete = item;
+            ModalTitle = "Are you sure you want to delete this row?";
+            btnColor = "btn-danger";
+            btnText = "Yes! Delete";
+            confirmation = "confirmDeleteRow_Click";
+
+            showCancelReasonBox = false;
+
+            await JSRuntime.InvokeVoidAsync("ShowConfirmationModal");
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"RemoveRow failed for GRNSubId: {item?.CustomId}");
+            await JSRuntime.ToastrError("Failed to remove the row. Please try again.");
+        }
+    }
+
+    private async Task confirmDeleteRow_Click(bool isConfirmed)
+    {
+        try
+        {
+            await JSRuntime.InvokeVoidAsync("HideConfirmationModal");
+
+            if (!isConfirmed || rowToDelete == null)
+            {
+                await JSRuntime.ToastrInfo("Action was not confirmed.");
+                return;
+            }
+
+            if (rowToDelete.CustomId > 0)
+            {
+                await _CustomScreenService.DeleteAndResequenceAsync(rowToDelete, screenCode);
+
+                await LoadData();
+
+            }
+            else
+            {
+                Documents.Remove(rowToDelete);
+                SelectedDocumentId = null;
+                StateHasChanged();
+            }
+
+            await JSRuntime.ToastrSuccess($" deleted successfully.");
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"Error confirming deletion for DocId:{Document.CustomId}");
+            await JSRuntime.ToastrError("An error occurred during deletion. Please try again.");
+        }
+        finally
+        {
+            rowToDelete = null;
+            StateHasChanged();
+        }
+    }
+    private void EditHeader()
+    {
+        if (SelectedHeader == null)
+            return;
+
+        Header = new CustomScreenSettingVM
+        {
+            CustomId = SelectedHeader.CustomId,
+            Header = SelectedHeader.Header,
+            CustomChildId=SelectedHeader.CustomChildId,
+            ScreenId=SelectedHeader.ScreenId,
+            CreatedBy = SelectedHeader.CreatedBy,
+            CreatedDate = SelectedHeader.CreatedDate,
+
+        };
+
+        IsHeader = true;
+        IsDocument = false;
+        IsEditing = true;
+    }
+
+
+    private async Task DeleteHeader()
+    {
+        try
+        {
+
+            if (SelectedHeader == null)
+                return;
+
+
+            if (Headers.Any(x => x.CustomChildId == SelectedHeader.CustomId))
+            {
+                await JSRuntime.ToastrWarning("Please delete all child headers first.");
+                return;
+            }
+
+            ModalTitle = "Are you sure you want to Delete Header?";
+            btnColor = "btn-danger";
+            btnText = "Yes! Delete";
+            confirmation = "RemoveHeader";
+            showCancelReasonBox = false;
+
+
+            await JSRuntime.InvokeVoidAsync("ShowConfirmationModal");
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"Error confirming DeleteHeader ");
+            await JSRuntime.ToastrError("An error occurred during DeleteHeader. Please try again.");
+        }
+
+    }
+
+    public void NewDocument()
+    {
+        Document = new CustomScreenSettingVM();
+        if (SelectedHeaderId.HasValue)
+            Document.CustomChildId = SelectedHeaderId.Value;
+        IsDocument = true;
+        IsHeader = false;
+        IsEditing = false;
+        SelectedHeaderId = null;
+        SelectedDocumentId = null;
+    }
+
+    public void EditDocument()
+    {
+        if (SelectedDocument != null)
+        {
+            Document = new CustomScreenSettingVM
+            {
+
+                CustomId = SelectedDocument.CustomId,
+                ScreenId = SelectedDocument.ScreenId,
+                ScreenName = SelectedDocument.ScreenName,
+                Navigation = SelectedDocument.Navigation,
+
+            };
+            IsDocument = true;
+            IsEditing = true;
+            StateHasChanged();
+        }
+    }
+
+    private async Task SaveDocument()
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(Document.ScreenName) || Document.CustomChildId == 0)
+                return;
+
+            Document = await _CustomScreenService.UpsertCustomScreenAsync(Document, screenCode);
+
+            int savedId = Document.ScreenId;
+
+            // Documents = await _CustomScreenService.GetAllHeadersAsync();
+
+            Document = new CustomScreenSettingVM();
+
+            IsDocument = false;
+            IsEditing = false;
+
+            await LoadData();
+
+            SelectDocument(savedId);
+
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "An error occurred while handling the SaveDocument Method");
+        }
+    }
+    private Task<IEnumerable<ScreensVM>> SearchScreens(string value, CancellationToken token)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return Task.FromResult(Screens.AsEnumerable());
+
+        return Task.FromResult(
+            Screens.Where(x =>
+                x.ScreenName.Contains(value, StringComparison.OrdinalIgnoreCase) ||
+                x.ScreenCode.ToString().Contains(value))
+            .AsEnumerable());
+    }
+    private Task ScreenSelected(ScreensVM? screen)
+    {
+        if (screen == null)
+            return Task.CompletedTask;
+
+        Document.ScreenId = screen.Id;
+        Document.ScreenName = screen.ScreenName;
+        Document.Header = screen.ScreenName;
+        Document.Navigation = screen.Navigation;
+
+        if (Documents.Any(x=>x.ScreenId == Document.ScreenId))
+        {
+            JSRuntime.ToastrWarning("This screen is already added to the list.");
+            Document.ScreenId = 0;
+            Document.ScreenName = string.Empty;
+            Document.Header = string.Empty;
+            Document.Navigation = string.Empty;
+            
+        }
+        return Task.CompletedTask;
+    }
+    private Task OnHeaderChanged()
+    {
+        var selectedHeader = Headers.FirstOrDefault(x => x.CustomId == Document.CustomChildId);
+
+        if (selectedHeader != null)
+        {
+            // Store Header Name
+
+
+            // Store Parent Id (already done by @bind)
+            Document.CustomChildId = selectedHeader.CustomId;
+        }
+
+        return Task.CompletedTask;
+    }
+}

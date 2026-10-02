@@ -1,0 +1,1564 @@
+is_global = true
+build_property.MudDebugAnalyzer = 
+build_property.MudAllowedAttributePattern = 
+build_property.MudAllowedAttributeList = 
+build_property.TargetFramework = net9.0
+build_property.TargetFramework = net9.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows,browser
+build_property._SupportedPlatformList = Linux,macOS,Windows,browser
+build_property.RootNamespace = V.SMART.Shared
+build_property.RootNamespace = V.SMART.Shared
+build_property.ProjectDir = D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 9.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/AuthorizationToggle.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBdXRob3JpemF0aW9uVG9nZ2xlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/BsModal.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xCc01vZGFsLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/ColumnMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb2x1bW5NZW51LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/CorrespondenceStatus.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb3JyZXNwb25kZW5jZVN0YXR1cy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/CustomerSelection.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDdXN0b21lclNlbGVjdGlvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/DBBackupSetting.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEQkJhY2t1cFNldHRpbmcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/DetailsModal.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEZXRhaWxzTW9kYWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/EmailComposeDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xFbWFpbENvbXBvc2VEaWFsb2cucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/EwayDcListModel.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xFd2F5RGNMaXN0TW9kZWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/EwaySettingModel.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xFd2F5U2V0dGluZ01vZGVsLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/ExcelUpload.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xFeGNlbFVwbG9hZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/ExportInvModel.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xFeHBvcnRJbnZNb2RlbC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/InternetStatus.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xJbnRlcm5ldFN0YXR1cy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/MasterModal.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xNYXN0ZXJNb2RhbC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/MyCompanyDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xNeUNvbXBhbnlEZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/PageHeader.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlSGVhZGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/QuotationDetials.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xRdW90YXRpb25EZXRpYWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/RejectionReworkDcModel.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSZWplY3Rpb25SZXdvcmtEY01vZGVsLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/RolItemDetailModel.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSb2xJdGVtRGV0YWlsTW9kZWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/SmartBackButton.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTbWFydEJhY2tCdXR0b24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/TDSEntryModal.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xURFNFbnRyeU1vZGFsLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/TrimmedInputText.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xUcmltbWVkSW5wdXRUZXh0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/Underconstruction.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xVbmRlcmNvbnN0cnVjdGlvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/UnsavedChangesModal.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xVbnNhdmVkQ2hhbmdlc01vZGFsLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/VendorSelection.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xWZW5kb3JTZWxlY3Rpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/CashFlow_Pages/Advaceadjustment_Pages/AdvanceAdjustment.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FzaEZsb3dfUGFnZXNcQWR2YWNlYWRqdXN0bWVudF9QYWdlc1xBZHZhbmNlQWRqdXN0bWVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/CashFlow_Pages/Advaceadjustment_Pages/AdvanceAdjustmentList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FzaEZsb3dfUGFnZXNcQWR2YWNlYWRqdXN0bWVudF9QYWdlc1xBZHZhbmNlQWRqdXN0bWVudExpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/CashFlow_Pages/Payments_Pages/Fundtransactions.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FzaEZsb3dfUGFnZXNcUGF5bWVudHNfUGFnZXNcRnVuZHRyYW5zYWN0aW9ucy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/CashFlow_Pages/Payments_Pages/PaymentDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FzaEZsb3dfUGFnZXNcUGF5bWVudHNfUGFnZXNcUGF5bWVudERldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/CashFlow_Pages/Payments_Pages/PaymentList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FzaEZsb3dfUGFnZXNcUGF5bWVudHNfUGFnZXNcUGF5bWVudExpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/CashFlow_Pages/Payments_Pages/Payments.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FzaEZsb3dfUGFnZXNcUGF5bWVudHNfUGFnZXNcUGF5bWVudHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/CashFlow_Pages/Receipt_Pages/ReceiptDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FzaEZsb3dfUGFnZXNcUmVjZWlwdF9QYWdlc1xSZWNlaXB0RGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/CashFlow_Pages/Receipt_Pages/ReceiptList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FzaEZsb3dfUGFnZXNcUmVjZWlwdF9QYWdlc1xSZWNlaXB0TGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/CashFlow_Pages/Receipt_Pages/Receipts.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FzaEZsb3dfUGFnZXNcUmVjZWlwdF9QYWdlc1xSZWNlaXB0cy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ChatBox_Pages/ChatBoxNotification.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2hhdEJveF9QYWdlc1xDaGF0Qm94Tm90aWZpY2F0aW9uLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Dashboard_Pages/Dashboard.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkX1BhZ2VzXERhc2hib2FyZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Dashboard_Pages/KpiSection.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkX1BhZ2VzXEtwaVNlY3Rpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Dashboard_Pages/SplitChartComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkX1BhZ2VzXFNwbGl0Q2hhcnRDb21wb25lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Dashboard_Pages/TrendChartComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkX1BhZ2VzXFRyZW5kQ2hhcnRDb21wb25lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home_Pages/AccountsHome.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZV9QYWdlc1xBY2NvdW50c0hvbWUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home_Pages/AccountsMasterHome.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZV9QYWdlc1xBY2NvdW50c01hc3RlckhvbWUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home_Pages/AdminMaster.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZV9QYWdlc1xBZG1pbk1hc3Rlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home_Pages/AssemblyCosting.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZV9QYWdlc1xBc3NlbWJseUNvc3RpbmcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home_Pages/GeneralMaster.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZV9QYWdlc1xHZW5lcmFsTWFzdGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home_Pages/HrHome.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZV9QYWdlc1xIckhvbWUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home_Pages/HrMasterHome.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZV9QYWdlc1xIck1hc3RlckhvbWUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home_Pages/InventoryHome.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZV9QYWdlc1xJbnZlbnRvcnlIb21lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home_Pages/InventoryMasterHome.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZV9QYWdlc1xJbnZlbnRvcnlNYXN0ZXJIb21lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home_Pages/MaintenanceHome.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZV9QYWdlc1xNYWludGVuYW5jZUhvbWUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home_Pages/MasterHome.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZV9QYWdlc1xNYXN0ZXJIb21lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home_Pages/PlanningHome.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZV9QYWdlc1xQbGFubmluZ0hvbWUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home_Pages/ProductionHome.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZV9QYWdlc1xQcm9kdWN0aW9uSG9tZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home_Pages/PurchaseHome.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZV9QYWdlc1xQdXJjaGFzZUhvbWUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home_Pages/QCHome.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZV9QYWdlc1xRQ0hvbWUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home_Pages/ReportsHome.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZV9QYWdlc1xSZXBvcnRzSG9tZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home_Pages/SalesHome.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZV9QYWdlc1xTYWxlc0hvbWUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Home_Pages/SettingMaster.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZV9QYWdlc1xTZXR0aW5nTWFzdGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/AppointmentLetter_Pages/AppointmentLetterDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xBcHBvaW50bWVudExldHRlcl9QYWdlc1xBcHBvaW50bWVudExldHRlckRldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/AppointmentLetter_Pages/AppointmentLetterList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xBcHBvaW50bWVudExldHRlcl9QYWdlc1xBcHBvaW50bWVudExldHRlckxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/AppointmentLetter_Pages/AppointmentLetterUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xBcHBvaW50bWVudExldHRlcl9QYWdlc1xBcHBvaW50bWVudExldHRlclVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/Attendance_Pages/AttendanceDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xBdHRlbmRhbmNlX1BhZ2VzXEF0dGVuZGFuY2VEZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/Attendance_Pages/AttendanceList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xBdHRlbmRhbmNlX1BhZ2VzXEF0dGVuZGFuY2VMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/Attendance_Pages/AttendanceUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xBdHRlbmRhbmNlX1BhZ2VzXEF0dGVuZGFuY2VVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/OfferLetter_Pages/OfferLetterList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xPZmZlckxldHRlcl9QYWdlc1xPZmZlckxldHRlckxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/OfferLetter_Pages/OfferLetterUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xPZmZlckxldHRlcl9QYWdlc1xPZmZlckxldHRlclVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/OfferLetter_Pages/OffferLetterDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xPZmZlckxldHRlcl9QYWdlc1xPZmZmZXJMZXR0ZXJEZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/Payroll_Pages/SalaryDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xQYXlyb2xsX1BhZ2VzXFNhbGFyeURldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/Payroll_Pages/SalaryList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xQYXlyb2xsX1BhZ2VzXFNhbGFyeUxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/Payroll_Pages/SalaryUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xQYXlyb2xsX1BhZ2VzXFNhbGFyeVVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/ProcessEmployeeAssign_Pages/ProcessEmployeeAssign.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xQcm9jZXNzRW1wbG95ZWVBc3NpZ25fUGFnZXNcUHJvY2Vzc0VtcGxveWVlQXNzaWduLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/ProcessEmployeeAssign_Pages/ProcessEmployeeAssignList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xQcm9jZXNzRW1wbG95ZWVBc3NpZ25fUGFnZXNcUHJvY2Vzc0VtcGxveWVlQXNzaWduTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/ProcessEmployeeAssign_Pages/ProductionAttendancelog.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xQcm9jZXNzRW1wbG95ZWVBc3NpZ25fUGFnZXNcUHJvZHVjdGlvbkF0dGVuZGFuY2Vsb2cucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/ProcessEmployeeAssign_Pages/ProductionAttendancelogList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xQcm9jZXNzRW1wbG95ZWVBc3NpZ25fUGFnZXNcUHJvZHVjdGlvbkF0dGVuZGFuY2Vsb2dMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/StaffLoan_Pages/StaffLoanDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xTdGFmZkxvYW5fUGFnZXNcU3RhZmZMb2FuRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/StaffLoan_Pages/StaffLoanList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xTdGFmZkxvYW5fUGFnZXNcU3RhZmZMb2FuTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/HumanResource_Pages/StaffLoan_Pages/StaffLoanUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHVtYW5SZXNvdXJjZV9QYWdlc1xTdGFmZkxvYW5fUGFnZXNcU3RhZmZMb2FuVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inspection_Pages/DefectInfo_Pages/DefectInfoList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zcGVjdGlvbl9QYWdlc1xEZWZlY3RJbmZvX1BhZ2VzXERlZmVjdEluZm9MaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inspection_Pages/DefectInfo_Pages/DefectInfoUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zcGVjdGlvbl9QYWdlc1xEZWZlY3RJbmZvX1BhZ2VzXERlZmVjdEluZm9VcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inspection_Pages/FinalInspection_Pages/FinalInspectionDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zcGVjdGlvbl9QYWdlc1xGaW5hbEluc3BlY3Rpb25fUGFnZXNcRmluYWxJbnNwZWN0aW9uRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inspection_Pages/FinalInspection_Pages/FinalInspectionList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zcGVjdGlvbl9QYWdlc1xGaW5hbEluc3BlY3Rpb25fUGFnZXNcRmluYWxJbnNwZWN0aW9uTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inspection_Pages/FinalInspection_Pages/FinalInspectionUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zcGVjdGlvbl9QYWdlc1xGaW5hbEluc3BlY3Rpb25fUGFnZXNcRmluYWxJbnNwZWN0aW9uVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inspection_Pages/IncomingInspectionPages/IncomingInspectionDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zcGVjdGlvbl9QYWdlc1xJbmNvbWluZ0luc3BlY3Rpb25QYWdlc1xJbmNvbWluZ0luc3BlY3Rpb25EZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inspection_Pages/IncomingInspectionPages/IncomingInspectionList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zcGVjdGlvbl9QYWdlc1xJbmNvbWluZ0luc3BlY3Rpb25QYWdlc1xJbmNvbWluZ0luc3BlY3Rpb25MaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inspection_Pages/IncomingInspectionPages/IncomingInspectionUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zcGVjdGlvbl9QYWdlc1xJbmNvbWluZ0luc3BlY3Rpb25QYWdlc1xJbmNvbWluZ0luc3BlY3Rpb25VcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inspection_Pages/MasterInspection_Pages/MasterInspectionDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zcGVjdGlvbl9QYWdlc1xNYXN0ZXJJbnNwZWN0aW9uX1BhZ2VzXE1hc3Rlckluc3BlY3Rpb25EZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inspection_Pages/MasterInspection_Pages/MasterInspectionList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zcGVjdGlvbl9QYWdlc1xNYXN0ZXJJbnNwZWN0aW9uX1BhZ2VzXE1hc3Rlckluc3BlY3Rpb25MaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inspection_Pages/MasterInspection_Pages/MasterInspectionUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zcGVjdGlvbl9QYWdlc1xNYXN0ZXJJbnNwZWN0aW9uX1BhZ2VzXE1hc3Rlckluc3BlY3Rpb25VcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/InstantSearch_Pages/InstantSearch.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdGFudFNlYXJjaF9QYWdlc1xJbnN0YW50U2VhcmNoLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/MaterialIssueNote_pages/MaterialIssueDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcTWF0ZXJpYWxJc3N1ZU5vdGVfcGFnZXNcTWF0ZXJpYWxJc3N1ZURldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/MaterialIssueNote_pages/MaterialIssueList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcTWF0ZXJpYWxJc3N1ZU5vdGVfcGFnZXNcTWF0ZXJpYWxJc3N1ZUxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/MaterialIssueNote_pages/MaterialIssueUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcTWF0ZXJpYWxJc3N1ZU5vdGVfcGFnZXNcTWF0ZXJpYWxJc3N1ZVVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/Stock Issue Request/StockIssueRequestDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcU3RvY2sgSXNzdWUgUmVxdWVzdFxTdG9ja0lzc3VlUmVxdWVzdERldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/Stock Issue Request/StockIssueRequestList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcU3RvY2sgSXNzdWUgUmVxdWVzdFxTdG9ja0lzc3VlUmVxdWVzdExpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/Stock Issue Request/StockIssueRequestUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcU3RvY2sgSXNzdWUgUmVxdWVzdFxTdG9ja0lzc3VlUmVxdWVzdFVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/StockAdd_Pages/SCNAddList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcU3RvY2tBZGRfUGFnZXNcU0NOQWRkTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/StockAdd_Pages/SCNAddUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcU3RvY2tBZGRfUGFnZXNcU0NOQWRkVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/StockAdd_Pages/SCNDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcU3RvY2tBZGRfUGFnZXNcU0NORGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/Stock_Position/StockPosition.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcU3RvY2tfUG9zaXRpb25cU3RvY2tQb3NpdGlvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/Stock_Position/StockPositionInternalExternal.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcU3RvY2tfUG9zaXRpb25cU3RvY2tQb3NpdGlvbkludGVybmFsRXh0ZXJuYWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/StoreInterTrans_Pages/StoreInterTransDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcU3RvcmVJbnRlclRyYW5zX1BhZ2VzXFN0b3JlSW50ZXJUcmFuc0RldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/StoreInterTrans_Pages/StoreInterTransList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcU3RvcmVJbnRlclRyYW5zX1BhZ2VzXFN0b3JlSW50ZXJUcmFuc0xpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/StoreInterTrans_Pages/StoreInterTransUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcU3RvcmVJbnRlclRyYW5zX1BhZ2VzXFN0b3JlSW50ZXJUcmFuc1Vwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/ToolCribIssue_Pages/ToolCribIssueDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcVG9vbENyaWJJc3N1ZV9QYWdlc1xUb29sQ3JpYklzc3VlRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/ToolCribIssue_Pages/ToolCribIssueList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcVG9vbENyaWJJc3N1ZV9QYWdlc1xUb29sQ3JpYklzc3VlTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/ToolCribIssue_Pages/ToolCribIssueUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcVG9vbENyaWJJc3N1ZV9QYWdlc1xUb29sQ3JpYklzc3VlVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/ToolCribReturn_Pages/ToolCribReturnDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcVG9vbENyaWJSZXR1cm5fUGFnZXNcVG9vbENyaWJSZXR1cm5EZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/ToolCribReturn_Pages/ToolCribReturnList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcVG9vbENyaWJSZXR1cm5fUGFnZXNcVG9vbENyaWJSZXR1cm5MaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Inventory(Stock)_Module_Pages/ToolCribReturn_Pages/ToolCribReturnUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5KFN0b2NrKV9Nb2R1bGVfUGFnZXNcVG9vbENyaWJSZXR1cm5fUGFnZXNcVG9vbENyaWJSZXR1cm5VcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/LiveDashBoard/LiveDashboard.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGl2ZURhc2hCb2FyZFxMaXZlRGFzaGJvYXJkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Maintenance_Pages/BreakdownMaintenance_Pages/BreakdownMaintenanceList_Page.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpbnRlbmFuY2VfUGFnZXNcQnJlYWtkb3duTWFpbnRlbmFuY2VfUGFnZXNcQnJlYWtkb3duTWFpbnRlbmFuY2VMaXN0X1BhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Maintenance_Pages/BreakdownMaintenance_Pages/BreakdownMaintenance_Upsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpbnRlbmFuY2VfUGFnZXNcQnJlYWtkb3duTWFpbnRlbmFuY2VfUGFnZXNcQnJlYWtkb3duTWFpbnRlbmFuY2VfVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Maintenance_Pages/CalibrationHistoryAndMaintenance_Pages/CalibrationMaintenanceDueList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpbnRlbmFuY2VfUGFnZXNcQ2FsaWJyYXRpb25IaXN0b3J5QW5kTWFpbnRlbmFuY2VfUGFnZXNcQ2FsaWJyYXRpb25NYWludGVuYW5jZUR1ZUxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Maintenance_Pages/CalibrationHistoryAndMaintenance_Pages/CalibrationMaintenanceList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpbnRlbmFuY2VfUGFnZXNcQ2FsaWJyYXRpb25IaXN0b3J5QW5kTWFpbnRlbmFuY2VfUGFnZXNcQ2FsaWJyYXRpb25NYWludGVuYW5jZUxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Maintenance_Pages/CalibrationHistoryAndMaintenance_Pages/CalibrationMaintenanceUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpbnRlbmFuY2VfUGFnZXNcQ2FsaWJyYXRpb25IaXN0b3J5QW5kTWFpbnRlbmFuY2VfUGFnZXNcQ2FsaWJyYXRpb25NYWludGVuYW5jZVVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Maintenance_Pages/MaintenanceProcess_Pages/MaintenanceProcessDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpbnRlbmFuY2VfUGFnZXNcTWFpbnRlbmFuY2VQcm9jZXNzX1BhZ2VzXE1haW50ZW5hbmNlUHJvY2Vzc0RldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Maintenance_Pages/MaintenanceProcess_Pages/MaintenanceProcessReport_Page.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpbnRlbmFuY2VfUGFnZXNcTWFpbnRlbmFuY2VQcm9jZXNzX1BhZ2VzXE1haW50ZW5hbmNlUHJvY2Vzc1JlcG9ydF9QYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Maintenance_Pages/MaintenanceProcess_Pages/MaintenanceProcess_Page.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpbnRlbmFuY2VfUGFnZXNcTWFpbnRlbmFuY2VQcm9jZXNzX1BhZ2VzXE1haW50ZW5hbmNlUHJvY2Vzc19QYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Maintenance_Pages/MaintenanceSchedule_Pages/Component.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpbnRlbmFuY2VfUGFnZXNcTWFpbnRlbmFuY2VTY2hlZHVsZV9QYWdlc1xDb21wb25lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Maintenance_Pages/MaintenanceSchedule_Pages/MaintenanceSchedule_Page.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpbnRlbmFuY2VfUGFnZXNcTWFpbnRlbmFuY2VTY2hlZHVsZV9QYWdlc1xNYWludGVuYW5jZVNjaGVkdWxlX1BhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Bank_Pages/Bank.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xCYW5rX1BhZ2VzXEJhbmsucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/BOMLabour_Pages/BOMLabourDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xCT01MYWJvdXJfUGFnZXNcQk9NTGFib3VyRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/BOMLabour_Pages/BOMLabourList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xCT01MYWJvdXJfUGFnZXNcQk9NTGFib3VyTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/BOMLabour_Pages/BOMLabourUpload.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xCT01MYWJvdXJfUGFnZXNcQk9NTGFib3VyVXBsb2FkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/BOMLabour_Pages/BOMLabourUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xCT01MYWJvdXJfUGFnZXNcQk9NTGFib3VyVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/BOM_Pages/BOMDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xCT01fUGFnZXNcQk9NRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/BOM_Pages/BOMList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xCT01fUGFnZXNcQk9NTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/BOM_Pages/BomPRSCNCreation.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xCT01fUGFnZXNcQm9tUFJTQ05DcmVhdGlvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/BOM_Pages/BomUpload.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xCT01fUGFnZXNcQm9tVXBsb2FkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/BOM_Pages/BOMUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xCT01fUGFnZXNcQk9NVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Candidate_Pages/CandidateList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xDYW5kaWRhdGVfUGFnZXNcQ2FuZGlkYXRlTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Candidate_Pages/CandidateUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xDYW5kaWRhdGVfUGFnZXNcQ2FuZGlkYXRlVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Category_Pages/CategoryList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xDYXRlZ29yeV9QYWdlc1xDYXRlZ29yeUxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Category_Pages/CategoryUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xDYXRlZ29yeV9QYWdlc1xDYXRlZ29yeVVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Company_Pages/CompanyUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xDb21wYW55X1BhZ2VzXENvbXBhbnlVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/CostCenter_Pages/CostCenterList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xDb3N0Q2VudGVyX1BhZ2VzXENvc3RDZW50ZXJMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/CostCenter_Pages/CostCentorUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xDb3N0Q2VudGVyX1BhZ2VzXENvc3RDZW50b3JVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/CurrencyToday_Pages/CurrencyTodayUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xDdXJyZW5jeVRvZGF5X1BhZ2VzXEN1cnJlbmN5VG9kYXlVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Currency_Pages/CurrencyList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xDdXJyZW5jeV9QYWdlc1xDdXJyZW5jeUxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Currency_Pages/CurrencyUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xDdXJyZW5jeV9QYWdlc1xDdXJyZW5jeVVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Customer_Pages/CustomerList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xDdXN0b21lcl9QYWdlc1xDdXN0b21lckxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Customer_Pages/CustomerUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xDdXN0b21lcl9QYWdlc1xDdXN0b21lclVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/EmployeeLeaveBalance_pages/EmployeeLeaveBalanceList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xFbXBsb3llZUxlYXZlQmFsYW5jZV9wYWdlc1xFbXBsb3llZUxlYXZlQmFsYW5jZUxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/EmployeeLeaveBalance_pages/EmployeeLeaveBalanceUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xFbXBsb3llZUxlYXZlQmFsYW5jZV9wYWdlc1xFbXBsb3llZUxlYXZlQmFsYW5jZVVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Employee_Pages/EmployeeList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xFbXBsb3llZV9QYWdlc1xFbXBsb3llZUxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Employee_Pages/EmployeeUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xFbXBsb3llZV9QYWdlc1xFbXBsb3llZVVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Expense_Pages/ExpenseList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xFeHBlbnNlX1BhZ2VzXEV4cGVuc2VMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Expense_Pages/ExpenseUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xFeHBlbnNlX1BhZ2VzXEV4cGVuc2VVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Factor_Pages/Factorlist.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xGYWN0b3JfUGFnZXNcRmFjdG9ybGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Factor_Pages/FactorUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xGYWN0b3JfUGFnZXNcRmFjdG9yVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Grouping_Pages/GroupingList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xHcm91cGluZ19QYWdlc1xHcm91cGluZ0xpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Grouping_Pages/GroupingUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xHcm91cGluZ19QYWdlc1xHcm91cGluZ1Vwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/HolidayList_pages/HolidayListUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xIb2xpZGF5TGlzdF9wYWdlc1xIb2xpZGF5TGlzdFVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/HSNMaster_Pages/HSNList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xIU05NYXN0ZXJfUGFnZXNcSFNOTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/HSNMaster_Pages/HSNUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xIU05NYXN0ZXJfUGFnZXNcSFNOVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Identity_Pages/AccessDenied.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xJZGVudGl0eV9QYWdlc1xBY2Nlc3NEZW5pZWQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Identity_Pages/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xJZGVudGl0eV9QYWdlc1xMb2dpbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Identity_Pages/Logout.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xJZGVudGl0eV9QYWdlc1xMb2dvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Identity_Pages/QrLogin.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xJZGVudGl0eV9QYWdlc1xRckxvZ2luLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Identity_Pages/RedirectToLogin.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xJZGVudGl0eV9QYWdlc1xSZWRpcmVjdFRvTG9naW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Identity_Pages/RegisterUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xJZGVudGl0eV9QYWdlc1xSZWdpc3RlclVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Identity_Pages/UserAuthorization.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xJZGVudGl0eV9QYWdlc1xVc2VyQXV0aG9yaXphdGlvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Identity_Pages/UserAuthorizationList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xJZGVudGl0eV9QYWdlc1xVc2VyQXV0aG9yaXphdGlvbkxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Identity_Pages/UserList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xJZGVudGl0eV9QYWdlc1xVc2VyTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Income_Pages/IncomeList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xJbmNvbWVfUGFnZXNcSW5jb21lTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Income_Pages/IncomeUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xJbmNvbWVfUGFnZXNcSW5jb21lVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/ItemRateUpdation_Pages/ItemRateUpdation.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xJdGVtUmF0ZVVwZGF0aW9uX1BhZ2VzXEl0ZW1SYXRlVXBkYXRpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Items_Pages/ItemList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xJdGVtc19QYWdlc1xJdGVtTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Items_Pages/ItemUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xJdGVtc19QYWdlc1xJdGVtVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Labour Cost Management/CostCalculator.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xMYWJvdXIgQ29zdCBNYW5hZ2VtZW50XENvc3RDYWxjdWxhdG9yLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Labour Cost Management/LabourCostManagement.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xMYWJvdXIgQ29zdCBNYW5hZ2VtZW50XExhYm91ckNvc3RNYW5hZ2VtZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/LeaveApplication_Pages/LeaveApplicationList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xMZWF2ZUFwcGxpY2F0aW9uX1BhZ2VzXExlYXZlQXBwbGljYXRpb25MaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/LeaveApplication_Pages/LeaveApplicationUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xMZWF2ZUFwcGxpY2F0aW9uX1BhZ2VzXExlYXZlQXBwbGljYXRpb25VcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/LeaveApplication_Pages/LeaveDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xMZWF2ZUFwcGxpY2F0aW9uX1BhZ2VzXExlYXZlRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/LeaveType_Pages/LeaveTypeList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xMZWF2ZVR5cGVfUGFnZXNcTGVhdmVUeXBlTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/LeaveType_Pages/LeaveTypeUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xMZWF2ZVR5cGVfUGFnZXNcTGVhdmVUeXBlVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Machine_Pages/MachineList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xNYWNoaW5lX1BhZ2VzXE1hY2hpbmVMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Machine_Pages/MachineUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xNYWNoaW5lX1BhZ2VzXE1hY2hpbmVVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/MasterUpload_Pages/MasterUpload.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xNYXN0ZXJVcGxvYWRfUGFnZXNcTWFzdGVyVXBsb2FkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Process_Pages/ProcessList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xQcm9jZXNzX1BhZ2VzXFByb2Nlc3NMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Process_Pages/ProcessUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xQcm9jZXNzX1BhZ2VzXFByb2Nlc3NVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/ProjectTypeMaster_Pages/ProjectTypeMasterUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xQcm9qZWN0VHlwZU1hc3Rlcl9QYWdlc1xQcm9qZWN0VHlwZU1hc3RlclVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/RawMaterial_Pages/RawMaterialList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xSYXdNYXRlcmlhbF9QYWdlc1xSYXdNYXRlcmlhbExpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/RawMaterial_Pages/RawMaterialUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xSYXdNYXRlcmlhbF9QYWdlc1xSYXdNYXRlcmlhbFVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/RejectionMaster_Pages/RejectionUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xSZWplY3Rpb25NYXN0ZXJfUGFnZXNcUmVqZWN0aW9uVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/ScreenManagement_Pages/ScreenManagementList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xTY3JlZW5NYW5hZ2VtZW50X1BhZ2VzXFNjcmVlbk1hbmFnZW1lbnRMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/ShiftAllocation_Pages/ShiftAllocationList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xTaGlmdEFsbG9jYXRpb25fUGFnZXNcU2hpZnRBbGxvY2F0aW9uTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/ShiftAllocation_Pages/ShiftAllocationUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xTaGlmdEFsbG9jYXRpb25fUGFnZXNcU2hpZnRBbGxvY2F0aW9uVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/State_Pages/StateList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xTdGF0ZV9QYWdlc1xTdGF0ZUxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Store_Pages/StoreMapPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xTdG9yZV9QYWdlc1xTdG9yZU1hcFBhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Store_Pages/Stores.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xTdG9yZV9QYWdlc1xTdG9yZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/Store_Pages/StoreUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xTdG9yZV9QYWdlc1xTdG9yZVVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/TermsAndConditions_Pages/TermsList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xUZXJtc0FuZENvbmRpdGlvbnNfUGFnZXNcVGVybXNMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/TermsAndConditions_Pages/TermsUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xUZXJtc0FuZENvbmRpdGlvbnNfUGFnZXNcVGVybXNVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/UOM_Pages/UOMList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xVT01fUGFnZXNcVU9NTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/UserRights_Pages/UserRights.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xVc2VyUmlnaHRzX1BhZ2VzXFVzZXJSaWdodHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/VendorSupplier_Pages/VendorList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xWZW5kb3JTdXBwbGllcl9QYWdlc1xWZW5kb3JMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Master_Module_pages/VendorSupplier_Pages/VendorUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFzdGVyX01vZHVsZV9wYWdlc1xWZW5kb3JTdXBwbGllcl9QYWdlc1xWZW5kb3JVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/DebitNote_pages/DebitNoteDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXERlYml0Tm90ZV9wYWdlc1xEZWJpdE5vdGVEZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/DebitNote_pages/DebitNoteList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXERlYml0Tm90ZV9wYWdlc1xEZWJpdE5vdGVMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/DebitNote_pages/DebitNoteUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXERlYml0Tm90ZV9wYWdlc1xEZWJpdE5vdGVVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/MaterialRequisition_pages/MaterialReqDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXE1hdGVyaWFsUmVxdWlzaXRpb25fcGFnZXNcTWF0ZXJpYWxSZXFEZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/MaterialRequisition_pages/MaterialReqList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXE1hdGVyaWFsUmVxdWlzaXRpb25fcGFnZXNcTWF0ZXJpYWxSZXFMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/MaterialRequisition_pages/MaterialReqUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXE1hdGVyaWFsUmVxdWlzaXRpb25fcGFnZXNcTWF0ZXJpYWxSZXFVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchaseGRN_Pages/PurchaseGRNDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoYXNlR1JOX1BhZ2VzXFB1cmNoYXNlR1JORGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchaseGRN_Pages/PurchaseGRNList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoYXNlR1JOX1BhZ2VzXFB1cmNoYXNlR1JOTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchaseGRN_Pages/PurchaseGRNUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoYXNlR1JOX1BhZ2VzXFB1cmNoYXNlR1JOVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchaseInvoice_Pages/PurchaseInvoiceDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoYXNlSW52b2ljZV9QYWdlc1xQdXJjaGFzZUludm9pY2VEZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchaseInvoice_Pages/PurchaseInvoiceList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoYXNlSW52b2ljZV9QYWdlc1xQdXJjaGFzZUludm9pY2VMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchaseInvoice_Pages/PurchaseInvoiceUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoYXNlSW52b2ljZV9QYWdlc1xQdXJjaGFzZUludm9pY2VVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchaseQuote_Pages/PurchaseQuoteDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoYXNlUXVvdGVfUGFnZXNcUHVyY2hhc2VRdW90ZURldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchaseQuote_Pages/PurchaseQuoteList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoYXNlUXVvdGVfUGFnZXNcUHVyY2hhc2VRdW90ZUxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchaseQuote_Pages/PurchaseQuoteUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoYXNlUXVvdGVfUGFnZXNcUHVyY2hhc2VRdW90ZVVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchaseSCN_Pages/PurchaseSCNDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoYXNlU0NOX1BhZ2VzXFB1cmNoYXNlU0NORGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchaseSCN_Pages/PurchaseSCNList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoYXNlU0NOX1BhZ2VzXFB1cmNoYXNlU0NOTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchaseSCN_Pages/PurchaseSCNUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoYXNlU0NOX1BhZ2VzXFB1cmNoYXNlU0NOVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchOrSubConEnquiry_Pages/EnquiryPurchaseList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoT3JTdWJDb25FbnF1aXJ5X1BhZ2VzXEVucXVpcnlQdXJjaGFzZUxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchOrSubConEnquiry_Pages/EnquiryPurchaseUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoT3JTdWJDb25FbnF1aXJ5X1BhZ2VzXEVucXVpcnlQdXJjaGFzZVVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchOrSubConEnquiry_Pages/PurchaseEnquiryDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoT3JTdWJDb25FbnF1aXJ5X1BhZ2VzXFB1cmNoYXNlRW5xdWlyeURldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchOrSubConPO_Pages/MultiVendorCreate.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoT3JTdWJDb25QT19QYWdlc1xNdWx0aVZlbmRvckNyZWF0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchOrSubConPO_Pages/PurchasePoDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoT3JTdWJDb25QT19QYWdlc1xQdXJjaGFzZVBvRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchOrSubConPO_Pages/PurchPoPOList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoT3JTdWJDb25QT19QYWdlc1xQdXJjaFBvUE9MaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchOrSubConPO_Pages/PurchPOUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoT3JTdWJDb25QT19QYWdlc1xQdXJjaFBPVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/PurchOrSubConPO_Pages/RateComparison.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFB1cmNoT3JTdWJDb25QT19QYWdlc1xSYXRlQ29tcGFyaXNvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/SubContractDCOut_Pages/SubContractDCOutDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFN1YkNvbnRyYWN0RENPdXRfUGFnZXNcU3ViQ29udHJhY3REQ091dERldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/SubContractDCOut_Pages/SubContractDCOutList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFN1YkNvbnRyYWN0RENPdXRfUGFnZXNcU3ViQ29udHJhY3REQ091dExpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/SubContractDCOut_Pages/SubContractDCOutUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFN1YkNvbnRyYWN0RENPdXRfUGFnZXNcU3ViQ29udHJhY3REQ091dFVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/SubContractGRN_Pages/SubConGRNDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFN1YkNvbnRyYWN0R1JOX1BhZ2VzXFN1YkNvbkdSTkRldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/SubContractGRN_Pages/SubConGRNList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFN1YkNvbnRyYWN0R1JOX1BhZ2VzXFN1YkNvbkdSTkxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/SubContractGRN_Pages/SubConGRNUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFN1YkNvbnRyYWN0R1JOX1BhZ2VzXFN1YkNvbkdSTlVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/SubContractInv_pages/SubConInvDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFN1YkNvbnRyYWN0SW52X3BhZ2VzXFN1YkNvbkludkRldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/SubContractInv_pages/SubConInvList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFN1YkNvbnRyYWN0SW52X3BhZ2VzXFN1YkNvbkludkxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/SubContractInv_pages/SubConInvUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFN1YkNvbnRyYWN0SW52X3BhZ2VzXFN1YkNvbkludlVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/SubContractSCN_pages/SubConSCNDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFN1YkNvbnRyYWN0U0NOX3BhZ2VzXFN1YkNvblNDTkRldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/SubContractSCN_pages/SubConSCNList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFN1YkNvbnRyYWN0U0NOX3BhZ2VzXFN1YkNvblNDTkxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/OutSourcing_Module_pages/SubContractSCN_pages/SubConSCNUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3V0U291cmNpbmdfTW9kdWxlX3BhZ2VzXFN1YkNvbnRyYWN0U0NOX3BhZ2VzXFN1YkNvblNDTlVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Planning_Module_Pages/Asssembly_Requirement_Analysis_Pages/AssemblyTreeNode.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbm5pbmdfTW9kdWxlX1BhZ2VzXEFzc3NlbWJseV9SZXF1aXJlbWVudF9BbmFseXNpc19QYWdlc1xBc3NlbWJseVRyZWVOb2RlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Planning_Module_Pages/Asssembly_Requirement_Analysis_Pages/AssyRequirementAnalysis.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbm5pbmdfTW9kdWxlX1BhZ2VzXEFzc3NlbWJseV9SZXF1aXJlbWVudF9BbmFseXNpc19QYWdlc1xBc3N5UmVxdWlyZW1lbnRBbmFseXNpcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Planning_Module_Pages/Authorization_Pages/Authorization.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbm5pbmdfTW9kdWxlX1BhZ2VzXEF1dGhvcml6YXRpb25fUGFnZXNcQXV0aG9yaXphdGlvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Planning_Module_Pages/Estimation_Pages/EstimationDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbm5pbmdfTW9kdWxlX1BhZ2VzXEVzdGltYXRpb25fUGFnZXNcRXN0aW1hdGlvbkRldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Planning_Module_Pages/Estimation_Pages/EstimationList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbm5pbmdfTW9kdWxlX1BhZ2VzXEVzdGltYXRpb25fUGFnZXNcRXN0aW1hdGlvbkxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Planning_Module_Pages/Estimation_Pages/EstimationUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbm5pbmdfTW9kdWxlX1BhZ2VzXEVzdGltYXRpb25fUGFnZXNcRXN0aW1hdGlvblVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Planning_Module_Pages/JobOrder_Pages/JobOrderDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbm5pbmdfTW9kdWxlX1BhZ2VzXEpvYk9yZGVyX1BhZ2VzXEpvYk9yZGVyRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Planning_Module_Pages/JobOrder_Pages/JobOrderList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbm5pbmdfTW9kdWxlX1BhZ2VzXEpvYk9yZGVyX1BhZ2VzXEpvYk9yZGVyTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Planning_Module_Pages/JobOrder_Pages/JobOrderUpsert_pages.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbm5pbmdfTW9kdWxlX1BhZ2VzXEpvYk9yZGVyX1BhZ2VzXEpvYk9yZGVyVXBzZXJ0X3BhZ2VzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Planning_Module_Pages/RequirementAnalysis_Pages/MaterialRequirementAnalysisUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbm5pbmdfTW9kdWxlX1BhZ2VzXFJlcXVpcmVtZW50QW5hbHlzaXNfUGFnZXNcTWF0ZXJpYWxSZXF1aXJlbWVudEFuYWx5c2lzVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Planning_Module_Pages/RouteCard_Pages/ProcessLogDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbm5pbmdfTW9kdWxlX1BhZ2VzXFJvdXRlQ2FyZF9QYWdlc1xQcm9jZXNzTG9nRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Planning_Module_Pages/RouteCard_Pages/RcReleaseList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbm5pbmdfTW9kdWxlX1BhZ2VzXFJvdXRlQ2FyZF9QYWdlc1xSY1JlbGVhc2VMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Planning_Module_Pages/RouteCard_Pages/RcReleaseUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbm5pbmdfTW9kdWxlX1BhZ2VzXFJvdXRlQ2FyZF9QYWdlc1xSY1JlbGVhc2VVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Planning_Module_Pages/RouteCard_Pages/RouteCardDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbm5pbmdfTW9kdWxlX1BhZ2VzXFJvdXRlQ2FyZF9QYWdlc1xSb3V0ZUNhcmREZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Planning_Module_Pages/RouteCard_Pages/RouteCardList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbm5pbmdfTW9kdWxlX1BhZ2VzXFJvdXRlQ2FyZF9QYWdlc1xSb3V0ZUNhcmRMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Planning_Module_Pages/RouteCard_Pages/RouteCardUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbm5pbmdfTW9kdWxlX1BhZ2VzXFJvdXRlQ2FyZF9QYWdlc1xSb3V0ZUNhcmRVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/DailyProductionLog_Pages/DailyProductionLogDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xEYWlseVByb2R1Y3Rpb25Mb2dfUGFnZXNcRGFpbHlQcm9kdWN0aW9uTG9nRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/DailyProductionLog_Pages/ProductionLogList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xEYWlseVByb2R1Y3Rpb25Mb2dfUGFnZXNcUHJvZHVjdGlvbkxvZ0xpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/DailyProductionLog_Pages/ProductionLogUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xEYWlseVByb2R1Y3Rpb25Mb2dfUGFnZXNcUHJvZHVjdGlvbkxvZ1Vwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/ProductionAssySCN_Pages/ProductionAssySCNDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xQcm9kdWN0aW9uQXNzeVNDTl9QYWdlc1xQcm9kdWN0aW9uQXNzeVNDTkRldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/ProductionAssySCN_Pages/ProductionAssySCNList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xQcm9kdWN0aW9uQXNzeVNDTl9QYWdlc1xQcm9kdWN0aW9uQXNzeVNDTkxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/ProductionAssySCN_Pages/ProductionAssySCNUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xQcm9kdWN0aW9uQXNzeVNDTl9QYWdlc1xQcm9kdWN0aW9uQXNzeVNDTlVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/ProductionCompReturn_Pages/ProductionReturnCompDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xQcm9kdWN0aW9uQ29tcFJldHVybl9QYWdlc1xQcm9kdWN0aW9uUmV0dXJuQ29tcERldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/ProductionCompReturn_Pages/ProductionReturnCompList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xQcm9kdWN0aW9uQ29tcFJldHVybl9QYWdlc1xQcm9kdWN0aW9uUmV0dXJuQ29tcExpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/ProductionCompReturn_Pages/ProductionReturnCompUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xQcm9kdWN0aW9uQ29tcFJldHVybl9QYWdlc1xQcm9kdWN0aW9uUmV0dXJuQ29tcFVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/ProductionComp_Pages/ProductionIssueCompDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xQcm9kdWN0aW9uQ29tcF9QYWdlc1xQcm9kdWN0aW9uSXNzdWVDb21wRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/ProductionComp_Pages/ProductionIssueCompUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xQcm9kdWN0aW9uQ29tcF9QYWdlc1xQcm9kdWN0aW9uSXNzdWVDb21wVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/ProductionComp_Pages/ProuctionIssueCompList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xQcm9kdWN0aW9uQ29tcF9QYWdlc1xQcm91Y3Rpb25Jc3N1ZUNvbXBMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/ProductionIssueAssy_Pages/ProductionIssueAssyDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xQcm9kdWN0aW9uSXNzdWVBc3N5X1BhZ2VzXFByb2R1Y3Rpb25Jc3N1ZUFzc3lEZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/ProductionIssueAssy_Pages/ProductionIssueAssyList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xQcm9kdWN0aW9uSXNzdWVBc3N5X1BhZ2VzXFByb2R1Y3Rpb25Jc3N1ZUFzc3lMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/ProductionIssueAssy_Pages/ProductionIssueAssyUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xQcm9kdWN0aW9uSXNzdWVBc3N5X1BhZ2VzXFByb2R1Y3Rpb25Jc3N1ZUFzc3lVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/ProductionReturnAssy_Pages/ProductionReturnAssyList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xQcm9kdWN0aW9uUmV0dXJuQXNzeV9QYWdlc1xQcm9kdWN0aW9uUmV0dXJuQXNzeUxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/ProductionReturnAssy_Pages/ProductionReturnAssyUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xQcm9kdWN0aW9uUmV0dXJuQXNzeV9QYWdlc1xQcm9kdWN0aW9uUmV0dXJuQXNzeVVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/ProductionReturnAssy_Pages/ProductionReturnDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xQcm9kdWN0aW9uUmV0dXJuQXNzeV9QYWdlc1xQcm9kdWN0aW9uUmV0dXJuRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/ProductionSCNComp_Pages/ProductionSCNCompDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xQcm9kdWN0aW9uU0NOQ29tcF9QYWdlc1xQcm9kdWN0aW9uU0NOQ29tcERldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/ProductionSCNComp_Pages/ProductionSCNCompList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xQcm9kdWN0aW9uU0NOQ29tcF9QYWdlc1xQcm9kdWN0aW9uU0NOQ29tcExpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ProductionModule_pages/ProductionSCNComp_Pages/ProductionSCNCompUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdGlvbk1vZHVsZV9wYWdlc1xQcm9kdWN0aW9uU0NOQ29tcF9QYWdlc1xQcm9kdWN0aW9uU0NOQ29tcFVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/QIMS_ISO_Pages/ExpiredDocumentsDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUUlNU19JU09fUGFnZXNcRXhwaXJlZERvY3VtZW50c0RpYWxvZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/QIMS_ISO_Pages/Qmsdocuments.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUUlNU19JU09fUGFnZXNcUW1zZG9jdW1lbnRzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/AccountsRpt_Pages/Confirmation_Of_Accounts.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xBY2NvdW50c1JwdF9QYWdlc1xDb25maXJtYXRpb25fT2ZfQWNjb3VudHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/AccountsRpt_Pages/CreditDebitSummaryReport.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xBY2NvdW50c1JwdF9QYWdlc1xDcmVkaXREZWJpdFN1bW1hcnlSZXBvcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/AccountsRpt_Pages/HSNSACSummaryReport.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xBY2NvdW50c1JwdF9QYWdlc1xIU05TQUNTdW1tYXJ5UmVwb3J0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/AccountsRpt_Pages/PaidBills.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xBY2NvdW50c1JwdF9QYWdlc1xQYWlkQmlsbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/AccountsRpt_Pages/Pending Bills.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xBY2NvdW50c1JwdF9QYWdlc1xQZW5kaW5nIEJpbGxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/AccountsRpt_Pages/PendingStatements.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xBY2NvdW50c1JwdF9QYWdlc1xQZW5kaW5nU3RhdGVtZW50cy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/AccountsRpt_Pages/Profit&LossAccounts.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xBY2NvdW50c1JwdF9QYWdlc1xQcm9maXQmTG9zc0FjY291bnRzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/AccountsRpt_Pages/SummaryAndGraphs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xBY2NvdW50c1JwdF9QYWdlc1xTdW1tYXJ5QW5kR3JhcGhzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/AccountsRpt_Pages/TDSSummaryReport.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xBY2NvdW50c1JwdF9QYWdlc1xURFNTdW1tYXJ5UmVwb3J0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/AnalysisReport_Pages/ItemModificationReport.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xBbmFseXNpc1JlcG9ydF9QYWdlc1xJdGVtTW9kaWZpY2F0aW9uUmVwb3J0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/AnalysisReport_Pages/Rejection.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xBbmFseXNpc1JlcG9ydF9QYWdlc1xSZWplY3Rpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/AnalysisReport_Pages/RouteCardAnalysis.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xBbmFseXNpc1JlcG9ydF9QYWdlc1xSb3V0ZUNhcmRBbmFseXNpcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/AnalysisReport_Pages/StockAnalysis.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xBbmFseXNpc1JlcG9ydF9QYWdlc1xTdG9ja0FuYWx5c2lzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/AnalysisReport_Pages/StockLedger.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xBbmFseXNpc1JlcG9ydF9QYWdlc1xTdG9ja0xlZGdlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/GSTITC4_Pages/GSTITC.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xHU1RJVEM0X1BhZ2VzXEdTVElUQy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/GSTITC4_Pages/GSTR1.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xHU1RJVEM0X1BhZ2VzXEdTVFIxLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/History_Pages/Daybook.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xIaXN0b3J5X1BhZ2VzXERheWJvb2sucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/History_Pages/ItemHistory.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xIaXN0b3J5X1BhZ2VzXEl0ZW1IaXN0b3J5LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/Inspection_Report/IncomingInspectionReport.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xJbnNwZWN0aW9uX1JlcG9ydFxJbmNvbWluZ0luc3BlY3Rpb25SZXBvcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/IssueSummary_Pages/MaterialIssueNoteSummaryReport.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xJc3N1ZVN1bW1hcnlfUGFnZXNcTWF0ZXJpYWxJc3N1ZU5vdGVTdW1tYXJ5UmVwb3J0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/IssueSummary_Pages/StoreaddSummary.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xJc3N1ZVN1bW1hcnlfUGFnZXNcU3RvcmVhZGRTdW1tYXJ5LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/IssueSummary_Pages/ToolCribIssueSummary.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xJc3N1ZVN1bW1hcnlfUGFnZXNcVG9vbENyaWJJc3N1ZVN1bW1hcnkucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/PoPending_Pages/LabourPending.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xQb1BlbmRpbmdfUGFnZXNcTGFib3VyUGVuZGluZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/PoPending_Pages/SalesPoPending.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xQb1BlbmRpbmdfUGFnZXNcU2FsZXNQb1BlbmRpbmcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/POTrack_Page/POTrack.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xQT1RyYWNrX1BhZ2VcUE9UcmFjay5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/ProductionRptPending_Pages/Material stockLeft.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xQcm9kdWN0aW9uUnB0UGVuZGluZ19QYWdlc1xNYXRlcmlhbCBzdG9ja0xlZnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/ProductionRptPending_Pages/OperatorSummary.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xQcm9kdWN0aW9uUnB0UGVuZGluZ19QYWdlc1xPcGVyYXRvclN1bW1hcnkucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/ProductionRptPending_Pages/ProductionPending.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xQcm9kdWN0aW9uUnB0UGVuZGluZ19QYWdlc1xQcm9kdWN0aW9uUGVuZGluZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/ProductionRptPending_Pages/ProductionReport.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xQcm9kdWN0aW9uUnB0UGVuZGluZ19QYWdlc1xQcm9kdWN0aW9uUmVwb3J0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/ProductionRptPending_Pages/ProductionWorkOrderIssueAssemblyComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xQcm9kdWN0aW9uUnB0UGVuZGluZ19QYWdlc1xQcm9kdWN0aW9uV29ya09yZGVySXNzdWVBc3NlbWJseUNvbXBvbmVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/Ratings_Pages/PrPoRatings.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xSYXRpbmdzX1BhZ2VzXFByUG9SYXRpbmdzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/Ratings_Pages/Ratings.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xSYXRpbmdzX1BhZ2VzXFJhdGluZ3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/Ratings_Pages/VendorPerformance.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xSYXRpbmdzX1BhZ2VzXFZlbmRvclBlcmZvcm1hbmNlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/TaxDet_Pages/TaxDetailsReport.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xUYXhEZXRfUGFnZXNcVGF4RGV0YWlsc1JlcG9ydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/TrackReports_Pages/JobAnalysis.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xUcmFja1JlcG9ydHNfUGFnZXNcSm9iQW5hbHlzaXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/TrackReports_Pages/LabourTrack.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xUcmFja1JlcG9ydHNfUGFnZXNcTGFib3VyVHJhY2sucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/TrackReports_Pages/PurchaseSalesTrack.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xUcmFja1JlcG9ydHNfUGFnZXNcUHVyY2hhc2VTYWxlc1RyYWNrLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/TrackReports_Pages/SalesTrack.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xUcmFja1JlcG9ydHNfUGFnZXNcU2FsZXNUcmFjay5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Report_Module_Pages/TrackReports_Pages/ViewTallyDcInOutTrack.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0X01vZHVsZV9QYWdlc1xUcmFja1JlcG9ydHNfUGFnZXNcVmlld1RhbGx5RGNJbk91dFRyYWNrLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/ContractReviewMaster_Pages/ContractReviewCheckList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcQ29udHJhY3RSZXZpZXdNYXN0ZXJfUGFnZXNcQ29udHJhY3RSZXZpZXdDaGVja0xpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/ContractReviewMaster_Pages/ContractReviewCheckListUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcQ29udHJhY3RSZXZpZXdNYXN0ZXJfUGFnZXNcQ29udHJhY3RSZXZpZXdDaGVja0xpc3RVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/ContractReviewMaster_Pages/ContractReviewDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcQ29udHJhY3RSZXZpZXdNYXN0ZXJfUGFnZXNcQ29udHJhY3RSZXZpZXdEZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/ContractReviewMaster_Pages/ContractReviewMasterList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcQ29udHJhY3RSZXZpZXdNYXN0ZXJfUGFnZXNcQ29udHJhY3RSZXZpZXdNYXN0ZXJMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/ContractReviewMaster_Pages/ContractReviewMasterUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcQ29udHJhY3RSZXZpZXdNYXN0ZXJfUGFnZXNcQ29udHJhY3RSZXZpZXdNYXN0ZXJVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/CreditNote_Pages/CreditNoteDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcQ3JlZGl0Tm90ZV9QYWdlc1xDcmVkaXROb3RlRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/CreditNote_Pages/CreditNoteList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcQ3JlZGl0Tm90ZV9QYWdlc1xDcmVkaXROb3RlTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/CreditNote_Pages/CreditNoteUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcQ3JlZGl0Tm90ZV9QYWdlc1xDcmVkaXROb3RlVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/ExpInv_Pages/ExpInvDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcRXhwSW52X1BhZ2VzXEV4cEludkRldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/ExpInv_Pages/ExpInvList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcRXhwSW52X1BhZ2VzXEV4cEludkxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/ExpInv_Pages/ExpInvUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcRXhwSW52X1BhZ2VzXEV4cEludlVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/Fesibility_Pages/EnquiryFeasibilityList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcRmVzaWJpbGl0eV9QYWdlc1xFbnF1aXJ5RmVhc2liaWxpdHlMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/Fesibility_Pages/EnquiryFeasibilityListDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcRmVzaWJpbGl0eV9QYWdlc1xFbnF1aXJ5RmVhc2liaWxpdHlMaXN0RGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/Fesibility_Pages/EnquiryFeasibilityUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcRmVzaWJpbGl0eV9QYWdlc1xFbnF1aXJ5RmVhc2liaWxpdHlVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/LabourDcOut_Pages/LabourDcOutgoingDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTGFib3VyRGNPdXRfUGFnZXNcTGFib3VyRGNPdXRnb2luZ0RldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/LabourDcOut_Pages/LabourDcOutgoingList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTGFib3VyRGNPdXRfUGFnZXNcTGFib3VyRGNPdXRnb2luZ0xpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/LabourDcOut_Pages/LabourDcOutgoingUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTGFib3VyRGNPdXRfUGFnZXNcTGFib3VyRGNPdXRnb2luZ1Vwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/LabourGRN_Pages/LabourGRNDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTGFib3VyR1JOX1BhZ2VzXExhYm91ckdSTkRldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/LabourGRN_Pages/LabourGRNList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTGFib3VyR1JOX1BhZ2VzXExhYm91ckdSTkxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/LabourGRN_Pages/LabourGRNUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTGFib3VyR1JOX1BhZ2VzXExhYm91ckdSTlVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/LabourInvoice_Pages/LabourInvoiceDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTGFib3VySW52b2ljZV9QYWdlc1xMYWJvdXJJbnZvaWNlRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/LabourInvoice_Pages/LabourInvoiceList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTGFib3VySW52b2ljZV9QYWdlc1xMYWJvdXJJbnZvaWNlTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/LabourInvoice_Pages/LabourInvoiceUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTGFib3VySW52b2ljZV9QYWdlc1xMYWJvdXJJbnZvaWNlVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/LabourSCN_Pages/LabourSCNDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTGFib3VyU0NOX1BhZ2VzXExhYm91clNDTkRldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/LabourSCN_Pages/LabourSCNList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTGFib3VyU0NOX1BhZ2VzXExhYm91clNDTkxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/LabourSCN_Pages/LabourSCNUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTGFib3VyU0NOX1BhZ2VzXExhYm91clNDTlVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/Leads_Pages/LeadsList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTGVhZHNfUGFnZXNcTGVhZHNMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/Leads_Pages/LeadsUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTGVhZHNfUGFnZXNcTGVhZHNVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/MfgInv_Pages/MfgInvDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTWZnSW52X1BhZ2VzXE1mZ0ludkRldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/MfgInv_Pages/MfgInvList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTWZnSW52X1BhZ2VzXE1mZ0ludkxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/MfgInv_Pages/MfgInvUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTWZnSW52X1BhZ2VzXE1mZ0ludlVwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/MfgQuote_Pages/MfgQuoteDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTWZnUXVvdGVfUGFnZXNcTWZnUXVvdGVEZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/MfgQuote_Pages/MfgQuoteList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTWZnUXVvdGVfUGFnZXNcTWZnUXVvdGVMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/MfgQuote_Pages/MfgQuoteUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcTWZnUXVvdGVfUGFnZXNcTWZnUXVvdGVVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/PerformaInvoice_pages/PerformaDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcUGVyZm9ybWFJbnZvaWNlX3BhZ2VzXFBlcmZvcm1hRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/PerformaInvoice_pages/PerformaList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcUGVyZm9ybWFJbnZvaWNlX3BhZ2VzXFBlcmZvcm1hTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/PerformaInvoice_pages/PerformaUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcUGVyZm9ybWFJbnZvaWNlX3BhZ2VzXFBlcmZvcm1hVXBzZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/SalesDc_Pages/MfgDcDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcU2FsZXNEY19QYWdlc1xNZmdEY0RldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/SalesDc_Pages/MfgDcList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcU2FsZXNEY19QYWdlc1xNZmdEY0xpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/SalesDc_Pages/MfgDcUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcU2FsZXNEY19QYWdlc1xNZmdEY1Vwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/SalesEnquiry_Pages/EnquiryDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcU2FsZXNFbnF1aXJ5X1BhZ2VzXEVucXVpcnlEZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/SalesEnquiry_Pages/EnquirySalesList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcU2FsZXNFbnF1aXJ5X1BhZ2VzXEVucXVpcnlTYWxlc0xpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/SalesEnquiry_Pages/EnquirySalesUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcU2FsZXNFbnF1aXJ5X1BhZ2VzXEVucXVpcnlTYWxlc1Vwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/SalesPo_Pages/MfgPODetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcU2FsZXNQb19QYWdlc1xNZmdQT0RldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/SalesPo_Pages/MfgPOList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcU2FsZXNQb19QYWdlc1xNZmdQT0xpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/SalesPo_Pages/MfgPOUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcU2FsZXNQb19QYWdlc1xNZmdQT1Vwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/SalesPo_Pages/OrderAccecptance.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcU2FsZXNQb19QYWdlc1xPcmRlckFjY2VjcHRhbmNlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/SalesAndLabour_pages/SalesPo_Pages/PoTypeUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNBbmRMYWJvdXJfcGFnZXNcU2FsZXNQb19QYWdlc1xQb1R5cGVVcHNlcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ServiceBills_Pages/ServiceBillsDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VydmljZUJpbGxzX1BhZ2VzXFNlcnZpY2VCaWxsc0RldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ServiceBills_Pages/ServiceBillsList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VydmljZUJpbGxzX1BhZ2VzXFNlcnZpY2VCaWxsc0xpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/ServiceBills_Pages/ServiceBillsUpsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VydmljZUJpbGxzX1BhZ2VzXFNlcnZpY2VCaWxsc1Vwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Settings_Pages/BiometricExcelSettingPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2V0dGluZ3NfUGFnZXNcQmlvbWV0cmljRXhjZWxTZXR0aW5nUGFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Settings_Pages/CustomScreenSettingPages/CustomScreenSetting.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2V0dGluZ3NfUGFnZXNcQ3VzdG9tU2NyZWVuU2V0dGluZ1BhZ2VzXEN1c3RvbVNjcmVlblNldHRpbmcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Settings_Pages/GeneralSettings.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2V0dGluZ3NfUGFnZXNcR2VuZXJhbFNldHRpbmdzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Settings_Pages/HRMasterSettingPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2V0dGluZ3NfUGFnZXNcSFJNYXN0ZXJTZXR0aW5nUGFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Settings_Pages/InspectionSettingsPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2V0dGluZ3NfUGFnZXNcSW5zcGVjdGlvblNldHRpbmdzUGFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Settings_Pages/MessengerScreenUserSetting.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2V0dGluZ3NfUGFnZXNcTWVzc2VuZ2VyU2NyZWVuVXNlclNldHRpbmcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Settings_Pages/PrintManagement.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2V0dGluZ3NfUGFnZXNcUHJpbnRNYW5hZ2VtZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Settings_Pages/ProductionLogSetting_Pages/ProductionLogSettings_List.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2V0dGluZ3NfUGFnZXNcUHJvZHVjdGlvbkxvZ1NldHRpbmdfUGFnZXNcUHJvZHVjdGlvbkxvZ1NldHRpbmdzX0xpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Settings_Pages/ProductionLogSetting_Pages/ProductionLogSettings_Upsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2V0dGluZ3NfUGFnZXNcUHJvZHVjdGlvbkxvZ1NldHRpbmdfUGFnZXNcUHJvZHVjdGlvbkxvZ1NldHRpbmdzX1Vwc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Settings_Pages/SalaryHeadPrintSettingPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2V0dGluZ3NfUGFnZXNcU2FsYXJ5SGVhZFByaW50U2V0dGluZ1BhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Utilities_Module_pages/Correspondance_pages/CorrespondanceList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXRpbGl0aWVzX01vZHVsZV9wYWdlc1xDb3JyZXNwb25kYW5jZV9wYWdlc1xDb3JyZXNwb25kYW5jZUxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Utilities_Module_pages/Correspondance_pages/CorrespondenceListByReference.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXRpbGl0aWVzX01vZHVsZV9wYWdlc1xDb3JyZXNwb25kYW5jZV9wYWdlc1xDb3JyZXNwb25kZW5jZUxpc3RCeVJlZmVyZW5jZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Pages/Utilities_Module_pages/Correspondance_pages/CorrespondenceUpload.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXRpbGl0aWVzX01vZHVsZV9wYWdlc1xDb3JyZXNwb25kYW5jZV9wYWdlc1xDb3JyZXNwb25kZW5jZVVwbG9hZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Routes.razor]
+build_metadata.AdditionalFiles.TargetPath = Um91dGVzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Components/ProcessingOverlay.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQcm9jZXNzaW5nT3ZlcmxheS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-mmasz9os6q
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-qk7peezbv7
+
+[D:/Bhargavi V.SMART Web DotNet - Latest/V.SMART/V.SMART.Shared/Layout/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-mbtehlzg6e

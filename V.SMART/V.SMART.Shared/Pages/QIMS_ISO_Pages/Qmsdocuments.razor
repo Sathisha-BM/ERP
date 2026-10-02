@@ -1,0 +1,1737 @@
+﻿@page "/qmsdocuments"
+
+
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
+@using V.SMART.Shared.BusinessLayer.BusinessService.IBusinessService.IQimsIsoService
+@using V.SMART.Shared.Data.QMSISO
+@using V.SMART.Shared.ViewModels.QIMSViewModel
+@inject IJSRuntime JSRuntime
+@inherits BaseUserRightsComponent
+@inject NavigationManager _navigationManager
+@inject ILoggingService LoggingService
+@inject IQimsService QimsService
+@inject IFileOpener fileOpener
+
+<BsModal OnModalConfirmation="@HandleModalConfirmation"
+         ButtonBootstrapStyle="@btnColor"
+         ButtonText="@btnText"
+         Title=@ModalTitle
+         ShowReasonBox="@showCancelReasonBox"
+         Reason="@cancelReason"
+         OnReasonChanged="(value) => cancelReason = value">
+
+</BsModal>
+
+<style>
+  
+    /* ----- Global Styles ----- */
+    :root {
+        --primary-color: #1a3a5c;
+        --secondary-color: #2c6fbb;
+        --accent-color: #e8a838;
+        --success-color: #28a745;
+        --danger-color: #dc3545;
+        --warning-color: #ffc107;
+        --info-color: #17a2b8;
+        --light-bg: #f4f7fc;
+        --border-color: #dce3ed;
+        --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+        --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+        --shadow-lg: 0 8px 32px rgba(0,0,0,0.16);
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --transition: all 0.3s ease;
+    }
+
+    body {
+        background: var(--light-bg);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* ----- Card Styles ----- */
+    .qms-card {
+        background: white;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border-color);
+        transition: var(--transition);
+        overflow: hidden;
+    }
+
+        .qms-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+    .qms-card-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 1rem 1.25rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: none;
+    }
+
+        .qms-card-header .icon {
+            font-size: 1.25rem;
+            margin-right: 0.5rem;
+        }
+
+    .qms-card-body {
+        padding: 1.25rem;
+    }
+
+    /* ----- Tree Styles ----- */
+    .tree-container {
+        padding: 0.25rem 0;
+    }
+
+    .tree-item {
+        padding: 6px 10px;
+        border-radius: var(--radius-sm);
+        transition: var(--transition);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        position: relative;
+    }
+
+        .tree-item:hover {
+            background: rgba(44, 111, 187, 0.08);
+            transform: translateX(4px);
+        }
+
+        .tree-item.active {
+            background: rgba(44, 111, 187, 0.12);
+            border-left: 3px solid var(--secondary-color);
+        }
+
+        .tree-item .folder-icon {
+            color: #f5b342;
+            font-size: 1.15rem;
+            transition: var(--transition);
+        }
+
+        .tree-item .file-icon {
+            color: var(--secondary-color);
+            font-size: 1.05rem;
+        }
+
+        .tree-item .expired-icon {
+            color: var(--danger-color);
+            font-size: 1rem;
+        }
+
+    .tree-indent {
+        border-left: 2px dashed var(--border-color);
+        padding-left: 12px;
+        margin-left: 8px;
+    }
+
+    .tree-item .badge-doc-count {
+        background: var(--primary-color);
+        color: white;
+        font-size: 0.7rem;
+        padding: 0.15rem 0.6rem;
+        border-radius: 12px;
+        font-weight: 500;
+        margin-left: auto;
+    }
+
+        .tree-item .badge-doc-count.warning {
+            background: var(--warning-color);
+            color: #212529;
+        }
+
+        .tree-item .badge-doc-count.danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+    /* ----- Expired Documents ----- */
+    .expired-doc {
+        background: #fff5f5 !important;
+        border-radius: var(--radius-sm);
+        padding: 2px 8px !important;
+    }
+
+        .expired-doc a {
+            color: var(--danger-color) !important;
+        }
+
+    .expired-badge {
+        background: var(--danger-color);
+        color: white;
+        font-size: 0.6rem;
+        padding: 0.1rem 0.6rem;
+        border-radius: 10px;
+        font-weight: 600;
+        margin-left: 4px;
+        animation: pulse-red 2s infinite;
+    }
+
+    .list-group-item-expired {
+        background: #fff5f5 !important;
+        border-left: 4px solid var(--danger-color) !important;
+    }
+
+    /* ----- Status Badges ----- */
+    .status-badge {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.9rem;
+        border-radius: 20px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+        .status-badge.active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-badge.expired {
+            background: #f8d7da;
+            color: #721c24;
+            animation: pulse-red 2s infinite;
+        }
+
+        .status-badge.draft {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-badge.review {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+    /* ----- Detail Panels ----- */
+    .doc-detail-card {
+        background: var(--light-bg);
+        border-radius: var(--radius-sm);
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .doc-detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px 30px;
+    }
+
+    .doc-detail-item {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+        .doc-detail-item .label {
+            font-weight: 600;
+            color: #495057;
+            min-width: 130px;
+            flex-shrink: 0;
+            font-size: 0.85rem;
+        }
+
+            .doc-detail-item .label i {
+                margin-right: 6px;
+                color: var(--secondary-color);
+                width: 18px;
+            }
+
+        .doc-detail-item .value {
+            color: #212529;
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+    .header-detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px 30px;
+        background: var(--light-bg);
+        border-radius: var(--radius-sm);
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .header-detail-item {
+        display: flex;
+        align-items: center;
+        padding: 0.4rem 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+        .header-detail-item .label {
+            font-weight: 600;
+            color: #495057;
+            min-width: 100px;
+            flex-shrink: 0;
+            font-size: 0.85rem;
+        }
+
+            .header-detail-item .label i {
+                margin-right: 6px;
+                color: var(--secondary-color);
+                width: 18px;
+            }
+
+    /* ----- File Card ----- */
+    .file-card {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        transition: var(--transition);
+    }
+
+        .file-card:hover {
+            border-color: var(--secondary-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .file-card .file-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .file-card .file-icon-big {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+        }
+
+    /* ----- Buttons ----- */
+    .btn-qms-primary {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        border: none;
+        color: white;
+        padding: 0.4rem 1rem;
+        border-radius: var(--radius-sm);
+        font-weight: 500;
+        transition: var(--transition);
+    }
+
+        .btn-qms-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            color: white;
+        }
+
+    .btn-qms-success {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        border: none;
+        color: white;
+        padding: 0.4rem 1rem;
+        border-radius: var(--radius-sm);
+        font-weight: 500;
+        transition: var(--transition);
+    }
+
+        .btn-qms-success:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            color: white;
+        }
+
+    .btn-qms-danger {
+        background: linear-gradient(135deg, #dc3545, #e74c3c);
+        border: none;
+        color: white;
+        padding: 0.4rem 1rem;
+        border-radius: var(--radius-sm);
+        font-weight: 500;
+        transition: var(--transition);
+    }
+
+        .btn-qms-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            color: white;
+        }
+
+    /* ----- Upload Button ----- */
+    .upload-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+        .upload-wrapper input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+    /* ----- Responsive ----- */
+    @@media (max-width: 768px) {
+        .doc-detail-grid,
+        .header-detail-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .file-card {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 1rem;
+        }
+
+            .file-card .btn-group {
+                width: 100%;
+            }
+
+                .file-card .btn-group .btn {
+                    flex: 1;
+                }
+    }
+
+    /* ----- Scrollbar ----- */
+    .tree-container::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .tree-container::-webkit-scrollbar-track {
+        background: var(--light-bg);
+        border-radius: 3px;
+    }
+
+    .tree-container::-webkit-scrollbar-thumb {
+        background: var(--secondary-color);
+        border-radius: 3px;
+    }
+
+        .tree-container::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
+        }
+
+    /* ----- QMS Header Logo ----- */
+    .qms-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+        .qms-logo .logo-icon {
+            font-size: 1.75rem;
+            color: var(--accent-color);
+        }
+
+        .qms-logo .logo-text {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+            .qms-logo .logo-text small {
+                font-weight: 300;
+                opacity: 0.8;
+                font-size: 0.7rem;
+                display: block;
+            }
+</style>
+
+@if (isProcessing)
+{
+    <ProcessingOverlay Visible="@isProcessing" Message="Please wait..." />
+}
+else
+{
+    @if (!CanView)
+    {
+        <RedirectToLogin />
+    }
+    else
+    {
+         <div class="container-fluid px-2 px-md-5 mt-4">
+            <div class="card shadow-sm border-1">
+
+                <PageHeader TitleText="create/Update"
+                            TitleIcon="@incomeIcon"
+                            Breadcrumbs="@incomeBreadcrumbs" />
+
+
+                <div class="card-body">
+                    <EditForm Model="Headers" OnValidSubmit="UpsertIncome">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+                            <div class="container-fluid mt-3">
+                                <div class="row">
+                                    <!-- ============================================
+                                         LEFT PANEL: DOCUMENT TREE
+                                         ============================================ -->
+                                    <div class="col-md-4">
+                                        <div class="qms-card">
+                                            <div class="qms-card-header">
+                                                <div class="qms-logo">
+                                                    <span class="logo-icon"><i class="bi bi-diagram-3"></i></span>
+                                                    <div class="logo-text">
+                                                        Document Tree
+                                                        <small>ISO QMS Structure</small>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <span class="badge bg-light text-dark">
+                                                        <i class="bi bi-files"></i> @Headers.Count
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="qms-card-body">
+                                                <!-- Action Buttons -->
+                                                <div class="d-flex gap-2 mb-3 flex-wrap">
+                                                    <button type="button" class="btn btn-qms-primary btn-sm" @onclick="NewHeader">
+                                                        <i class="bi bi-folder-plus"></i> Header
+                                                    </button>
+                                                <button type="button" class="btn btn-qms-success btn-sm" @onclick="NewDocument">
+                                                        <i class="bi bi-file-earmark-plus"></i> Document
+                                                    </button>
+                                                <button type ="button" class="btn btn-outline-secondary btn-sm" @onclick ="RefreshTree">
+                                                        <i class="bi bi-arrow-clockwise"></i>
+                                                    </button>
+                                                </div>
+
+                                                <hr class="my-2" />
+
+                                                <!-- Tree -->
+                                                <div class="tree-container" style="max-height: 70vh; overflow-y: auto;">
+                                                    @if (Headers.Any())
+                                                    {
+                                                        @foreach (var root in Headers.Where(x => x.ParentHeaderId == null))
+                                                        {
+                                                            @DrawTree(root, 0)
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="text-center text-muted py-4">
+                                                            <i class="bi bi-folder2-open" style="font-size: 3rem; display: block; margin-bottom: 1rem;"></i>
+                                                            <p>No headers created yet</p>
+                                                        <button type="button" class="btn btn-qms-primary btn-sm" @onclick="NewHeader">
+                                                                <i class="bi bi-plus-circle"></i> Create First Header
+                                                            </button>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- ============================================
+                                         RIGHT PANEL: DETAILS / EDIT FORM
+                                         ============================================ -->
+                                    <div class="col-md-8">
+                                        <div class="qms-card">
+                                            <div class="qms-card-header">
+                                                <div>
+                                                    <i class="icon bi bi-info-circle"></i>
+                                                    @if (SelectedDocument != null)
+                                                    {
+                                                        <span>Document Details</span>
+                                                    }
+                                                    else if (SelectedHeader != null)
+                                                    {
+                                                        <span>Header Details</span>
+                                                    }
+                                                    else if (IsHeader)
+                                                    {
+                                                        <span><i class="bi bi-folder-plus"></i> New Header</span>
+                                                    }
+                                                    else if (IsDocument)
+                                                    {
+                                                        <span><i class="bi bi-file-earmark-plus"></i> New Document</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>Document Management</span>
+                                                    }
+                                                </div>
+                                                @if (SelectedDocument != null || SelectedHeader != null)
+                                                {
+                                                    <div>
+                                                    <button type="button" class="btn btn-sm btn-light" @onclick="() => { SelectedDocumentId = null; SelectedHeaderId = null; }">
+                                                            <i class="bi bi-x-lg"></i>
+                                                        </button>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="qms-card-body">
+                                                @if (SelectedHeader != null && !IsHeader && !IsDocument)
+                                                {
+                                             
+                                                    <!-- ===== HEADER DETAILS ===== -->
+                                                    <div>
+
+                                                        <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                                            <h5 class="mb-0">
+                                                                <i class="bi bi-folder text-warning"></i>
+                                                                @SelectedHeader.HeaderName
+                                                            </h5>
+
+                                                        <div class="d-flex gap-2 flex-wrap">
+
+                                                            <button type="button"
+                                                                    class="btn btn-qms-primary btn-sm"
+                                                                    @onclick="EditHeader">
+                                                                <i class="bi bi-pencil-square me-1"></i>
+                                                                Rename
+                                                            </button>
+
+                                                            <button type="button"
+                                                                    class="btn btn-qms-danger btn-sm"
+                                                                    @onclick="DeleteHeader">
+                                                                <i class="bi bi-trash me-1"></i>
+                                                                Delete
+                                                            </button>
+
+                                                            <button type="button"
+                                                                    class="btn btn-qms-success btn-sm"
+                                                                    @onclick="NewDocument">
+                                                                <i class="bi bi-file-earmark-plus me-1"></i>
+                                                                Add Document
+                                                            </button>
+
+                                                        </div>
+
+                                                        </div>
+
+                                                        <div class="header-detail-grid">
+
+                                                            <div class="header-detail-item">
+                                                                <span class="label">
+                                                                    <i class="bi bi-hash"></i> ID
+                                                                </span>
+
+                                                                <span class="value">
+                                                                    @SelectedHeader.HeaderId
+                                                                </span>
+                                                            </div>
+
+                                                            <div class="header-detail-item">
+                                                                <span class="label">
+                                                                    <i class="bi bi-diagram-2"></i> Parent
+                                                                </span>
+
+                                                                <span class="value">
+                                                                    @(SelectedHeader.ParentHeaderId.HasValue
+                                                                    ? Headers.FirstOrDefault(x => x.HeaderId == SelectedHeader.ParentHeaderId)?.HeaderName
+                                                                    : "Root")
+                                                                </span>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <hr />
+
+                                                        <h6 class="mb-3">
+                                                            <i class="bi bi-files"></i>
+                                                            Documents
+                                                            <span class="badge bg-secondary rounded-pill">
+                                                                @DocumentsUnderSelectedHeader.Count()
+                                                            </span>
+                                                        </h6>
+
+                                        @if (DocumentsUnderSelectedHeader.Any())
+                                                        {
+                                                            <ul class="list-group list-group-flush">
+
+                                                                @foreach (var doc in DocumentsUnderSelectedHeader)
+                                                                {
+                                                                    bool isExpired = doc.ExpiryDate.HasValue &&
+                                                                    doc.ExpiryDate.Value.Date < DateTime.Today;
+
+                                                                    <li class="list-group-item @(isExpired ? "list-group-item-expired" : "") d-flex justify-content-between align-items-center">
+
+                                                                        <span>
+
+                                                                            <a href="javascript:void(0)"
+                                                                               class="text-decoration-none"
+                                                                               @onclick="() => SelectDocument(doc.DocumentId)">
+
+                                                                                <i class="bi bi-file-earmark-text me-1"></i>
+
+                                                                                @doc.DocumentName
+
+                                                                                <small class="text-muted">
+                                                                                    (@doc.DocumentNo)
+                                                                                </small>
+
+                                                                            </a>
+
+                                                                            @if (isExpired)
+                                                                            {
+                                                                                <span class="expired-badge ms-2">
+                                                                                    <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                                                                                    Expired
+                                                                                </span>
+                                                                            }
+
+                                                                        </span>
+
+                                                                        @if (!string.IsNullOrWhiteSpace(doc.FileName))
+                                                                        {
+                                                                            <span>
+
+                                                                                <a class="btn btn-sm btn-outline-primary me-1"
+                                                                                   href="data:application/octet-stream;base64,@Convert.ToBase64String(doc.FileContent ?? Array.Empty<byte>())"
+                                                                                   download="@doc.FileName">
+
+                                                                                    <i class="bi bi-download"></i>
+
+                                                                                </a>
+
+                                                                                <button type="button"
+                                                                                        class="btn btn-sm btn-outline-success"
+                                                                                        @onclick="() => PreviewDocument(doc)">
+
+                                                                                    <i class="bi bi-eye"></i>
+
+                                                                                </button>
+
+                                                                            </span>
+                                                                        }
+
+                                                                    </li>
+                                                                }
+
+                                                            </ul>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="text-center text-muted py-4">
+
+                                                                <i class="bi bi-file-earmark"
+                                                                   style="font-size:2rem;"></i>
+
+                                                                <p class="mt-2">
+                                                                    No documents under this header
+                                                                </p>
+
+                                                            </div>
+                                                        }
+
+                                                    </div>
+                                                
+                                                   
+                                                }
+                                                else if (SelectedDocument != null && !IsHeader && !IsDocument)
+                                                {
+                                                    <!-- ===== DOCUMENT DETAILS ===== -->
+                                                    bool isExpired = SelectedDocument.ExpiryDate.HasValue && SelectedDocument.ExpiryDate < DateTime.Now;
+
+                                                    <div>
+
+                                                        <!-- Header -->
+                                                        <div class="d-flex justify-content-between align-items-center mb-4">
+                                                            <div>
+                                                                <h4 class="mb-1">
+                                                                    <i class="bi bi-file-earmark-text text-primary me-2"></i>
+                                                                    @SelectedDocument.DocumentName
+                                                                </h4>
+                                                                <small class="text-muted">
+                                                                    @SelectedDocument.DocumentNo
+                                                                </small>
+                                                            </div>
+
+                                                            @if (isExpired)
+                                                            {
+                                                                <span class="badge bg-danger fs-6">
+                                                                    <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                                                                    Expired
+                                                                </span>
+                                                            }
+                                                            else if (SelectedDocument.ExpiryDate.HasValue &&
+                                                            SelectedDocument.ExpiryDate < DateTime.Now.AddMonths(3))
+                                                            {
+                                                                <span class="badge bg-warning text-dark fs-6">
+                                                                    <i class="bi bi-clock-history me-1"></i>
+                                                                    Review Soon
+                                                                </span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="badge bg-success fs-6">
+                                                                    <i class="bi bi-check-circle-fill me-1"></i>
+                                                                    Active
+                                                                </span>
+                                                            }
+                                                        </div>
+
+                                                        <div class="row g-3">
+
+                                                            <!-- Header -->
+                                                            <div class="col-md-6">
+                                                                <label class="form-label fw-semibold">
+                                                                    <i class="bi bi-folder me-1"></i> Header
+                                                                </label>
+
+                                                                <input class="form-control"
+                                                                       readonly
+                                                                       value="@Headers.FirstOrDefault(x => x.HeaderId == SelectedDocument.HeaderId)?.HeaderName" />
+                                                            </div>
+
+                                                            <!-- Document No -->
+                                                            <div class="col-md-6">
+                                                                <label class="form-label fw-semibold">
+                                                                    <i class="bi bi-hash me-1"></i> Document No
+                                                                </label>
+
+                                                                <input class="form-control"
+                                                                       readonly
+                                                                       value="@SelectedDocument.DocumentNo" />
+                                                            </div>
+
+                                                            <!-- Document Name -->
+                                                            <div class="col-12">
+                                                                <label class="form-label fw-semibold">
+                                                                    <i class="bi bi-file-earmark-text me-1"></i>
+                                                                    Document Name
+                                                                </label>
+
+                                                                <input class="form-control"
+                                                                       readonly
+                                                                       value="@SelectedDocument.DocumentName" />
+                                                            </div>
+
+                                                            <!-- Revision -->
+                                                            <div class="col-md-4">
+                                                                <label class="form-label fw-semibold">
+                                                                    <i class="bi bi-tag me-1"></i> Revision
+                                                                </label>
+
+                                                                <input class="form-control"
+                                                                       readonly
+                                                                       value="@SelectedDocument.RevisionNo" />
+                                                            </div>
+
+                                                            <!-- Effective Date -->
+                                                            <div class="col-md-4">
+                                                                <label class="form-label fw-semibold">
+                                                                    <i class="bi bi-calendar-check me-1"></i>
+                                                                    Effective Date
+                                                                </label>
+
+                                                                <input class="form-control"
+                                                                       readonly
+                                                                       value="@(SelectedDocument.EffectiveDate?.ToString("dd/MM/yyyy") ?? "")" />
+                                                            </div>
+
+                                                            <!-- Review Due -->
+                                                            <div class="col-md-4">
+                                                                <label class="form-label fw-semibold">
+                                                                    <i class="bi bi-calendar-event me-1"></i>
+                                                                    Review Due
+                                                                </label>
+
+                                                                <input class="form-control"
+                                                                       readonly
+                                                                       value="@(SelectedDocument.ReviewDueDate?.ToString("dd/MM/yyyy") ?? "")" />
+                                                            </div>
+
+                                                            <!-- Expiry -->
+                                                            <div class="col-md-6">
+                                                                <label class="form-label fw-semibold">
+                                                                    <i class="bi bi-calendar-x me-1"></i>
+                                                                    Expiry Date
+                                                                </label>
+
+                                                                <input class="form-control @(isExpired ? "border-danger text-danger fw-bold" : "")"
+                                                                       readonly
+                                                                       value="@(SelectedDocument.ExpiryDate?.ToString("dd/MM/yyyy") ?? "")" />
+                                                            </div>
+
+                                                            <!-- File -->
+                                                            <div class="col-md-6">
+                                                                <label class="form-label fw-semibold">
+                                                                    <i class="bi bi-paperclip me-1"></i>
+                                                                    Attachment
+                                                                </label>
+
+                                                                @if (!string.IsNullOrEmpty(SelectedDocument.FileName))
+                                                                {
+                                                                    <div class="input-group">
+
+                                                                        <input class="form-control"
+                                                                               readonly
+                                                                               value="@SelectedDocument.FileName" />
+
+                                                                        <a class="btn btn-outline-primary"
+                                                                           href="data:application/octet-stream;base64,@Convert.ToBase64String(SelectedDocument.FileContent ?? Array.Empty<byte>())"
+                                                                           download="@SelectedDocument.FileName">
+
+                                                                            <i class="bi bi-download"></i>
+                                                                        </a>
+
+                                                                    <button type="button" class="btn btn-outline-success"
+                                                                                @onclick="() => PreviewDocument(SelectedDocument)">
+                                                                            <i class="bi bi-eye"></i>
+                                                                        </button>
+
+                                                                    </div>
+
+                                                                    <small class="text-muted">
+                                                                        Size :
+                                                                        @String.Format("{0:N0}", SelectedDocument.FileContent?.Length ?? 0)
+                                                                        Bytes
+                                                                    </small>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input class="form-control"
+                                                                           readonly
+                                                                           value="No File Attached" />
+                                                                }
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <hr class="my-4" />
+
+                                                        <div class="d-flex justify-content-end gap-2">
+
+                                                        <button type="button" class="btn btn-primary"
+                                                                    @onclick="EditDocument">
+                                                                <i class="bi bi-pencil-square me-1"></i>
+                                                                Edit
+                                                            </button>
+
+                                                        <button type="button" class="btn btn-danger"
+                                                                     @onclick="async () => await RemoveRow(SelectedDocument)">
+                                                                <i class="bi bi-trash me-1"></i>
+                                                                Delete
+                                                            </button>
+
+                                                        </div>
+
+                                                    </div>
+                                                }
+                                                else if (IsHeader)
+                                                {
+                                                    <!-- ===== NEW HEADER FORM ===== -->
+                                                    <div class="mb-3">
+                                                        <label class="form-label"><i class="bi bi-folder"></i> Header Name <span class="text-danger">*</span></label>
+                                                        <input class="form-control" @bind="Header.HeaderName" placeholder="Enter header name..." />
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label"><i class="bi bi-diagram-2"></i> Parent Header</label>
+                                                    <select class="form-select" @bind="Header.ParentHeaderId" disabled="@(IsEditing)">
+                                                            <option value="">Root</option>
+                                                            @foreach (var h in Headers)
+                                                            {
+                                                                <option value="@h.HeaderId">@h.HeaderName</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="d-flex gap-2">
+                                                    <button type="button" class="btn btn-qms-primary" @onclick="SaveHeader">
+                                                            <i class="bi bi-save"></i> Save Header
+                                                        </button>
+                                                    <button type="button" class="btn btn-outline-secondary" @onclick="CancelEdit">
+                                                            <i class="bi bi-x-circle"></i> Cancel
+                                                        </button>
+                                                    </div>
+                                                }
+                                                else if (IsDocument)
+                                                {
+                                                    <!-- ===== NEW DOCUMENT FORM ===== -->
+                                                    <div class="row g-3">
+                                                        <div class="col-md-6">
+                                                            <label class="form-label"><i class="bi bi-folder"></i> Header <span class="text-danger">*</span></label>
+                                                            <select class="form-select" @bind="Document.HeaderId">
+                                                                @foreach (var h in Headers)
+                                                                {
+                                                                    <option value="@h.HeaderId">@h.HeaderName</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label"><i class="bi bi-hash"></i> Document No <span class="text-danger">*</span></label>
+                                                            <input class="form-control" @bind="Document.DocumentNo" placeholder="e.g., SOP-001" />
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label class="form-label"><i class="bi bi-file-earmark-text"></i> Document Name <span class="text-danger">*</span></label>
+                                                            <input class="form-control" @bind="Document.DocumentName" placeholder="Enter document name..." />
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label class="form-label"><i class="bi bi-tag"></i> Revision</label>
+                                                            <input class="form-control" @bind="Document.RevisionNo" placeholder="Rev-00" />
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label class="form-label"><i class="bi bi-calendar-check"></i> Effective Date</label>
+                                                            <input type="date" class="form-control" @bind="Document.EffectiveDate" />
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label class="form-label"><i class="bi bi-calendar-event"></i> Review Due</label>
+                                                            <input type="date" class="form-control" @bind="Document.ReviewDueDate" />
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label"><i class="bi bi-calendar-x"></i> Expiry Date</label>
+                                                            <input type="date" class="form-control" @bind="Document.ExpiryDate" />
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">
+                                                                <i class="bi bi-upload"></i> File Attachment
+                                                            </label>
+
+                                                            <div class="input-group">
+
+                                                                <InputFile class="form-control"
+                                                                           OnChange="Upload" />
+
+                                                            </div>
+
+                                                            @if (!string.IsNullOrWhiteSpace(Document.FileName))
+                                                            {
+                                                                <small class="text-success mt-1 d-block">
+                                                                    <i class="bi bi-check-circle-fill me-1"></i>
+                                                                    @Document.FileName
+                                                                </small>
+                                                            }
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mt-4 d-flex gap-2">
+                                                    <button type="button" class="btn btn-qms-success" @onclick="SaveDocument">
+                                                            <i class="bi bi-save"></i> Save Document
+                                                        </button>
+                                                    <button type="button" class="btn btn-outline-secondary" @onclick="CancelEdit">
+                                                            <i class="bi bi-x-circle"></i> Cancel
+                                                        </button>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <!-- ===== DEFAULT VIEW ===== -->
+                                                    <div class="text-center text-muted py-5">
+                                                        <i class="bi bi-folder2-open" style="font-size: 4rem; display: block; margin-bottom: 1rem; color: var(--border-color);"></i>
+                                                        <h5>Welcome to ISO QMS Document Management</h5>
+                                                        <p class="mb-0">Select a header or document from the tree to view its details.</p>
+                                                        <div class="mt-3 d-flex justify-content-center gap-2">
+                                                        <button type="button" class="btn btn-qms-primary btn-sm" @onclick="NewHeader">
+                                                                <i class="bi bi-folder-plus"></i> Create Header
+                                                            </button>
+                                                        <button type="button" class="btn btn-qms-success btn-sm" @onclick="NewDocument">
+                                                                <i class="bi bi-file-earmark-plus"></i> Create Document
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+
+    }
+}
+@code {
+
+    protected override string ScreenName => "Qmsdocuments";
+
+    private bool isProcessing = true;
+    private int screenCode { get; set; }
+
+    private List<PageHeader.BreadcrumbItem> incomeBreadcrumbs = new()
+    {
+        new PageHeader.BreadcrumbItem { Text = "Master" },
+        new PageHeader.BreadcrumbItem { Text = "QMS/ISO" },
+        new PageHeader.BreadcrumbItem { Text = "QMS/ISO", IsLast = true } 
+    };
+
+    private string ModalTitle = string.Empty;
+    private string btnText = string.Empty;
+    private string confirmation = string.Empty;
+    private string btnColor = string.Empty;
+    private bool showCancelReasonBox = false;
+    public string? cancelReason { get; set; }
+
+    private string incomeIcon = "bi bi-graph-up-arrow";
+
+    List<QmsDocumentHeaderVM> Headers = new();
+    List<QmsDocumentVM> Documents = new();
+
+    private QmsDocumentVM? rowToDelete;
+
+    QmsDocumentHeaderVM Header = new();
+    QmsDocumentVM Document = new();
+    bool IsHeader = false;
+    bool IsDocument = false;
+    bool IsEditing = false;
+
+    HashSet<int> ExpandedHeaders = new();
+    int? SelectedHeaderId = null;
+    int? SelectedDocumentId = null;
+
+
+    QmsDocumentHeaderVM? SelectedHeader => SelectedHeaderId.HasValue ? Headers.FirstOrDefault(h => h.HeaderId == SelectedHeaderId.Value) : null;
+    QmsDocumentVM? SelectedDocument => SelectedDocumentId.HasValue ? Documents.FirstOrDefault(d => d.DocumentId == SelectedDocumentId.Value) : null;
+    IEnumerable<QmsDocumentVM> DocumentsUnderSelectedHeader => SelectedHeaderId.HasValue
+        ? Documents.Where(d => d.HeaderId == SelectedHeaderId.Value)
+        : Enumerable.Empty<QmsDocumentVM>();
+
+    bool IsDocumentExpired(QmsDocumentVM doc) => doc.ExpiryDate.HasValue && doc.ExpiryDate < DateTime.Now;
+
+
+  
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await LoadRightsAsync(); 
+
+            if (!CanView)
+            {
+                _navigationManager.NavigateTo("/access-denied");
+                return;
+            }
+            screenCode = await QimsService.GetScreenCodeByScreenNameAsync(ScreenName);
+            await LoadData();
+
+           
+        }
+        catch (Exception ex) 
+        {
+
+            await LoggingService.LogDeveloperError(ex, "An error occurred while handling the Income OnInitializedAsync() Method");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    private async Task LoadData()
+    {
+        try
+        {
+            Headers = await QimsService.GetAllHeadersAsync();
+            Documents = await QimsService.GetAllDocumentsAsync();
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "An error occurred while handling the  LoadData() Method");
+        }
+
+
+    }
+
+    RenderFragment DrawTree(QmsDocumentHeaderVM node, int level) => builder =>
+{
+    int seq = 0;
+
+    bool isExpanded = ExpandedHeaders.Contains(node.HeaderId);
+    bool isSelected = SelectedHeaderId == node.HeaderId;
+
+    int docCount = Documents.Count(x => x.HeaderId == node.HeaderId);
+    int expiredCount = Documents.Count(x => x.HeaderId == node.HeaderId && IsDocumentExpired(x));
+
+    // Root Container
+    builder.OpenElement(seq++, "div");
+    builder.AddAttribute(seq++, "class", "tree-node");
+    builder.AddAttribute(seq++, "style", $"margin-left:{level * 24}px;");
+
+    //================ HEADER ==================
+
+    builder.OpenElement(seq++, "div");
+    builder.AddAttribute(seq++, "class", $"tree-item {(isSelected ? "active" : "")}");
+
+    builder.AddAttribute(seq++, "onclick",
+        EventCallback.Factory.Create(this,
+            () => ToggleHeader(node.HeaderId)));
+
+    // Folder Icon
+    builder.OpenElement(seq++, "i");
+    builder.AddAttribute(seq++, "class",
+        isExpanded
+            ? "bi bi-folder2-open folder-icon"
+            : "bi bi-folder folder-icon");
+    builder.CloseElement();
+
+    builder.AddContent(seq++, " ");
+    builder.AddContent(seq++, node.HeaderName);
+
+    if (docCount > 0)
+    {
+        builder.OpenElement(seq++, "span");
+
+        builder.AddAttribute(seq++, "class",
+            expiredCount > 0
+                ? "badge-doc-count danger"
+                : "badge-doc-count");
+
+        builder.AddContent(seq++,
+            expiredCount > 0
+                ? $"{docCount} ({expiredCount} ⚠)"
+                : docCount.ToString());
+
+        builder.CloseElement();
+    }
+
+    builder.CloseElement();
+
+    //================ CHILDREN ==================
+
+    if (isExpanded)
+    {
+        //================ CHILD HEADERS ==================
+
+        foreach (var child in Headers
+                     .Where(x => x.ParentHeaderId == node.HeaderId)
+                     .OrderBy(x => x.HeaderName))
+        {
+            builder.AddContent(seq++, DrawTree(child, level + 1));
+        }
+
+        //================ DOCUMENTS ==================
+
+        foreach (var doc in Documents
+                     .Where(x => x.HeaderId == node.HeaderId)
+                     .OrderBy(x => x.DocumentName))
+        {
+            bool isExpired = IsDocumentExpired(doc);
+            bool isDocSelected = SelectedDocumentId == doc.DocumentId;
+
+            builder.OpenElement(seq++, "div");
+            builder.AddAttribute(seq++, "class",
+                $"tree-item {(isExpired ? "expired-doc" : "")}");
+
+            builder.AddAttribute(seq++, "style",
+                $"margin-left:{(level + 1) * 24}px;");
+
+            // File Icon
+            builder.OpenElement(seq++, "i");
+            builder.AddAttribute(seq++, "class",
+                isExpired
+                    ? "bi bi-exclamation-triangle-fill expired-icon"
+                    : "bi bi-file-earmark-text file-icon");
+            builder.CloseElement();
+
+            builder.AddContent(seq++, " ");
+
+            // Document Link
+            builder.OpenElement(seq++, "a");
+            builder.AddAttribute(seq++, "href", "javascript:void(0)");
+            builder.AddAttribute(seq++, "class",
+                $"text-decoration-none {(isDocSelected ? "fw-bold" : "")}");
+
+            builder.AddAttribute(seq++, "onclick",
+                EventCallback.Factory.Create(this,
+                    () => SelectDocument(doc.DocumentId)));
+
+            builder.AddContent(seq++,
+                $"{doc.DocumentName} ({doc.RevisionNo})");
+
+            builder.CloseElement();
+
+            // Expired Badge
+            if (isExpired)
+            {
+                builder.OpenElement(seq++, "span");
+                builder.AddAttribute(seq++, "class", "expired-badge");
+                builder.AddContent(seq++, "Expired");
+                builder.CloseElement();
+            }
+
+            // Download
+            if (!string.IsNullOrWhiteSpace(doc.FileName))
+            {
+                builder.AddContent(seq++, " ");
+
+                builder.OpenElement(seq++, "a");
+                builder.AddAttribute(seq++, "href",
+                    $"data:application/octet-stream;base64,{Convert.ToBase64String(doc.FileContent ?? Array.Empty<byte>())}");
+
+                builder.AddAttribute(seq++, "download", doc.FileName);
+                builder.AddAttribute(seq++, "class",
+                    "btn btn-sm btn-outline-primary py-0 px-1 ms-2");
+
+                builder.OpenElement(seq++, "i");
+                builder.AddAttribute(seq++, "class", "bi bi-download");
+                builder.CloseElement();
+
+                builder.CloseElement();
+
+                // Preview
+                builder.OpenElement(seq++, "button");
+                builder.AddAttribute(seq++, "type", "button");
+                builder.AddAttribute(seq++, "class",
+                    "btn btn-sm btn-outline-success py-0 px-1 ms-1");
+
+                builder.AddAttribute(seq++, "onclick",
+                    EventCallback.Factory.Create(this,
+                        () => PreviewDocument(doc)));
+
+                builder.OpenElement(seq++, "i");
+                builder.AddAttribute(seq++, "class", "bi bi-eye");
+                builder.CloseElement();
+
+                builder.CloseElement();
+            }
+
+            builder.CloseElement();
+        }
+    }
+
+    builder.CloseElement();
+};
+ 
+
+
+    public void ToggleHeader(int headerId)
+    {
+
+        if (ExpandedHeaders.Contains(headerId))
+            ExpandedHeaders.Remove(headerId);
+        else
+            ExpandedHeaders.Add(headerId);
+
+        SelectHeader(headerId);
+    }
+
+    public  void SelectHeader(int headerId)
+    {
+        SelectedHeaderId = headerId;
+        SelectedDocumentId = null;
+        IsHeader = false;
+        IsDocument = false;
+        IsEditing = false;
+        StateHasChanged();
+    }
+
+    public  void SelectDocument(int documentId)
+    {
+        SelectedDocumentId = documentId;
+        SelectedHeaderId = null;
+        IsHeader = false;
+        IsDocument = false;
+        IsEditing = false;
+        StateHasChanged();
+    }
+
+    public  void RefreshTree()
+    {
+
+        StateHasChanged();
+    }
+
+    public  void EditDocument()
+    {
+        if (SelectedDocument != null)
+        {
+            Document = new QmsDocumentVM
+            {
+                DocumentId = SelectedDocument.DocumentId,
+                HeaderId = SelectedDocument.HeaderId,
+                DocumentNo = SelectedDocument.DocumentNo,
+                DocumentName = SelectedDocument.DocumentName,
+                RevisionNo = SelectedDocument.RevisionNo,
+                EffectiveDate = SelectedDocument.EffectiveDate,
+                ReviewDueDate = SelectedDocument.ReviewDueDate,
+                ExpiryDate = SelectedDocument.ExpiryDate,
+                FileName = SelectedDocument.FileName,
+                FileContent = SelectedDocument.FileContent
+            };
+            IsDocument = true;
+            IsEditing = true;
+            StateHasChanged();
+        }
+    }
+
+
+    public void NewHeader()
+    {
+        Header = new QmsDocumentHeaderVM();
+      
+        IsHeader = true;
+        IsDocument = false;
+        IsEditing = false;
+        SelectedHeaderId = null;
+        SelectedDocumentId = null;
+    }
+
+    public  void NewDocument()
+    {
+        Document = new QmsDocumentVM();
+        if (SelectedHeaderId.HasValue)
+            Document.HeaderId = SelectedHeaderId.Value;
+        IsDocument = true;
+        IsHeader = false;
+        IsEditing = false;
+        SelectedHeaderId = null;
+        SelectedDocumentId = null;
+    }
+
+    public  void CancelEdit()
+    {
+        IsHeader = false;
+        IsDocument = false;
+        IsEditing = false;
+        if (SelectedHeaderId == null && SelectedDocumentId == null)
+        {
+            var firstRoot = Headers.FirstOrDefault(h => h.ParentHeaderId == null);
+            if (firstRoot != null)
+                SelectHeader(firstRoot.HeaderId);
+        }
+        StateHasChanged();
+    }
+
+    private async Task SaveHeader()
+    {
+        try
+        {
+
+            if (string.IsNullOrWhiteSpace(Header.HeaderName))
+                return;
+
+            Header = await QimsService.UpsertHeadersAsync(Header, screenCode);
+
+            Headers = await QimsService.GetAllHeadersAsync();
+
+            ExpandedHeaders.Add(Header.HeaderId);
+
+            int savedId = Header.HeaderId;
+
+            Header = new QmsDocumentHeaderVM();
+            IsHeader = false;
+
+            SelectHeader(savedId);
+
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "An error occurred while handling the SaveHeader Method");
+        }
+    }
+    private async Task SaveDocument()
+    {
+        try
+        {
+
+
+
+            if (string.IsNullOrWhiteSpace(Document.DocumentName) || Document.HeaderId == 0)
+                return;
+
+            Document = await QimsService.UpsertQimsAsync(Document, screenCode);
+
+            int savedId = Document.DocumentId;
+            Documents = await QimsService.GetAllDocumentsAsync();
+
+            Document = new QmsDocumentVM();
+
+            IsDocument = false;
+            IsEditing = false;
+
+            SelectDocument(savedId);
+
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "An error occurred while handling the SaveDocument Method");
+        }
+    }
+
+
+    public async Task Upload(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            var file = e.File;
+            Document.FileName = file.Name;
+            using var stream = file.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
+            using var ms = new MemoryStream();
+            await stream.CopyToAsync(ms);
+            Document.FileContent = ms.ToArray();
+            Document.FileType = file.ContentType;
+            StateHasChanged();
+        }
+         
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "An error occurred while handling the Upload Method");
+        }
+
+    
+    }
+
+    public async Task PreviewDocument(QmsDocumentVM doc)
+    {
+        try
+        {
+            if (doc.FileContent == null || doc.FileContent.Length == 0)
+            {
+                await JSRuntime.ToastrWarning("No document found.");
+                return;
+            }
+
+            var contentType = string.IsNullOrWhiteSpace(doc.FileType)
+                ? GetContentType(doc.FileName)
+                : doc.FileType;
+
+            await fileOpener.OpenAsync(doc.FileContent, doc.FileName, contentType);
+        }
+        catch (Exception ex)
+        {
+            await JSRuntime.ToastrError("Failed to open file.");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+    private string GetContentType(string fileName)
+    {
+        var ext = Path.GetExtension(fileName)?.ToLowerInvariant();
+
+        return ext switch
+        {
+            ".pdf" => "application/pdf",
+            ".jpg" or ".jpeg" => "image/jpeg",
+            ".png" => "image/png",
+            ".gif" => "image/gif",
+            ".bmp" => "image/bmp",
+            ".txt" => "text/plain",
+            ".csv" => "text/csv",
+            ".doc" => "application/msword",
+            ".docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            ".xls" => "application/vnd.ms-excel",
+            ".xlsx" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            ".ppt" => "application/vnd.ms-powerpoint",
+            ".pptx" => "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            _ => "application/octet-stream"
+        };
+    }
+
+
+    private async Task UpsertIncome()
+    {
+        try
+        {
+            isProcessing = true;
+            foreach (var docs in Documents)
+            {
+                await QimsService.UpsertQimsAsync(docs, screenCode);
+            }
+
+            foreach (var docs in Headers)
+            {
+                await QimsService.UpsertHeadersAsync(docs, screenCode);
+            }
+
+        }
+        catch (Exception ex)
+        {
+
+            await LoggingService.LogDeveloperError(ex, "An error occurred while handling the Income UpsertIncome() Method");
+        }
+
+    }
+
+    private async Task HandleModalConfirmation(bool isConfirmed)
+    {
+
+        try
+        {
+            await JSRuntime.InvokeVoidAsync("HideConfirmationModal");
+
+            if (!isConfirmed)
+                return;
+
+            switch (confirmation)
+            {
+                case "confirmDeleteRow_Click":
+                    await confirmDeleteRow_Click(true);
+                    break;
+                case "RemoveHeader":
+                    await CanRemove(true);
+                    break;
+                default:
+                    await JSRuntime.ToastrWarning("Unknown confirmation action.");
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"HandleModalConfirmation failed for action in HandleModalConfirmation: {confirmation}");
+            await JSRuntime.ToastrError("An error occurred while processing your action in HandleModalConfirmation. Please try again.");
+        }
+
+
+    }
+    private async Task CanRemove(bool isConfirmed)
+    {
+        try
+        {
+            await JSRuntime.InvokeVoidAsync("HideConfirmationModal");
+
+            if (!isConfirmed || SelectedHeader == null)
+            {
+                await JSRuntime.ToastrInfo("Action was not confirmed.");
+                return;
+            }
+
+            if (SelectedHeader.HeaderId > 0)
+            {
+                // Delete from database
+                await QimsService.DeleteHeaderAsync(SelectedHeader.HeaderId, screenCode);
+
+                Headers = await QimsService.GetAllHeadersAsync();
+            }
+            else
+            {
+                // Remove only from UI
+                Headers.Remove(SelectedHeader);
+            }
+
+            SelectedHeaderId = null;
+            Header = new QmsDocumentHeaderVM();
+
+            StateHasChanged();
+
+            await JSRuntime.ToastrSuccess("Header deleted successfully.");
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex,$"CanRemove failed for HeaderId: {SelectedHeader?.HeaderId}");
+
+            await JSRuntime.ToastrError("An error occurred while deleting the header.");
+        }
+    }
+    private async Task RemoveRow(QmsDocumentVM item)
+    {
+        try
+        {
+
+            rowToDelete = item;
+            ModalTitle = "Are you sure you want to delete this row?";
+            btnColor = "btn-danger";
+            btnText = "Yes! Delete";
+            confirmation = "confirmDeleteRow_Click";
+
+            showCancelReasonBox = false;
+
+            await JSRuntime.InvokeVoidAsync("ShowConfirmationModal");
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"RemoveRow failed for GRNSubId: {item?.DocumentId}");
+            await JSRuntime.ToastrError("Failed to remove the row. Please try again.");
+        }
+    }
+
+    private async Task confirmDeleteRow_Click(bool isConfirmed)
+    {
+        try
+        {
+            await JSRuntime.InvokeVoidAsync("HideConfirmationModal");
+
+            if (!isConfirmed || rowToDelete == null)
+            {
+                await JSRuntime.ToastrInfo("Action was not confirmed.");
+                return;
+            }
+
+            if (rowToDelete.DocumentId > 0)
+            {
+                await QimsService.DeleteAndResequenceAsync(rowToDelete,screenCode);
+
+                Documents = await QimsService.GetAllDocumentsAsync();
+            }
+            else
+            {
+                Documents.Remove(rowToDelete);
+                SelectedDocumentId = null;
+                StateHasChanged();
+            }
+
+            await JSRuntime.ToastrSuccess($" deleted successfully.");
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"Error confirming deletion for DocId:{Document.DocumentId}");
+            await JSRuntime.ToastrError("An error occurred during deletion. Please try again.");
+        }
+        finally
+        {
+            rowToDelete = null;
+            StateHasChanged();
+        }
+    }
+    private void EditHeader()
+    {
+        if (SelectedHeader == null)
+            return;
+       
+       
+        Header = new QmsDocumentHeaderVM
+        {
+            HeaderId = SelectedHeader.HeaderId,
+            HeaderName = SelectedHeader.HeaderName,
+            ParentHeaderId = SelectedHeader.ParentHeaderId
+        };
+
+        IsHeader = true;
+        IsDocument = false;
+        IsEditing = true;
+    }
+
+  
+    private async Task DeleteHeader()
+    {
+        try
+        {
+
+            if (SelectedHeader == null)
+                return;
+
+            if (Documents.Any(x => x.HeaderId == SelectedHeader.HeaderId))
+            {
+                await JSRuntime.ToastrWarning("Please delete all documents under this header first.");
+                return;
+            }
+
+            if (Headers.Any(x => x.ParentHeaderId == SelectedHeader.HeaderId))
+            {
+                await JSRuntime.ToastrWarning("Please delete all child headers first.");
+                return;
+            }
+
+            ModalTitle = "Are you sure you want to Delete Header?";
+            btnColor = "btn-danger";
+            btnText = "Yes! Delete";
+            confirmation = "RemoveHeader";
+            showCancelReasonBox = false;
+
+
+            await JSRuntime.InvokeVoidAsync("ShowConfirmationModal");
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"Error confirming DeleteHeader ");
+            await JSRuntime.ToastrError("An error occurred during DeleteHeader. Please try again.");
+        }
+
+    }
+}

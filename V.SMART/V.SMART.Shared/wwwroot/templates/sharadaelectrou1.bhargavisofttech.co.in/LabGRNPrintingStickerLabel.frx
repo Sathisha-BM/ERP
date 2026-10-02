@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="02/26/2026 12:28:01" ReportInfo.Modified="08/28/2026 10:25:44" ReportInfo.CreatorVersion="2026.1.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlq2C5rfBekhIxQouaddX4EjwAuvpzuVmLRp+80E8RE0yTkKI0fWgP2Pm+sp6F6gh3UFbtHHaCtxsB6PV9V34e+z2vZaCbJj6lOSuezYKL/XyRLcpSyE3GFN5waJ8R9ts/lHuZ2FevEq3Q+QXvwWndfvyNB3aJkXqEbR4Q6gR0XKXgNh9Vx4diDeWA3o5xc0lAqQlIemC5rKfEY7KLgeW1wDzQ9RpqZ6cOi6jfTUDHnzbg=">
+      <ProcedureDataSource Name="Sp_Print_CompanyDetails" DataType="System.Int32" Enabled="true" TableName="Sp_Print_CompanyDetails" SelectCommand="Sp_Print_CompanyDetails">
+        <Column Name="CompanyName" DataType="System.String"/>
+        <Column Name="RegisteredAddress" DataType="System.String"/>
+        <Column Name="BillingAddress" DataType="System.String"/>
+        <Column Name="ShippingAddress" DataType="System.String"/>
+        <Column Name="City" DataType="System.String"/>
+        <Column Name="StateName" DataType="System.String"/>
+        <Column Name="Country" DataType="System.String"/>
+        <Column Name="ZipCode" DataType="System.String"/>
+        <Column Name="PhoneNumber" DataType="System.String"/>
+        <Column Name="MobileNumber" DataType="System.String"/>
+        <Column Name="EmailId" DataType="System.String"/>
+        <Column Name="Website" DataType="System.String"/>
+        <Column Name="GSTIN" DataType="System.String"/>
+        <Column Name="PAN" DataType="System.String"/>
+        <Column Name="IECNumber" DataType="System.String"/>
+        <Column Name="IsEOURegistered" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="LUTNumber" DataType="System.String"/>
+        <Column Name="BankAuthorizedDealerCode" DataType="System.String"/>
+        <Column Name="EOURegistrationNo" DataType="System.String"/>
+        <Column Name="EOURegistrationDate" DataType="System.DateTime"/>
+        <Column Name="EOUStatus" DataType="System.String"/>
+        <Column Name="EOUValidityTill" DataType="System.DateTime"/>
+        <Column Name="FinancialYearType" DataType="System.String"/>
+        <Column Name="OpeningBalance" DataType="System.Decimal"/>
+        <Column Name="OpeningBalanceDate" DataType="System.DateTime"/>
+        <Column Name="LogoPath" DataType="System.String"/>
+        <Column Name="LogoUrl" DataType="System.String"/>
+        <Column Name="IsoLogoPath" DataType="System.String"/>
+        <Column Name="IsoLogoUrl" DataType="System.String"/>
+        <Column Name="CurrencyCode" DataType="System.Int32"/>
+        <Column Name="TimeZone" DataType="System.String"/>
+        <Column Name="CIN" DataType="System.String"/>
+        <Column Name="TIN" DataType="System.String"/>
+        <Column Name="BankName" DataType="System.String"/>
+        <Column Name="BankBranch" DataType="System.String"/>
+        <Column Name="BankAccountNumber" DataType="System.String"/>
+        <Column Name="BankAddress" DataType="System.String"/>
+        <Column Name="BankCity" DataType="System.String"/>
+        <Column Name="BankState" DataType="System.String"/>
+        <Column Name="AccountType" DataType="System.String"/>
+        <Column Name="IFSCCode" DataType="System.String"/>
+        <Column Name="MICRCode" DataType="System.String"/>
+        <Column Name="SWIFTCode" DataType="System.String"/>
+        <Column Name="UdyamNumber" DataType="System.String"/>
+        <Column Name="PFRegistrationNumber" DataType="System.String"/>
+        <Column Name="ESIRegistrationNumber" DataType="System.String"/>
+        <Column Name="ShopEstablishmentNumber" DataType="System.String"/>
+        <Column Name="ExciseRegistrationNumber" DataType="System.String"/>
+        <Column Name="SEZRegistrationNumber" DataType="System.String"/>
+        <Column Name="CustomsRegistrationNumber" DataType="System.String"/>
+        <Column Name="AlternateEmail" DataType="System.String"/>
+        <Column Name="ContactPersonName" DataType="System.String"/>
+        <Column Name="CustomFinancialYearType" DataType="System.String"/>
+        <Column Name="CustomBusinessType" DataType="System.String"/>
+        <Column Name="CustomIndustryType" DataType="System.String"/>
+        <Column Name="IsActive" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="DecimalPlaces" DataType="System.Int32"/>
+        <Column Name="CreatedBy" DataType="System.String"/>
+        <Column Name="CreatedDate" DataType="System.DateTime"/>
+        <Column Name="ModifiedBy" DataType="System.String"/>
+        <Column Name="ModifiedDate" DataType="System.DateTime"/>
+      </ProcedureDataSource>
+      <ProcedureDataSource Name="Sp_Print_GRNDetailsLabelPrint" DataType="System.Int32" Enabled="true" TableName="Sp_Print_GRNDetailsLabelPrint" SelectCommand="Sp_Print_GRNDetailsLabelPrint">
+        <Column Name="ItemCode" DataType="System.String"/>
+        <Column Name="ItemName" DataType="System.String"/>
+        <Column Name="PartWeight" DataType="System.Decimal"/>
+        <Column Name="TotalArea" DataType="System.Decimal"/>
+        <Column Name="Process" DataType="System.String"/>
+        <Column Name="OutputPartName" DataType="System.String"/>
+        <Column Name="CustName" DataType="System.String"/>
+        <Column Name="RefDcDetails" DataType="System.String"/>
+        <Column Name="FilePath" DataType="System.String"/>
+        <Column Name="Image" DataType="System.Byte[]" BindableControl="Picture"/>
+        <Column Name="GRNNoWithSuffix" DataType="System.String"/>
+        <Column Name="Qty" DataType="System.Decimal"/>
+        <Column Name="AcceptQty" DataType="System.Decimal"/>
+        <Column Name="RejectQty" DataType="System.Decimal"/>
+        <Column Name="Remark" DataType="System.String"/>
+        <Column Name="MeasureUnit" DataType="System.String"/>
+        <ProcedureParameter Name="@GRNId" DataType="8" DefaultValue="1021" Direction="Input"/>
+      </ProcedureDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" PaperWidth="105" PaperHeight="170" LeftMargin="5" TopMargin="5" RightMargin="5" BottomMargin="0" Watermark.Font="Arial, 60pt">
+    <DataBand Name="Data1" Width="359.1" Height="585" Border.Lines="All" CanGrow="true" DataSource="Sp_Print_GRNDetailsLabelPrint">
+      <PictureObject Name="Logo" Left="14.2" Top="5.45" Width="155.65" Height="77.8" DataColumn="Sp_Print_CompanyDetails.LogoPath"/>
+      <TextObject Name="Text1" Left="189.3" Top="21.45" Width="157.6" Height="51.9" Text="ROUTE CARD" HorzAlign="Center" VertAlign="Center" Font="Arial, 16pt, style=Bold"/>
+      <LineObject Name="Line6" Left="185.1" Height="91.7"/>
+      <TableObject Name="Table1" Left="1" Top="93.6" Width="358.65" Height="468.9" Border.Lines="Top, Bottom">
+        <TableColumn Name="Column1" Width="184.05"/>
+        <TableColumn Name="Column2" Width="174.6"/>
+        <TableRow Name="Row1" Height="22.5">
+          <TableCell Name="Cell1" Border.Lines="Bottom" Text="Route Card No : [Sp_Print_GRNDetailsLabelPrint.GRNNoWithSuffix]" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell2" Border.Lines="Left" Font="Arial, 10pt">
+            <PictureObject Name="Picture1" Left="2.45" Top="3.45" Width="168.55" Height="126.75" DataColumn="Sp_Print_GRNDetailsLabelPrint.Image"/>
+          </TableCell>
+        </TableRow>
+        <TableRow Name="Row2" Height="31.95">
+          <TableCell Name="Cell6" Border.Lines="Bottom" Text="Customer : [Sp_Print_GRNDetailsLabelPrint.CustName]" VertAlign="Bottom" Font="Arial, 7pt"/>
+          <TableCell Name="Cell7" Border.Lines="Left" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row3" Height="22.5">
+          <TableCell Name="Cell11" Border.Lines="Bottom" Text="DC No : [Sp_Print_GRNDetailsLabelPrint.RefDcDetails] " VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell12" Border.Lines="Left" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row4" Height="22.5">
+          <TableCell Name="Cell16" Border.Lines="Bottom" Text="Dc Qty :  [Sp_Print_GRNDetailsLabelPrint.Qty] [Sp_Print_GRNDetailsLabelPrint.MeasureUnit]" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell17" Border.Lines="Left" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row5" Height="22.5">
+          <TableCell Name="Cell21" Border.Lines="Bottom" Text="Part No :  [Sp_Print_GRNDetailsLabelPrint.ItemCode]" VertAlign="Bottom" Font="Arial, 7pt"/>
+          <TableCell Name="Cell22" Border.Lines="Left" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row6" Height="22.5">
+          <TableCell Name="Cell26" Border.Lines="Bottom" Text="Process : [Sp_Print_GRNDetailsLabelPrint.Process]" VertAlign="Bottom" Font="Arial, 7pt"/>
+          <TableCell Name="Cell27" Border.Lines="Left" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row7" Height="22.5">
+          <TableCell Name="Cell31" Border.Lines="Bottom" Text="Stage-1: Incoming Inspection" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell32" Border.Lines="Left, Top, Bottom" Text="Sq Ft : [Sp_Print_GRNDetailsLabelPrint.TotalArea]" VertAlign="Bottom" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row8" Height="22.5">
+          <TableCell Name="Cell36" Border.Lines="Bottom" Text="Accepted Qty : [Sp_Print_GRNDetailsLabelPrint.AcceptQty] [Sp_Print_GRNDetailsLabelPrint.MeasureUnit]" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell37" Border.Lines="Left, Bottom" Text="Rejected Qty : [Sp_Print_GRNDetailsLabelPrint.RejectQty] [Sp_Print_GRNDetailsLabelPrint.MeasureUnit]&#13;&#10;" VertAlign="Bottom" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row9" Height="22.5">
+          <TableCell Name="Cell41" Border.Lines="Bottom" Text="Checked By : " VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell42" Border.Lines="Left, Bottom" Text="Remarks :  [Sp_Print_GRNDetailsLabelPrint.Remark]" VertAlign="Bottom" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row10" Height="13.05">
+          <TableCell Name="Cell46" Border.Lines="Bottom" Text="Stage-2: wiring/ Jigging" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell47" Border.Lines="Bottom" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row11" Height="22.5">
+          <TableCell Name="Cell51" Border.Lines="Bottom" Text="Qty : " VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell52" Border.Lines="Left, Bottom" Text="Date : " VertAlign="Bottom" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row12" Height="22.5">
+          <TableCell Name="Cell56" Border.Lines="Bottom" Text="Wiring/ Jigging By:" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell57" Border.Lines="Left, Bottom" Text="Remarks:" VertAlign="Bottom" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row13" Height="13.05">
+          <TableCell Name="Cell61" Border.Lines="Bottom" Text="Stage-3: Plating" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell62" Border.Lines="Bottom" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row14" Height="22.5">
+          <TableCell Name="Cell66" Border.Lines="Bottom" Text="Qty : " VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell67" Border.Lines="Left, Bottom" Text="Date : " VertAlign="Bottom" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row15" Height="22.5">
+          <TableCell Name="Cell71" Border.Lines="Bottom" Text="Operator : " VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell72" Border.Lines="Left, Bottom" Text="Remarks : " VertAlign="Bottom" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row16" Height="13.05">
+          <TableCell Name="Cell76" Border.Lines="Bottom" Text="Stage-4: Final Inspection" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell77" Border.Lines="Bottom" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row17" Height="22.5">
+          <TableCell Name="Cell81" Border.Lines="Bottom" Text="Accepted Qty :   " VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell82" Border.Lines="Left, Bottom" Text="Rejected Qty : " VertAlign="Bottom" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row18" Height="22.5">
+          <TableCell Name="Cell86" Border.Lines="Bottom" Text="Inspection By : " VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell87" Border.Lines="Left, Bottom" Text="Date : " VertAlign="Bottom" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row19" Height="13.05">
+          <TableCell Name="Cell91" Border.Lines="Bottom" Text="Stage-5: Dispatch" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell92" Border.Lines="Bottom" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row20" Height="22.5">
+          <TableCell Name="Cell96" Border.Lines="Bottom" Text="Qty : " VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell97" Border.Lines="Left, Bottom" Text="Date : " VertAlign="Bottom" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row21">
+          <TableCell Name="Cell98" Border.Lines="Bottom" Text="Invoice No:" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell99" Border.Lines="Left, Bottom" Text="Date : " VertAlign="Bottom" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row22" Height="28.35">
+          <TableCell Name="Cell100" Text="Dispatched By" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell101" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text2" Left="1.9" Top="566.55" Width="268.5" Height="15.9" Text="Doc No:SEC/QA/RC/01, 07-07-2021, Rev No:&quot;00&quot;" VertAlign="Bottom" Font="Arial, 8pt"/>
+    </DataBand>
+  </ReportPage>
+</Report>

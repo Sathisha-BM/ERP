@@ -1,0 +1,677 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\V.SMART.Shared.bundle.scp.css",
+      "PackagePath": "staticwebassets\\V.SMART.Shared.kascw1f4r9.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\bspllogo.jpg",
+      "PackagePath": "staticwebassets\\bspllogo.jpg"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\css\\Dashboard.css",
+      "PackagePath": "staticwebassets\\css\\Dashboard.css"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\css\\DiscardPopUp.css",
+      "PackagePath": "staticwebassets\\css\\DiscardPopUp.css"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\images\\BSPLLOGOANIMATED.gif",
+      "PackagePath": "staticwebassets\\images\\BSPLLOGOANIMATED.gif"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\images\\authorize-denied.jpg",
+      "PackagePath": "staticwebassets\\images\\authorize-denied.jpg"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\images\\bsplimage.png",
+      "PackagePath": "staticwebassets\\images\\bsplimage.png"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\images\\bsplimage_1.png",
+      "PackagePath": "staticwebassets\\images\\bsplimage_1.png"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\images\\bspllogo.jpg",
+      "PackagePath": "staticwebassets\\images\\bspllogo.jpg"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\images\\eway.jpg",
+      "PackagePath": "staticwebassets\\images\\eway.jpg"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\images\\loading.gif",
+      "PackagePath": "staticwebassets\\images\\loading.gif"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\images\\logout.jpg",
+      "PackagePath": "staticwebassets\\images\\logout.jpg"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\js\\DeviceInfo.js",
+      "PackagePath": "staticwebassets\\js\\DeviceInfo.js"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\js\\autoSelect.js",
+      "PackagePath": "staticwebassets\\js\\autoSelect.js"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\js\\common.js",
+      "PackagePath": "staticwebassets\\js\\common.js"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\js\\downloadExcel.js",
+      "PackagePath": "staticwebassets\\js\\downloadExcel.js"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\js\\downloadJsonFile.js",
+      "PackagePath": "staticwebassets\\js\\downloadJsonFile.js"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\js\\emailEditor.js",
+      "PackagePath": "staticwebassets\\js\\emailEditor.js"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\js\\idleTimer.js",
+      "PackagePath": "staticwebassets\\js\\idleTimer.js"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\js\\internet_status.js",
+      "PackagePath": "staticwebassets\\js\\internet_status.js"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\js\\isNumericWithDot.js",
+      "PackagePath": "staticwebassets\\js\\isNumericWithDot.js"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\js\\navigation.js",
+      "PackagePath": "staticwebassets\\js\\navigation.js"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\js\\navigationGuard.js",
+      "PackagePath": "staticwebassets\\js\\navigationGuard.js"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\js\\notification.js",
+      "PackagePath": "staticwebassets\\js\\notification.js"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\js\\openFile.js",
+      "PackagePath": "staticwebassets\\js\\openFile.js"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\js\\pdfHelper.js",
+      "PackagePath": "staticwebassets\\js\\pdfHelper.js"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\BOMLabour.xlsx",
+      "PackagePath": "staticwebassets\\templates\\BOMLabour.xlsx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\Bin_QR-Code.xlsx",
+      "PackagePath": "staticwebassets\\templates\\Bin_QR-Code.xlsx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\ByraveshwaraEnggEnts.bhargavisofttech.co.in\\PendingBills.frx",
+      "PackagePath": "staticwebassets\\templates\\ByraveshwaraEnggEnts.bhargavisofttech.co.in\\PendingBills.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\GSTR1_Excel_Workbook_Template_V2.0.xlsx",
+      "PackagePath": "staticwebassets\\templates\\GSTR1_Excel_Workbook_Template_V2.0.xlsx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\ITC_04_Offline_Utility.xlsx",
+      "PackagePath": "staticwebassets\\templates\\ITC_04_Offline_Utility.xlsx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\Master BOM Upload.xlsx",
+      "PackagePath": "staticwebassets\\templates\\Master BOM Upload.xlsx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\MasterTemplate.xlsm",
+      "PackagePath": "staticwebassets\\templates\\MasterTemplate.xlsm"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\acucom.bhargavisofttech.co.in\\CreditNote.frx",
+      "PackagePath": "staticwebassets\\templates\\acucom.bhargavisofttech.co.in\\CreditNote.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\acucom.bhargavisofttech.co.in\\DebitNote.frx",
+      "PackagePath": "staticwebassets\\templates\\acucom.bhargavisofttech.co.in\\DebitNote.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\acucom.bhargavisofttech.co.in\\Enquiry.frx",
+      "PackagePath": "staticwebassets\\templates\\acucom.bhargavisofttech.co.in\\Enquiry.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\acucom.bhargavisofttech.co.in\\JobOrder.frx",
+      "PackagePath": "staticwebassets\\templates\\acucom.bhargavisofttech.co.in\\JobOrder.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\acucom.bhargavisofttech.co.in\\LabDC.frx",
+      "PackagePath": "staticwebassets\\templates\\acucom.bhargavisofttech.co.in\\LabDC.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\acucom.bhargavisofttech.co.in\\LabInvoice.frx",
+      "PackagePath": "staticwebassets\\templates\\acucom.bhargavisofttech.co.in\\LabInvoice.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\acucom.bhargavisofttech.co.in\\MfgDC.frx",
+      "PackagePath": "staticwebassets\\templates\\acucom.bhargavisofttech.co.in\\MfgDC.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\acucom.bhargavisofttech.co.in\\MfgInvoice.frx",
+      "PackagePath": "staticwebassets\\templates\\acucom.bhargavisofttech.co.in\\MfgInvoice.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\acucom.bhargavisofttech.co.in\\MfgQuote.frx",
+      "PackagePath": "staticwebassets\\templates\\acucom.bhargavisofttech.co.in\\MfgQuote.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\acucom.bhargavisofttech.co.in\\PaymentVoucher.frx",
+      "PackagePath": "staticwebassets\\templates\\acucom.bhargavisofttech.co.in\\PaymentVoucher.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\acucom.bhargavisofttech.co.in\\PendingBills.frx",
+      "PackagePath": "staticwebassets\\templates\\acucom.bhargavisofttech.co.in\\PendingBills.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\acucom.bhargavisofttech.co.in\\PerformaInvoice.frx",
+      "PackagePath": "staticwebassets\\templates\\acucom.bhargavisofttech.co.in\\PerformaInvoice.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\acucom.bhargavisofttech.co.in\\PurchReq.frx",
+      "PackagePath": "staticwebassets\\templates\\acucom.bhargavisofttech.co.in\\PurchReq.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\acucom.bhargavisofttech.co.in\\PurchaseOrder.frx",
+      "PackagePath": "staticwebassets\\templates\\acucom.bhargavisofttech.co.in\\PurchaseOrder.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\acucom.bhargavisofttech.co.in\\Quotation.frx",
+      "PackagePath": "staticwebassets\\templates\\acucom.bhargavisofttech.co.in\\Quotation.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\acucom.bhargavisofttech.co.in\\SubConDC.frx",
+      "PackagePath": "staticwebassets\\templates\\acucom.bhargavisofttech.co.in\\SubConDC.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\AppointmentLetter.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\AppointmentLetter.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\Attendance.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\Attendance.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\ContractReview.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\ContractReview.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\CreditNote.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\CreditNote.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\DebitNote.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\DebitNote.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\EmptyRouteCard.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\EmptyRouteCard.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\Enquiry.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\Enquiry.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\EnquiryFeasibility.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\EnquiryFeasibility.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\ExpInv.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\ExpInv.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\ExportInvoice.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\ExportInvoice.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\FinalMultipleProcessInspection.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\FinalMultipleProcessInspection.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\FinalSingleProcessInspection.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\FinalSingleProcessInspection.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\Form22Salary.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\Form22Salary.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\HorizontSalary.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\HorizontSalary.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\JobOrder.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\JobOrder.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\LabDC.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\LabDC.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\LabGRNPrintingStickerLabel.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\LabGRNPrintingStickerLabel.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\LabInvPrintingStickerLabel.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\LabInvPrintingStickerLabel.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\LabInvoice.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\LabInvoice.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\LabourGRN.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\LabourGRN.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\LabourSCN.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\LabourSCN.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\LeaveApplication.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\LeaveApplication.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\MaterialIssueNoteReduction.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\MaterialIssueNoteReduction.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\MfgDC.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\MfgDC.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\MfgInvoice.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\MfgInvoice.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\MfgQuote.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\MfgQuote.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\Offerletter.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\Offerletter.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\OrderAccept.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\OrderAccept.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\PackList.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\PackList.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\PackingListExp.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\PackingListExp.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\PaymentVoucher.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\PaymentVoucher.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\PendingBills.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\PendingBills.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\PerformaInvoice.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\PerformaInvoice.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\ProdAssyGRN.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\ProdAssyGRN.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\ProdAssySCN.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\ProdAssySCN.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\ProdCompGRN.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\ProdCompGRN.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\ProdCompSCN.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\ProdCompSCN.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\ProdMtlIssNoteAssy.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\ProdMtlIssNoteAssy.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\ProdMtlIssNoteComp.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\ProdMtlIssNoteComp.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\PurchReq.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\PurchReq.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\PurchaseGRN.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\PurchaseGRN.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\PurchaseOrder.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\PurchaseOrder.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\PurchaseOrder_Old.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\PurchaseOrder_Old.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\PurchaseSCN.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\PurchaseSCN.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\Receipt.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\Receipt.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\RouteCard.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\RouteCard.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\SalarySlip.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\SalarySlip.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\SalarySlipMultiple.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\SalarySlipMultiple.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\SalesEnquiry.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\SalesEnquiry.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\StoreInterTransfer.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\StoreInterTransfer.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\SubConDC.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\SubConDC.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\SubContractGRN.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\SubContractGRN.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\ToolCribIssueNote.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\ToolCribIssueNote.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\ToolCribReturnNote.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\ToolCribReturnNote.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\WeeklyAttendance.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\WeeklyAttendance.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\default\\WeeklyEmptyAttendance.frx",
+      "PackagePath": "staticwebassets\\templates\\default\\WeeklyEmptyAttendance.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\rrforgspl.bhargavisofttech.co.in\\PendingBills.frx",
+      "PackagePath": "staticwebassets\\templates\\rrforgspl.bhargavisofttech.co.in\\PendingBills.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\CreditNote.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\CreditNote.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\FinalMultipleProcessInspection.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\FinalMultipleProcessInspection.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\FinalSingleProcessInspection.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\FinalSingleProcessInspection.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\FinalSpecialProcessInspection.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\FinalSpecialProcessInspection.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\IncomingInspection.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\IncomingInspection.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\LabDC.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\LabDC.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\LabGRNPrintingStickerLabel.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\LabGRNPrintingStickerLabel.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\LabInvPrintingStickerLabel.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\LabInvPrintingStickerLabel.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\LabInvoice.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\LabInvoice.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\LabourGRN.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\LabourGRN.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\LabourSCN.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\LabourSCN.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\MfgQuote.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\MfgQuote.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\PaymentVoucher.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\PaymentVoucher.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\PendingBills.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\PendingBills.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\ProdMtlIssNoteComp.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\ProdMtlIssNoteComp.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\ProductionlogAttendance.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\ProductionlogAttendance.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\PurchaseGRN.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\PurchaseGRN.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\PurchaseInspection.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\PurchaseInspection.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\PurchaseOrder.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\PurchaseOrder.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\PurchaseSCN.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\PurchaseSCN.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\Receipt.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\Receipt.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\SubConDC.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\SubConDC.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\SubconGRN.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\SubconGRN.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\SubconSCN.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\SubconSCN.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\VendorQuote.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\VendorQuote.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\WeeklyEmptyAttendance.frx",
+      "PackagePath": "staticwebassets\\templates\\sharadaelectrou1.bhargavisofttech.co.in\\WeeklyEmptyAttendance.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sns.bhargavisofttech.co.in\\JobOrder.frx",
+      "PackagePath": "staticwebassets\\templates\\sns.bhargavisofttech.co.in\\JobOrder.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sns.bhargavisofttech.co.in\\LabDC.frx",
+      "PackagePath": "staticwebassets\\templates\\sns.bhargavisofttech.co.in\\LabDC.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sns.bhargavisofttech.co.in\\LabInvoice.frx",
+      "PackagePath": "staticwebassets\\templates\\sns.bhargavisofttech.co.in\\LabInvoice.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sns.bhargavisofttech.co.in\\MfgDC.frx",
+      "PackagePath": "staticwebassets\\templates\\sns.bhargavisofttech.co.in\\MfgDC.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sns.bhargavisofttech.co.in\\MfgInvoice.frx",
+      "PackagePath": "staticwebassets\\templates\\sns.bhargavisofttech.co.in\\MfgInvoice.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sns.bhargavisofttech.co.in\\PaymentVoucher.frx",
+      "PackagePath": "staticwebassets\\templates\\sns.bhargavisofttech.co.in\\PaymentVoucher.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sns.bhargavisofttech.co.in\\PendingBills.frx",
+      "PackagePath": "staticwebassets\\templates\\sns.bhargavisofttech.co.in\\PendingBills.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sns.bhargavisofttech.co.in\\PerformaInvoice.frx",
+      "PackagePath": "staticwebassets\\templates\\sns.bhargavisofttech.co.in\\PerformaInvoice.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sns.bhargavisofttech.co.in\\PurchaseOrder.frx",
+      "PackagePath": "staticwebassets\\templates\\sns.bhargavisofttech.co.in\\PurchaseOrder.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sns.bhargavisofttech.co.in\\Quotation.frx",
+      "PackagePath": "staticwebassets\\templates\\sns.bhargavisofttech.co.in\\Quotation.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\sns.bhargavisofttech.co.in\\SubConDC.frx",
+      "PackagePath": "staticwebassets\\templates\\sns.bhargavisofttech.co.in\\SubConDC.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\srinuenggind.bhargavisofttech.co.in\\ContractReview.frx",
+      "PackagePath": "staticwebassets\\templates\\srinuenggind.bhargavisofttech.co.in\\ContractReview.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\srinuenggind.bhargavisofttech.co.in\\EmptyRouteCard.frx",
+      "PackagePath": "staticwebassets\\templates\\srinuenggind.bhargavisofttech.co.in\\EmptyRouteCard.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\srinuenggind.bhargavisofttech.co.in\\ExportInvoice.frx",
+      "PackagePath": "staticwebassets\\templates\\srinuenggind.bhargavisofttech.co.in\\ExportInvoice.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\srinuenggind.bhargavisofttech.co.in\\LabDC.frx",
+      "PackagePath": "staticwebassets\\templates\\srinuenggind.bhargavisofttech.co.in\\LabDC.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\srinuenggind.bhargavisofttech.co.in\\LabInvoice.frx",
+      "PackagePath": "staticwebassets\\templates\\srinuenggind.bhargavisofttech.co.in\\LabInvoice.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\srinuenggind.bhargavisofttech.co.in\\MfgDC.frx",
+      "PackagePath": "staticwebassets\\templates\\srinuenggind.bhargavisofttech.co.in\\MfgDC.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\srinuenggind.bhargavisofttech.co.in\\MfgInvoice.frx",
+      "PackagePath": "staticwebassets\\templates\\srinuenggind.bhargavisofttech.co.in\\MfgInvoice.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\srinuenggind.bhargavisofttech.co.in\\MfgQuote.frx",
+      "PackagePath": "staticwebassets\\templates\\srinuenggind.bhargavisofttech.co.in\\MfgQuote.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\srinuenggind.bhargavisofttech.co.in\\OrderAccept.frx",
+      "PackagePath": "staticwebassets\\templates\\srinuenggind.bhargavisofttech.co.in\\OrderAccept.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\srinuenggind.bhargavisofttech.co.in\\Pack.frx",
+      "PackagePath": "staticwebassets\\templates\\srinuenggind.bhargavisofttech.co.in\\Pack.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\srinuenggind.bhargavisofttech.co.in\\PackList.frx",
+      "PackagePath": "staticwebassets\\templates\\srinuenggind.bhargavisofttech.co.in\\PackList.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\srinuenggind.bhargavisofttech.co.in\\PendingBills.frx",
+      "PackagePath": "staticwebassets\\templates\\srinuenggind.bhargavisofttech.co.in\\PendingBills.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\srinuenggind.bhargavisofttech.co.in\\PerformaInvoice.frx",
+      "PackagePath": "staticwebassets\\templates\\srinuenggind.bhargavisofttech.co.in\\PerformaInvoice.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\srinuenggind.bhargavisofttech.co.in\\PurchaseOrder.frx",
+      "PackagePath": "staticwebassets\\templates\\srinuenggind.bhargavisofttech.co.in\\PurchaseOrder.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\srinuenggind.bhargavisofttech.co.in\\RouteCard.frx",
+      "PackagePath": "staticwebassets\\templates\\srinuenggind.bhargavisofttech.co.in\\RouteCard.frx"
+    },
+    {
+      "Id": "D:\\Bhargavi V.SMART Web DotNet - Latest\\V.SMART\\V.SMART.Shared\\wwwroot\\templates\\srinuenggind.bhargavisofttech.co.in\\SubConDC.frx",
+      "PackagePath": "staticwebassets\\templates\\srinuenggind.bhargavisofttech.co.in\\SubConDC.frx"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.V.SMART.Shared.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.V.SMART.Shared.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.V.SMART.Shared.props",
+      "PackagePath": "build\\V.SMART.Shared.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.V.SMART.Shared.props",
+      "PackagePath": "buildMultiTargeting\\V.SMART.Shared.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.V.SMART.Shared.props",
+      "PackagePath": "buildTransitive\\V.SMART.Shared.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

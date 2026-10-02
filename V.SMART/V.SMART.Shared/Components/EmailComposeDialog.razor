@@ -1,0 +1,1521 @@
+﻿@using MudBlazor
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.JSInterop
+@using V.SMART.Shared.ViewModels.EmailserviceVM
+@using V.SMART.Shared.ViewModels.Mail
+
+@inject EmailService EmailService
+@inject IJSRuntime JS
+
+<!-- ========================================================= -->
+<!-- HEADER -->
+<!-- ========================================================= -->
+
+<TitleContent>
+
+    <div class="gmail-dialog-header">
+
+        <div class="gmail-title">
+            <MudIcon Icon="@Icons.Material.Filled.Email"
+                     Size="Size.Small"
+                     Style="color:#1a73e8;" />
+
+            <span>New Message</span>
+        </div>
+
+        <div class="gmail-header-actions">
+
+
+
+           <MudIconButton Icon="@Icons.Material.Filled.Close"
+               Size="Size.Small"
+               Disabled="@isSending"
+               OnClick="Cancel"
+               Style="
+                   background:#dc3545;
+                   color:white;
+                   border-radius:50%;
+                   width:32px;
+                   height:32px;"
+               Tooltip="Close" title="Close"/>
+
+        </div>
+
+    </div>
+
+</TitleContent>
+
+
+<!-- ========================================================= -->
+<!-- CONTENT -->
+<!-- ========================================================= -->
+
+<DialogContent>
+
+    <div class="gmail-compose-container">
+
+        <!-- =============================================== -->
+        <!-- FROM -->
+        <!-- =============================================== -->
+
+        <div class="gmail-input-row">
+
+            <input class="gmail-input"
+                   value="@Model.FromEmail"
+                   disabled="@(Model.IsDefaultMail)" title="From Mail"/>
+
+        </div>
+
+
+        <!-- =============================================== -->
+        <!-- TO -->
+        <!-- =============================================== -->
+
+        <div class="gmail-input-row">
+
+            <input class="gmail-input"
+                   @bind="Model.To"
+                   placeholder="Recipients" title="To Mail"/>
+
+        </div>
+
+
+        <!-- =============================================== -->
+        <!-- CC / BCC -->
+        <!-- =============================================== -->
+
+        <div class="gmail-recipient-options">
+
+            <button type="button"
+                    class="gmail-link-button"
+                    @onclick="ShowCc" title="Add CC">
+
+                Cc
+
+            </button>
+
+            <button type="button"
+                    class="gmail-link-button"
+                    @onclick="ShowBcc" title="Add BCC">
+
+                Bcc
+
+            </button>
+
+        </div>
+
+
+        @if (showCc)
+        {
+            <div class="gmail-input-row">
+
+                <input class="gmail-input"
+                       @bind="Model.CC"
+                       placeholder="Cc" title="Enter CC Mail" />
+
+            </div>
+        }
+
+
+        @if (showBcc)
+        {
+            <div class="gmail-input-row">
+
+                <input class="gmail-input"
+                       @bind="Model.BCC"
+                       placeholder="Bcc" title="Enter BCC Mail" />
+
+            </div>
+        }
+
+
+        <!-- =============================================== -->
+        <!-- SUBJECT -->
+        <!-- =============================================== -->
+
+        <div class="gmail-input-row">
+
+            <input class="gmail-input"
+                   @bind="Model.Subject"
+                   placeholder="Subject" title="Subject" Disabled="@isSending" />
+
+        </div>
+
+
+        <!-- =============================================== -->
+        <!-- EMAIL BODY -->
+        <!-- =============================================== -->
+        <div id="emailEditor"
+             @ref="editorElement"
+             class="gmail-editor"
+             contenteditable="true"
+             spellcheck="true"
+             @onmouseup="SaveEditorSelection"
+             @onkeyup="SaveEditorSelection"
+             @oninput="SaveEditorSelection"   style="
+         margin:0 !important;
+         padding:12px 16px !important;
+         text-align:left !important;
+         width:100%;
+         box-sizing:border-box;" Disabled="@isSending">
+
+            @((MarkupString)InitialBody)
+
+        </div>
+
+        <!-- =============================================== -->
+        <!-- ATTACHMENTS -->
+        <!-- =============================================== -->
+
+        @if (attachments.Any())
+        {
+            <div class="gmail-attachments">
+
+                @foreach (var attachment in attachments)
+                {
+                    <div class="gmail-attachment">
+
+                        <MudIcon Icon="@GetFileIcon(attachment.FileName)"
+                                 Size="Size.Small"
+                                 Style="color:#5f6368;" />
+
+                        <div class="gmail-attachment-info">
+
+                            <div class="gmail-attachment-name">
+                                @attachment.FileName
+                            </div>
+
+                            <div class="gmail-attachment-size">
+                                @GetFileSize(attachment.FileSize)
+                            </div>
+
+                        </div>
+
+                        <MudIconButton Icon="@Icons.Material.Filled.Close"
+                                       Size="Size.Small"
+                                       Disabled="@isSending"
+                                       OnClick="@(() => RemoveAttachment(attachment))"
+                                       Style="color:#5f6368;"
+                                       Tooltip="Remove attachment" title="Remove attachment" />
+
+                    </div>
+                }
+
+            </div>
+        }
+
+
+        <!-- =============================================== -->
+        <!-- HIDDEN FILE INPUT -->
+        <!-- =============================================== -->
+
+        <InputFile id="emailFileInput"
+                   OnChange="HandleFileUpload"
+                   multiple
+                   accept=".pdf,.doc,.docx,.xls,.xlsx,.xlsm,.jpg,.jpeg,.png,.gif,.txt,.zip,.rar,.7z"
+                   style="display:none;" title="Attachment" Disabled="@isSending" />
+
+    </div>
+
+</DialogContent>
+
+
+<!-- ========================================================= -->
+<!-- FOOTER / GMAIL TOOLBAR -->
+<!-- ========================================================= -->
+
+<DialogActions>
+
+    <div class="gmail-footer">
+
+        <!-- =============================================== -->
+        <!-- FORMATTING TOOLBAR -->
+        <!-- =============================================== -->
+
+        <div class="gmail-toolbar">
+
+            <!-- UNDO -->
+
+            <MudIconButton Icon="@Icons.Material.Filled.Undo"
+                           Size="Size.Small"
+                           Disabled="@isSending"
+                           OnClick="@(() => ExecCommand("undo"))"
+                           Tooltip="Undo" title="Undo" />
+
+
+            <!-- REDO -->
+
+            <MudIconButton Icon="@Icons.Material.Filled.Redo"
+                           Size="Size.Small"
+                           Disabled="@isSending"
+                           OnClick="@(() => ExecCommand("redo"))"
+                           Tooltip="Redo" title="Redo"  />
+
+
+            <span class="gmail-divider"></span>
+
+
+            <!-- FONT FAMILY -->
+
+            <select class="gmail-font-select"
+                    @onchange="ChangeFontFamily" title="Fonts" Disabled="@isSending">
+
+                <!-- Sans Serif -->
+                <option value="Arial">Sans Serif</option>
+                <option value="Arial">Arial</option>
+                <option value="Helvetica">Helvetica</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Tahoma">Tahoma</option>
+                <option value="Trebuchet MS">Trebuchet MS</option>
+                <option value="Calibri">Calibri</option>
+                <option value="Segoe UI">Segoe UI</option>
+                <option value="Roboto">Roboto</option>
+
+                <!-- Serif -->
+                <option value="Georgia">Georgia</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Cambria">Cambria</option>
+                <option value="Garamond">Garamond</option>
+                <option value="Palatino Linotype">Palatino Linotype</option>
+
+                <!-- Monospace -->
+                <option value="Courier New">Courier New</option>
+                <option value="Consolas">Consolas</option>
+                <option value="Lucida Console">Lucida Console</option>
+
+                <!-- Other -->
+                <option value="Impact">Impact</option>
+                <option value="Arial Black">Arial Black</option>
+                <option value="Comic Sans MS">Comic Sans MS</option>
+                <option value="Franklin Gothic Medium">Franklin Gothic Medium</option>
+                <option value="Century Gothic">Century Gothic</option>
+                <option value="Book Antiqua">Book Antiqua</option>
+
+            </select>
+
+
+            <!-- FONT SIZE -->
+
+            <select class="gmail-font-size"
+                    @onchange="ChangeFontSize" title="FontSize" Disabled="@isSending">
+
+                <option value="2">
+                    Small
+                </option>
+
+                <option value="3" selected>
+                    Normal
+                </option>
+
+                <option value="4">
+                    Large
+                </option>
+
+                <option value="5">
+                    Huge
+                </option>
+
+            </select>
+
+
+            <span class="gmail-divider"></span>
+
+
+            <!-- BOLD -->
+
+            <MudIconButton Icon="@Icons.Material.Filled.FormatBold"
+                           Size="Size.Small"
+                           Disabled="@isSending"
+                           OnClick="@(() => ExecCommand("bold"))"
+                           Tooltip="Bold" title="Bold" />
+
+
+            <!-- ITALIC -->
+
+            <MudIconButton Icon="@Icons.Material.Filled.FormatItalic"
+                           Size="Size.Small"
+                           Disabled="@isSending"
+                           OnClick="@(() => ExecCommand("italic"))"
+                           Tooltip="Italic" title="Italic" />
+
+
+            <!-- UNDERLINE -->
+
+            <MudIconButton Icon="@Icons.Material.Filled.FormatUnderlined"
+                           Size="Size.Small"
+                           Disabled="@isSending"
+                           OnClick="@(() => ExecCommand("underline"))"
+                           Tooltip="Underline" title="Underline" />
+
+
+            <!-- TEXT COLOR -->
+
+            <label class="gmail-color-button"
+                   title="Text color">
+
+                <MudIcon Icon="@Icons.Material.Filled.FormatColorText"
+                         Size="Size.Small" Tooltip="Text color" Title="Text color" />
+
+                <input type="color"
+                       value="#202124"
+                       @onchange="ChangeTextColor" title="color" />
+
+            </label>
+
+
+            <span class="gmail-divider"></span>
+
+
+            <!-- ALIGN -->
+
+            <MudIconButton Icon="@Icons.Material.Filled.FormatAlignLeft"
+                           Size="Size.Small"
+                           Disabled="@isSending"
+                           OnClick="@(() => ExecCommand("justifyLeft"))"
+                           Tooltip="Align left" title="Align left" />
+
+
+            <MudIconButton Icon="@Icons.Material.Filled.FormatAlignCenter"
+                           Size="Size.Small"
+                           Disabled="@isSending"
+                           OnClick="@(() => ExecCommand("justifyCenter"))"
+                           Tooltip="Align center" title="Align center" />
+
+
+            <MudIconButton Icon="@Icons.Material.Filled.FormatAlignRight"
+                           Size="Size.Small"
+                           Disabled="@isSending"
+                           OnClick="@(() => ExecCommand("justifyRight"))"
+                           Tooltip="Align right" title="Align right" />
+
+
+            <!-- BULLET -->
+
+            <MudIconButton Icon="@Icons.Material.Filled.FormatListBulleted"
+                           Size="Size.Small"
+                           Disabled="@isSending"
+                           OnClick="@(() => ExecCommand("insertUnorderedList"))"
+                           Tooltip="Bulleted list" title="Bulleted list" />
+
+
+            <!-- NUMBER -->
+
+            <MudIconButton Icon="@Icons.Material.Filled.FormatListNumbered"
+                           Size="Size.Small"
+                           Disabled="@isSending"
+                           OnClick="@(() => ExecCommand("insertOrderedList"))"
+                           Tooltip="Numbered list" title="Numbered list" />
+
+
+            <span class="gmail-divider"></span>
+
+
+            <!-- LINK -->
+
+            <MudIconButton Icon="@Icons.Material.Filled.Link"
+                           Size="Size.Small"
+                           Disabled="@isSending"
+                           OnClick="InsertLink"
+                           Tooltip="Insert link" title="Insert link" />
+
+
+            <!-- EMOJI -->
+
+            <MudMenu Icon="@Icons.Material.Filled.EmojiEmotions"
+                     Size="Size.Small"
+                     Disabled="@isSending"
+                     AnchorOrigin="Origin.BottomLeft"
+                     TransformOrigin="Origin.TopLeft" Tooltip="Emojis">
+
+                <MudPaper Class="gmail-emoji-panel" Tooltip="Emojis">
+
+                    <div class="gmail-emoji-grid">
+
+                        @foreach (var emoji in Emojis)
+                        {
+                            <button type="button"
+                                    class="gmail-emoji"
+                                    @onclick="(() => InsertEmoji(emoji))">
+
+                                @emoji
+
+                            </button>
+                        }
+
+                    </div>
+
+                </MudPaper>
+
+            </MudMenu>
+
+
+            <!-- ATTACHMENT -->
+
+            <label for="emailFileInput"  class="gmail-attach-button"  title="Attach files">
+
+                <MudIcon Icon="@Icons.Material.Filled.AttachFile"
+                         Size="Size.Small" />
+
+            </label>
+
+
+            <!-- CLEAR FORMAT -->
+
+            <MudIconButton Icon="@Icons.Material.Filled.FormatClear"
+                           Size="Size.Small"
+                           Disabled="@isSending"
+                           OnClick="@(() => ExecCommand("removeFormat"))"
+                           Tooltip="Remove formatting" title="formatting files" />
+
+        </div>
+
+
+        <!-- =============================================== -->
+        <!-- SEND SECTION -->
+        <!-- =============================================== -->
+
+        <div class="gmail-send-row">
+
+            <MudButton Variant="Variant.Filled"
+                       Disabled="@isSending"
+                       OnClick="SendEmail"
+                       Class="gmail-send-button" title="SendEmail">
+
+                @if (isSending)
+                {
+                    <MudProgressCircular Size="Size.Small"
+                                         Indeterminate="true"
+                                         Style="color:white;"
+                                         Class="me-2" />
+
+                    <span>Please wait Sending...</span>
+                }
+                else
+                {
+                    <span>Send</span>
+
+                    <span class="gmail-send-arrow">
+                        ▾
+                    </span>
+                }
+
+            </MudButton>
+
+
+            <MudButton Variant="Variant.Text"
+                       Disabled="@isSending"
+                       OnClick="Cancel"
+                       Class="gmail-discard-button">
+
+                Discard
+
+            </MudButton>
+
+        </div>
+
+    </div>
+
+</DialogActions>
+
+
+<style>
+
+    /* =========================================================
+       MAIN HEADER
+       ========================================================= */
+
+    .gmail-dialog-header {
+        width: 100%;
+        height: 48px;
+        padding: 0 14px;
+        background: #f2f6fc;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+    }
+
+    .gmail-title {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        color: #202124;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .gmail-header-actions {
+        display: flex;
+        align-items: center;
+        gap: 1px;
+    }
+
+
+    /* =========================================================
+       COMPOSE AREA
+       ========================================================= */
+
+    .gmail-compose-container {
+        width: 100%;
+        background: white;
+        padding: 0 16px;
+        box-sizing: border-box;
+    }
+
+    .gmail-input-row {
+        width: 100%;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .gmail-input {
+        width: 100%;
+        height: 40px;
+        border: none;
+        outline: none;
+        background: white;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        color: #202124;
+        padding: 0;
+    }
+
+    .gmail-input::placeholder {
+        color: #80868b;
+    }
+
+    .gmail-recipient-options {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-top: -32px;
+        margin-bottom: 4px;
+        position: relative;
+        pointer-events: none;
+    }
+
+    .gmail-link-button {
+        border: none;
+        background: transparent;
+        color: #5f6368;
+        font-size: 12px;
+        cursor: pointer;
+        pointer-events: auto;
+    }
+
+    .gmail-link-button:hover {
+        color: #1a73e8;
+    }
+
+
+    /* =========================================================
+       EMAIL EDITOR
+       ========================================================= */
+.gmail-editor {
+    min-height: 300px;
+    padding: 18px 20px;
+
+    outline: none;
+    border: none;
+
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+
+    color: #202124;
+
+    white-space: pre-wrap;
+
+    overflow-y: auto;
+}
+
+.gmail-editor:focus {
+    outline: none;
+}
+
+.gmail-editor:empty:before {
+    content: "Compose email...";
+    color: #9aa0a6;
+    pointer-events: none;
+}
+
+.gmail-editor a {
+    color: #1a73e8;
+    text-decoration: underline;
+}
+
+.gmail-editor ul,
+.gmail-editor ol {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.gmail-editor img {
+    max-width: 100%;
+}
+
+
+    /* =========================================================
+       ATTACHMENTS
+       ========================================================= */
+
+    .gmail-attachments {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 10px 0;
+        border-top: 1px solid #f1f3f4;
+        background: white;
+    }
+
+    .gmail-attachment {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+
+        max-width: 260px;
+
+        padding: 7px 9px;
+
+        border: 1px solid #dadce0;
+        border-radius: 8px;
+
+        background: #f8fafd;
+    }
+
+    .gmail-attachment-info {
+        min-width: 0;
+    }
+
+    .gmail-attachment-name {
+        max-width: 170px;
+
+        font-size: 12px;
+        font-weight: 500;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .gmail-attachment-size {
+        font-size: 10px;
+        color: #80868b;
+    }
+
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+
+    .gmail-footer {
+        width: 100%;
+        padding: 8px 16px 12px;
+        background: white;
+        box-sizing: border-box;
+    }
+
+
+    /* =========================================================
+       TOOLBAR
+       ========================================================= */
+
+    .gmail-toolbar {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1px;
+
+        min-height: 40px;
+
+        padding: 4px 8px;
+
+        border-radius: 20px;
+
+        background: #f1f3f4;
+    }
+
+    .gmail-toolbar .mud-icon-button {
+        color: #5f6368;
+    }
+
+    .gmail-toolbar .mud-icon-button:hover {
+        background: #dfe3e8;
+    }
+
+    .gmail-divider {
+        width: 1px;
+        height: 24px;
+        background: #d0d4d8;
+        margin: 0 4px;
+    }
+
+
+    /* =========================================================
+       FONT SELECT
+       ========================================================= */
+
+    .gmail-font-select {
+        height: 32px;
+        min-width: 110px;
+
+        border: none;
+        outline: none;
+
+        background: transparent;
+
+        color: #3c4043;
+
+        font-family: Arial, sans-serif;
+        font-size: 13px;
+
+        padding: 0 4px;
+
+        cursor: pointer;
+    }
+
+    .gmail-font-select:hover {
+        background: #e8eaed;
+        border-radius: 5px;
+    }
+
+
+    /* =========================================================
+       FONT SIZE
+       ========================================================= */
+
+    .gmail-font-size {
+        height: 32px;
+        min-width: 85px;
+
+        border: none;
+        outline: none;
+
+        background: transparent;
+
+        color: #3c4043;
+
+        font-size: 13px;
+
+        cursor: pointer;
+    }
+
+    .gmail-font-size:hover {
+        background: #e8eaed;
+        border-radius: 5px;
+    }
+
+
+    /* =========================================================
+       COLOR
+       ========================================================= */
+
+    .gmail-color-button {
+        width: 34px;
+        height: 34px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        position: relative;
+
+        cursor: pointer;
+
+        color: #5f6368;
+    }
+
+    .gmail-color-button input {
+        position: absolute;
+
+        width: 0;
+        height: 0;
+
+        opacity: 0;
+    }
+
+
+    /* =========================================================
+       ATTACH BUTTON
+       ========================================================= */
+
+    .gmail-attach-button {
+        width: 34px;
+        height: 34px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        color: #5f6368;
+
+        border-radius: 50%;
+
+        cursor: pointer;
+    }
+
+    .gmail-attach-button:hover {
+        background: #dfe3e8;
+    }
+
+
+    /* =========================================================
+       EMOJI
+       ========================================================= */
+
+    .gmail-emoji-panel {
+        padding: 10px;
+        width: 280px;
+        max-height: 240px;
+        overflow-y: auto;
+    }
+
+    .gmail-emoji-grid {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 3px;
+    }
+
+    .gmail-emoji {
+        border: none;
+        background: transparent;
+
+        width: 30px;
+        height: 30px;
+
+        border-radius: 5px;
+
+        font-size: 19px;
+
+        cursor: pointer;
+    }
+
+    .gmail-emoji:hover {
+        background: #f1f3f4;
+    }
+
+
+    /* =========================================================
+       SEND ROW
+       ========================================================= */
+
+    .gmail-send-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        margin-top: 8px;
+    }
+
+    .gmail-send-button {
+        min-width: 92px;
+
+        border-radius: 20px !important;
+
+        background: #0b57d0 !important;
+        color: white !important;
+
+        text-transform: none !important;
+
+        font-weight: 600 !important;
+
+        padding: 7px 18px !important;
+    }
+
+    .gmail-send-arrow {
+        margin-left: 12px;
+        padding-left: 10px;
+
+        border-left: 1px solid rgba(255,255,255,.5);
+    }
+
+    .gmail-discard-button {
+        color: #5f6368 !important;
+        text-transform: none !important;
+    }
+
+</style>
+@code {
+
+    // =========================================================
+    // PARAMETERS
+    // =========================================================
+
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; } = default!;
+
+    [Parameter]
+    public EmailComposeVM Model { get; set; } = new();
+
+
+    // =========================================================
+    // VARIABLES
+    // =========================================================
+
+    private bool isSending;
+
+    private bool showCc;
+
+    private bool showBcc;
+
+    private ElementReference editorElement;
+
+    private string InitialBody = "";
+
+    private List<EmailAttachment> attachments = new();
+
+
+    protected override void OnInitialized()
+    {
+        InitialBody = Model.Body ?? "";
+       //   var lines = (Model.Body ?? "")
+       //  .Split(new[] { "\r\n", "\r", "\n" },
+       //         StringSplitOptions.RemoveEmptyEntries)
+       //  .Select(x => x.Trim())
+       //  .Where(x => !string.IsNullOrWhiteSpace(x));
+
+       // InitialBody = string.Join("<br>", lines);
+        // Existing invoice PDF
+        if (Model.AttachmentBytes != null &&
+            Model.AttachmentBytes.Length > 0 &&
+            !string.IsNullOrWhiteSpace(Model.AttachmentName))
+        {
+            attachments.Add(new EmailAttachment
+            {
+                FileName = Model.AttachmentName,
+                FileBytes = Model.AttachmentBytes,
+                FileSize = Model.AttachmentBytes.Length,
+                ContentType = "application/pdf"
+            });
+        }
+
+        if (!string.IsNullOrWhiteSpace(Model.CC))
+            showCc = true;
+
+        if (!string.IsNullOrWhiteSpace(Model.BCC))
+            showBcc = true;
+    }
+
+
+    // =========================================================
+    // CC / BCC
+    // =========================================================
+
+    private void ShowCc()
+    {
+        showCc = true;
+    }
+
+    private void ShowBcc()
+    {
+        showBcc = true;
+    }
+
+
+    // =========================================================
+    // SEND EMAIL
+    // =========================================================
+
+    private async Task SendEmail()
+    {
+        try
+        {
+            Model.Body = await JS.InvokeAsync<string>(
+                "emailEditor.getHtml",
+                editorElement);
+
+
+            if (string.IsNullOrWhiteSpace(Model.To))
+            {
+                await JS.ToastrError(
+                    "Please enter recipient email.");
+
+                return;
+            }
+
+
+            if (string.IsNullOrWhiteSpace(Model.Subject))
+            {
+                await JS.ToastrError(
+                    "Please enter email subject.");
+
+                return;
+            }
+
+
+            if (attachments.Count == 0)
+            {
+                await JS.ToastrError(
+                    "Please attach at least one file.");
+
+                return;
+            }
+
+
+            isSending = true;
+
+            StateHasChanged();
+
+
+            // =================================================
+            // SEND MULTIPLE ATTACHMENTS
+            // =================================================
+
+            var emailAttachments =
+                attachments.Select(x => new EmailAttachment
+                {
+                    FileName = x.FileName,
+                    FileBytes = x.FileBytes,
+                    ContentType = x.ContentType
+                }).ToList();
+
+
+            var result =
+                await EmailService.SendEmailAsync(
+                    Model.To,
+                    Model.CC,
+                    Model.BCC,
+                    Model.Subject,
+                    Model.Body,
+                    emailAttachments);
+
+
+            if (result.Success)
+            {
+                await JS.ToastrSuccess(
+                    "Email sent successfully.");
+
+                MudDialog.Close(
+                    DialogResult.Ok(true));
+
+                return;
+            }
+
+
+            await JS.ToastrError(
+                string.IsNullOrWhiteSpace(result.Message)
+                    ? "Failed to send email."
+                    : result.Message);
+        }
+        catch (Exception ex)
+        {
+            await JS.ToastrError(
+                "Email sending failed: " + ex.Message);
+        }
+        finally
+        {
+            isSending = false;
+
+            StateHasChanged();
+        }
+    }
+
+
+    // =========================================================
+    // FILE UPLOAD - MULTIPLE
+    // =========================================================
+
+    private async Task HandleFileUpload(
+        InputFileChangeEventArgs e)
+    {
+        try
+        {
+            const long maxFileSize =
+                10 * 1024 * 1024;
+
+
+            var files =
+                e.GetMultipleFiles(20);
+
+
+            foreach (var file in files)
+            {
+                // ---------------------------------------------
+                // SIZE
+                // ---------------------------------------------
+
+                if (file.Size > maxFileSize)
+                {
+                    await JS.ToastrError(
+                        $"'{file.Name}' exceeds the 10 MB limit.");
+
+                    continue;
+                }
+
+
+                // ---------------------------------------------
+                // DUPLICATE
+                // ---------------------------------------------
+
+                if (attachments.Any(x =>
+                    x.FileName.Equals(
+                        file.Name,
+                        StringComparison.OrdinalIgnoreCase)))
+                {
+                    continue;
+                }
+
+
+                // ---------------------------------------------
+                // READ
+                // ---------------------------------------------
+
+                using var stream =
+                    file.OpenReadStream(maxFileSize);
+
+                using var memory =
+                    new MemoryStream();
+
+                await stream.CopyToAsync(memory);
+
+
+                // ---------------------------------------------
+                // ADD
+                // ---------------------------------------------
+
+                attachments.Add(
+                    new EmailAttachment
+                    {
+                        FileName = file.Name,
+
+                        FileBytes =
+                            memory.ToArray(),
+
+                        FileSize =
+                            file.Size,
+
+                        ContentType =
+                            string.IsNullOrWhiteSpace(
+                                file.ContentType)
+                                ? "application/octet-stream"
+                                : file.ContentType
+                    });
+            }
+
+
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await JS.ToastrError(
+                "Failed to attach file: " + ex.Message);
+        }
+    }
+
+
+    // =========================================================
+    // REMOVE ATTACHMENT
+    // =========================================================
+
+    private void RemoveAttachment(
+        EmailAttachment attachment)
+    {
+        if (isSending)
+            return;
+
+        attachments.Remove(attachment);
+
+        StateHasChanged();
+    }
+
+
+    // =========================================================
+    // FILE ICON
+    // =========================================================
+
+    private string GetFileIcon(string fileName)
+    {
+        var extension =
+            Path.GetExtension(fileName)
+                .ToLowerInvariant();
+
+        return extension switch
+        {
+            ".pdf" =>
+                Icons.Material.Filled.PictureAsPdf,
+
+            ".doc" or ".docx" =>
+                Icons.Material.Filled.Description,
+
+            ".xls" or ".xlsx" or ".xlsm" =>
+                Icons.Material.Filled.TableChart,
+
+            ".jpg" or ".jpeg" or
+            ".png" or ".gif" =>
+                Icons.Material.Filled.Image,
+
+            ".zip" or ".rar" or ".7z" =>
+                Icons.Material.Filled.FolderZip,
+
+            ".txt" =>
+                Icons.Material.Filled.Description,
+
+            _ =>
+                Icons.Material.Filled.AttachFile
+        };
+    }
+
+
+    // =========================================================
+    // FILE SIZE
+    // =========================================================
+
+    private string GetFileSize(long bytes)
+    {
+        string[] sizes =
+        {
+            "B",
+            "KB",
+            "MB",
+            "GB"
+        };
+
+        double len = bytes;
+
+        int order = 0;
+
+        while (len >= 1024 &&
+               order < sizes.Length - 1)
+        {
+            order++;
+
+            len /= 1024;
+        }
+
+        return $"{len:0.##} {sizes[order]}";
+    }
+
+
+    // =========================================================
+    // COMMAND
+    // =========================================================
+
+    private async Task ExecCommand(string command)
+    {
+        await JS.InvokeVoidAsync(
+            "emailEditor.command",
+            editorElement,
+            command);
+    }
+
+
+    // =========================================================
+    // FONT FAMILY
+    // =========================================================
+
+    private async Task ChangeFontFamily(
+        ChangeEventArgs e)
+    {
+        var font =
+            e.Value?.ToString() ?? "Arial";
+
+        await JS.InvokeVoidAsync(
+            "emailEditor.command",
+            editorElement,
+            "fontName",
+            font);
+    }
+
+
+    // =========================================================
+    // FONT SIZE
+    // =========================================================
+
+    private async Task ChangeFontSize(
+        ChangeEventArgs e)
+    {
+        var size =
+            e.Value?.ToString() ?? "3";
+
+        await JS.InvokeVoidAsync(
+            "emailEditor.command",
+            editorElement,
+            "fontSize",
+            size);
+    }
+
+
+    // =========================================================
+    // TEXT COLOR
+    // =========================================================
+
+    private async Task ChangeTextColor(
+        ChangeEventArgs e)
+    {
+        var color =
+            e.Value?.ToString() ?? "#202124";
+
+        await JS.InvokeVoidAsync(
+            "emailEditor.command",
+            editorElement,
+            "foreColor",
+            color);
+    }
+
+
+    // =========================================================
+    // EMOJI
+    // =========================================================
+
+    private async Task InsertEmoji(string emoji)
+    {
+        await JS.InvokeVoidAsync(
+            "emailEditor.insertHtml",
+            editorElement,
+            emoji);
+    }
+
+
+    // =========================================================
+    // LINK
+    // =========================================================
+
+    private async Task InsertLink()
+    {
+        var url =
+            await JS.InvokeAsync<string?>(
+                "prompt",
+                "Enter URL:");
+
+        if (string.IsNullOrWhiteSpace(url))
+            return;
+
+
+        await JS.InvokeVoidAsync(
+            "emailEditor.createLink",
+            editorElement,
+            url);
+    }
+
+
+    // =========================================================
+    // CANCEL
+    // =========================================================
+
+    private void Cancel()
+    {
+        if (isSending)
+            return;
+
+        MudDialog.Cancel();
+    }
+    private async Task SaveEditorSelection()
+    {
+        await JS.InvokeVoidAsync(
+            "emailEditor.saveSelection",
+            editorElement);
+    }
+    private readonly List<string> Emojis = new()
+{
+    // 😀 Faces & Emotions
+    "😀","😃","😄","😁","😆","😅","😂","🤣",
+    "😊","😇","🙂","🙃","😉","😌","😍","🥰",
+    "😘","😗","😙","😚","😋","😛","😝","😜",
+    "🤪","🤨","🧐","🤓","😎","🤩","🥳","😏",
+    "😒","😞","😔","😟","😕","🙁","☹️","😣",
+    "😖","😫","😩","🥺","😢","😭","😤","😠",
+    "😡","🤬","🤯","😳","🥵","🥶","😱","😨",
+    "😰","😥","😓","🤗","🤔","🫡","🤭","🫢",
+    "🫣","🤫","🤥","😶","😐","😑","😬","🙄",
+    "😯","😦","😧","😮","😲","🥱","😴","🤤",
+    "😪","😵","🤐","🥴","🤢","🤮","🤧","😷",
+    "🤒","🤕","👻","💀","☠️","👽","🤖","🎃",
+
+    // ❤️ Love & Affection
+    "❤️","🧡","💛","💚","💙","💜","🖤","🤍",
+    "🤎","💔","❤️‍🔥","❣️","💕","💞","💓","💗",
+    "💖","💘","💝","💟","💌","😍","🥰","😘",
+
+    // 👍 Gestures & People
+    "👍","👎","👌","✌️","🤞","🤟","🤘","🤙",
+    "👈","👉","👆","👇","☝️","✋","🤚","🖐️",
+    "🖖","👋","🤏","💪","👏","🙌","👐","🤲",
+    "🙏","🤝","✍️","💅","🤳","👀","👁️","🫶",
+    "🫰","🫵","🫳","🫴","🧑","👨","👩","👴",
+    "👵","👶","🧒","👦","👧","🧑‍💼","👨‍💼","👩‍💼",
+
+    // 🏢 Business & Office
+    "💼","🏢","🏭","🏪","🏬","🏦","🏨","🏥",
+    "🏫","📊","📈","📉","💹","💰","💵","💳",
+    "🧾","📝","📋","📁","📂","🗂️","📄","📃",
+    "📑","📚","📖","✏️","🖊️","🖋️","📌","📍",
+    "📎","🖇️","🔖","📐","📏","🗃️","🗄️","🗑️",
+
+    // 📧 Communication
+    "📧","✉️","📨","📩","📤","📥","📬","📭",
+    "📮","📪","📫","📞","☎️","📱","📲","💬",
+    "🗨️","🗯️","📢","📣","🔔","🔕","💭","🗣️",
+
+    // 💻 Technology
+    "💻","🖥️","🖨️","⌨️","🖱️","💾","💿","📀",
+    "📷","📸","📹","🎥","📺","📻","☎️","📡",
+    "🔌","🔋","💡","🔦","⚙️","🔧","🔨","🛠️",
+    "🔩","⚡","💻","🖱️","⌨️","🤖","🧠","🔐",
+    "🔒","🔓","🔑","🗝️","🛡️","🔍","🔎",
+
+    // 📦 ERP / Inventory / Logistics
+    "📦","📦","🗃️","🏷️","🔖","📋","📊","📦",
+    "🚚","🚛","🚜","🚢","✈️","🛒","🛍️","🏪",
+    "🏭","🏗️","⚙️","🔧","🔩","🧰","🪛","🔨",
+    "📍","🗺️","🧭","📐","📏","🔢","🔄","🔃",
+
+    // 💰 Finance & Accounts
+    "💰","💵","💴","💶","💷","💸","💳","🪙",
+    "🏦","🧾","💹","📈","📉","🤑","💲","₹",
+    "💱","🪪","🔢","➕","➖","✖️","➗","🧮",
+
+    // 📅 Time & Calendar
+    "📅","📆","🗓️","⏰","⏱️","⏲️","⌚","🕐",
+    "🕑","🕒","🕓","🕔","🕕","🕖","🕗","🕘",
+    "🕙","🕚","🕛","⏳","⌛","🔔","⏰",
+
+    // ✅ Status / Actions
+    "✅","☑️","✔️","❌","❎","✖️","➕","➖",
+    "❗","❕","❓","❔","⚠️","🚫","⛔","🔴",
+    "🟠","🟡","🟢","🔵","🟣","⚫","⚪","🟤",
+    "🔄","🔃","🔁","🔂","▶️","⏸️","⏹️","⏺️",
+
+    // ⭐ Highlights
+    "⭐","🌟","✨","💫","🔥","💥","💯","🎯",
+    "🏆","🥇","🥈","🥉","🎖️","🏅","👑","💎",
+
+    // 🎉 Events
+    "🎉","🎊","🎈","🎁","🎂","🍰","🥳","🎆",
+    "🎇","✨","🎵","🎶","🎸","🎤","🎧","🎮",
+
+    // 🚀 Progress / Technology / Ideas
+    "🚀","💡","🧠","⚡","🔬","🔭","🧪","🧬",
+    "📡","🌐","🛰️","🤖","🎯","🏹","🚀","📢",
+
+    // 🌍 Places & Nature
+    "🌍","🌎","🌏","🌐","☀️","🌤️","⛅","🌧️",
+    "⛈️","🌩️","❄️","☃️","🌈","🔥","💧","🌊",
+    "🌱","🌿","🍀","🌳","🌴","🌸","🌺","🌻",
+
+    // 🐶 Animals
+    "🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼",
+    "🐨","🐯","🦁","🐮","🐷","🐸","🐵","🙈",
+    "🙉","🙊","🐔","🐧","🐦","🐤","🦄","🐝",
+
+    // 🍔 Food & Drinks
+    "🍎","🍏","🍊","🍋","🍌","🍉","🍇","🍓",
+    "🍒","🍑","🍍","🥭","🍔","🍕","🌭","🌮",
+    "🍟","🍿","🍩","🍪","🎂","🍰","☕","🍵",
+    "🥤","🧃","🍺","🍷","🍽️","🍴","🥄",
+
+    // 🏠 Home / General
+    "🏠","🏡","🚪","🛋️","🛏️","🚿","🛁","🔑",
+    "🧹","🧺","📦","🔔","💡","🕯️","🪑","🪟",
+
+    // 🔣 Symbols
+    "©️","®️","™️","ℹ️","🔰","♻️","⚜️","🔱",
+    "☑️","✔️","➰","➿","〰️","‼️","⁉️","⭕",
+    "🔴","🟠","🟡","🟢","🔵","🟣","⚫","⚪",
+    "⬆️","⬇️","⬅️","➡️","↗️","↘️","↙️","↖️",
+
+    // 🎯 ERP Friendly
+    "🛒","📦","🧾","💰","📊","📈","📉","🏭",
+    "⚙️","🔧","👥","👤","🔐","🔑","📧","📞",
+    "📋","📁","📂","🗂️","📝","🔍","🔎","📌",
+    "⭐","❤️","💡","⚡","🚀","🎯","🏆","✅"
+};
+}

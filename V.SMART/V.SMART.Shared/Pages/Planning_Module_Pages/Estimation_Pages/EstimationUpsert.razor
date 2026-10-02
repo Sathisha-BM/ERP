@@ -1,0 +1,2043 @@
+﻿@page "/estimation/create/{CustId:int?}"
+@page "/estimation/update/{EstiamateId:int?}"
+
+@using V.SMART.Shared.ViewModels.MasterViewModel.AccountsViewModel
+@using V.SMART.Shared.ViewModels.MasterViewModel.GeneralViewModel
+@using MudBlazor
+@using V.SMART.Shared.ViewModels.PlanningViewModel.EstimationViewModel
+
+@using V.SMART.Shared.BusinessLayer.BusinessService.IBusinessService.IPlanningService
+@using V.SMART.Shared.Services
+
+@inherits BaseUserRightsComponent
+
+@inject IEstimateService _EstimateServiecs
+@inject ILoggingService LoggingService
+@inject NavigationManager _navigationManager
+@inject IJSRuntime _js
+@inject CurrentUserService CurrentUserService
+@inject IItemService itemService
+@inject NavigationStateService NavigationState
+
+
+@if (isProcessing)
+{
+    <ProcessingOverlay Visible="@isProcessing" Message="Please wait..." />
+}
+else if (!CanView)
+{
+    <RedirectToLogin />
+}
+else
+{
+    <div class="container-fluid px-2 px-md-5 mt-4">
+        <div class="card shadow-sm border-1">
+
+            <PageHeader TitleText="@(EstimateVM.EstiamateId > 0 ? "Update Estimation" : "Create Estimation")"
+                        TitleIcon="bi bi-tag"
+                        Breadcrumbs="@EstimationBreadcrumbs" />
+
+            <div class="card-body bg-light">
+                <EditForm Model="EstimateVM" OnValidSubmit="UpsertEstimate" onkeydown="if (event.key === 'Enter' && event.target.tagName !== 'TEXTAREA') { event.preventDefault(); }">
+                    <ObjectGraphDataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div class="container-fluid mt-3">
+
+                        <!-- Row 1 -->
+                        <div class="row g-3">
+
+                            <div class="col-lg-6">
+                                <!-- Manual Card -->
+                                <div class="card shadow-sm border-warning h-100">
+
+                                    <div class="card-header bg-warning text-center fw-bold py-2">
+                                        <div class="form-check d-flex justify-content-center align-items-center mb-0">
+
+
+                                            <InputCheckbox class="form-check-input me-2"
+                                                           @bind-Value="EstimateVM.IsManualEstimate"
+                                                           @bind-Value:after="OnManualChanged" />
+                                            <label class="form-check-label fw-bold">
+                                                Manual
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body p-2">
+
+                                        <table class="table table-bordered table-sm align-middle mb-0">
+
+                                            <tbody>
+
+                                                <tr style="height:45px;">
+                                                    <td class="bg-light fw-semibold w-25">
+                                                        Customer Name
+                                                    </td>
+
+                                                    <td>
+                                                        <MudAutocomplete T="CustomerVM"
+                                                                         Value="SelectedCustomer"
+                                                                         ValueChanged="OnCustomerChanged"
+                                                                         ToStringFunc="@(c => c?.CustName ?? string.Empty)"
+                                                                         SearchFunc="SearchCustomers"
+                                                                         Dense="true"
+                                                                         Variant="Variant.Outlined"
+                                                                         Placeholder="Search Customer"
+                                                                         MaxItems="50"
+                                                                         Clearable="true"
+                                                                         ResetValueOnEmptyText="true"
+                                                                         Required="true"
+                                                                         Class="w-100"
+                                                                         Disabled="@IsSomeItemsTransMade" />
+                                                    </td>
+                                                </tr>
+
+                                                <tr style="height:45px;">
+                                                    <td class="bg-light fw-semibold">
+                                                        Enquiry No
+                                                    </td>
+
+                                                    <td>
+                                                        @if (EstimateVM.IsManualEstimate || EstiamateId > 0 || enqnocome)
+                                                        {
+                                                            <InputText class="form-control" maxlength="30" @bind-Value="EstimateVM.EnquiryNo" readonly="@(EstiamateId > 0)" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <select class="form-select form-select-sm" @onchange="EnquiryChanged" disabled="@EstimateVM.IsManualEstimate">
+                                                                <option value="">-- Select Enquiry No --</option>
+
+                                                                @if (!EstimateVM.IsManualEstimate)
+                                                                {
+                                                                    @foreach (var enquiry in EnquiryList)
+                                                                    {
+                                                                        <option value="@enquiry.EnquiryId">@enquiry.EnquiryNo</option>
+                                                                        @* EnquiryId *@
+                                                                    }
+                                                                }
+
+                                                            </select>
+
+                                                        }
+                                                    </td>
+                                                </tr>
+
+                                                <tr style="height:45px;">
+                                                    <td class="bg-light fw-semibold">
+                                                        Item Code / Part No
+                                                    </td>
+                                                    @if (EstiamateId > 0 || enqnocome)
+                                                    {
+                                                        <InputText class="form-control" maxlength="30"
+                                                                   @bind-Value="EstimateVM.ItemCode" readonly />
+                                                    }
+                                                    else
+                                                    {
+                                                        @if (!EstimateVM.IsManualEstimate)
+                                                        {
+                                                            <select class="form-select form-select-sm" @onchange="OnItemCodeChanged">
+                                                                <option value="">-- Select Item --</option>
+
+                                                                @if (ItemList != null)
+                                                                {
+                                                                    @foreach (var enquiry in ItemList)
+                                                                    {
+                                                                        <option value="@enquiry.ItemId">@enquiry.ItemCode</option>
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+
+                                                                }
+
+                                                            </select>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td>
+                                                                <MudAutocomplete T="ItemVM"
+                                                                                 Value="SelectedItem"
+                                                                                 ValueChanged="OnItemChanged"
+                                                                                 SearchFunc="SearchItems"
+                                                                                 ToStringFunc="@(x => x?.ItemCode ?? string.Empty)"
+                                                                                 MinCharacters="2"
+                                                                                 MaxItems="50"
+                                                                                 Dense="true"
+                                                                                 Variant="Variant.Outlined" />
+                                                            </td>
+                                                        }
+                                                    }
+                                                </tr>
+
+                                                <tr style="height:45px;">
+                                                    <td class="bg-light fw-semibold">
+                                                        Part Name
+                                                    </td>
+
+                                                    <td>
+                                                        <MudTextField @bind-Value="EstimateVM.ItemName"
+                                                                      Variant="Variant.Outlined"
+                                                                      ReadOnly="true"
+                                                                      Dense="true" />
+
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <!-- Estimation Details Card -->
+                                <div class="card shadow-sm border-success h-100">
+
+                                    <div class="card-header bg-success text-white text-center fw-bold py-2">
+                                        Estimation Details
+                                    </div>
+
+                                    <div class="card-body p-2">
+
+                                        <table class="table table-bordered table-sm align-middle mb-0">
+
+                                            <tbody>
+
+                                                <tr style="height:45px;">
+                                                    <td class="bg-light fw-semibold w-25">
+                                                        Estimate No
+                                                    </td>
+
+                                                    <td class="fw-bold text-primary">
+                                                        <div class="input-group input-group-sm">
+                                                            <InputText class="form-control"
+                                                                       placeholder="Estimation No"
+                                                                       maxlength="30"
+                                                                       @bind-Value="EstimateVM.EstiamateNo"
+                                                                       readonly />
+
+                                                            <span class="input-group-text">
+                                                                @EstimateVM.Suffix
+                                                            </span>
+                                                        </div>
+
+                                                        <ValidationMessage For="@(() => EstimateVM.EstiamateNo)" />
+
+                                                    </td>
+                                                </tr>
+
+                                                <tr style="height:45px;">
+                                                    <td class="bg-light fw-semibold">
+                                                        Date
+                                                    </td>
+
+                                                    <td>
+                                                        <InputDate class="form-control form-control-sm"
+                                                                   @bind-Value="EstimateVM.EstimateDate" />
+                                                    </td>
+                                                </tr>
+
+                                                <tr style="height:45px;">
+                                                    <td class="bg-light fw-semibold">
+                                                        Type
+                                                    </td>
+
+                                                    <td>
+
+                                                        <InputSelect class="form-select form-select-sm"
+                                                                     @bind-Value="EstimateVM.TypeofWork">
+                                                            <option>Manufacturing</option>
+                                                            <option>Labour</option>
+
+                                                        </InputSelect>
+
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr style="height:45px;">
+
+                                                    <td class="bg-light fw-semibold">
+                                                        Quantity
+                                                    </td>
+
+                                                    <td>
+
+                                                        <div class="row g-2 align-items-center">
+                                                            <div class="col-4">
+                                                                <InputNumber @bind-Value="EstimateVM.Qty" class="form-control form-control-sm" ReadOnly />
+
+                                                            </div>
+
+                                                            <div class="col-2">
+                                                                Nos
+                                                            </div>
+
+                                                            @* <div class="col-3 text-end">
+																Enquiry Qty
+															</div>
+
+															<div class="col-3">
+																<InputNumber @bind-Value="EstimateVM.Qty" class="form-control form-control-sm" />
+															</div> *@
+                                                        </div>
+
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr style="height:45px;">
+
+                                                    <td class="bg-light fw-semibold">
+                                                        Kind Attention
+                                                    </td>
+
+                                                    <td>
+                                                        <InputSelect class="form-select form-select-sm"
+                                                                     @bind-Value="EstimateVM.ContactPerson">
+                                                            @foreach (var cp in contactPersons)
+                                                            {
+                                                                <option value="@cp.ContactPersonName">
+                                                                    @cp.ContactPersonName
+                                                                </option>
+                                                            }
+                                                        </InputSelect>
+                                                    </td>
+
+                                                </tr>
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Row 2 -->
+                        <div class="row g-3 mt-1">
+
+                            <!-- Left Side -->
+                            <div class="col-lg-6">
+
+                                <div class="d-flex flex-column gap-3">
+
+                                    <!-- Other Heads Card -->
+                                    <div class="card shadow-sm border-success">
+
+                                        <!-- Header -->
+                                        <div class="card-header bg-success text-white text-center fw-bold py-2">
+                                            Indirect Heads (Cost O)
+                                        </div>
+
+                                        <!-- Body -->
+                                        <div class="card-body p-2">
+
+                                            <table class="table table-bordered table-hover table-sm align-middle mb-0">
+
+                                                <thead class="table-light text-center">
+
+                                                    <tr style="height:42px;">
+                                                        <th style="width:40%;">Other Heads Cost (O)</th>
+                                                        <th style="width:15%;">Percentage</th>
+                                                        <th style="width:25%;">Amount</th>
+                                                        <th style="width:20%;">Unit</th>
+                                                    </tr>
+
+                                                </thead>
+
+                                                <tbody>
+
+                                                    <tr style="height:45px;">
+
+                                                        <td class="fw-semibold">
+                                                            Over Head Cost
+                                                        </td>
+
+                                                        <td>
+                                                            <InputNumber class="form-control form-control-sm text-end"
+                                                                         style="width:110px;"
+                                                                         @bind-Value="EstimateVM.Overp"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+
+
+                                                        </td>
+
+                                                        <td>
+                                                            <InputNumber class="form-control form-control-sm text-end"
+                                                                         style="width:110px;"
+                                                                         @bind-Value="EstimateVM.Over"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+                                                        </td>
+
+                                                        <td class="text-center fw-semibold">
+                                                            Rs.
+                                                        </td>
+
+                                                    </tr>
+
+                                                    <tr style="height:45px;">
+
+                                                        <td class="fw-semibold">
+                                                            Margin / Profit
+                                                        </td>
+
+                                                        <td>
+                                                            <InputNumber class="form-control form-control-sm text-end"
+                                                                         style="width:110px;"
+                                                                         min="0"
+                                                                         @bind-Value="EstimateVM.Marp"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+
+
+                                                        </td>
+
+                                                        <td>
+                                                            <InputNumber class="form-control form-control-sm text-end"
+                                                                         style="width:110px;"
+                                                                         @bind-Value="EstimateVM.Mar"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+
+
+                                                        </td>
+
+                                                        <td class="text-center fw-semibold">
+                                                            Rs.
+                                                        </td>
+
+                                                    </tr>
+
+                                                    <tr style="height:45px;">
+
+                                                        <td class="fw-semibold">
+                                                            Risk Factor
+                                                        </td>
+
+                                                        <td>
+                                                            <InputNumber class="form-control form-control-sm text-end"
+                                                                         style="width:110px;"
+                                                                         @bind-Value="EstimateVM.Riskp"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+
+
+                                                        </td>
+
+                                                        <td>
+                                                            <InputNumber class="form-control form-control-sm text-end"
+                                                                         style="width:110px;"
+                                                                         @bind-Value="EstimateVM.Risk"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+
+                                                        </td>
+
+                                                        <td class="text-center fw-semibold">
+                                                            Rs.
+                                                        </td>
+
+                                                    </tr>
+
+                                                    <tr style="height:45px;">
+
+                                                        <td class="fw-semibold">
+                                                            Packaging Cost
+                                                        </td>
+
+                                                        <td>
+                                                            <InputNumber class="form-control form-control-sm text-end"
+                                                                         style="width:110px;"
+                                                                         @bind-Value="EstimateVM.Packingper"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+
+                                                        </td>
+
+                                                        <td>
+                                                            <InputNumber class="form-control form-control-sm text-end"
+                                                                         style="width:110px;"
+                                                                         @bind-Value="EstimateVM.Packing"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+                                                        </td>
+
+                                                        <td class="text-center fw-semibold">
+                                                            Rs.
+                                                        </td>
+
+                                                    </tr>
+
+                                                    <tr style="height:45px;">
+
+                                                        <td class="fw-semibold">
+                                                            Logistic Cost
+                                                        </td>
+
+                                                        <td>
+                                                            <InputNumber class="form-control form-control-sm text-end"
+                                                                         style="width:110px;"
+                                                                         @bind-Value="EstimateVM.Logesticper"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+
+                                                        </td>
+
+                                                        <td>
+                                                            <InputNumber class="form-control form-control-sm text-end"
+                                                                         style="width:110px;"
+                                                                         @bind-Value="EstimateVM.Logestic"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+
+
+                                                        </td>
+
+                                                        <td class="text-center fw-semibold">
+                                                            Rs.
+                                                        </td>
+
+                                                    </tr>
+
+                                                </tbody>
+
+                                                <tfoot>
+
+
+                                                    <tr class="table-success fw-bold" style="height:45px;">
+
+                                                        <td colspan="2" class="text-end">
+                                                            Total Cost (O )
+                                                        </td>
+
+                                                        <td class="text-end">
+                                                            @EstimateVM.TotalHeadCost
+                                                        </td>
+
+                                                        <td class="text-center">
+                                                            Rs.
+                                                        </td>
+
+                                                    </tr>
+
+                                                </tfoot>
+
+                                            </table>
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <!-- Physical Properties -->
+                                    <div class="card shadow-sm border-warning">
+
+                                        <!-- Header -->
+                                        <div class="card-header bg-warning text-center fw-bold py-2">
+                                            Physical Properties (R)
+                                        </div>
+
+                                        <div class="card-body p-0">
+
+                                            <!-- Shape -->
+                                            <div class="row g-0 border-bottom">
+                                                <div class="col-6 bg-light border-end p-2 fw-bold">
+                                                    Shape
+                                                </div>
+                                                <div class="col-6 p-1">
+                                                    <select class="form-select form-select-sm"
+                                                            @bind="EstimateVM.Shape" @bind:after="OnShapeChanged">
+                                                        <option value="">-- Select Shape --</option>
+                                                        <option value="Rectangle Plate">Rectangle Plate</option>
+                                                        <option value="Square Plate">Square Plate</option>
+                                                        <option value="Round Tube">Round Tube</option>
+                                                        <option value="Square Tube">Square Tube</option>
+                                                        <option value="Rectangle Tube">Rectangle Tube</option>
+                                                        <option value="U or C Channel">U or C Channel</option>
+                                                        <option value="I or H Channel">I or H Channel</option>
+                                                        <option value="L Angle">L Angle</option>
+                                                        <option value="Hexagonal Plate">Hexagonal Plate</option>
+                                                        <option value="Round">Round</option>
+                                                        <option value="Sheet">Sheet</option>
+                                                        <option value="Octagonal">Octagonal</option>
+                                                        <option value="Ring">Ring</option>
+                                                        <option value="Casting">Casting</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            @if (!string.IsNullOrWhiteSpace(EstimateVM.Shape))
+                                            {
+                                                <!-- DENSITY -->
+                                                @if (CommonShapes.Contains(EstimateVM.Shape))
+                                                {
+                                                    <!-- Density -->
+                                                    <div class="row g-0 border-bottom">
+                                                        <div class="col-6 bg-light border-end p-2 fw-bold">
+                                                            Density(D) (g/cm³)
+                                                        </div>
+                                                        <div class="col-6 p-1">
+                                                            <InputNumber class="form-control form-control-sm"
+                                                                         @bind-Value="EstimateVM.Density"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+                                                        </div>
+                                                    </div>
+                                                }
+                                                @if (CommonShapes.Contains(EstimateVM.Shape))
+                                                {
+                                                    <!-- Length -->
+                                                    <div class="row g-0 border-bottom">
+                                                        <div class="col-6 bg-light border-end p-2 fw-bold">
+                                                            Length(L)
+                                                        </div>
+                                                        <div class="col-6 p-1">
+                                                            <InputNumber class="form-control form-control-sm"
+                                                                         @bind-Value="EstimateVM.Length"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <!-- Width -->
+                                                @if (new[] { "Rectangle Plate", "Square Plate", "Square Tube", "Rectangle Tube", "U or C Channel", "I or H Channel", "L Angle", "Sheet" }.Contains(EstimateVM.Shape))
+                                                {
+
+                                                    <div class="row g-0 border-bottom">
+                                                        <div class="col-6 bg-light border-end p-2 fw-bold">
+                                                            Width(W)
+                                                        </div>
+                                                        <div class="col-6 p-1">
+                                                            <InputNumber class="form-control form-control-sm"
+                                                                         @bind-Value="EstimateVM.Width"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <!-- Thickness -->
+                                                @if (new[] { "Rectangle Plate", "Square Plate", "Octagonal", "Hexagonal Plate", "Sheet" }.Contains(EstimateVM.Shape))
+                                                {
+
+                                                    <div class="row g-0 border-bottom">
+                                                        <div class="col-6 bg-light border-end p-2 fw-bold">
+                                                            Thickness(T)
+                                                        </div>
+                                                        <div class="col-6 p-1">
+                                                            <InputNumber class="form-control form-control-sm"
+                                                                         @bind-Value="EstimateVM.Thickness"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <!-- Wall Thickness -->
+                                                @if (new[] { "Round Tube", "Square Tube", "U or C Channel", "I or H Channel", "L Angle", "Rectangle Tube" }.Contains(EstimateVM.Shape))
+                                                {
+
+                                                    <div class="row g-0 border-bottom">
+                                                        <div class="col-6 bg-light border-end p-2 fw-bold">
+                                                            Wall Thickness(WT)
+                                                        </div>
+                                                        <div class="col-6 p-1">
+                                                            <InputNumber class="form-control form-control-sm"
+                                                                         @bind-Value="EstimateVM.WallThickness"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <!-- Outer Dia -->
+                                                @if (new[] { "Round Tube", "Hexagonal Plate", "Round", "Octagonal", "Ring" }.Contains(EstimateVM.Shape))
+                                                {
+
+                                                    <div class="row g-0 border-bottom">
+                                                        <div class="col-6 bg-light border-end p-2 fw-bold">
+                                                            Outer Dia(OD)
+                                                        </div>
+                                                        <div class="col-6 p-1">
+                                                            <InputNumber class="form-control form-control-sm"
+                                                                         @bind-Value="EstimateVM.OuterDia"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <!-- Inner Dia -->
+                                                @if (EstimateVM.Shape == "Ring")
+                                                {
+
+                                                    <div class="row g-0 border-bottom">
+                                                        <div class="col-6 bg-light border-end p-2 fw-bold">
+                                                            Inner Dia(ID)
+                                                        </div>
+                                                        <div class="col-6 p-1">
+                                                            <InputNumber class="form-control form-control-sm"
+                                                                         @bind-Value="EstimateVM.InnerDia"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <!-- Height -->
+                                                @if (new[] { "U or C Channel", "I or H Channel", "Rectangle Tube", "L Angle" }.Contains(EstimateVM.Shape))
+                                                {
+
+                                                    <div class="row g-0 border-bottom">
+                                                        <div class="col-6 bg-light border-end p-2 fw-bold">
+                                                            Height(H)
+                                                        </div>
+                                                        <div class="col-6 p-1">
+                                                            <InputNumber class="form-control form-control-sm"
+                                                                         @bind-Value="EstimateVM.Height"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <!-- Weight -->
+                                                @if (CommonShapes.Contains(EstimateVM.Shape) && EstimateVM.Shape != "Casting")
+                                                {
+
+                                                    <div class="row g-0">
+                                                        <div class="col-6 bg-light border-end p-2 fw-bold">
+                                                            Weight()
+                                                        </div>
+                                                        <div class="col-6 p-1">
+                                                            <InputNumber class="form-control form-control-sm"
+                                                                         @bind-Value="EstimateVM.Weight"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <!-- Rm Price -->
+                                                @if (CommonShapes.Contains(EstimateVM.Shape) && EstimateVM.Shape != "Casting")
+                                                {
+                                                    <div class="row g-0 border-bottom">
+                                                        <div class="col-6 bg-light border-end p-2 fw-bold">
+                                                            Rm Price
+                                                        </div>
+                                                        <div class="col-6 p-1">
+                                                            <InputNumber class="form-control form-control-sm"
+                                                                         @bind-Value="EstimateVM.RmPrice"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+                                                        </div>
+                                                    </div>
+                                                }
+
+
+                                                <!-- RmTotalPrice -->
+                                                @if (CommonShapes.Contains(EstimateVM.Shape) && EstimateVM.Shape != "Casting")
+                                                {
+                                                    <div class="row g-0 border-bottom">
+                                                        <div class="col-6 bg-light border-end p-2 fw-bold">
+                                                            RmTotalPrice
+                                                        </div>
+                                                        <div class="col-6 p-1">
+                                                            <InputNumber class="form-control form-control-sm"
+                                                                         @bind-Value="EstimateVM.RmTotAmount"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+                                                        </div>
+                                                    </div>
+                                                }
+
+                                                <!-- Castingweight -->
+                                                @if (EstimateVM.Shape == "Casting")
+                                                {
+                                                    <div class="row g-0 border-bottom">
+                                                        <div class="col-6 bg-light border-end p-2 fw-bold">
+                                                            Castingweight
+                                                        </div>
+                                                        <div class="col-6 p-1">
+                                                            <InputNumber class="form-control form-control-sm"
+                                                                         @bind-Value="EstimateVM.Castwt"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+                                                        </div>
+                                                    </div>
+                                                }
+
+                                                @if (EstimateVM.Shape == "Casting")
+                                                {
+                                                    <!-- CastingAmount -->
+                                                    <div class="row g-0 border-bottom">
+                                                        <div class="col-6 bg-light border-end p-2 fw-bold">
+                                                            CastingAmount
+                                                        </div>
+                                                        <div class="col-6 p-1">
+                                                            <InputNumber class="form-control form-control-sm"
+                                                                         @bind-Value="EstimateVM.CastAmt"
+                                                                         @bind-Value:after="async () => await Calculation(EstimateVM)" />
+                                                        </div>
+                                                    </div>
+                                                }
+
+
+                                            }
+                                        </div>
+
+                                        <div>
+
+                                            @if (!string.IsNullOrWhiteSpace(EstimateVM.Shape))
+                                            {
+                                                <div class="border border-top-0 rounded-bottom p-3 bg-light">
+                                                    <div class="fw-bold mb-2">
+                                                        Formula
+                                                    </div>
+                                                    <div class="form-control bg-white text-secondary font-monospace"
+                                                         style="white-space: pre-wrap; height: auto; font-size: 0.95rem; line-height: 1.6;">
+                                                        @EstimateVM.Formula
+                                                    </div>
+                                                </div>
+
+                                            }
+
+                                        </div>
+
+
+                                    </div>
+
+
+
+                                    <!-- Old Design -->
+
+                                </div>
+
+                            </div>
+
+                            <!-- Right Side -->
+                            <div class="col-lg-6">
+
+                                <div class="h-100">
+
+                                    <!-- Component Process Card -->
+                                    <div class="card shadow-sm border-primary h-100">
+
+                                        <!-- Header -->
+                                        <div class="card-header bg-primary text-white text-center fw-bold py-2">
+                                            Component Process (Cost P)
+                                        </div>
+
+                                        <!-- Body -->
+                                        <div class="card-body p-2">
+
+                                            <table class="table table-bordered table-hover table-sm align-middle mb-0">
+
+                                                <thead class="table-primary text-center">
+
+                                                    <tr style="height:42px;">
+                                                        <th style="width:38%; text-align:center;">Process</th>
+                                                        <th style="width:13%; text-align:center;">Hrly Rate</th>
+                                                        <th style="width:18%; text-align:center;">Cycle Time (Min.)</th>
+                                                        <th style="width:15%; text-align:center;">Amount</th>
+                                                        <th style="width:16%; text-align:center;">Actions</th>
+                                                    </tr>
+
+                                                </thead>
+
+                                                <tbody>
+
+                                                    @if (!processnotfound)
+                                                    {
+                                                        @foreach (var process in EstimateVM.EstimateSubVM)
+                                                        {
+                                                            <tr>
+                                                                <td style="display:none">@process.ProcessId</td>
+                                                                <td>@process.ProcessName</td>
+
+                                                                <td class="align-middle p-1">
+                                                                    <input type="number"
+                                                                           class="form-control form-control-sm text-end"
+                                                                           value="@process.HrlyRate"
+                                                                           step="any"
+                                                                           @oninput="@(e => OnHoursRateInput(process, e))" />
+                                                                </td>
+
+                                                                <td class="align-middle p-1">
+                                                                    <input type="number"
+                                                                           class="form-control form-control-sm"
+                                                                           value="@process.Hrs"
+                                                                           step="any"
+                                                                           @oninput="@(e => OnHoursInput(process, e))" />
+                                                                </td>
+
+                                                                <td class="align-middle p-1">
+                                                                    <input type="number"
+                                                                           class="form-control form-control-sm text-end"
+                                                                           step="any"
+                                                                           value="@process.Amount"
+                                                                           @oninput="@(e => OnAmounttextInput(process, e))" />
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        @foreach (var sub in EstimateVM.EstimateSubVM)
+                                                        {
+                                                            <tr style="height:40px;">
+                                                                <td class="align-middle p-1">
+                                                                    @if (!sub.IsEditable)
+                                                                    {
+                                                                        <input type="text"
+                                                                               class="form-control form-control-sm"
+                                                                               step="any"
+                                                                               value="@sub.ProcessName"
+                                                                               readonly />
+                                                                        <input type="hidden" @bind="sub.ProcessId" />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <select class="form-select form-select-sm"
+                                                                                @bind="sub.ProcessId"
+                                                                                @bind:after="() => OnProcessChanged(sub)">
+                                                                            <option value="0">--- Select Process ---</option>
+                                                                            @foreach (var process in _process)
+                                                                            {
+                                                                                <option value="@process.ProcessId">@process.ProcessName</option>
+                                                                            }
+                                                                        </select>
+                                                                    }
+                                                                </td>
+
+                                                                <td class="align-middle p-1">
+                                                                    @if (sub.IsEditable)
+                                                                    {
+                                                                        <input type="number"
+                                                                               class="form-control form-control-sm text-end"
+                                                                               step="any"
+                                                                               value="@sub.HrlyRate"
+                                                                               @oninput="@(e => OnHoursRateInput(sub, e))" />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span>@sub.HrlyRate</span>
+                                                                    }
+                                                                </td>
+
+                                                                <td class="align-middle p-1">
+                                                                    @if (sub.IsEditable)
+                                                                    {
+                                                                        <input type="number"
+                                                                               class="form-control form-control-sm"
+                                                                               step="any"
+                                                                               value="@sub.Hrs"
+                                                                               @oninput="@(e => OnHoursInput(sub, e))" />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span>@sub.Hrs</span>
+                                                                    }
+                                                                </td>
+
+                                                                <td class="align-middle p-1">
+                                                                    @if (sub.IsEditable)
+                                                                    {
+                                                                        <input type="number"
+                                                                               class="form-control form-control-sm"
+                                                                               step="any"
+                                                                               value="@sub.Amount"
+                                                                               @oninput="@(e => OnAmounttextInput(sub, e))" />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span>@sub.Amount</span>
+                                                                    }
+                                                                </td>
+
+                                                                @* Actions *@
+                                                                <td class="freeze-last-col text-end">
+                                                                    @if (sub.IsEditable)
+                                                                    {
+                                                                        <button type="button" class="btn btn-success btn-icon btn-sm" title="Save"
+                                                                                @onclick="async () => await SaveEstimateSubRow(sub)">
+                                                                            <i class="bi bi-check-lg"></i>
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-secondary btn-icon btn-sm" title="Cancel"
+                                                                                @onclick="async () => await CancelEditEstimateSub(sub)">
+                                                                            <i class="bi bi-x-lg"></i>
+                                                                        </button>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <button type="button" class="btn btn-primary btn-icon btn-sm" title="Edit"
+                                                                                @onclick="async () => await EditEstimateSubRowAsync(sub)">
+                                                                            <i class="bi bi-pencil"></i>
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-danger btn-icon btn-sm" title="Delete"
+                                                                                @onclick="async () => await RemoveEstimateSubRow(sub)">
+                                                                            <i class="bi bi-trash"></i>
+                                                                        </button>
+                                                                    }
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+
+                                                <tfoot>
+                                                    <tr class="table-primary fw-bold">
+                                                        <td>
+                                                            <button type="button" class="btn btn-sm" style="background-color:#198754;color:white;" @onclick="AddRow">
+                                                                <i class="bi bi-plus-circle me-1"></i> Add Row
+                                                            </button>
+                                                        </td>
+
+                                                        <td colspan="2" class="text-end align-middle">
+                                                            Total Cost (P)
+                                                        </td>
+
+                                                        <td class="align-middle">
+                                                            <InputNumber class="form-control form-control-sm text-end"
+                                                                         @bind-Value="EstimateVM.Conv"
+                                                                         @oninput="e => OnConvChanged(e)"
+                                                                         readOnly />
+                                                        </td>
+
+                                                        <td></td>
+                                                    </tr>
+                                                </tfoot>
+
+                                            </table>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <div class="border border-dark bg-warning-subtle text-center fw-bold py-1"
+                                 style="font-size:16px;">
+                                Total Estimation Cost (O+R+P) = @((EstimateVM.Grand ?? 0).ToString("0.00"))
+                            </div>
+                        </div>
+                    </div>
+                    @* <br />
+					<br /> *@
+
+                    <!--Action Buttons -->
+                    <div class="row mt-3">
+
+                        @if (CanCreate || CanEdit)
+                        {
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary w-100 rounded-3" disabled="@isProcessing">
+                                    <i class="bi bi-floppy2-fill me-1"></i>@(EstimateVM.EstiamateId > 0 ? "update" : "create")
+                                </button>
+                            </div>
+                        }
+
+                        <div class="col-md-3">
+                            <a href="/estimationList" class="btn btn-secondary w-100">
+                                <i class="bi bi-arrow-bar-left me-1"></i>
+                                Back To List
+
+                            </a>
+                        </div>
+
+                    </div>
+                    @* Old Design Code *@
+                </EditForm>
+
+            </div>
+
+        </div>
+
+    </div>
+}
+
+
+
+
+
+@code {
+
+    protected override string ScreenName => "Estimation";
+
+    private bool isProcessing = true;
+
+    [Parameter] public int? EstiamateId { get; set; }//EstiamateId
+    [Parameter] public int? CustId { get; set; }
+
+    private ItemVM ItemShapes { get; set; } = new ItemVM();
+    public bool IsProcessFlowExists { get; set; }
+
+    private int DecimalPlaces { get; set; } = 2;
+
+    private bool IsSomeItemsTransMade { get; set; }
+
+    public List<EnquirySalesVM> EnquiryList { get; set; } = new();
+    private List<Dictionary<string, object>>? EnquiryData;
+
+    private EstimateVM EstimateVM { get; set; } = new();
+
+
+    private List<CostCenterVM> CostCenterVMs = new List<CostCenterVM>();
+
+    private List<ContactPerson> contactPersons = new();
+    private List<ItemVM> Items = new();
+    private List<Process> ProcessList = new();
+    private IEnumerable<Process> _process = new List<Process>();
+
+
+    private CustomerVM? SelectedCustomer;
+    private string selectedtype { get; set; } = "Manufacturing";
+    private ItemVM? SelectedItem;
+    private decimal ConversionCost = 0;
+    private int _calcRequestId = 0;
+
+    private bool IsSquareLocked =>
+    !string.IsNullOrWhiteSpace(EstimateVM.MtlRND) || (EstimateVM.Castwt.HasValue && EstimateVM.Castwt.Value != 0);//Square Material
+
+    private bool IsRoundLocked =>
+        !string.IsNullOrWhiteSpace(EstimateVM.MtlSQR) || (EstimateVM.Castwt.HasValue && EstimateVM.Castwt.Value != 0);//Round Material
+
+    private bool IsCastingLocked =>
+        !string.IsNullOrWhiteSpace(EstimateVM.MtlSQR) || !string.IsNullOrWhiteSpace(EstimateVM.MtlRND);//Casting Material
+
+    private List<PageHeader.BreadcrumbItem> EstimationBreadcrumbs = new()
+    {
+        new PageHeader.BreadcrumbItem { Text = "Planning",Url="planning-home" },
+        new PageHeader.BreadcrumbItem { Text = "Estimation", IsLast = true }
+    };
+
+    private decimal HrlyRate;
+
+    private int? EnquiryId { get; set; }
+    private List<ItemVM> ItemList { get; set; }
+    private bool processnotfound { get; set; } = false;
+    private bool enqnocome { get; set; } = false;
+
+    ///
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await LoadRightsAsync();
+
+            if (!CanView)
+            {
+                _navigationManager.NavigateTo("/access-denied");
+                return;
+            }
+            DecimalPlaces = await _EstimateServiecs.GetDecimalPlacesAsync();
+
+            //EstimateVM = NavigationState.Get<EstimateVM>("estimation");
+
+            if (EstiamateId.HasValue)
+            {
+                await LoadExistingEstimate(EstiamateId.Value);
+            }
+
+            else if (CustId.HasValue)
+            {
+
+                var vm = NavigationState.Get<EstimateVM>("estimation");
+
+                if (vm.CustId != null)
+                {
+                    EstimateVM = vm;
+                    enqnocome = true;
+                    var customer = await _EstimateServiecs.GetCustomerByIdAsync(EstimateVM.CustId ?? 0);
+                    SelectedCustomer = customer;
+                    EstimateVM.CustId = customer?.CustId ?? 0;
+                    EstimateVM.Custname = customer?.CustName;
+                }
+                else
+                {
+                    EstimateVM = new EstimateVM();
+                    await LoadNewEstimation(CustId.Value);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            await LoggingService.LogDeveloperError(ex, "Estimation Page");
+        }
+        finally
+        {
+            isProcessing = false;
+            StateHasChanged();
+        }
+    }
+    private async Task LoadNewEstimation(int custId)
+    {
+        try
+        {
+            var customer = await _EstimateServiecs.GetCustomerByIdAsync(custId);
+            if (customer != null)
+                await ApplyCustomerSelectionAsync(customer);
+
+            // EstimateVM.Prefix = await mfgQuotationService.GetPrefixFromDb();
+            EstimateVM.Suffix = FinancialYearHelper.GetFinancialYearSuffix(DateTime.Now);
+            EstimateVM.EstiamateNo = await _EstimateServiecs.GetEstimateNumberAsync(EstimateVM.Suffix);
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "LoadNewEstimation");
+            await _js.ToastrError("Failed to load customer");
+        }
+    }
+    private async Task LoadExistingEstimate(int EstimateId)
+    {
+        try
+        {
+            EstimateVM = await _EstimateServiecs.GetEstimationByEstimateIdAsync(EstimateId);
+
+            EstimateVM.EnquiryNo = await _EstimateServiecs.GetEnquiryNo(EstimateVM.RefEnqSubId ?? 0);
+
+            if (EstimateVM == null)
+            {
+                await _js.ToastrWarning("Estimation not found.");
+                return;
+            }
+
+            SelectedCustomer = await _EstimateServiecs.GetCustomerByIdAsync(EstimateVM.CustId.Value);
+            if (SelectedCustomer != null)
+                await ApplyCustomerSelectionAsync(SelectedCustomer);
+
+            SelectedItem = await _EstimateServiecs.GetItemByItemIdAsync(EstimateVM.ItemId.Value);
+
+            //Sathish
+            // if(SelectedItem != null)
+            // 	await OnItemChanged(SelectedItem);
+
+
+        }
+        catch (Exception ex)
+        {
+            await _js.ToastrError("Failed to load existing Estimation.");
+            await LoggingService.LogDeveloperError(ex, $"LoadExistingEstimation failed for EstimateId: {EstimateId}");
+        }
+    }
+    private async Task ApplyCustomerSelectionAsync(CustomerVM? customer)
+    {
+        try
+        {
+            SelectedCustomer = customer;
+            EstimateVM.CustId = customer?.CustId ?? 0;
+            EstimateVM.Custname = customer?.CustName;
+            if (customer == null)
+            {
+
+                return;
+            }
+
+            //EnquiryData = await _EstimateServiecs.GetEnquiryDetailsByCustId(MfgQuoteVM.CustId, MfgQuoteVM.MfgOrLab);
+            EnquiryData = await _EstimateServiecs.GetEnquiryDetailsByCustId(customer.CustId);
+
+            EnquiryList = EnquiryData
+                        .Select(x => new EnquirySalesVM
+                        {
+                            EnquiryId = x.TryGetValue("EnquiryId", out var id) && id != null
+                                    ? Convert.ToInt32(id)
+                                    : 0, // or null if EnquiryId is int?
+
+                            EnquiryNo = x.TryGetValue("EnquiryNo", out var no)
+                                    ? no?.ToString()
+                                    : null
+                        })
+                        .DistinctBy(x => x.EnquiryNo)
+                        .ToList();
+            contactPersons = await _EstimateServiecs.GetContactPersonsAsync(customer.CustId);
+
+            var usedCostCenters = EstimateVM.EstimateSubVM
+                                    .Where(x => x.RefEnqSubId == null || x.RefEnqSubId == 0)
+                                    .Select(x => EstimateVM.CostCenterId)
+                                    .Where(x => x.HasValue)
+                                    .Select(x => x.Value)
+                                    .ToHashSet();
+            CostCenterVMs = await _EstimateServiecs.GetCostCenterDetailsByCustId(customer.CustId, usedCostCenters);
+        }
+        catch (Exception ex)
+        {
+
+            await LoggingService.LogDeveloperError(ex, "LoadNewEstimation");
+            await _js.ToastrError("Failed to load customer");
+        }
+    }
+    private async Task EnquiryChanged(ChangeEventArgs e)
+    {
+        EnquiryId = int.TryParse(e.Value?.ToString(), out var id) ? id : null;
+        ItemList = await _EstimateServiecs.GetItemByEnquirySubId(EnquiryId.Value);
+    }
+
+    private async Task OnCustomerChanged(CustomerVM? customer)
+    {
+        try
+        {
+            SelectedCustomer = customer;
+
+            EstimateVM.CustId = customer?.CustId ?? 0;
+            EstimateVM.Custname = customer?.CustName;
+
+            await ApplyCustomerSelectionAsync(customer);
+
+            await Task.CompletedTask;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error in OnCustomerChanged: {ex}");
+            await LoggingService.LogDeveloperError(ex, "Error in OnCustomerChanged");
+            await _js.ToastrError("Error while selecting");
+            contactPersons.Clear();
+
+        }
+    }
+
+    private async Task<IEnumerable<CustomerVM>> SearchCustomers(
+        string value,
+        CancellationToken token)
+    {
+        if (string.IsNullOrWhiteSpace(value) || value.Length < 3)
+            return Enumerable.Empty<CustomerVM>();
+
+        try
+        {
+            var result = await _EstimateServiecs.SearchCustomersAsync(value);
+
+            return result.Take(50);
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(
+                ex,
+                "SearchCustomers");
+
+            return Enumerable.Empty<CustomerVM>();
+        }
+    }
+    private async Task LoadItems()
+    {
+        try
+        {
+            Items = await _EstimateServiecs.GetAllActiveItemsAsync();
+        }
+        catch (Exception ex)
+        {
+
+            await LoggingService.LogDeveloperError(ex, "Error loading Items.");
+            await _js.ToastrError("Failed to load Items.");
+        }
+    }
+
+    private async Task<IEnumerable<ItemVM>> SearchItems(string value, CancellationToken token)
+    {
+        if (string.IsNullOrWhiteSpace(value) || value.Length < 2)
+            return Enumerable.Empty<ItemVM>();
+
+        try
+        {
+            var results = await _EstimateServiecs.SearchItemsAsync(value);
+
+            return results?.Take(50) ?? Enumerable.Empty<ItemVM>();
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex,
+                $"Item search failed: {value}");
+
+            return Enumerable.Empty<ItemVM>();
+        }
+    }
+
+    private async Task OnItemChanged(ItemVM? item)
+    {
+        try
+        {
+            SelectedItem = item;
+
+            if (item == null)
+            {
+                EstimateVM.ItemName = string.Empty;
+                EstimateVM.EstimateSubVM.Clear();
+                StateHasChanged();
+                return;
+            }
+            EstimateVM.ItemId = item.ItemId;
+            EstimateVM.ItemCode = item.ItemCode;
+            EstimateVM.ItemName = item.ItemName;
+
+
+
+            EstimateVM.EstimateSubVM = await _EstimateServiecs.GetItemProcessList(item.ItemId, EstiamateId ?? 0);
+
+            //New Line Added
+            EstimateVM.Conv = Math.Round(EstimateVM.EstimateSubVM.Sum(x => x.Amount ?? 0m), 3);
+
+            await Calculation(EstimateVM);
+
+            processnotfound = EstimateVM.EstimateSubVM == null || !EstimateVM.EstimateSubVM.Any();
+            await ItemDetails(EstimateVM.ItemId.Value);
+
+
+
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+    private async Task ItemDetails(int itemId)
+    {
+        try
+        {
+
+            var list = await _EstimateServiecs.GetItemDetails(itemId);
+            //EstimateVM = list.FirstOrDefault() ?? new EstimateVM();
+
+            var item = list.FirstOrDefault();
+            if (item != null)
+            {
+
+                EstimateVM.Shape = item.Shape;
+                EstimateVM.Density = item.Density;
+                EstimateVM.Length = item.Length;
+                EstimateVM.Width = item.Width;
+                EstimateVM.Height = item.Height;
+                EstimateVM.Thickness = item.Thickness;
+                EstimateVM.WallThickness = item.WallThickness;
+                EstimateVM.OuterDia = item.OuterDia;
+                EstimateVM.InnerDia = item.InnerDia;
+                EstimateVM.Weight = item.Weight;
+
+                //Indirect Heads
+                EstimateVM.Overp = item.Overp;
+                EstimateVM.Over = item.Over;
+                EstimateVM.Marp = item.Marp;
+                EstimateVM.Mar = item.Mar;
+                EstimateVM.Riskp = item.Riskp;
+                EstimateVM.Risk = item.Risk;
+                EstimateVM.Packingper = item.Packingper;
+                EstimateVM.Packing = item.Packing;
+                EstimateVM.Logesticper = item.Logesticper;
+            }
+
+            RawMaterialCalculation(EstimateVM);
+            bool processFlowExists = await _EstimateServiecs.IsProcessFlowExists(itemId);
+
+            if (!processFlowExists)
+            {
+                processnotfound = true;
+            }
+        }
+        catch (Exception ex)
+        {
+
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    private async Task OnHoursRateInput(EstimateSubVM row, ChangeEventArgs e)
+    {
+        if (decimal.TryParse(e.Value?.ToString(), out decimal HrlyRate))
+        {
+            ProcessCalucalate(row, hrlyRate: HrlyRate);
+        }
+        StateHasChanged();
+
+    }
+    private async Task OnHoursInput(EstimateSubVM row, ChangeEventArgs e)
+    {
+        if (decimal.TryParse(e.Value?.ToString(), out decimal hrs))
+        {
+            ProcessCalucalate(row, hrs: hrs);
+        }
+        StateHasChanged();
+
+    }
+    private async Task OnAmounttextInput(EstimateSubVM row, ChangeEventArgs e)
+    {
+        row.Hrs = 0;
+        if (decimal.TryParse(e.Value?.ToString(), out var amount))
+        {
+            await ProcessCalucalate(row, amount: amount);
+        }
+        StateHasChanged();
+    }
+
+    //Sathish
+    private async Task ProcessCalucalate(EstimateSubVM row, decimal? hrs = null, decimal? hrlyRate = null, decimal? amount = null)
+    {
+        try
+        {
+            if (hrs.HasValue)
+                row.Hrs = hrs.Value;
+
+            if (hrlyRate.HasValue)
+                row.HrlyRate = hrlyRate.Value;
+
+            if (amount.HasValue)
+            {
+                row.Amount = amount.Value;
+                // Calculate Hours from Amount
+                if ((row.HrlyRate ?? 0) > 0)
+                {
+                    row.Hrs = Math.Round((row.Amount.Value / row.HrlyRate.Value) * 60m, 3);
+                }
+            }
+            else
+            {
+                // Calculate Amount from Hours & Hourly Rate
+                row.Amount = Math.Round(((row.Hrs ?? 0m) / 60m) * (row.HrlyRate ?? 0m), 3);
+            }
+
+            // Calculate Total Conversion Cost
+            EstimateVM.Conv = EstimateVM.EstimateSubVM.Sum(x => x.Amount ?? 0);
+
+            await Calculation(EstimateVM);
+
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "ProcessCalucalate failed.");
+            await _js.ToastrError("Calculation failed.");
+        }
+    }
+
+    private void OnAmountInput(EstimateSubVM row, ChangeEventArgs e)
+    {
+        if (decimal.TryParse(e.Value?.ToString(), out var amount))
+            row.Amount = amount;
+
+        EstimateVM.Conv = EstimateVM.EstimateSubVM.Sum(x => x.Amount ?? 0m);
+        RawMaterialCalculation(EstimateVM);
+
+    }
+    private async Task OnConvChanged(ChangeEventArgs e)
+    {
+        if (decimal.TryParse(e.Value?.ToString(), out decimal Conv))
+        {
+            EstimateVM.Conv = Conv;
+            RawMaterialCalculation(EstimateVM);
+            StateHasChanged();
+        }
+
+
+    }
+
+
+    private void OnHoursChanged(ChangeEventArgs e)
+    {
+        if (decimal.TryParse(e.Value?.ToString(), out decimal hrs))
+        {
+
+            // Calculate total conversion cost
+            ConversionCost = EstimateVM.EstimateSubVM.Sum(i => i.Amount ?? 0);
+            EstimateVM.Conv = ConversionCost;
+
+            StateHasChanged();
+        }
+    }
+
+
+    private async Task Calculation(EstimateVM VM)
+    {
+
+        RawMaterialCalculation(VM);
+    }
+    private async Task RawMaterialCalculation(EstimateVM VM)
+    {
+        try
+        {
+            //EstimateVM = await _EstimateServiecs.Calculate(EstimateVM);
+            //var result = await _EstimateServiecs.Calculate(EstimateVM);
+            var result = await _EstimateServiecs.Calculate(VM);
+
+            if (result != null)
+            {
+                //Indirect Heads
+                VM.Overp = result.Overp;
+                VM.Over = result.Over;
+
+                VM.Marp = result.Marp;
+                VM.Mar = result.Mar;
+
+                VM.Riskp = result.Riskp;
+                VM.Risk = result.Risk;
+
+                VM.Packingper = result.Packingper;
+                VM.Packing = result.Packing;
+
+                VM.Logesticper = result.Logesticper;
+                VM.Logestic = result.Logestic;
+
+                //Suare Ram
+                // VM.MtlSQR = result.MtlSQR;
+                // VM.FnsizeSQR = result.FnsizeSQR;
+                // VM.finsqrlen = result.finsqrlen;
+                VM.RmthSQR = result.RmthSQR;
+                VM.RmwdSQR = result.RmwdSQR;
+                VM.RmlenSQR = result.RmlenSQR;
+                VM.DenSQR = result.DenSQR;
+                VM.RmkgSQR = result.RmkgSQR;
+                VM.RmrateSQR = result.RmrateSQR;
+                VM.RmcostSQR = result.RmcostSQR;
+
+                //ROUND
+                // VM.MtlRND = result.MtlRND;
+                // VM.FnsizeRND = result.FnsizeRND;
+                VM.RmdiaRND = result.RmdiaRND;
+                VM.RmlenRND = result.RmlenRND;
+                VM.DensityRND = result.DensityRND;
+                VM.RmkgRND = result.RmkgRND;
+                VM.RmrateRND = result.RmrateRND;
+                VM.RmcostRND = result.RmcostRND;
+
+                //
+                // VM.Castwt = result.Castwt;
+                VM.CastAmt = result.CastAmt;
+                //VM.CutSize = result.CutSize;
+                //
+                VM.Conv = result.Conv;
+                VM.totalRmcost = result.totalRmcost;
+                VM.Totalcost = result.Totalcost;
+                VM.Grand = result.Grand;
+
+
+            }
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (Exception ex)
+        {
+
+            await LoggingService.LogDeveloperError(ex, "Calculation Error.");
+            await _js.ToastrError("Calculation Failed.");
+        }
+    }
+
+    private async Task UpsertEstimate()
+    {
+        try
+        {
+            isProcessing = true;
+            // Validate each line
+            foreach (var line in EstimateVM.EstimateSubVM)
+            {
+                var invalidRow = EstimateVM.EstimateSubVM.FirstOrDefault(x => !x.ProcessId.HasValue || x.ProcessId.Value <= 0);
+
+                if (invalidRow != null)
+                {
+                    await _js.ToastrWarning("Please select a process for all added rows before saving.");
+                    isProcessing = false;
+                    return;
+                }
+
+                if (line.EstiamateId > 0)
+                {
+                    if (await _EstimateServiecs.IsEstimateUsedAsync(line.EstiamateId))
+                    {
+                        await _js.ToastrWarning("This Estimatation is already used in a Quotation. Updating is not allowed.");
+                        isProcessing = false;
+                        return;
+                    }
+                }
+            }
+
+
+
+
+            // Save
+            var isNewEstimate = EstimateVM.EstiamateId == 0;
+
+            try
+            {
+                await _EstimateServiecs.UpsertEstimateAsync(EstimateVM);
+            }
+            catch (Exception ex)
+            {
+                await _js.ToastrError(ex.Message);
+                return;
+            }
+
+            if (isNewEstimate)
+                await _js.ToastrSuccess("Estimation saved successfully.");
+            else
+                await _js.ToastrSuccess("Estimation updated successfully.");
+
+            _navigationManager.NavigateTo("/estimationList");
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "UpsertEstimation failed.");
+            await _js.ToastrError("Error saving Estimation.");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    private async Task OnItemCodeChanged(ChangeEventArgs e)
+    {
+        EstimateVM.ItemId = int.Parse(e.Value?.ToString() ?? "0");
+        //_process = await _EstimateServiecs.GetItemProcessList(EstimateVM.ItemId ?? 0, EstiamateId ?? 0);
+
+        EstimateVM.EstimateSubVM = await _EstimateServiecs.GetItemProcessList(EstimateVM.ItemId ?? 0, EstiamateId ?? 0);
+        processnotfound = EstimateVM.EstimateSubVM == null || !EstimateVM.EstimateSubVM.Any();
+        EstimateVM.RefEnqSubId = await _EstimateServiecs.GetEnqSubId(EnquiryId ?? 0, EstimateVM.ItemId ?? 0);
+
+        var item = ItemList.FirstOrDefault(x => x.ItemId == EstimateVM.ItemId);
+        EstimateVM.ItemName = item?.ItemName;
+
+        await ItemDetails(EstimateVM.ItemId.Value);
+
+        foreach (var row in EstimateVM.EstimateSubVM)
+        {
+            ProcessCalucalate(row, row.Hrs ?? 0);
+        }
+
+
+
+        //
+    }
+    private async Task OnManualChanged()
+    {
+        var estimateNo = EstimateVM.EstiamateNo;
+        var suffix = EstimateVM.Suffix;
+        var IsmanualEsti = EstimateVM.IsManualEstimate;
+        var customer = await _EstimateServiecs.GetCustomerByIdAsync(EstimateVM.CustId ?? 0);
+
+        if (!EstimateVM.IsManualEstimate)
+        {
+            EstimateVM = new EstimateVM
+            {
+                IsManualEstimate = IsmanualEsti,
+                CustId = customer.CustId,
+                Custname = customer.CustName,
+                EstiamateNo = estimateNo,
+                Suffix = suffix,
+                EstimateDate = DateTime.Now,
+                Qty = 1,
+                TypeofWork = "Manufacturing",
+                EstimateSubVM = new List<EstimateSubVM>()
+            };
+        }
+        else
+        {
+
+            EstimateVM = new EstimateVM
+            {
+                CustId = customer.CustId,
+                Custname = customer.CustName,
+                IsManualEstimate = IsmanualEsti,
+                EstiamateNo = estimateNo,
+                Suffix = suffix,
+                EstimateDate = DateTime.Now,
+                Qty = 1,
+                TypeofWork = "Manufacturing",
+
+                EstimateSubVM = new List<EstimateSubVM>()
+
+            };
+
+            if (customer == null)
+            {
+                EstimateVM.CustId = 0;
+                EstimateVM.Custname = string.Empty;
+
+                await ApplyCustomerSelectionAsync(new CustomerVM());
+                return;
+            }
+            await ApplyCustomerSelectionAsync(customer);
+            StateHasChanged();
+        }
+    }
+    private async Task AddRow()
+    {
+        // Check for incomplete rows
+        if (EstimateVM.EstimateSubVM.Any(x =>
+            x.ProcessId == 0 || x.Amount == null || x.Amount <= 0))
+        {
+            await _js.ToastrWarning("Please complete the existing row before adding a new one.");
+            return;
+        }
+
+        _process = await itemService.GetAllProcessAsync();
+        processnotfound = true;
+
+        EstimateVM.EstimateSubVM.Add(new EstimateSubVM
+        {
+            ProcessId = 0,
+            ProcessName = string.Empty,
+            HrlyRate = 0,
+            Hrs = 0,
+            Amount = 0,
+            IsEditable = true
+        });
+
+        StateHasChanged();
+    }
+
+    private async Task OnProcessChanged(EstimateSubVM sub)
+    {
+        if (!sub.ProcessId.HasValue)
+            return;
+
+        int selectedProcessId = sub.ProcessId.Value;
+
+        // Check if the selected process already exists in another row
+        bool alreadyExists = EstimateVM.EstimateSubVM.Any(x =>
+            x != sub &&
+            x.ProcessId.HasValue &&
+            x.ProcessId.Value == selectedProcessId);
+
+        if (alreadyExists)
+        {
+            await _js.ToastrWarning("This process has already been selected.");
+
+            sub.ProcessId = null;
+            sub.ProcessName = string.Empty;
+            sub.HrlyRate = 0;
+            sub.Hrs = 0;
+            sub.Amount = 0;
+
+            StateHasChanged();
+            return;
+        }
+
+        // Load process details
+        var process = _process.FirstOrDefault(p => p.ProcessId == selectedProcessId);
+
+        if (process != null)
+        {
+            sub.ProcessName = process.ProcessName;
+            sub.HrlyRate = await _EstimateServiecs.ProcessRate(selectedProcessId);
+        }
+
+        StateHasChanged();
+    }
+    private async Task OnRmthSqrChanged(decimal? value)
+    {
+        EstimateVM.RmthSQR = value;
+        await Calculation(EstimateVM);
+    }
+
+    //15-07-2026
+    private static readonly string[] CommonShapes = new[]
+    {
+                "Rectangle Plate", "Square Plate", "Round Tube", "Square Tube", "U or C Channel",
+                "L Angle", "Hexagonal Plate", "Round", "Sheet", "Octagonal", "Rectangle Tube",
+                "Ring", "I or H Channel"
+    };
+
+    private void OnShapeChanged()
+    {
+        EstimateVM.Density = 0;
+        EstimateVM.Length = 0;
+        EstimateVM.Width = 0;
+        EstimateVM.Height = 0;
+        EstimateVM.Thickness = 0;
+        EstimateVM.WallThickness = 0;
+        EstimateVM.OuterDia = 0;
+        EstimateVM.InnerDia = 0;
+
+        EstimateVM.Weight = 0;
+        EstimateVM.RmPrice = 0;
+        EstimateVM.RmTotAmount = 0;
+        EstimateVM.Castwt = 0;
+        EstimateVM.CastAmt = 0;
+
+        EstimateVM.Formula = GetFormula(EstimateVM.Shape);
+    }
+
+    private async Task SaveEstimateSubRow(EstimateSubVM row)
+    {
+        try
+        {
+            if (!await ValidateEstimateSubRowAsync(row))
+            {
+                row.IsEditable = true;
+                return;
+            }
+
+            // Lock the row after successful validation
+            row.IsEditable = false;
+
+            // Recalculate amount/hrs consistency before committing
+            await ProcessCalucalate(row, hrs: row.Hrs, hrlyRate: row.HrlyRate, amount: row.Amount);
+
+            // Ensure there is ALWAYS a trailing editable row for adding new process
+            if (!EstimateVM.EstimateSubVM.Any(x => x.IsEditable))
+            {
+                // EstimateVM.EstimateSubVM.Add(new EstimateSubVM
+                // 	{
+                // 		ProcessId = 0,
+                // 		ProcessName = string.Empty,
+                // 		HrlyRate = 0,
+                // 		Hrs = 0,
+                // 		Amount = 0,
+                // 		IsEditable = true
+                // 	});
+            }
+
+            // Recalculate totals after row commit
+            EstimateVM.Conv = EstimateVM.EstimateSubVM.Sum(x => x.Amount ?? 0m);
+            await Calculation(EstimateVM);
+
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"SaveEstimateSubRow failed for ProcessId: {row?.ProcessId}");
+            await _js.ToastrError("Failed to save the row. Please try again.");
+        }
+    }
+
+    private Task<bool> ValidateEstimateSubRowAsync(EstimateSubVM row)
+    {
+        if (row == null)
+            return Task.FromResult(false);
+
+        if (!row.ProcessId.HasValue || row.ProcessId.Value <= 0)
+        {
+            _js.ToastrWarning("Please select a process.");
+            return Task.FromResult(false);
+        }
+
+
+
+        return Task.FromResult(true);
+    }
+
+    private async Task CancelEditEstimateSub(EstimateSubVM row)
+    {
+        try
+        {
+            if (row == null || EstimateVM == null) return;
+
+            bool isInvalid = (row.ProcessId == null || row.ProcessId <= 0);
+
+            if (isInvalid)
+            {
+                EstimateVM.EstimateSubVM.Remove(row);
+            }
+            else
+            {
+                row.IsEditable = false;
+            }
+
+
+
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"CancelEditEstimateSub failed for ProcessId: {row?.ProcessId}");
+            await _js.ToastrError("Failed to cancel edit. Please try again.");
+        }
+    }
+
+    private async Task EditEstimateSubRowAsync(EstimateSubVM row)
+    {
+        try
+        {
+            row.IsEditable = true;
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"EditEstimateSubRowAsync failed for ProcessId: {row?.ProcessId}");
+            await _js.ToastrError("Failed to edit the row. Please try again.");
+        }
+    }
+
+    private async Task RemoveEstimateSubRow(EstimateSubVM row)
+    {
+        try
+        {
+            if (EstimateVM.EstimateSubVM.Count == 1 && row.EstiamateSubId > 0)
+            {
+                await _js.ToastrWarning("At least 1 row is required.");
+                return;
+            }
+
+            // if (row.ProcessId == null || row.ProcessId == 0)
+            // {
+            EstimateVM.EstimateSubVM.Remove(row);
+
+            // Ensure at least one editable row remains
+            if (!EstimateVM.EstimateSubVM.Any(x => x.IsEditable))
+            {
+                EstimateVM.EstimateSubVM.Add(new EstimateSubVM
+                {
+                    ProcessId = 0,
+                    ProcessName = string.Empty,
+                    HrlyRate = 0,
+                    Hrs = 0,
+                    Amount = 0,
+                    IsEditable = true
+                });
+                // }
+
+                await _js.ToastrSuccess("New process row removed successfully.");
+                StateHasChanged();
+                return;
+            }
+
+
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"RemoveEstimateSubRow failed for ProcessId: {row?.ProcessId}");
+            await _js.ToastrError("Failed to remove the row. Please try again.");
+        }
+    }
+
+
+    private string GetFormula(string shape)
+    {
+        return shape switch
+        {
+
+            "Round" =>
+                "Material Weight = (π × OD² / 4 × L × D) / 1000000",
+
+            "Rectangle Plate" =>
+                "Material Weight = (L × W × T × D) / 1000000",
+
+            "Square Plate" =>
+                "Material Weight = (L × W × T × D) / 1000000",
+
+            "Round Tube" =>
+                "Material Weight = (π × (OD² - (OD - (2WT))²) / 4 × L × D) / 1000000",
+
+            "Square Tube" =>
+                "Material Weight = ((W² - (W - 2WT)²) × L × D) / 1000000",
+
+            "Rectangle Tube" =>
+                "Material Weight = ((W × H - (W - 2WT) × (H - 2WT)) × L × D) / 1000000",
+
+            "U or C Channel" =>
+                "Material Weight = (((H - 2WT) × WT) + (2 × (W × WT))) × L × D / 1000000",
+
+            "I or H Channel" =>
+                "Material Weight = (((H - 2WT) × WT) + (2 × (W × WT))) × L × D / 1000000",
+
+            "L Angle" =>
+                "Material Weight = (L × ((W × WT) + (H × WT)) × D) / 1000000",
+
+            "Hexagonal Plate" =>
+                "Material Weight = (2.598 × OD² × T × D) / 1000000",
+
+            "Sheet" =>
+                "Material Weight = (L × W × T × D) / 1000000",
+
+            "Octagonal" =>
+                "Material Weight = (2 × (1 + √2) × OD² × T × L × D) / 1000000",
+
+            "Ring" =>
+                "Material Weight = (π × (OD² - ID²) / 4 × L × D) / 1000000",
+
+            _ => ""
+
+        };
+    }
+
+
+}

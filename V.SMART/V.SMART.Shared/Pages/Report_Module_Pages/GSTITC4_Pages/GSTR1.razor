@@ -1,0 +1,1317 @@
+﻿@page "/gstr1"
+
+@using V.SMART.Shared.ViewModels.ReportViewModel.GSTITCVM
+@using V.SMART.Shared.BusinessLayer.BusinessService.IBusinessService.IReportService.IGSTITC
+
+@inject ILoggingService LoggingService
+@inject IJSRuntime JS
+@inject IGSTR1Service GSTR1Service
+@inherits BaseUserRightsComponent
+@inject NavigationManager _navigation
+
+@if (isProcessing)
+{
+    <ProcessingOverlay Visible="@isProcessing" Message="Please wait..." />
+}
+else if (!CanView)
+{
+    <RedirectToLogin />
+    return;
+}
+else
+{
+    <PageHeader TitleText="GSTR1"
+                TitleIcon="bi bi-receipt-cutoff"
+                Breadcrumbs="@PoBreadcrumbs" />
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <div class="row align-items-end">
+
+                <!-- From Date -->
+                <div class="col-lg-2 col-md-3">
+                    <label class="form-label fw-bold">From Date</label>
+                    <InputDate class="form-control"
+                               @bind-Value="FromDate" />
+                </div>
+
+                <!-- To Date -->
+                <div class="col-lg-2 col-md-3">
+                    <label class="form-label fw-bold">To Date</label>
+                    <InputDate class="form-control"
+                               @bind-Value="ToDate" />
+                </div>
+
+
+                <!-- Section -->
+                <div class="col-lg-3 col-md-4">
+                    <label class="form-label fw-bold">Section</label>
+
+                    <InputSelect class="form-select"
+                                 @bind-Value="Section"
+                                 @bind-Value:after="SectionChanged">
+
+                        <option value="B2B">Business To Business</option>
+                        <option value="B2CL">Business To Consumer Large</option>
+                        <option value="B2CS">Business To Consumer Small</option>
+                        <option value="CDNRC">Credit Note</option>
+                        <option value="HSN">HSN</option>
+                        <option value="EXEMP">Export</option>
+                        <option value="DOCS">Documents</option>
+
+                    </InputSelect>
+                </div>
+
+
+
+                <!-- Select Reports -->
+                <div class="col-lg-3 col-md-8">
+
+                    <label class="form-label fw-bold">
+                        Select Reports
+                    </label>
+
+                    <div class="d-flex flex-wrap gap-2">
+
+                        <label><InputCheckbox @bind-Value="chkB2B" /> B2B</label>
+
+                        <label><InputCheckbox @bind-Value="chkB2CL" /> B2CL</label>
+
+                        <label><InputCheckbox @bind-Value="chkB2CS" /> B2CS</label>
+
+                        <label><InputCheckbox @bind-Value="chkCDNR" /> CDNR</label>
+
+                        <label><InputCheckbox @bind-Value="chkHSN" /> HSN</label>
+
+                        <label><InputCheckbox @bind-Value="chkEXEMP" /> EXEMP</label>
+
+                        <label><InputCheckbox @bind-Value="chkDOCS" /> DOCS</label>
+
+                    </div>
+
+                </div>
+
+                <!-- Buttons -->
+                <div class="col-lg-2 col-md-4">
+
+                    <label class="form-label fw-bold">&nbsp;</label>
+
+                    <div class="d-flex gap-2">
+
+                        <!-- View - Blue -->
+                        <button class="btn btn-primary flex-fill"
+                                @onclick="LoadData">
+                            <i class="bi bi-eye me-1"></i>
+                            View
+                        </button>
+
+                        <!-- JSON - Dark / Secondary -->
+                        <button class="btn btn-secondary flex-fill"
+                                @onclick="ExportJson">
+                            <i class="bi bi-filetype-json me-1"></i>
+                            JSON
+                        </button>
+
+                        <!-- Print - Green -->
+                        <button class="btn btn-success flex-fill"
+                                @onclick="PrintExcel">
+                            <i class="bi bi-printer me-1"></i>
+                            Print
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+}
+
+@if (ReportList.Count > 0)
+{
+
+    @if (Section == "B2B")
+    {
+        <div class="table-responsive mt-4">
+
+            <table class="table table-bordered table-hover table-striped">
+
+                <thead class="table-primary">
+
+                    <tr>
+
+                        <th>Invoice No</th>
+
+                        <th>Invoice Date</th>
+
+                        <th>Customer Name</th>
+
+                        <th>GST No</th>
+
+                        <th>State</th>
+
+                        @*  <th>Item Name</th> *@
+
+                        <th>HSN Code</th>
+
+                        <th class="text-end">Qty</th>
+
+                        <th class="text-end">Rate</th>
+
+                        <th class="text-end">Taxable Value</th>
+
+                        <th class="text-end">CGST</th>
+
+                        <th class="text-end">SGST</th>
+
+                        <th class="text-end">IGST</th>
+
+                        <th class="text-end">Grand Total</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in ReportList)
+                    {
+
+                        <tr>
+
+                            <td>
+
+                                @($"{item.Prefix}{item.InvNo}{item.Suffix}")
+
+                            </td>
+
+                            <td>
+
+                                @(item.InvDate?.ToString("dd/MM/yyyy"))
+
+                            </td>
+
+                            <td>
+
+                                @item.CustName
+
+                            </td>
+
+                            <td>
+
+                                @item.GSTNo
+
+                            </td>
+
+                            <td>
+
+                                @item.StateName
+
+                            </td>
+
+                            @*                             <td>
+
+                                @item.ItemName
+
+                            </td> *@
+
+                            <td>
+
+                                @item.HSNCode
+
+                            </td>
+
+                            <td class="text-end">
+
+                                @item.Qty
+
+                            </td>
+
+                            <td class="text-end">
+
+                                @item.UnitPrice.ToString("N2")
+
+                            </td>
+
+                            <td class="text-end">
+
+                                @item.TotalTaxable.ToString("N2")
+
+                            </td>
+
+                            <td class="text-end">
+
+                                @item.TotalCGSTAmount.ToString("N2")
+
+                            </td>
+
+                            <td class="text-end">
+
+                                @item.TotalSGSTAmount.ToString("N2")
+
+                            </td>
+
+                            <td class="text-end">
+
+                                @item.TotalIGSTAmount.ToString("N2")
+
+                            </td>
+
+                            <td class="text-end fw-bold">
+
+                                @item.GrandTotal.ToString("N2")
+
+                            </td>
+
+                        </tr>
+
+                    }
+
+                </tbody>
+                <tfoot class="table-warning fw-bold">
+                    <tr>
+                        <td colspan="6" class="text-end">
+                            Grand Total
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.Qty).ToString("N2")
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Average(x => x.UnitPrice).ToString("N2")
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.TotalTaxable).ToString("N2")
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.TotalCGSTAmount).ToString("N2")
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.TotalSGSTAmount).ToString("N2")
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.TotalIGSTAmount).ToString("N2")
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.GrandTotal).ToString("N2")
+                        </td>
+                    </tr>
+                </tfoot>
+
+            </table>
+
+        </div>
+    }
+
+    else if (Section == "B2CL")
+    {
+        <div class="table-responsive mt-4">
+
+            <table class="table table-bordered table-hover table-striped">
+
+                <thead class="table-primary">
+
+                    <tr>
+                        <th>Invoice Number</th>
+                        <th>Invoice Date</th>
+                        <th class="text-end">Invoice Value</th>
+                        <th>Applicable % of Tax Rate</th>
+                        <th>Place of Supply</th>
+                        <th class="text-end">Rate</th>
+                        <th class="text-end">Taxable Value</th>
+                        <th class="text-end">Cess Amount</th>
+                        <th>E-Commerce GSTIN</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in ReportList)
+                    {
+                        <tr>
+
+                            <!-- 1. Invoice Number -->
+                            <td>
+                                @($"{item.Prefix}{item.InvNo}{item.Suffix}")
+                            </td>
+
+                            <!-- 2. Invoice Date -->
+                            <td>
+                                @item.InvDate?.ToString("dd/MM/yyyy")
+                            </td>
+
+                            <!-- 3. Invoice Value -->
+                            <td class="text-end">
+                                @item.GrandTotal.ToString("N2")
+                            </td>
+
+                            <!-- 4. Applicable % of Tax Rate -->
+                            <td>
+                                @item.ApplicableTaxRate
+                            </td>
+
+                            <!-- 5. Place of Supply -->
+                            <td>
+                                @item.PlaceOfSupply
+                            </td>
+
+                            <!-- 6. Rate -->
+                            <td class="text-end">
+                                @item.TaxRate.ToString("N2")
+                            </td>
+
+                            <!-- 7. Taxable Value -->
+                            <td class="text-end">
+                                @item.TotalTaxable.ToString("N2")
+                            </td>
+
+                            <!-- 8. Cess Amount -->
+                            <td class="text-end">
+                                @item.CessAmount.ToString("N2")
+                            </td>
+
+                            <!-- 9. E-Commerce GSTIN -->
+                            <td>
+                                @item.ECommerceGSTIN
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+                <tfoot class="table-warning fw-bold">
+
+                    <tr>
+
+                        <td colspan="2" class="text-end">
+                            Grand Total
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.GrandTotal).ToString("N2")
+                        </td>
+
+                        <td></td>
+
+                        <td></td>
+
+                        <td></td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.TotalTaxable).ToString("N2")
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.CessAmount).ToString("N2")
+                        </td>
+
+                        <td></td>
+
+                    </tr>
+
+                </tfoot>
+
+            </table>
+
+        </div>
+    }
+
+    @if (Section == "B2CS")
+    {
+        <div class="table-responsive mt-4">
+
+            <table class="table table-bordered table-hover table-striped">
+
+                <thead class="table-primary">
+
+                    <!-- Summary Row -->
+                    <tr>
+                        <th colspan="3" class="text-center">
+                            Summary For B2CS (7)
+                        </th>
+
+                        <th colspan="1"></th>
+
+                        <th class="text-end">
+                            Total Taxable Value
+                        </th>
+
+                        <th class="text-end">
+                            Total Cess
+                        </th>
+
+                        <th></th>
+                    </tr>
+
+                    <!-- Summary Values -->
+                    <tr class="table-warning">
+
+                        <th colspan="4"></th>
+
+                        <th class="text-end">
+                            @ReportList.Sum(x => x.TotalTaxable).ToString("N2")
+                        </th>
+
+                        <th class="text-end">
+                            @ReportList.Sum(x => x.CessAmount).ToString("N2")
+                        </th>
+
+                        <th></th>
+
+                    </tr>
+
+                    <!-- Column Header -->
+                    <tr>
+
+                        <th>Type</th>
+
+                        <th>Place Of Supply</th>
+
+                        <th>Applicable % of Tax Rate</th>
+
+                        <th class="text-end">Rate</th>
+
+                        <th class="text-end">Taxable Value</th>
+
+                        <th class="text-end">Cess Amount</th>
+
+                        <th>E-Commerce GSTIN</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in ReportList)
+                    {
+                        <tr>
+
+                            <td>
+                                @item.Type
+                            </td>
+
+                            <td>
+                                @item.PlaceOfSupply
+                            </td>
+
+                            <td>
+                                @item.ApplicableTaxRate
+                            </td>
+
+                            <td class="text-end">
+                                @item.TaxRate.ToString("N2")
+                            </td>
+
+                            <td class="text-end">
+                                @item.TotalTaxable.ToString("N2")
+                            </td>
+
+                            <td class="text-end">
+                                @item.CessAmount.ToString("N2")
+                            </td>
+
+                            <td>
+                                @item.ECommerceGSTIN
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+                <tfoot class="table-warning fw-bold">
+
+                    <tr>
+
+                        <td colspan="4" class="text-end">
+                            Total
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.TotalTaxable).ToString("N2")
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.CessAmount).ToString("N2")
+                        </td>
+
+                        <td></td>
+
+                    </tr>
+
+                </tfoot>
+
+            </table>
+
+        </div>
+    }
+
+    else if (Section == "HSN")
+    {
+        <div class="table-responsive mt-4">
+
+            <table class="table table-bordered table-hover table-striped">
+
+                <thead class="table-success">
+
+                    <tr>
+
+                        <th>HSN Code</th>
+
+                        <th>Item Name</th>
+
+                        <th class="text-end">Quantity</th>
+
+                        <th class="text-end">Taxable Value</th>
+
+                        <th class="text-end">CGST</th>
+
+                        <th class="text-end">SGST</th>
+
+                        <th class="text-end">IGST</th>
+
+                        <th class="text-end">Grand Total</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in ReportList)
+                    {
+
+                        <tr>
+
+                            <td>
+
+                                @item.HSNCode
+
+                            </td>
+
+                            <td>
+
+                                @item.ItemName
+
+                            </td>
+
+                            <td class="text-end">
+
+                                @item.Qty
+
+                            </td>
+
+                            <td class="text-end">
+
+                                @item.TotalTaxable.ToString("N2")
+
+                            </td>
+
+                            <td class="text-end">
+
+                                @item.TotalCGSTAmount.ToString("N2")
+
+                            </td>
+
+                            <td class="text-end">
+
+                                @item.TotalSGSTAmount.ToString("N2")
+
+                            </td>
+
+                            <td class="text-end">
+
+                                @item.TotalIGSTAmount.ToString("N2")
+
+                            </td>
+
+                            <td class="text-end fw-bold">
+
+                                @item.GrandTotal.ToString("N2")
+
+                            </td>
+
+                        </tr>
+
+                    }
+
+                </tbody>
+
+                <tfoot class="table-warning fw-bold">
+
+                    <tr>
+
+                        <td colspan="2" class="text-end">
+
+                            Grand Total
+
+                        </td>
+
+                        <td class="text-end">
+
+                            @ReportList.Sum(x => x.Qty)
+
+                        </td>
+
+                        <td class="text-end">
+
+                            @ReportList.Sum(x => x.TotalTaxable).ToString("N2")
+
+                        </td>
+
+                        <td class="text-end">
+
+                            @ReportList.Sum(x => x.TotalCGSTAmount).ToString("N2")
+
+                        </td>
+
+                        <td class="text-end">
+
+                            @ReportList.Sum(x => x.TotalSGSTAmount).ToString("N2")
+
+                        </td>
+
+                        <td class="text-end">
+
+                            @ReportList.Sum(x => x.TotalIGSTAmount).ToString("N2")
+
+                        </td>
+
+                        <td class="text-end">
+
+                            @ReportList.Sum(x => x.GrandTotal).ToString("N2")
+
+                        </td>
+
+                    </tr>
+
+                </tfoot>
+
+            </table>
+
+        </div>
+    }
+    else if (Section == "EXEMP")
+    {
+        <div class="table-responsive mt-4">
+
+            <table class="table table-bordered table-hover table-striped">
+
+                <thead class="table-danger">
+
+                    <tr>
+
+                        <th>Nature of Supply</th>
+
+                        <th class="text-end">Nil Rated</th>
+
+                        <th class="text-end">Exempted</th>
+
+                        <th class="text-end">Non-GST</th>
+
+                        <th class="text-end">Total Value</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in ReportList)
+                    {
+                        <tr>
+
+                            <td>
+                                @item.ItemName
+                            </td>
+
+                            <td class="text-end">
+                                @item.NilRated.ToString("N2")
+                            </td>
+
+                            <td class="text-end">
+                                @item.Exempted.ToString("N2")
+                            </td>
+
+                            <td class="text-end">
+                                @item.NonGST.ToString("N2")
+                            </td>
+
+                            <td class="text-end fw-bold">
+                                @item.GrandTotal.ToString("N2")
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+                <tfoot class="table-warning fw-bold">
+
+                    <tr>
+
+                        <td class="text-end">
+                            Grand Total
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.NilRated).ToString("N2")
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.Exempted).ToString("N2")
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.NonGST).ToString("N2")
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.GrandTotal).ToString("N2")
+                        </td>
+
+                    </tr>
+
+                </tfoot>
+
+            </table>
+
+        </div>
+    }
+    else if (Section == "CDNRC")
+    {
+        <div class="table-responsive mt-4">
+
+            <table class="table table-bordered table-striped">
+
+                <thead>
+
+                    <tr class="table-primary text-center">
+                        <th colspan="13">
+                            Summary For CDNR (9B)
+                        </th>
+                    </tr>
+
+                    <tr class="table-secondary text-center">
+
+                        <th>No. of Recipients</th>
+                        <th>@ReportList.Select(x => x.GSTNo).Distinct().Count()</th>
+
+                        <th>No. of Notes</th>
+                        <th>@ReportList.Select(x => x.NoteNumber).Distinct().Count()</th>
+
+                        <th colspan="3">Total Note Value</th>
+                        <th>
+                            @ReportList.Sum(x => x.NoteValue).ToString("N2")
+                        </th>
+
+                        <th colspan="3">Total Taxable Value</th>
+                        <th>
+                            @ReportList.Sum(x => x.TotalTaxable).ToString("N2")
+                        </th>
+
+                        <th>
+                            @ReportList.Sum(x => x.CessAmount).ToString("N2")
+                        </th>
+
+                    </tr>
+
+                    <tr class="table-warning text-center">
+
+                        <th>GSTIN/UIN of Recipient</th>
+                        <th>Receiver Name</th>
+                        <th>Note Number</th>
+                        <th>Note Date</th>
+                        <th>Note Type</th>
+                        <th>Place Of Supply</th>
+                        <th>Reverse Charge</th>
+                        <th>Note Supply Type</th>
+                        <th>Note Value</th>
+                        <th>Applicable % of Tax Rate</th>
+                        <th>Rate</th>
+                        <th>Taxable Value</th>
+                        <th>Cess Amount</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in ReportList)
+                    {
+                        <tr>
+
+                            <td>@item.GSTNo</td>
+
+                            <td>@item.CustName</td>
+
+                            <td>@item.NoteNumber</td>
+
+                            <td>@item.NoteDate?.ToString("dd/MM/yyyy")</td>
+
+                            <td>@item.NoteType</td>
+
+                            <td>@item.PlaceOfSupply</td>
+
+                            <td>@item.ReverseCharge</td>
+
+                            <td>@item.NoteSupplyType</td>
+
+                            <td class="text-end">
+                                @item.NoteValue.ToString("N2")
+                            </td>
+
+                            <td class="text-end">
+                                100
+                            </td>
+
+                            <td class="text-end">
+                                @item.TaxRate.ToString("N2")
+                            </td>
+
+                            <td class="text-end">
+                                @item.TotalTaxable.ToString("N2")
+                            </td>
+
+                            <td class="text-end">
+                                @item.CessAmount.ToString("N2")
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+                <tfoot class="table-info fw-bold">
+
+                    <tr>
+
+                        <td colspan="8" class="text-end">
+                            Grand Total
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.NoteValue).ToString("N2")
+                        </td>
+
+                        <td></td>
+
+                        <td></td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.TotalTaxable).ToString("N2")
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.CessAmount).ToString("N2")
+                        </td>
+
+                    </tr>
+
+                </tfoot>
+
+            </table>
+
+        </div>
+    }
+    else if (Section == "DOCS")
+    {
+        <div class="table-responsive mt-4">
+            <table class="table table-bordered table-hover table-striped">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Nature of Document</th>
+                        <th>Sr. No. From</th>
+                        <th>Sr. No. To</th>
+                        <th class="text-end">Total Number</th>
+                        <th class="text-end">Cancelled</th>
+                        <th class="text-end">Net Issued</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (ReportList.Any())
+                    {
+                        @foreach (var item in ReportList)
+                        {
+                            <tr>
+                                <td>@item.NatureOfDocument</td>
+                                <td>@item.SrNoFrom</td>
+                                <td>@item.SrNoTo</td>
+                                <td class="text-end">@item.TotalNumber</td>
+                                <td class="text-end">@item.Cancelled</td>
+                                <td class="text-end">@item.NetIssued</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center text-muted">
+                                No records found.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @*     else if (Section == "CDNRD")
+    {
+        <div class="table-responsive mt-4">
+
+            <table class="table table-bordered table-hover table-striped">
+
+                <thead class="table-info">
+
+                    <tr>
+                        <th colspan="14" class="text-center fs-5">
+                            Summary For Debit Notes
+                        </th>
+                    </tr>
+
+                    <tr class="table-secondary">
+                        <th>GSTIN/UIN of Recipient</th>
+                        <th>Receiver Name</th>
+                        <th>Note Number</th>
+                        <th>Note Date</th>
+                        <th>Note Type</th>
+                        <th>Place Of Supply</th>
+                        <th>Pre GST</th>
+                        <th>Reason</th>
+                        <th class="text-end">Tax Rate</th>
+                        <th class="text-end">Taxable Value</th>
+                        <th class="text-end">CGST</th>
+                        <th class="text-end">SGST</th>
+                        <th class="text-end">IGST</th>
+                        <th class="text-end">Note Value</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in ReportList)
+                    {
+                        <tr>
+
+                            <td>@item.GSTNo</td>
+
+                            <td>@item.CustName</td>
+
+                            <td>@item.NoteNumber</td>
+
+                            <td>@item.NoteDate?.ToString("dd/MM/yyyy")</td>
+
+                            <td>@item.NoteType</td>
+
+                            <td>@item.PlaceOfSupply</td>
+
+                            <td>@item.PreGST</td>
+
+                            <td>@item.Reason</td>
+
+                            <td class="text-end">
+                                @item.TaxRate.ToString("N2")
+                            </td>
+
+                            <td class="text-end">
+                                @item.TotalTaxable.ToString("N2")
+                            </td>
+
+                            <td class="text-end">
+                                @item.TotalCGSTAmount.ToString("N2")
+                            </td>
+
+                            <td class="text-end">
+                                @item.TotalSGSTAmount.ToString("N2")
+                            </td>
+
+                            <td class="text-end">
+                                @item.TotalIGSTAmount.ToString("N2")
+                            </td>
+
+                            <td class="text-end fw-bold">
+                                @item.NoteValue.ToString("N2")
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+                <tfoot class="table-warning fw-bold">
+
+                    <tr>
+
+                        <td colspan="9" class="text-end">
+                            Grand Total
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.TotalTaxable).ToString("N2")
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.TotalCGSTAmount).ToString("N2")
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.TotalSGSTAmount).ToString("N2")
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.TotalIGSTAmount).ToString("N2")
+                        </td>
+
+                        <td class="text-end">
+                            @ReportList.Sum(x => x.NoteValue).ToString("N2")
+                        </td>
+
+                    </tr>
+
+                </tfoot>
+
+            </table>
+
+        </div>
+    } *@
+}
+else if (!isLoading)
+{
+    <div class="alert alert-info mt-4">
+
+        No records found.
+
+    </div>
+}
+
+@code
+{
+    protected override string ScreenName => "GSTR1";
+
+    private bool isProcessing = true;
+
+    private DateTime FromDate = DateTime.Today.AddMonths(-1);
+
+    private DateTime ToDate = DateTime.Today;
+
+    private string Section = "B2B";
+
+    private bool isLoading;
+
+    private List<GSTR1VM> ReportList = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            isProcessing = true;
+
+            await LoadRightsAsync();
+
+            if (!CanView)
+            {
+                _navigation.NavigateTo("/access-denied");
+                return;
+            }
+            await LoadData();
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    private List<PageHeader.BreadcrumbItem> PoBreadcrumbs = new()
+    {
+        new()
+        {
+            Text = "Report",Url="reports-home"
+        },
+        new()
+        {
+            Text = "History",Url="reports-home"
+        },
+
+        new()
+        {
+            Text = "GSTR1",IsLast = true
+        }
+    };
+
+    private async Task LoadData()
+    {
+        try
+        {
+            isLoading = true;
+
+            // Clear old section data before loading new section
+            ReportList.Clear();
+
+            StateHasChanged();
+
+            // Load data based on CURRENT selected section
+            ReportList = await GSTR1Service.GetGSTR1Async(
+                FromDate,
+                ToDate,
+                Section);
+
+            isLoading = false;
+
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            isLoading = false;
+
+            await LoggingService.LogDeveloperError(
+                ex,
+                "Error in LoadData (GSTR1)");
+
+            throw;
+        }
+    }
+
+
+
+    private async Task ExportJson()
+    {
+        try
+        {
+            var jsonBytes = await GSTR1Service.ExportGSTR1JsonAsync(FromDate, ToDate, Section);
+
+            await JS.DownloadJsonFileAsync(Convert.ToBase64String(jsonBytes), $"GSTR1_{Section}.json");
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+    }
+
+    private bool chkB2B;
+    private bool chkB2CL;
+    private bool chkB2CS;
+    private bool chkCDNR;
+    private bool chkHSN;
+    private bool chkEXEMP;
+    private bool chkDOCS;
+
+
+    private void SectionChanged()
+    {
+        // IMPORTANT:
+        // Clear previously loaded data when changing section.
+        // Otherwise B2B data will remain visible while Section is B2CL.
+        ReportList.Clear();
+
+        // Reset all checkboxes
+        chkB2B = false;
+        chkB2CL = false;
+        chkB2CS = false;
+        chkCDNR = false;
+        chkHSN = false;
+        chkEXEMP = false;
+        chkDOCS = false;
+
+        // Select checkbox according to current Section
+        switch (Section)
+        {
+            case "B2B":
+                chkB2B = true;
+                break;
+
+            case "B2CL":
+                chkB2CL = true;
+                break;
+
+            case "B2CS":
+                chkB2CS = true;
+                break;
+
+            case "CDNRC":
+                chkCDNR = true;
+                break;
+
+            case "HSN":
+                chkHSN = true;
+                break;
+
+            case "EXEMP":
+                chkEXEMP = true;
+                break;
+
+            case "DOCS":
+                chkDOCS = true;
+                break;
+        }
+
+        // Refresh UI immediately
+        StateHasChanged();
+    }
+
+
+
+    private async Task PrintExcel()
+    {
+        try
+        {
+            isLoading = true;
+            StateHasChanged();
+
+            List<string> sections = new();
+
+            if (chkB2B) sections.Add("B2B");
+            if (chkB2CL) sections.Add("B2CL");
+            if (chkB2CS) sections.Add("B2CS");
+            if (chkCDNR) sections.Add("CDNRC");
+            if (chkHSN) sections.Add("HSN");
+            if (chkEXEMP) sections.Add("EXEMP");
+            if (chkDOCS) sections.Add("DOCS");
+
+            if (sections.Count == 0)
+            {
+                await JS.InvokeVoidAsync("alert", "Please select at least one report.");
+                return;
+            }
+
+            var fileBytes = await GSTR1Service.ExportExcelAsync(
+                FromDate,
+                ToDate,
+                sections);
+
+            string fileName = $"GSTR1_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+
+            await JS.InvokeVoidAsync(
+                "downloadExcelFile",
+                Convert.ToBase64String(fileBytes),
+                fileName);
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+}
+

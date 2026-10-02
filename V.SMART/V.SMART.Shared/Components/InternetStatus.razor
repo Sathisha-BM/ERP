@@ -1,0 +1,249 @@
+﻿@using V.SMART.Shared.BusinessLayer.BusinessService.IBusinessService.IInternetStatus_Service
+@implements IDisposable
+
+@inject IInternetStatusService InternetStatusService
+
+<style>
+    .vsmart-status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 32px;
+        min-height: 32px;
+        gap: 10px;
+        padding: 0 8px;
+        white-space: nowrap;
+        overflow: hidden;
+        font-size: 12px;
+        line-height: 1;
+        color: inherit;
+    }
+
+    .vsmart-status-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        white-space: nowrap;
+    }
+
+    .vsmart-status-dot {
+        width: 7px;
+        height: 7px;
+        min-width: 7px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .vsmart-online {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        color: #22c55e;
+        white-space: nowrap;
+    }
+
+        .vsmart-online .vsmart-status-dot {
+            background: #22c55e;
+            box-shadow: 0 0 5px rgba(34, 197, 94, 0.8);
+        }
+
+    .vsmart-offline {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        color: #ef4444;
+        white-space: nowrap;
+    }
+
+        .vsmart-offline .vsmart-status-dot {
+            background: #ef4444;
+        }
+
+    .vsmart-speed-icon {
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .vsmart-status-divider {
+        width: 1px;
+        height: 16px;
+        background: rgba(255, 255, 255, 0.25);
+        flex-shrink: 0;
+    }
+
+    .vsmart-date {
+        white-space: nowrap;
+    }
+
+    .vsmart-clock {
+        min-width: 80px;
+        white-space: nowrap;
+        font-family: Consolas, "Courier New", monospace;
+        font-size: 12px;
+        font-weight: 600;
+    }
+</style>
+
+<div class="vsmart-status">
+
+    <div class="vsmart-status-item">
+
+        <span class="@GetStatusClass()">
+            <span class="vsmart-status-dot"></span>
+
+            @if (InternetStatusService.IsOnline)
+            {
+                <span>Online</span>
+            }
+            else
+            {
+                <span>Offline</span>
+            }
+        </span>
+
+    </div>
+
+    @if (InternetStatusService.IsOnline)
+    {
+        <div class="vsmart-status-item">
+
+            <span class="vsmart-speed-icon">
+                ↓
+            </span>
+
+            <span>
+                @FormatSpeed(InternetStatusService.DownloadMbps)
+        </span>
+
+    </div>
+
+    @if (InternetStatusService.LatencyMs > 0)
+        {
+            <div class="vsmart-status-item">
+
+                <span>
+                    Ping
+                </span>
+
+                <span>
+                    @InternetStatusService.LatencyMs ms
+                </span>
+
+            </div>
+        }
+    }
+
+    <div class="vsmart-status-divider"></div>
+
+    <div class="vsmart-date">
+        @CurrentDate
+    </div>
+
+    <div class="vsmart-clock">
+        @CurrentTime
+    </div>
+
+</div>
+
+@code {
+
+    private PeriodicTimer? _clockTimer;
+
+    private CancellationTokenSource?
+        _clockCts;
+
+    private Task? _clockTask;
+
+    private string CurrentDate =>
+        DateTime.Now.ToString("dd-MMM-yyyy");
+
+    private string CurrentTime =>
+        DateTime.Now.ToString("hh:mm:ss tt");
+
+    protected override async Task OnInitializedAsync()
+    {
+        InternetStatusService.StatusChanged +=
+            OnInternetStatusChanged;
+
+        await InternetStatusService.StartAsync();
+
+        StartClock();
+    }
+
+    private void StartClock()
+    {
+        _clockCts =
+            new CancellationTokenSource();
+
+        _clockTimer =
+            new PeriodicTimer(
+                TimeSpan.FromSeconds(1));
+
+        _clockTask =
+            RunClockAsync(_clockCts.Token);
+    }
+
+    private async Task RunClockAsync(
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            while (await _clockTimer!
+                .WaitForNextTickAsync(
+                    cancellationToken))
+            {
+                await InvokeAsync(
+                    StateHasChanged);
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Normal disposal
+        }
+    }
+
+    private void OnInternetStatusChanged()
+    {
+        _ = InvokeAsync(
+            StateHasChanged);
+    }
+
+    private string GetStatusClass()
+    {
+        return InternetStatusService.IsOnline
+            ? "vsmart-online"
+            : "vsmart-offline";
+    }
+
+    private static string FormatSpeed(
+        double speed)
+    {
+        if (speed <= 0)
+            return "-- Mbps";
+
+        if (speed >= 1000)
+        {
+            return
+                $"{speed / 1000:0.0} Gbps";
+        }
+
+        return $"{speed:0.0} Mbps";
+    }
+
+    public void Dispose()
+    {
+        InternetStatusService.StatusChanged -= OnInternetStatusChanged;
+
+        try
+        {
+            _clockCts?.Cancel();
+        }
+        catch
+        {
+        }
+
+        _clockTimer?.Dispose();
+
+        _clockCts?.Dispose();
+    }
+}

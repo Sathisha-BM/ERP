@@ -1,0 +1,1041 @@
+﻿@page "/Material_stockLeft"
+@using V.SMART.Shared.BusinessLayer.BusinessService.IBusinessService.IReportService.ITrackReportService
+@using V.SMART.Shared.BusinessLayer.BusinessService.ReportService.TrackReportService
+@using V.SMART.Shared.ViewModels.ReportViewModel.MaterialStockLeftVM
+@using V.SMART.Shared.ViewModels.ReportViewModel.RatingsVM
+
+
+@inherits BaseUserRightsComponent
+
+@inject ILoggingService LoggingService
+@inject CurrentUserService CurrentUserService
+@inject IJSRuntime _JS
+@inject IColumnPreferenceService PreferenceService
+@inject IMaterialstockLeftService MaterialStockLeftService
+@inject NavigationManager _navigation
+@inject IExcelTemplateService excelTemplateService
+
+<style>
+    .form-check {
+        margin-bottom: 10px;
+    }
+
+    .form-check-input {
+        width: 1.2rem;
+        height: 1.2rem;
+        cursor: pointer;
+    }
+
+    .form-check-label {
+        margin-left: 8px;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+    .form-check-input:checked {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+
+    .card-header {
+        font-weight: 600;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 8px;
+    }
+
+    .form-check-input {
+        opacity: 1 !important;
+        border: 2px solid #0d6efd !important;
+    }
+
+        .form-check-input:checked {
+            background-color: #0d6efd !important;
+            border-color: #0d6efd !important;
+        }
+
+
+    .table-responsive {
+        max-height: 75vh;
+        overflow-y: auto;
+    }
+
+        .table-responsive thead th {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #0d6efd;
+            color: #fff;
+            border-bottom: 2px solid #0a58ca;
+        }
+
+    .trans-in {
+        background: #198754;
+        color: white;
+        padding: 4px 14px;
+        border-radius: 20px;
+        font-weight: 600;
+        display: inline-block;
+        min-width: 60px;
+        text-align: center;
+    }
+
+    .trans-out {
+        background: #dc3545;
+        color: white;
+        padding: 4px 14px;
+        border-radius: 20px;
+        font-weight: 600;
+        display: inline-block;
+        min-width: 60px;
+        text-align: center;
+    }
+
+    .card-header h4 {
+        font-size: clamp(1rem, 2vw, 1.5rem);
+    }
+
+    .card-header small {
+        font-size: 0.85rem;
+    }
+
+    @@media (max-width: 767px) {
+        .card-header small
+
+    {
+        display: block;
+    }
+
+    .card-header .badge {
+        font-size: 0.85rem !important;
+    }
+
+    }
+
+</style>
+
+@if (isProcessing)
+{
+    <ProcessingOverlay Visible='@isProcessing' Message="plese wait.." />
+}
+else if (!CanView)
+{
+    <RedirectToLogin />
+    return;
+}
+else
+{
+
+
+    <div class="container-fluid mt-4">
+
+        <div class="card shadow rounded-4">
+
+
+            <PageHeader TitleText="Sales Track"
+                        TitleIcon="bi bi-receipt-cutoff"
+                        Breadcrumbs="@materialstockleftBreadcrumbs" />
+
+
+
+            <div class="card-header bg-white border-bottom shadow-sm py-3 px-3 px-md-4">
+
+                <div class="row align-items-center g-3">
+
+                    <!-- Left Section -->
+                    <div class="col-12 col-lg-8">
+                        <div class="d-flex align-items-center">
+
+                            <div class="bg-primary rounded-circle text-white d-flex align-items-center justify-content-center flex-shrink-0"
+                                 style="width:50px;height:50px;">
+                                <i class="bi bi-box-seam fs-4"></i>
+                            </div>
+
+                            <div class="ms-3">
+                                <h4 class="fw-bold mb-1">
+                                    Material Stock Left With Supplier / Shop Floor Report
+                                </h4>
+
+                                <small class="text-muted d-block">
+                                    Supplier • Labour • Production • Inventory Management
+                                </small>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Right Section -->
+                    <div class="col-12 col-lg-4 text-lg-end text-start">
+
+                        <span class="badge bg-primary fs-6 px-3 py-2">
+                            <i class="bi bi-calendar-event me-1"></i>
+                            @DateTime.Today.ToString("dd MMM yyyy")
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="card-body">
+
+                <!-- Filter Section -->
+                <div class="card border-0 shadow-sm mb-4">
+
+                    <div class="card-header bg-primary text-white py-2">
+                        <h5 class="mb-0">
+                            <i class="bi bi-funnel-fill me-2"></i>
+                            Report Filters
+                        </h5>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="row g-4 align-items-start">
+
+
+
+                            <div class="col-lg-3">
+
+                                <label class="form-label fw-bold text-primary mb-0">
+                                    <i class="bi bi-calendar-range me-2"></i>
+                                    Date Range
+                                </label>
+
+
+                                <label class="small text-muted d-block mt-2">
+                                    From
+                                </label>
+
+                                <InputDate class="form-control shadow-sm mb-3"
+                                           @bind-Value="FromDate" />
+
+                                <label class="small text-muted d-block">
+                                    To
+                                </label>
+
+                                <InputDate class="form-control shadow-sm"
+                                           @bind-Value="ToDate" />
+
+
+
+                            </div>
+
+                           
+
+                            <div class="col-lg-4">
+
+                                <label class="form-label fw-bold text-primary">
+                                    <i class="bi bi-list-check me-2"></i>
+                                    Select Option
+                                </label>
+
+                                <div class="border border-primary rounded-3 p-3 bg-white shadow">
+
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input custom-radio"
+                                               type="radio"
+                                               name="materialType"
+                                               value="SubContract"
+                                               @onchange="OnTypeChanged"
+                                               checked="@(SelectedType == "SubContract")" />
+                                        <label class="form-check-label">SubContract</label>
+                                    </div>
+
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input custom-radio"
+                                               type="radio"
+                                               name="materialType"
+                                               value="Labour"
+                                               @onchange="OnTypeChanged"
+                                               checked="@(SelectedType == "Labour")" />
+                                        <label class="form-check-label">Labour</label>
+                                    </div>
+
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input custom-radio"
+                                               type="radio"
+                                               name="materialType"
+                                               value="ProductionComponent"
+                                               @onchange="OnTypeChanged"
+                                               checked="@(SelectedType == "ProductionComponent")" />
+                                        <label class="form-check-label">Production Component</label>
+                                    </div>
+
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input custom-radio"
+                                               type="radio"
+                                               name="materialType"
+                                               value="ProductionAssy"
+                                               @onchange="OnTypeChanged"
+                                               checked="@(SelectedType == "ProductionAssy")" />
+                                        <label class="form-check-label">Production Assembly</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input custom-radio"
+                                               type="radio"
+                                               name="materialType"
+                                               value="ProductionLog"
+                                               @onchange="OnTypeChanged"
+                                               checked="@(SelectedType == "ProductionLog")" />
+                                        <label class="form-check-label">Production Log</label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        
+                            <div class="col-lg-5">
+
+                                <label class="form-label fw-bold text-primary">
+                                    <i class="bi bi-people-fill me-2"></i>
+                                    @PartyLabel
+                                </label>
+
+                                <input class="form-control shadow-sm w-75"
+                                       list="partyList"
+                                       placeholder="Search here..."
+                                       @bind="SelectedPartyName"
+                                       @bind:event="oninput"
+                                       @onchange="OnPartyChanged" />
+
+                                <datalist id="partyList">
+                                    <option value="All"></option>
+
+                                    @foreach (var item in Parties)
+                                    {
+                                        <option value="@item.Name"></option>
+                                    }
+                                </datalist>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Table -->
+                <div class="card shadow-sm border-0">
+
+                    <div class="card-header bg-secondary text-white">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+                            <h5 class="mb-0" flex-grow-1">
+                                Material Balance Details
+                            </h5>
+
+
+
+                            <div style="width:250px;">
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-search"></i>
+                                    </span>
+
+                                    <InputText class="form-control"
+                                               placeholder="Search..."
+                                               @bind-Value="searchText"
+                                               @oninput="e => searchText = e.Value?.ToString()" />
+                                </div>
+                            </div>
+
+
+                            <!-- Export Button -->
+                            <button class="btn btn-light"
+                                    @onclick="OnPrintPendingTrack">
+                                <i class="bi bi-download me-2"></i>
+                                Export Excel
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+
+                        @if (MaterialStockLeftVMs != null && MaterialStockLeftVMs.Any())
+                        {
+
+                            <div class="table-responsive border rounded" style="max-height:600px; overflow-x:auto; overflow-y:auto;">
+
+                                <table class="table table-bordered table-sm mb-0 align-middle" style="min-width:1200px; white-space:nowrap;">
+
+                                    <thead class="custom-blue text-center align-middle sticky-top">
+                                        <tr>
+                                            <th>Sl No</th>
+
+                                            @if (SelectedType == "Labour")
+                                            {
+                                                <th>Customer Name</th>
+                                                <th>PO No</th>
+                                                <th>PO Date</th>
+                                                <th>GRN No</th>
+                                                <th>GRN Date</th>
+                                                <th>Ref RCNo</th>
+                                                <th>Transtype</th>
+                                                <th>Part No In</th>
+                                                <th>Qty In</th>
+                                                <th>Order Qty</th>
+                                                <th>Part No Out</th>
+                                                <th>Item Name</th>
+                                                <th>Bal Qty</th>
+                                            }
+                                            else if (SelectedType == "SubContract")
+                                            {
+                                                <th>Vendor Name</th>
+                                                <th>PO No</th>
+                                                <th>PO Date</th>
+                                                <th>DC No</th>
+                                                <th>DC Date</th>
+                                                <th>Ref RCNo</th>
+                                                <th>Process Name</th>
+                                                <th>Transtype</th>
+                                                <th>Part No Out</th>
+                                                <th>DC Qty</th>
+                                                <th>PO Qty</th>
+                                                <th>Part No In</th>
+                                                <th>Item Name</th>
+                                                <th>Bal Qty</th>
+                                            }
+                                            else if (SelectedType == "ProductionComponent")
+                                            {
+                                                <th>Issue No</th>
+                                                <th>Issue Date</th>
+                                                <th>Customer</th>
+                                                <th>Po No</th>
+                                                <th>Po Date</th>
+                                                <th>Labour PoNo</th>
+                                                <th>Labour PoDate</th>
+                                                <th>Ref RCNo</th>
+                                                <th>Transtype</th>
+                                                <th>Item Code</th>
+                                                <th>Item Name</th>
+                                                <th>Issue Qty</th>
+                                                <th>Balance Qty</th>
+                                            }
+                                            else if (SelectedType == "ProductionAssy")
+                                            {
+                                                <th>Issue No</th>
+                                                <th>Issue Date</th>
+                                                <th>Job No</th>
+                                                <th>Assembly Itemcode</th>
+                                                <th>Assembly itemname</th>
+                                                <th>Po No</th>
+                                                <th>Po Date</th>
+                                                <th>Labour PONo</th>
+                                                <th>Labour PoDate</th>
+                                                <th>Item Code</th>
+                                                <th>Item Name</th>
+                                                <th>Issue Qty</th>
+                                                <th>Balance Qty</th>
+                                            }
+                                            else if (SelectedType == "ProductionLog")
+                                            {
+                                                <th>Log No</th>
+                                                <th>Log Date</th>
+                                                <th>RC No</th>
+                                                <th>RC Date</th>
+                                                <th>Process</th>
+                                                <th>Machine</th>
+                                                <th>Input Item</th>
+                                                <th>Output Item</th>
+                                                <th>RC Qty</th>
+                                                <th>Accepted Qty</th>
+                                                <th>Rejection Qty</th>
+                                                <th>Rework Qty</th>
+                                                <th>Balance Qty</th>
+                                            }
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        @foreach (var item in MaterialStockLeftVMs.Select((x, i) => new { x, i }))
+                                        {
+                                            <tr>
+                                                <td>@(item.i + 1)</td>
+
+                                                @if (SelectedType == "Labour")
+                                                {
+                                                    <td>@item.x.CustName</td>
+                                                    <td>@item.x.PONo</td>
+                                                    <td>@item.x.PODate?.ToString("dd/MM/yyyy")</td>
+                                                    <td>@item.x.GRNNo</td>
+                                                    <td>@item.x.GRNDate?.ToString("dd/MM/yyyy")</td>
+                                                    <td>@item.x.RCNo</td>
+                                                    <td>
+                                                        <span class="@(item.x.TransType == "In" ? "trans-in" : "trans-out")">
+                                                            @item.x.TransType
+                                                        </span>
+                                                    </td>
+                                                    <td>@item.x.GRNItemCode</td>
+                                                    <td>@item.x.GRNQty</td>
+                                                    <td>@item.x.POQty</td>
+                                                    <td>@item.x.ItemCode</td>
+                                                    <td>@item.x.ItemName</td>
+                                                    <td>@item.x.BalQty</td>
+                                                }
+                                                else if (SelectedType == "SubContract")
+                                                {
+                                                    <td>@item.x.CustName</td>
+                                                    <td>@item.x.PONo</td>
+                                                    <td>@item.x.PODate?.ToString("dd/MM/yyyy")</td>
+                                                    <td>@item.x.DcNo</td>
+                                                    <td>@item.x.DCDate?.ToString("dd/MM/yyyy")</td>
+                                                    <td>@item.x.RCNo</td>
+                                                    <td>@item.x.ProcessName</td>
+                                                    <td>
+                                                        <span class="@(item.x.TransType == "In" ? "trans-in" : "trans-out")">
+                                                            @item.x.TransType
+                                                        </span>
+                                                    </td>
+                                                    <td>@item.x.DCItemCode</td>
+                                                    <td>@item.x.DcQty</td>
+                                                    <td>@item.x.POQty</td>
+                                                    <td>@item.x.GRNItemCode</td>
+                                                    <td>@item.x.GRNItemName</td>
+                                                    <td>@item.x.BalQty</td>
+                                                }
+                                                else if (SelectedType == "ProductionComponent")
+                                                {
+                                                    <td>@item.x.IssueNo</td>
+                                                    <td>@item.x.IssueDate</td>
+                                                    <td>@item.x.CustName</td>
+                                                    <td>@item.x.PONo</td>
+                                                    <td>@item.x.PODate</td>
+                                                    <td>@item.x.LPONo</td>
+                                                    <td>@item.x.LPODate</td>
+                                                    <td>@item.x.RCNo</td>
+                                                    <td>
+                                                        <span class="@(item.x.TransType == "In" ? "trans-in" : "trans-out")">
+                                                            @item.x.TransType
+                                                        </span>
+                                                    </td>
+                                                    <td>@item.x.ItemCode</td>
+                                                    <td>@item.x.ItemName</td>
+                                                    <td class="text-end">@item.x.Qty</td>
+                                                    <td class="text-end">@item.x.BalQty</td>
+                                                }
+                                                else if (SelectedType == "ProductionAssy")
+                                                {
+                                                    <td>@item.x.IssueNo</td>
+                                                    <td>@item.x.IssueDate</td>
+                                                    <td>@item.x.JobNo</td>
+                                                    <td>@item.x.AssyItemCode</td>
+                                                    <td>@item.x.AssyItemName</td>
+                                                    <td>@item.x.PONo</td>
+                                                    <td>@item.x.PODate</td>
+                                                    <td>@item.x.LPONo</td>
+                                                    <td>@item.x.LPODate</td>
+                                                    <td>@item.x.ItemCode</td>
+                                                    <td>@item.x.ItemName</td>
+                                                    <td class="text-end">@item.x.Qty</td>
+                                                    <td class="text-end">@item.x.BalQty</td>
+                                                }
+                                                else if (SelectedType == "ProductionLog")
+                                                {
+                                                    <td>@item.x.LogNo</td>
+                                                    <td>@item.x.LogDate</td>
+                                                    <td>@item.x.RCNo</td>
+                                                    <td>@item.x.RCDate</td>
+                                                    <td>@item.x.ProcessName</td>
+                                                    <td>@item.x.MachineName</td>
+                                                    <td>@item.x.ItemCode</td>
+                                                    <td>@item.x.IOSItemCode</td>
+                                                    <td>@item.x.RCQty</td>
+                                                    <td>@item.x.AccQty</td>
+                                                    <td>@item.x.RejQty</td>
+                                                    <td>@item.x.RewQty</td>
+                                                    <td>@item.x.BalQty</td>
+                                                }
+
+                                                <!-- ProductionComponent -->
+                                                <!-- ProductionAssy -->
+                                                <!-- ProductionLog -->
+                                            </tr>
+                                        }
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+
+
+                            <!-- Grid Here -->
+                        }
+                        else
+                        {
+                            <div class="alert alert-warning text-center">
+                                No records found.
+                            </div>
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+}
+
+
+
+@code {
+
+    protected override string ScreenName => "Labour SCN";
+    private bool isProcessing = false;
+    private DateTime? FromDate = DateTime.Today.AddMonths(-1);
+    private DateTime? ToDate = DateTime.Today;
+
+    private string SelectedType = "";
+
+    private List<MaterialStockLeftVM> FilteredList = new();
+    private List<MaterialStockLeftVM> OriginalList = new();
+
+    private string SelectedParty { get; set; } = "";
+
+    private string searchText;
+
+
+    public bool DetailsView { get; set; }
+
+    private string SelectedPartyName { get; set; } = "";
+
+
+    private string PartySearchText { get; set; } = "";
+
+    private IEnumerable<PartyVM> FilteredParties =>
+        string.IsNullOrWhiteSpace(PartySearchText)
+            ? Parties
+            : Parties.Where(x =>
+                x.Name.Contains(PartySearchText, StringComparison.OrdinalIgnoreCase));
+
+    private string PartyLabel =>
+      SelectedType == "ProductionComponent" || SelectedType == "ProductionAssy" || SelectedType == "ProductionLog"
+          ? "Issue No"
+          : "Party";
+
+
+    private string SelectText =>
+     SelectedType == "ProductionComponent" || SelectedType == "ProductionAssy" || SelectedType == "ProductionLog"
+     ? "-- Select Issue No --"
+     : "-- Select Party --";
+
+    private int? partyId;
+
+    private List<PartyVM> Parties = new();
+
+    private List<PageHeader.BreadcrumbItem> materialstockleftBreadcrumbs = new()
+    {
+        new PageHeader.BreadcrumbItem { Text = "Reports",Url="reports-home" },
+        new PageHeader.BreadcrumbItem { Text = "Material Stock Left With Supplier / Shop Floor  Report", IsLast = true }
+    };
+
+
+
+    private async Task OnTypeChanged(ChangeEventArgs e)
+    {
+        SelectedType = e.Value?.ToString() ?? "";
+
+        SelectedParty = null;
+        SelectedPartyName = null;
+        await LoadParty();
+
+        await LoadFilteredData();
+
+
+    }
+
+    private async Task LoadFilteredData()
+    {
+        FilteredList = await MaterialStockLeftService.GetPartyPendingAsync(
+            SelectedType,
+            SelectedParty,
+            FromDate,
+            ToDate);
+
+        OriginalList = FilteredList.ToList();
+    }
+
+
+
+    private async Task LoadParty()
+    {
+        try
+        {
+            Parties.Clear();
+            FilteredList = null;
+            var partyList = await MaterialStockLeftService.GetPartiesAsync(
+            SelectedType,
+            FromDate,
+            ToDate);
+
+            Parties = partyList?
+                .Select(x => new PartyVM
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                })
+                .ToList() ?? new List<PartyVM>();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            Parties = new List<PartyVM>();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            isProcessing = true;
+
+            await LoadRightsAsync();
+
+            if (!CanView)
+            {
+                _navigation.NavigateTo("/access-denied");
+                return;
+            }
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(
+                ex,
+                "Error loading Ratings page");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    private List<PageHeader.BreadcrumbItem> RatingBreadcrumbs = new()
+    {
+        new() { Text = "Reports" },
+        new() { Text = "Pending Report" },
+        new() { Text = "Material_stockLeft", IsLast = true }
+    };
+
+
+    private async Task OnPartyChanged()
+    {
+       
+       var selected = Parties
+      .FirstOrDefault(x => x.Name == SelectedPartyName);
+
+        SelectedParty = selected?.Id.ToString() ?? "";
+
+       switch (SelectedType)
+        {
+            case "SubContract":
+            case "Labour":
+                if (long.TryParse(SelectedParty, out long partyId))
+                {
+                    FilteredList = OriginalList
+                        .Where(i => i.PartyId == partyId)
+                        .ToList();
+                }
+                else
+                {
+                    FilteredList = OriginalList.ToList();
+                }
+                break;
+
+            case "ProductionComponent":
+            case "ProductionAssy":
+                var selectedPartyName = Parties
+                    .FirstOrDefault(p => p.Id.ToString() == SelectedParty)?.Name;
+
+                FilteredList = !string.IsNullOrEmpty(selectedPartyName)
+                    ? OriginalList.Where(x => x.IssueNo == selectedPartyName).ToList()
+                    : OriginalList.ToList();
+
+                break;
+
+            case "ProductionLog":
+                var selectedLogName = Parties
+                    .FirstOrDefault(p => p.Id.ToString() == SelectedParty)?.Name;
+
+                FilteredList = !string.IsNullOrEmpty(selectedLogName)
+                    ? OriginalList.Where(x => x.LogNo == selectedLogName).ToList()
+                    : OriginalList.ToList();
+
+                break;
+
+            default:
+                FilteredList = OriginalList.ToList();
+                break;
+        }
+
+    
+
+
+         StateHasChanged();
+    }
+
+    private IEnumerable<MaterialStockLeftVM> MaterialStockLeftVMs
+    {
+        get
+       {
+            if (string.IsNullOrWhiteSpace(searchText) || searchText.Length < 3)
+                return FilteredList;
+
+            return FilteredList.Where(x =>
+
+                (x.CustName ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+                ||
+
+                (x.ItemCode ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+                ||
+
+                (x.ItemName ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+                ||
+                 (x.GRNItemCode ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+                ||
+
+                (x.GRNItemName ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+                ||
+
+                (x.RCNo ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+                ||
+
+                (x.PONo ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+                ||
+
+                (x.IssueNo ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+                ||
+
+                (x.DcNo ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+                ||
+
+                (x.JobNo ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+
+
+                ||
+
+                (x.GRNNo ?? string.Empty)
+                    .Contains(searchText, StringComparison.OrdinalIgnoreCase)
+            );
+        }
+    }
+
+    private async Task OnPrintPendingTrack()
+    {
+        try
+        {
+            if (MaterialStockLeftVMs == null || !MaterialStockLeftVMs.Any())
+            {
+                await _JS.InvokeVoidAsync("alert", "No data found to export.");
+                return;
+            }
+
+            string[] headers = Array.Empty<string>();
+            List<object> exportData = new();
+
+            switch (SelectedType)
+            {
+                case "Labour":
+
+                    headers = new[]
+                    {
+                    "Sl No","Customer Name","PO No","PO Date","GRN No","GRN Date","Ref RCNo",
+                    "Part No In","Qty In","Order Qty","Part No Out","Item Name","Bal Qty"
+                };
+
+                    exportData = MaterialStockLeftVMs.Select((x, i) => new
+                    {
+                        SlNo = i + 1,
+                        x.CustName,
+                        x.PONo,
+                        PODate = x.PODate?.ToString("dd/MM/yyyy") ?? "",
+                        x.GRNNo,
+                        GRNDate = x.GRNDate?.ToString("dd/MM/yyyy") ?? "",
+                        x.RCNo,
+                        x.GRNItemCode,
+                        x.GRNQty,
+                        x.POQty,
+                        x.ItemCode,
+                        x.ItemName,
+                        x.BalQty
+                    }).Cast<object>().ToList();
+
+                    break;
+
+                case "SubContract":
+
+                    headers = new[]
+                    {
+                    "Sl No","Vendor Name","PO No","PO Date","DC No","DC Date","Ref RCNo","ProcessName",
+                    "Part No Out","DC Qty","PO Qty","Part No In","Item Name","Bal Qty"
+                };
+
+                    exportData = MaterialStockLeftVMs.Select((x, i) => new
+                    {
+                        SlNo = i + 1,
+                        x.CustName,
+                        x.PONo,
+                        PODate = x.PODate?.ToString("dd/MM/yyyy") ?? "",
+                        x.DcNo,
+                        DCDate = x.DCDate?.ToString("dd/MM/yyyy") ?? "",
+                        x.RCNo,
+                        x.ProcessName,
+                        x.DCItemCode,
+                        x.DcQty,
+                        x.POQty,
+                        x.GRNItemCode,
+                        x.GRNItemName,
+                        x.BalQty
+                    }).Cast<object>().ToList();
+
+                    break;
+
+                case "ProductionComponent":
+
+                    headers = new[]
+                    {
+                    "Sl No","Issue No","Issue Date","Customer","PO No","PO Date",
+                    "Labour PO No","Labour PO Date","Item Code","Item Name",
+                    "Issue Qty","Balance Qty"
+                };
+
+                    exportData = MaterialStockLeftVMs.Select((x, i) => new
+                    {
+                        SlNo = i + 1,
+                        x.IssueNo,
+                        IssueDate = x.IssueDate ?? "",
+                        x.CustName,
+                        x.PONo,
+                        PODate = x.PODate?.ToString("dd/MM/yyyy") ?? "",
+                        x.LPONo,
+                        LPODate = x.LPODate?.ToString("dd/MM/yyyy") ?? "",
+                        x.ItemCode,
+                        x.ItemName,
+                        x.Qty,
+                        x.BalQty
+                    }).Cast<object>().ToList();
+
+                    break;
+
+                case "ProductionAssy":
+
+                    headers = new[]
+                    {
+                    "Sl No","Issue No","Issue Date","Job No","Assembly Item Code",
+                    "Assembly Item Name","PO No","PO Date","Item Code",
+                    "Item Name","Issue Qty","Balance Qty"
+                };
+
+                    exportData = MaterialStockLeftVMs.Select((x, i) => new
+                    {
+                        SlNo = i + 1,
+                        x.IssueNo,
+                        IssueDate = x.IssueDate ?? "",
+                        x.JobNo,
+                        x.AssyItemCode,
+                        x.AssyItemName,
+                        x.PONo,
+                        PODate = x.PODate?.ToString("dd/MM/yyyy") ?? "",
+                        x.ItemCode,
+                        x.ItemName,
+                        x.Qty,
+                        x.BalQty
+                    }).Cast<object>().ToList();
+
+                    break;
+
+                case "ProductionLog":
+
+                    headers = new[]
+                    {
+                    "Sl No","Log No","Log Date","RC No","RC Date",
+                    "Process","Machine","Input Item","Output Item",
+                    "RC Qty","Balance Qty"
+                };
+
+                    exportData = MaterialStockLeftVMs.Select((x, i) => new
+                    {
+                        SlNo = i + 1,
+                        x.LogNo,
+                        LogDate = x.LogDate ?? "",
+                        x.RCNo,
+                        RCDate = x.RCDate ?? "",
+                        x.ProcessName,
+                        x.MachineName,
+                        x.ItemCode,
+                        x.IOSItemCode,
+                        x.RCQty,
+                        x.BalQty
+                    }).Cast<object>().ToList();
+
+                    break;
+            }
+
+            var fileBytes = await excelTemplateService.CreateTemplateAsync(
+                sheetName: "Pending_Report",
+                headers: headers,
+                sampleData: exportData
+            );
+
+            if (fileBytes == null || fileBytes.Length == 0)
+            {
+                await _JS.InvokeVoidAsync("alert", "Failed to generate Excel file.");
+                return;
+            }
+
+            var base64 = Convert.ToBase64String(fileBytes);
+
+            await _JS.InvokeVoidAsync(
+                "downloadExcelFile",
+                base64,
+                "Pending_Report.xlsx"
+            );
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(
+                ex,
+                "Error while exporting Pending Report"
+            );
+
+            await _JS.InvokeVoidAsync(
+                "alert",
+                "Error occurred while exporting Excel."
+            );
+        }
+    }
+
+}

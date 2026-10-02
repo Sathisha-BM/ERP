@@ -1,0 +1,62 @@
+2026-09-02 10:03:13 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Item | Action: Raw-Material and Process Flow Created | Info: Raw-Material and Process Allocated to the Component.
+
+2026-09-02 10:04:11 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Bill of Material | Action: BOM Created | Info: BOM Updated.
+
+2026-09-02 10:04:11 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Bill of Material | Action: BOM Created | Info: BOM Updated.
+
+2026-09-02 10:05:06 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Manufacturing PO Created | Info: Sales Order Created.
+
+2026-09-02 10:07:34 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Job Order Created | Info: Job Order Created.
+
+2026-09-02 10:07:34 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Job Order Created | Info: Job Order Created.
+
+2026-09-02 10:31:49 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Tool Crib Issue | Action: Prouction Issue Assembly Created | Info: Production Issue Assembly Created.
+
+2026-09-02 10:32:20 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Production Return Assembly | Action: Production Return Assembly Created | Info: Production Return Assembly Created Successfully.
+
+2026-09-02 10:32:30 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Production Assembly SCN | Action: Production SCN Created | Info: Production SCN Created.
+
+2026-09-02 10:32:56 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Tool Crib Issue | Action: Prouction Issue Assembly Created | Info: Production Issue Assembly Created.
+
+2026-09-02 10:35:03 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: SCN Gen Created | Info: SCN General Created.
+
+2026-09-02 10:35:26 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Tool Crib Issue | Action: Prouction Issue Assembly Created | Info: Production Issue Assembly Created.
+
+2026-09-02 10:35:50 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Production Return Assembly | Action: Production Return Assembly Created | Info: Production Return Assembly Created Successfully.
+
+2026-09-02 10:36:05 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Production Assembly SCN | Action: Production SCN Created | Info: Production SCN Created.
+
+2026-09-02 10:37:27 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Item | Action: Item Created | Info: Item Created.
+
+2026-09-02 10:37:49 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Item | Action: Item Created | Info: Item Created.
+
+2026-09-02 10:38:13 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Item | Action: Raw-Material and Process Flow Created | Info: Raw-Material and Process Allocated to the Component.
+
+2026-09-02 10:39:31 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Labour GRN | Action: Labour GRN Created | Info: Labour GRN Created.
+
+2026-09-02 10:39:51 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Purchase SCN | Action: Purchase SCN Created | Info: Labour SCN Created.
+
+2026-09-02 14:25:07 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Stores | Action: User Created a new record for Factors. bspl | Info: FactorName: bspl
+2026-09-02 14:26:22 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User created a new grouping | Info: 
+2026-09-02 14:26:37 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping Master | Action: Grouping data modified | Info: ModifiedBy: 'null' → 'Administrator'
+ModifiedDate: 'null' → '02/09/2026 14:26:37'
+
+2026-09-02 14:26:37 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User deleted old sub-records for grouping | Info: Grouping ID: 1
+2026-09-02 14:26:49 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping Master | Action: Grouping data modified | Info: ModifiedDate: '02/09/2026 08:56:37' → '02/09/2026 14:26:49'
+
+2026-09-02 14:26:49 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User deleted old sub-records for grouping | Info: Grouping ID: 1
+2026-09-02 15:01:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Item | Action: Deleted ProcessFlow & Raw Material | Info: CompMasterID = 7
+2026-09-02 15:03:41 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Item | Action: Raw-Material and Process Flow Created | Info: Raw-Material and Process Allocated to the Component.
+
+2026-09-02 15:04:17 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Item | Action: Raw-Material and Process Flow Updated | Info: Parent Changes:
+ProcessFlowCharts: 'System.Collections.Generic.List`1[V.SMART.Shared.Data.Master.Inventory_module.ProcessFlowChart]' → 'System.Collections.Generic.List`1[V.SMART.Shared.ViewModels.ProcessFlowChartVM]'
+
+Child Added - Process: , Unit Price: 10
+Raw-Material and Process Allocated to the Component Updated.
+
+2026-09-02 18:35:57 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Item | Action: Item Substitution Updated | Info: Item Substituion Created.
+
+2026-09-02 18:37:39 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Manufacturing PO Created | Info: Sales Order Created.
+
+2026-09-02 18:40:30 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Manufacturing PO Created | Info: Sales Order Created.
+

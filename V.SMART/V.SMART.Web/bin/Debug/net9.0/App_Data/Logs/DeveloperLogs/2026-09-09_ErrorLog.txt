@@ -1,0 +1,251 @@
+2026-09-09 09:42:12 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 09:42:12 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 09:42:12 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 09:49:19 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 09:49:19 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 09:49:19 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 10:14:37 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 10:14:37 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 10:14:37 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 10:55:30 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 10:55:30 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 10:55:30 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 10:55:35 | Level: ERROR | Source: An error occurred while handling the OnInitializedAsync() Method for User | Message: EXCEPTION: Exception of type 'Microsoft.AspNetCore.Components.NavigationException' was thrown.
+STACKTRACE:    at Microsoft.AspNetCore.Components.Server.Circuits.RemoteNavigationManager.NavigateToCore(String uri, NavigationOptions options)
+   at Microsoft.AspNetCore.Components.NavigationManager.NavigateToCore(String uri, Boolean forceLoad)
+   at V.SMART.Shared.Pages.Master_Module_pages.Identity_Pages.Logout.OnInitializedAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Master_Module_pages\Identity_Pages\Logout.razor:line 69
+2026-09-09 12:25:34 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-09 12:25:48 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 12:25:48 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 12:25:48 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 12:25:49 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 327
+2026-09-09 12:38:40 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-09 12:38:41 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-09 12:39:55 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 12:39:55 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 12:39:55 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 12:39:55 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 327
+2026-09-09 14:17:24 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-09 14:17:26 | Level: ERROR | Source: Error in EinvoiceCancelOption() | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.SalesService.MfgQuotationService.BatchNoOption() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SalesService\MfgQuotationService.cs:line 1666
+2026-09-09 14:17:26 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-09 14:17:59 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 14:18:00 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 14:18:00 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 14:38:53 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 14:38:53 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 14:38:53 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 14:46:30 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 14:46:30 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 14:46:30 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 14:54:44 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 14:54:44 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 14:54:44 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 15:21:21 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 15:21:21 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 15:21:21 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 15:28:44 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 15:28:44 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 15:28:44 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 15:36:42 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 15:36:42 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 15:36:42 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 18:10:07 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-09 18:10:09 | Level: ERROR | Source: Error in EinvoiceCancelOption() | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.SalesService.MfgQuotationService.BatchNoOption() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SalesService\MfgQuotationService.cs:line 1666
+2026-09-09 18:10:09 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-09 18:11:41 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-09 18:11:42 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-09 18:12:15 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 18:12:15 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 18:12:15 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 18:12:15 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 327
+2026-09-09 18:13:48 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-09 18:13:49 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-09 18:14:04 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 18:14:04 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 18:14:04 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 18:14:04 | Level: ERROR | Source: Failed to load company logo. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.CompanyService.GetCompanyLogoUrlAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\CompanyService.cs:line 38
+   at V.SMART.Shared.Pages.Home.LoadCompanyLogoAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Home.razor:line 886
+2026-09-09 18:15:32 | Level: ERROR | Source: Error in EinvoiceCancelOption() | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.SalesService.MfgQuotationService.BatchNoOption() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SalesService\MfgQuotationService.cs:line 1666
+2026-09-09 18:15:47 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 18:15:47 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 18:15:47 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 18:15:47 | Level: ERROR | Source: Failed to load company logo. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.CompanyService.GetCompanyLogoUrlAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\CompanyService.cs:line 38
+   at V.SMART.Shared.Pages.Home.LoadCompanyLogoAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Home.razor:line 886
+2026-09-09 18:20:35 | Level: INFO | Source:  | Message: Invalid login attempt: Administrator
+2026-09-09 18:20:40 | Level: INFO | Source:  | Message: Invalid login attempt: Administrator
+2026-09-09 18:20:47 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 18:20:47 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 18:20:47 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 18:20:47 | Level: ERROR | Source: Failed to load company logo. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.CompanyService.GetCompanyLogoUrlAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\CompanyService.cs:line 38
+   at V.SMART.Shared.Pages.Home.LoadCompanyLogoAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Home.razor:line 886
+2026-09-09 18:31:07 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-09 18:31:17 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 18:31:17 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 18:31:17 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 18:31:18 | Level: ERROR | Source: Failed to load company logo. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.CompanyService.GetCompanyLogoUrlAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\CompanyService.cs:line 38
+   at V.SMART.Shared.Pages.Home.LoadCompanyLogoAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Home.razor:line 886
+2026-09-09 18:43:24 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-09 18:43:42 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 18:43:42 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 18:43:42 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 18:43:43 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 327
+2026-09-09 18:55:52 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-09 18:55:53 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-09 19:06:24 | Level: INFO | Source:  | Message: Invalid login attempt: Administrator
+2026-09-09 19:06:28 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-09 19:06:29 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-09 19:06:29 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-09 19:06:29 | Level: ERROR | Source: Failed to load company logo. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.CompanyService.GetCompanyLogoUrlAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\CompanyService.cs:line 38
+   at V.SMART.Shared.Pages.Home.LoadCompanyLogoAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Home.razor:line 886

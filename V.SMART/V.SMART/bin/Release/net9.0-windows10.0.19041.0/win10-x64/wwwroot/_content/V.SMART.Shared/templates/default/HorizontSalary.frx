@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/31/2026 10:46:56" ReportInfo.Modified="09/01/2026 15:24:08" ReportInfo.CreatorVersion="2026.1.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlq2C5rfBekhIxQouaddX4EjwAuvpzuVmLRp+80E8RE0yTkKI0fWgP2Pm+sp6F6gh3UFbtHHaCtxsB6PV9V34e+z3pwr/z2la/Hjq6RAaCWvajZu14f1xPzg9l8S5aErK5JyuGwCeHhTT9QNf12nghKIdgAlwmp8/wpka6UJbwvHFUNIf0NRPvaNH9dg70ttm1dYVZ6bycfwKf3VEYTXQ3o0A==">
+      <ProcedureDataSource Name="Sp_GetEmployeeWiseSalary" DataType="System.Int32" Enabled="true" TableName="Sp_GetEmployeeWiseSalary" SelectCommand="Sp_GetEmployeeWiseSalary">
+        <Column Name="RowId" DataType="System.Int32"/>
+        <Column Name="SalYear" DataType="System.Int32"/>
+        <Column Name="SalMonth" DataType="System.Int32"/>
+        <Column Name="SalDate" DataType="System.DateTime"/>
+        <Column Name="StaffId" DataType="System.Int32"/>
+        <Column Name="StaffRefId" DataType="System.String"/>
+        <Column Name="StaffName" DataType="System.String"/>
+        <Column Name="Department" DataType="System.String"/>
+        <Column Name="Designation" DataType="System.String"/>
+        <Column Name="WorkingDays" DataType="System.Decimal"/>
+        <Column Name="PayableDays" DataType="System.Decimal"/>
+        <Column Name="LeaveDays" DataType="System.Decimal"/>
+        <Column Name="PresentDays" DataType="System.Decimal"/>
+        <Column Name="AbsentDays" DataType="System.Decimal"/>
+        <Column Name="Holidays" DataType="System.Decimal"/>
+        <Column Name="LOP" DataType="System.Decimal"/>
+        <Column Name="TotalEarnings" DataType="System.Decimal"/>
+        <Column Name="Basic" DataType="System.Decimal"/>
+        <Column Name="EarnedBasic" DataType="System.Decimal"/>
+        <Column Name="DA" DataType="System.Decimal"/>
+        <Column Name="EarnedDA" DataType="System.Decimal"/>
+        <Column Name="IsOTunderBasic" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="IsOTPerHour" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="OT_times_now" DataType="System.Decimal"/>
+        <Column Name="OT" DataType="System.Decimal"/>
+        <Column Name="EarnedOT" DataType="System.Decimal"/>
+        <Column Name="IsAttBonus" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="EarnedAttBonus" DataType="System.Decimal"/>
+        <Column Name="IsHRAPerDay" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="IsHRAPerMonth" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="HRA" DataType="System.Decimal"/>
+        <Column Name="EarnedHRA" DataType="System.Decimal"/>
+        <Column Name="IsTAPerDay" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="IsTAPerMonth" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="TA" DataType="System.Decimal"/>
+        <Column Name="EarnedTA" DataType="System.Decimal"/>
+        <Column Name="IsSplAllowPerDay" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="IsSplAllowPerMonth" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="SplAllow" DataType="System.Decimal"/>
+        <Column Name="EarnedSplAllow" DataType="System.Decimal"/>
+        <Column Name="Miscellaneous" DataType="System.Decimal"/>
+        <Column Name="Others" DataType="System.Decimal"/>
+        <Column Name="IsLTAPerDay" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="IsLTAPerMonth" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="LTA" DataType="System.Decimal"/>
+        <Column Name="EarnedLTA" DataType="System.Decimal"/>
+        <Column Name="IsMRPerDay" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="IsMRPerMonth" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="MR" DataType="System.Decimal"/>
+        <Column Name="EarnedMR" DataType="System.Decimal"/>
+        <Column Name="IsEAPerDay" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="IsEAPerMonth" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="EA" DataType="System.Decimal"/>
+        <Column Name="EarnedEA" DataType="System.Decimal"/>
+        <Column Name="Society" DataType="System.Decimal"/>
+        <Column Name="Insurance" DataType="System.Decimal"/>
+        <Column Name="SalAdvance" DataType="System.Decimal"/>
+        <Column Name="Fines" DataType="System.Decimal"/>
+        <Column Name="DamageLoss" DataType="System.Decimal"/>
+        <Column Name="OtherDed" DataType="System.Decimal"/>
+        <Column Name="IsPF" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="EarnedPF" DataType="System.Decimal"/>
+        <Column Name="IsESI" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="EarnedESI" DataType="System.Decimal"/>
+        <Column Name="IsPT" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="PT" DataType="System.Decimal"/>
+        <Column Name="TDS" DataType="System.Decimal"/>
+        <Column Name="chckOT" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="LoanId" DataType="System.Int32"/>
+        <Column Name="LoanAmtDed" DataType="System.Decimal"/>
+        <Column Name="LoanBalB4" DataType="System.Decimal"/>
+        <Column Name="TotalDed" DataType="System.Decimal"/>
+        <Column Name="NetPay" DataType="System.Decimal"/>
+        <Column Name="OldBal" DataType="System.Decimal"/>
+        <Column Name="paidAmt" DataType="System.Decimal"/>
+        <Column Name="AttBonus" DataType="System.Decimal"/>
+        <Column Name="LoanDedId" DataType="System.Int32"/>
+        <Column Name="IsDAtoPF" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="ESIBankCode" DataType="System.String"/>
+        <Column Name="ESIBankName" DataType="System.String"/>
+        <Column Name="ESICQDate" DataType="System.DateTime"/>
+        <Column Name="ESICQNo" DataType="System.String"/>
+        <Column Name="ESIDate" DataType="System.DateTime"/>
+        <Column Name="ESIPytMode" DataType="System.String"/>
+        <Column Name="PFBankName" DataType="System.String"/>
+        <Column Name="PFCQDate" DataType="System.DateTime"/>
+        <Column Name="PFCQNo" DataType="System.String"/>
+        <Column Name="PFDate" DataType="System.DateTime"/>
+        <Column Name="PFDepositor" DataType="System.String"/>
+        <Column Name="PFPytMode" DataType="System.String"/>
+        <Column Name="Createdby" DataType="System.String"/>
+        <Column Name="Createddate" DataType="System.DateTime"/>
+        <Column Name="Modifiedby" DataType="System.String"/>
+        <Column Name="Modifieddate" DataType="System.DateTime"/>
+        <Column Name="PH" DataType="System.Decimal"/>
+        <Column Name="W" DataType="System.Decimal"/>
+        <Column Name="P" DataType="System.Decimal"/>
+        <Column Name="O" DataType="System.Decimal"/>
+        <Column Name="DOJ" DataType="System.String"/>
+        <Column Name="PFCodeNo" DataType="System.String"/>
+        <Column Name="ESICodeNo" DataType="System.String"/>
+        <ProcedureParameter Name="@SalMonth" DataType="8" DefaultValue="1" Direction="Input"/>
+        <ProcedureParameter Name="@SalYear" DataType="8" DefaultValue="2026" Direction="Input"/>
+      </ProcedureDataSource>
+      <ProcedureDataSource Name="Sp_Print_CompanyDetails" DataType="System.Int32" Enabled="true" TableName="Sp_Print_CompanyDetails" SelectCommand="Sp_Print_CompanyDetails">
+        <Column Name="CompanyName" DataType="System.String"/>
+        <Column Name="RegisteredAddress" DataType="System.String"/>
+        <Column Name="BillingAddress" DataType="System.String"/>
+        <Column Name="ShippingAddress" DataType="System.String"/>
+        <Column Name="City" DataType="System.String"/>
+        <Column Name="StateName" DataType="System.String"/>
+        <Column Name="Country" DataType="System.String"/>
+        <Column Name="ZipCode" DataType="System.String"/>
+        <Column Name="PhoneNumber" DataType="System.String"/>
+        <Column Name="MobileNumber" DataType="System.String"/>
+        <Column Name="EmailId" DataType="System.String"/>
+        <Column Name="Website" DataType="System.String"/>
+        <Column Name="GSTIN" DataType="System.String"/>
+        <Column Name="PAN" DataType="System.String"/>
+        <Column Name="IECNumber" DataType="System.String"/>
+        <Column Name="IsEOURegistered" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="LUTNumber" DataType="System.String"/>
+        <Column Name="BankAuthorizedDealerCode" DataType="System.String"/>
+        <Column Name="EOURegistrationNo" DataType="System.String"/>
+        <Column Name="EOURegistrationDate" DataType="System.DateTime"/>
+        <Column Name="EOUStatus" DataType="System.String"/>
+        <Column Name="EOUValidityTill" DataType="System.DateTime"/>
+        <Column Name="FinancialYearType" DataType="System.String"/>
+        <Column Name="OpeningBalance" DataType="System.Decimal"/>
+        <Column Name="OpeningBalanceDate" DataType="System.DateTime"/>
+        <Column Name="LogoPath" DataType="System.String"/>
+        <Column Name="LogoUrl" DataType="System.String"/>
+        <Column Name="IsoLogoPath" DataType="System.String"/>
+        <Column Name="IsoLogoUrl" DataType="System.String"/>
+        <Column Name="CurrencyCode" DataType="System.Int32"/>
+        <Column Name="TimeZone" DataType="System.String"/>
+        <Column Name="CIN" DataType="System.String"/>
+        <Column Name="TIN" DataType="System.String"/>
+        <Column Name="BankName" DataType="System.String"/>
+        <Column Name="BankBranch" DataType="System.String"/>
+        <Column Name="BankAccountNumber" DataType="System.String"/>
+        <Column Name="BankAddress" DataType="System.String"/>
+        <Column Name="BankCity" DataType="System.String"/>
+        <Column Name="BankState" DataType="System.String"/>
+        <Column Name="AccountType" DataType="System.String"/>
+        <Column Name="IFSCCode" DataType="System.String"/>
+        <Column Name="MICRCode" DataType="System.String"/>
+        <Column Name="SWIFTCode" DataType="System.String"/>
+        <Column Name="UdyamNumber" DataType="System.String"/>
+        <Column Name="PFRegistrationNumber" DataType="System.String"/>
+        <Column Name="ESIRegistrationNumber" DataType="System.String"/>
+        <Column Name="ShopEstablishmentNumber" DataType="System.String"/>
+        <Column Name="ExciseRegistrationNumber" DataType="System.String"/>
+        <Column Name="SEZRegistrationNumber" DataType="System.String"/>
+        <Column Name="CustomsRegistrationNumber" DataType="System.String"/>
+        <Column Name="AlternateEmail" DataType="System.String"/>
+        <Column Name="ContactPersonName" DataType="System.String"/>
+        <Column Name="CustomFinancialYearType" DataType="System.String"/>
+        <Column Name="CustomBusinessType" DataType="System.String"/>
+        <Column Name="CustomIndustryType" DataType="System.String"/>
+        <Column Name="IsActive" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="DecimalPlaces" DataType="System.Int32"/>
+        <Column Name="CreatedBy" DataType="System.String"/>
+        <Column Name="CreatedDate" DataType="System.DateTime"/>
+        <Column Name="ModifiedBy" DataType="System.String"/>
+        <Column Name="ModifiedDate" DataType="System.DateTime"/>
+      </ProcedureDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" Watermark.Font="Arial, 60pt">
+    <DataBand Name="Data1" Width="718.2" Height="519.75" DataSource="Sp_GetEmployeeWiseSalary" KeepDetail="true">
+      <TextObject Name="Text1" Left="152" Top="9.45" Width="411.4" Height="18.9" Text="[Sp_Print_CompanyDetails.CompanyName]" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt, style=Bold"/>
+      <TextObject Name="Text2" Left="60.6" Top="31.25" Width="601" Height="29.9" Text="[Sp_Print_CompanyDetails.RegisteredAddress]" HorzAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text3" Left="0.55" Top="65.6" Width="717.9" Height="22.9" Border.Lines="Top, Bottom" Text="Payslip for the Month of [Sp_GetEmployeeWiseSalary.SalMonth]  [Sp_GetEmployeeWiseSalary.SalYear]" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text4" Left="1.45" Top="98.95" Width="101.5" Height="18.9" Text="Emp. Code :" VertAlign="Bottom" Font="Arial, 10pt"/>
+      <TextObject Name="Text5" Top="127.3" Width="101.5" Height="18.9" Text="Working Days :" VertAlign="Bottom" Font="Arial, 10pt"/>
+      <TextObject Name="Text6" Left="210.4" Top="100.95" Width="95.5" Height="18.9" Text="Emp. Name:" VertAlign="Bottom" Font="Arial, 10pt"/>
+      <TextObject Name="Text7" Left="589.2" Top="100.95" Width="122.5" Height="18.9" Text="DOJ : [Sp_GetEmployeeWiseSalary.DOJ]" VertAlign="Bottom" Font="Arial, 10pt"/>
+      <TextObject Name="Text8" Left="210.4" Top="127.3" Width="95.5" Height="18.9" Text="Present Days:" VertAlign="Bottom" Font="Arial, 10pt"/>
+      <TextObject Name="Text9" Left="425.25" Top="100.95" Width="148.5" Height="18.9" Text="Dept. : [Sp_GetEmployeeWiseSalary.Department]" VertAlign="Bottom" Font="Arial, 10pt"/>
+      <TextObject Name="Text10" Left="425.25" Top="127.3" Width="145.5" Height="18.9" Text="Absent Days : [Sp_GetEmployeeWiseSalary.AbsentDays]" VertAlign="Bottom" Font="Arial, 10pt"/>
+      <TextObject Name="Text11" Left="103.95" Top="100.95" Width="85.5" Height="18.9" Text="[Sp_GetEmployeeWiseSalary.StaffRefId]" VertAlign="Bottom" Font="Arial, 10pt"/>
+      <TextObject Name="Text12" Left="103.95" Top="127.3" Width="84.5" Height="18.9" Text="[Sp_GetEmployeeWiseSalary.WorkingDays]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Bottom" WordWrap="false" Font="Arial, 10pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text13" Left="287.33" Top="100.67" Width="118.5" Height="18.9" Text="[Sp_GetEmployeeWiseSalary.StaffName]" VertAlign="Bottom" Font="Arial, 10pt"/>
+      <TextObject Name="Text14" Left="299.85" Top="127.3" Width="92.5" Height="18.9" Text="[Sp_GetEmployeeWiseSalary.PresentDays]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Bottom" WordWrap="false" Font="Arial, 10pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text15" Left="591.35" Top="127.3" Width="122.5" Height="18.9" Text="Leave Days : [Sp_GetEmployeeWiseSalary.LeaveDays]" VertAlign="Bottom" Font="Arial, 10pt"/>
+      <LineObject Name="Line1" Top="156.65" Width="718.2"/>
+      <TableObject Name="Table1" Top="164.1" Width="718.2" Height="40.95">
+        <TableColumn Name="Column1" Width="105.3"/>
+        <TableColumn Name="Column2" Width="105.3"/>
+        <TableColumn Name="Column3" Width="105.3"/>
+        <TableColumn Name="Column4" Width="105.3"/>
+        <TableColumn Name="Column5" Width="105.3"/>
+        <TableColumn Name="Column6" Width="95.85"/>
+        <TableColumn Name="Column7" Width="95.85"/>
+        <TableRow Name="Row1" Height="15.75">
+          <TableCell Name="Cell1" Text="Basic" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell2" Text="DA" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell3" Text="H.R.A&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell4" Text="Conveyance&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell5" Text="Med. Allow.&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell11" Text="Att. Bonus&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell12" Text="Spl. Allow.&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row3" Height="25.2">
+          <TableCell Name="Cell15" Text="[Sp_GetEmployeeWiseSalary.Basic]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell16" Text="[Sp_GetEmployeeWiseSalary.DA]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell17" Text="[Sp_GetEmployeeWiseSalary.HRA]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell18" Font="Arial, 8pt"/>
+          <TableCell Name="Cell19" Font="Arial, 8pt"/>
+          <TableCell Name="Cell20" Text="[Sp_GetEmployeeWiseSalary.EarnedAttBonus]" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell21" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <TableObject Name="Table2" Left="0.45" Top="215.8" Width="415.68" Height="37.8">
+        <TableColumn Name="Column8" Width="103.92"/>
+        <TableColumn Name="Column9" Width="103.92"/>
+        <TableColumn Name="Column10" Width="103.92"/>
+        <TableColumn Name="Column11" Width="103.92"/>
+        <TableRow Name="Row4">
+          <TableCell Name="Cell22" Text="O.T HR&#13;&#10;" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell23" Text="O.T Amount&#13;&#10;" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell24" Text="Food Alow.&#13;&#10;" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell25" Text="Other Allow.&#13;&#10;" HorzAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row5">
+          <TableCell Name="Cell27" Text="[Sp_GetEmployeeWiseSalary.OT]" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell28" Text="[Sp_GetEmployeeWiseSalary.EarnedOT]" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell29" Font="Arial, 8pt"/>
+          <TableCell Name="Cell30" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text16" Left="454.6" Top="227.25" Width="262.5" Height="18.9" Text="Total Earnings : [Sp_GetEmployeeWiseSalary.TotalEarnings]" HorzAlign="Right" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+      <TableObject Name="Table3" Left="-1.55" Top="283.5" Width="722.82" Height="37.8">
+        <TableColumn Name="Column12" Width="103.26"/>
+        <TableColumn Name="Column13" Width="103.26"/>
+        <TableColumn Name="Column14" Width="103.26"/>
+        <TableColumn Name="Column15" Width="103.26"/>
+        <TableColumn Name="Column16" Width="103.26"/>
+        <TableColumn Name="Column17" Width="103.26"/>
+        <TableColumn Name="Column18" Width="103.26"/>
+        <TableRow Name="Row6">
+          <TableCell Name="Cell31" Text="ESI" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell32" Text="P.F&#13;&#10;" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell33" Text="P.T&#13;&#10;" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell34" Text="T.D.S&#13;&#10;" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell35" Text="Society&#13;&#10;" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell41" Text="Insurance&#13;&#10;" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell42" Text="Sal.Adv.&#13;&#10;" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row7">
+          <TableCell Name="Cell36" Text="[Sp_GetEmployeeWiseSalary.EarnedESI]" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell37" Text="[Sp_GetEmployeeWiseSalary.EarnedPF]" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell38" Text="[Sp_GetEmployeeWiseSalary.PT]" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell39" Text="[Sp_GetEmployeeWiseSalary.TDS]" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell40" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell43" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell44" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text17" Left="532.45" Top="352.25" Width="184.5" Height="18.9" Text="Total Deductions: [Sp_GetEmployeeWiseSalary.TotalDed]" HorzAlign="Right" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+      <TableObject Name="Table4" Top="333.2" Width="519.75" Height="37.8">
+        <TableColumn Name="Column19" Width="103.95"/>
+        <TableColumn Name="Column20" Width="103.95"/>
+        <TableColumn Name="Column21" Width="103.95"/>
+        <TableColumn Name="Column22" Width="103.95"/>
+        <TableColumn Name="Column23" Width="103.95"/>
+        <TableRow Name="Row8">
+          <TableCell Name="Cell45" Text="Fines&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell46" Text="Damage/Loss" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell47" Text="Other Ded." HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell48" Text="Loan Amount" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell49" Text="Loan Balance" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row9">
+          <TableCell Name="Cell50" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell51" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell52" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell53" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell54" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <LineObject Name="Line2" Left="0.45" Top="378" Width="717.75"/>
+      <TextObject Name="Text18" Top="387.45" Width="94.5" Height="18.9" Text="Net  Pay : " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text19" Top="415.8" Width="94.5" Height="18.9" Text="Paid Amt : " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text20" Top="444.15" Width="101.95" Height="18.9" Text="Balance Amt : " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text21" Left="98.95" Top="387.45" Width="186.45" Height="18.9" Text="[Sp_GetEmployeeWiseSalary.NetPay]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Center" WordWrap="false" Font="Arial, 10pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text22" Left="98.95" Top="415.8" Width="186.45" Height="18.9" Text="[Sp_GetEmployeeWiseSalary.NetPay]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Center" WordWrap="false" Font="Arial, 10pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text23" Left="415.8" Top="458.6" Width="302.4" Height="18.9" Text="Seal / Authorised Signatory" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text25" Left="295.85" Top="387.45" Width="186.5" Height="18.9" Text="PF No : [Sp_GetEmployeeWiseSalary.PFCodeNo]" Font="Arial, 8pt, style=Bold"/>
+      <TextObject Name="Text24" Left="491.4" Top="387.45" Width="218.5" Height="18.9" Text="ESI No : [Sp_GetEmployeeWiseSalary.ESICodeNo]" Font="Arial, 8pt, style=Bold"/>
+      <LineObject Name="Line3" Left="-3.17" Top="498.28" Width="724.76" Border.Style="Dash"/>
+    </DataBand>
+  </ReportPage>
+</Report>

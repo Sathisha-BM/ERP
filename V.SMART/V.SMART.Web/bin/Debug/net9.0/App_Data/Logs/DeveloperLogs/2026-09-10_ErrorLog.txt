@@ -1,0 +1,118 @@
+2026-09-10 09:34:28 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-10 09:34:29 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-10 09:34:56 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-10 09:34:56 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-10 09:34:56 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-10 09:34:56 | Level: ERROR | Source: Failed to load company logo. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.CompanyService.GetCompanyLogoUrlAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\CompanyService.cs:line 38
+   at V.SMART.Shared.Pages.Home.LoadCompanyLogoAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Home.razor:line 886
+2026-09-10 12:16:56 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-10 12:16:56 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-10 12:16:56 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-10 12:29:28 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-10 12:29:30 | Level: ERROR | Source: Error in EinvoiceCancelOption() | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.SalesService.MfgQuotationService.BatchNoOption() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SalesService\MfgQuotationService.cs:line 1666
+2026-09-10 12:29:30 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-10 12:30:38 | Level: INFO | Source:  | Message: Invalid login attempt: Administrator
+2026-09-10 12:30:55 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-10 12:30:55 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-10 12:30:55 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-10 12:31:25 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-10 12:31:26 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-10 12:31:26 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-10 12:45:18 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-10 12:45:18 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-10 12:45:18 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-10 14:53:14 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-10 14:53:14 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-10 14:53:14 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-10 15:05:16 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-10 15:05:29 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-10 15:05:29 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-10 15:05:29 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-10 15:06:43 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-10 15:06:43 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-10 15:06:43 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-10 17:58:55 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-10 17:58:55 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-10 17:58:56 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-10 18:00:12 | Level: ERROR | Source: Error in GenerateSalarySlipReport() | Message: EXCEPTION: Text2: Error in expression: Sp_Print_Salary_Multiple.SalMonthYear
+STACKTRACE:    at FastReport.TextObjectBase.CalcAndFormatExpression(String expression, Int32 expressionIndex)
+   at FastReport.TextObject.GetData()
+   at FastReport.BandBase.GetData()
+   at FastReport.Engine.ReportEngine.PrepareBand(BandBase band, Boolean getData)
+   at FastReport.Engine.ReportEngine.ShowBandToPreparedPages(BandBase band, Boolean getData)
+   at FastReport.Engine.ReportEngine.ShowBand(BandBase band, Boolean getData)
+   at FastReport.Engine.ReportEngine.ShowBand(BandBase band)
+   at FastReport.Engine.ReportEngine.ShowPageHeader()
+   at FastReport.Engine.ReportEngine.StartFirstPage()
+   at FastReport.Engine.ReportEngine.RunReportPage(ReportPage page)
+   at FastReport.Engine.ReportEngine.RunReportPages()
+   at FastReport.Engine.ReportEngine.RunReportPages(ReportPage page)
+   at FastReport.Engine.ReportEngine.RunPhase2(Boolean append, ReportPage page)
+   at FastReport.Engine.ReportEngine.Run(Boolean runDialogs, Boolean append, Boolean resetDataState, ReportPage page)
+   at FastReport.Engine.ReportEngine.Run(Boolean runDialogs, Boolean append, Boolean resetDataState)
+   at FastReport.Report.Prepare(Boolean append, Boolean resetDataState)
+   at FastReport.Report.Prepare(Boolean append)
+   at FastReport.Report.Prepare()
+   at V.SMART.Shared.Services.ReportViewer.ReportService.GenerateSalarySlipMultipleReport(Int32 id, Int32 salMonth, Int32 salYear, String fileName, Boolean cancel, String screenName, String procedureName) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Services\ReportViewer\ReportService.cs:line 452
+2026-09-10 18:00:12 | Level: ERROR | Source: Error in GenerateAndOpenPdf Salary | Message: EXCEPTION: Text2: Error in expression: Sp_Print_Salary_Multiple.SalMonthYear
+STACKTRACE:    at FastReport.TextObjectBase.CalcAndFormatExpression(String expression, Int32 expressionIndex)
+   at FastReport.TextObject.GetData()
+   at FastReport.BandBase.GetData()
+   at FastReport.Engine.ReportEngine.PrepareBand(BandBase band, Boolean getData)
+   at FastReport.Engine.ReportEngine.ShowBandToPreparedPages(BandBase band, Boolean getData)
+   at FastReport.Engine.ReportEngine.ShowBand(BandBase band, Boolean getData)
+   at FastReport.Engine.ReportEngine.ShowBand(BandBase band)
+   at FastReport.Engine.ReportEngine.ShowPageHeader()
+   at FastReport.Engine.ReportEngine.StartFirstPage()
+   at FastReport.Engine.ReportEngine.RunReportPage(ReportPage page)
+   at FastReport.Engine.ReportEngine.RunReportPages()
+   at FastReport.Engine.ReportEngine.RunReportPages(ReportPage page)
+   at FastReport.Engine.ReportEngine.RunPhase2(Boolean append, ReportPage page)
+   at FastReport.Engine.ReportEngine.Run(Boolean runDialogs, Boolean append, Boolean resetDataState, ReportPage page)
+   at FastReport.Engine.ReportEngine.Run(Boolean runDialogs, Boolean append, Boolean resetDataState)
+   at FastReport.Report.Prepare(Boolean append, Boolean resetDataState)
+   at FastReport.Report.Prepare(Boolean append)
+   at FastReport.Report.Prepare()
+   at V.SMART.Shared.Services.ReportViewer.ReportService.GenerateSalarySlipMultipleReport(Int32 id, Int32 salMonth, Int32 salYear, String fileName, Boolean cancel, String screenName, String procedureName) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Services\ReportViewer\ReportService.cs:line 452
+   at V.SMART.Shared.Services.ReportViewer.ReportService.GenerateSalarySlipMultipleReport(Int32 id, Int32 salMonth, Int32 salYear, String fileName, Boolean cancel, String screenName, String procedureName) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Services\ReportViewer\ReportService.cs:line 466
+   at V.SMART.Shared.Pages.HumanResource_Pages.Payroll_Pages.SalaryList.GenerateAndOpenPdf() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\HumanResource_Pages\Payroll_Pages\SalaryList.razor:line 752

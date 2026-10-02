@@ -1,0 +1,466 @@
+﻿@using MudBlazor
+@using V.SMART.Shared.BusinessLayer.BusinessService.IBusinessService.IMaintenanceService
+@using V.SMART.Shared.ViewModels.MaintenanceViewModel.MaintenanceScheduleVM
+@using V.SMART.Shared.ViewModels.QIMSViewModel
+
+@inject NavigationManager NavigationManager
+@inject IMaintenanceProcessService _maintenanceProcessService
+
+<MudDialog Style="width:950px;max-width:95vw;border-radius:12px;overflow:hidden;"
+           DefaultFocus="DefaultFocus.None">
+
+    <DialogContent>
+
+        <div class="pa-0">
+
+            <!-- Header -->
+            <MudPaper Elevation="0"
+                      Class="pa-4"
+                      Style="background:linear-gradient(135deg,#0D47A1,#1976D2,#42A5F5);color:white;">
+
+                <MudStack Row="true"
+                          Justify="Justify.SpaceBetween"
+                          AlignItems="AlignItems.Center">
+
+                    <MudStack Row="true"
+                              AlignItems="AlignItems.Center"
+                              Spacing="2">
+
+                        <MudAvatar Color="Color.Primary"
+                                   Variant="Variant.Filled"
+                                   Size="Size.Large">
+                            <MudIcon Icon="@Icons.Material.Filled.Description" />
+                        </MudAvatar>
+
+                        <div>
+                            <MudText Typo="Typo.h5">
+                                Expired / Expiring Documents
+                            </MudText>
+
+                            <MudText Typo="Typo.body2">
+                                Quality Management System
+                            </MudText>
+                        </div>
+
+                    </MudStack>
+
+                    <MudChip T="string"
+                             Color="Color.Warning"
+                             Variant="Variant.Filled"
+                             StartIcon="@Icons.Material.Filled.List"
+                             Text="@($"Total : {Documents.Count}")" />
+
+                </MudStack>
+
+            </MudPaper>
+
+            <div class="pa-4">
+
+                @if (Documents.Any())
+                {
+                    var expiredCount = Documents.Count(x =>
+                    x.ExpiryDate.HasValue &&
+                    x.ExpiryDate.Value.Date < DateTime.Today);
+
+                    var warningCount = Documents.Count(x =>
+                    x.ExpiryDate.HasValue &&
+                    x.ExpiryDate.Value.Date >= DateTime.Today &&
+                    x.ExpiryDate.Value.Date <= DateTime.Today.AddDays(5));
+
+                    @if (expiredCount > 0 || warningCount > 0)
+                    {
+                        <MudAlert Severity="Severity.Warning"
+                                  Variant="Variant.Filled"
+                                  Class="mb-4">
+
+                            @if (expiredCount > 0)
+                            {
+                                <div>
+                                    🔴 <b>@expiredCount</b> document(s) have expired.
+                                </div>
+                            }
+
+                            @if (warningCount > 0)
+                            {
+                                <div>
+                                    🟡 <b>@warningCount</b> document(s) will expire within the next 5 days.
+                                </div>
+                            }
+
+                        </MudAlert>
+                    }
+                }
+
+                <MudTable Items="@Documents"
+                          Dense="true"
+                          Hover="true"
+                          Striped="true"
+                          Bordered="true"
+                          FixedHeader="true"
+                          Height="420px">
+
+                    <HeaderContent>
+                        <MudTh Width="60" Style="background:linear-gradient(135deg,#0D47A1,#1976D2,#42A5F5);color:white;">Sl</MudTh>
+
+                        <MudTh Style="background:linear-gradient(135deg,#0D47A1,#1976D2,#42A5F5);color:white;">Document No</MudTh>
+
+                        <MudTh Style="background:linear-gradient(135deg,#0D47A1,#1976D2,#42A5F5);color:white;">Document Name</MudTh>
+
+                        <MudTh Width="140" Style="background:linear-gradient(135deg,#0D47A1,#1976D2,#42A5F5);color:white;">Expiry Date</MudTh>
+
+                        <MudTh Width="150" Style="background:linear-gradient(135deg,#0D47A1,#1976D2,#42A5F5);color:white;">Remaining</MudTh>
+
+                        <MudTh Width="130" Style="background:linear-gradient(135deg,#0D47A1,#1976D2,#42A5F5);color:white;">Status</MudTh>
+                    </HeaderContent>
+
+                    <RowTemplate>
+
+                        <MudTd>
+                            @(Documents.IndexOf(context) + 1)
+                        </MudTd>
+
+                        <MudTd>
+                            <MudChip T="string"
+                                     Text="@context.DocumentNo"
+                                     Variant="Variant.Outlined"
+                                     Color="Color.Primary" />
+                        </MudTd>
+
+                        <MudTd>
+                            <b>@context.DocumentName</b>
+                        </MudTd>
+
+                        <MudTd>
+                            @context.ExpiryDate?.ToString("dd/MM/yyyy")
+                        </MudTd>
+
+                        <MudTd>
+
+                            @if (context.ExpiryDate.HasValue)
+                            {
+                                var days = (context.ExpiryDate.Value.Date - DateTime.Today).Days;
+
+                                @if (days < 0)
+                                {
+                                    <span class="text-danger">
+                                        Expired @Math.Abs(days) day(s) ago
+                                    </span>
+                                }
+                                else if (days == 0)
+                                {
+                                    <span class="text-warning fw-bold">
+                                        Expires Today
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="text-warning">
+                                        @days day(s) left
+                                    </span>
+                                }
+                            }
+
+                        </MudTd>
+
+                        <MudTd>
+
+                            @if (!context.ExpiryDate.HasValue)
+                            {
+                                <MudChip T="string"
+                                         Text="N/A"
+                                         Color="Color.Default" />
+                            }
+                            else if (context.ExpiryDate.Value.Date < DateTime.Today)
+                            {
+                                <MudChip T="string"
+                                         Text="Expired"
+                                         Color="Color.Error" />
+                            }
+                            else if (context.ExpiryDate.Value.Date <= DateTime.Today.AddDays(5))
+                            {
+                                <MudChip T="string"
+                                         Text="Expires Soon"
+                                         Color="Color.Warning" />
+                            }
+                            else
+                            {
+                                <MudChip T="string"
+                                         Text="Active"
+                                         Color="Color.Success" />
+                            }
+
+                        </MudTd>
+
+                    </RowTemplate>
+
+                    <NoRecordsContent>
+
+                        <MudPaper Class="pa-8">
+
+                            <MudStack AlignItems="AlignItems.Center">
+
+                                <MudIcon Icon="@Icons.Material.Filled.CheckCircle"
+                                         Color="Color.Success"
+                                         Size="Size.Large" />
+
+                                <MudText Typo="Typo.h6">
+                                    No expired or expiring documents.
+                                </MudText>
+
+                            </MudStack>
+
+                        </MudPaper>
+
+                    </NoRecordsContent>
+
+                </MudTable>
+
+            </div>
+
+        </div>
+        @* ==================== Machine Maintenance ==================== *@
+
+        @if (Maintenancedocs.Any())
+        {
+
+            <!-- Header -->
+            <MudPaper Elevation="0"
+                      Class="pa-4"
+                      Style="background:linear-gradient(135deg,#47BDED,#6BCBF2,#ABDAED);color:white;">
+
+                <MudStack Row="true"
+                          Justify="Justify.SpaceBetween"
+                          AlignItems="AlignItems.Center">
+
+                    <MudStack Row="true"
+                              AlignItems="AlignItems.Center"
+                              Spacing="2">
+
+                        <MudAvatar Style="color : #FD3DB5"
+                                   Variant="Variant.Filled"
+                                   Size="Size.Large">
+                            <MudIcon Icon="@Icons.Material.Filled.Build" />
+                        </MudAvatar>
+
+                        <div>
+                            <MudText Typo="Typo.h5">
+                                Machine Maintenanace Schedules
+                            </MudText>
+
+                            <MudText Typo="Typo.body2">
+                                Maintenance Management
+                            </MudText>
+                        </div>
+
+                    </MudStack>
+
+                    <MudChip T="string"
+                             Color="Color.Warning"
+                             Variant="Variant.Filled"
+                             StartIcon="@Icons.Material.Filled.List"
+                             Text="@($"Total : {Maintenancedocs.Count}")" />
+                </MudStack>
+
+            </MudPaper>
+
+            <div class="pa-4">
+
+                <MudTable Items="@Maintenancedocs.ToList()"
+                          Dense="true"
+                          Hover="true"
+                          Striped="true"
+                          Bordered="true"
+                          FixedHeader="true"
+                          Height="250px">
+
+                    <HeaderContent>
+
+                        <MudTh Width="60"
+                               Style="background:linear-gradient(135deg,#47BDED,#6BCBF2,#ABDAED);color:white;">
+                            Sl
+                        </MudTh>
+
+                        <MudTh Style="background:linear-gradient(135deg,#47BDED,#6BCBF2,#ABDAED);color:white;">
+                            Maintenance
+                        </MudTh>
+
+                        <MudTh Style="background:linear-gradient(135deg,#47BDED,#6BCBF2,#ABDAED);color:white;">
+                            Description
+                        </MudTh>
+
+                        <MudTh Width="150"
+                               Style="background:linear-gradient(135deg,#47BDED,#6BCBF2,#ABDAED);color:white;">
+                            Action
+                        </MudTh>
+
+                    </HeaderContent>
+
+                    <RowTemplate>
+
+                        <MudTd>
+                            @(Maintenancedocs.ToList().IndexOf(context) + 1)
+                        </MudTd>
+
+                        <MudTd>
+                            <MudChip T="string"
+                                     Text="@context.DocumentNo"
+                                     Color="Color.Primary" />
+                        </MudTd>
+
+                        <MudTd>
+                            <b>@context.DocumentName</b>
+                        </MudTd>
+
+                        <MudTd>
+
+                            @if (context.DocumentNo == "Machine Maintenance")
+                            {
+                                <MudButton Variant="Variant.Outlined"
+                                           Color="Color.Primary"
+                                           Size="Size.Small"
+                                           StartIcon="@Icons.Material.Filled.Build"
+                                           OnClick="NavigateToMaintenance">
+
+                                    @context.RevisionNo
+
+                                </MudButton>
+                            }
+                            else
+                            {
+                                <MudButton Variant="Variant.Outlined"
+                                           Color="Color.Primary"
+                                           Size="Size.Small"
+                                           StartIcon="@Icons.Material.Filled.Build"
+                                           OnClick="NavigateToCalibration">
+
+                                    @context.RevisionNo
+
+                                </MudButton>
+                            }
+                        </MudTd>
+
+                    </RowTemplate>
+
+                    <NoRecordsContent>
+
+                        <MudPaper Class="pa-6">
+
+                            <MudStack AlignItems="AlignItems.Center">
+
+                                <MudIcon Icon="@Icons.Material.Filled.CheckCircle"
+                                         Color="Color.Success"
+                                         Size="Size.Large" />
+
+                                <MudText Typo="Typo.h6">
+                                    No machine maintenance schedules available.
+                                </MudText>
+
+                            </MudStack>
+
+                        </MudPaper>
+
+                    </NoRecordsContent>
+
+                </MudTable>
+
+            </div>
+
+        }
+
+
+
+    </DialogContent>
+
+    <DialogActions>
+
+        <MudSpacer />
+
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Error"
+                   StartIcon="@Icons.Material.Filled.Close"
+                   OnClick="CloseDialog">
+            Close
+        </MudButton>
+
+    </DialogActions>
+
+</MudDialog>
+
+@code {
+
+    [Parameter]
+    public List<QmsDocumentVM> Documents { get; set; } = new();
+
+    [CascadingParameter]
+    public IMudDialogInstance MudDialog { get; set; } = default!;
+
+    public List<QmsDocumentVM> Maintenancedocs { get; set; } = new();
+    private List<MaintenanceScheduleVM> MaintenanceScheduleList = new();
+    public DateTime? SelectedDate { get; set; } = DateTime.Now;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            MaintenanceScheduleList = await _maintenanceProcessService.ShowMaintenanceProcessList(SelectedDate.Value);
+
+            if (MaintenanceScheduleList.Any())
+            {
+                Maintenancedocs.Add(new QmsDocumentVM
+                {
+                    DocumentNo = "Machine Maintenance",
+                    DocumentName = "Please review today's machine maintenance schedule",
+                    ExpiryDate = null,
+                    RevisionNo = "View Schdeules"
+                });
+            }
+            if (await CheckCalibrationDuesExistsAsync() == true)
+            {
+                Maintenancedocs.Add(new QmsDocumentVM
+                {
+                    DocumentNo = "Instrument Calibration",
+                    DocumentName = "Please review today's instrument calibration due list",
+                    RevisionNo = "View Dues"
+                });
+            }
+        }catch (Exception ex)
+        {
+            Console.WriteLine($"Error in OnInitializedAsync: {ex.Message}");    
+        }
+    }
+
+    private void CloseDialog()
+    {
+        MudDialog.Close();
+    }
+
+
+    private void NavigateToMaintenance()
+    {
+        MudDialog.Close();
+        NavigationManager.NavigateTo("/MaintenanceProcess");
+    }
+
+    private void NavigateToCalibration()
+    {
+        MudDialog.Close();
+
+        NavigationManager.NavigateTo("/CalibrationMaintenance/CalibrationMaintenanceDueList");
+    }
+
+    public async Task<bool> CheckCalibrationDuesExistsAsync()
+    {
+        try
+        {
+            var query = _maintenanceProcessService.CheckCalibrationDuesExistsAsync();
+            return await query;
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+}

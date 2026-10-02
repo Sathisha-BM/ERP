@@ -1,0 +1,23 @@
+2026-09-08 10:22:07 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Sales-Order List | Action: Deleted Po: 357 | Info: Po Id: 173
+
+2026-09-08 10:22:17 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: BOM List | Action: Deleted BOM for Assembly: Moto Assembly | Info: Assembly Id: 678, Rows Deleted: 1
+2026-09-08 10:22:50 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Manufacturing PO Created | Info: Sales Order Created.
+
+2026-09-08 10:46:32 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Manufacturing PO Created | Info: Sales Order Created.
+
+2026-09-08 11:39:28 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Quotation Created | Info: Quotation Created.
+
+2026-09-08 11:42:08 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Material Requisition Updated | Info: Parent Changes:
+KindAttn: 'null' → 'Sathish'
+MainRemark: 'null' → 'gfhgf'
+
+Child Updated - ItemCode BagComp:
+UnitPrice: '0.000' → '123'
+TotalGross: '0' → '615.000'
+
+Material Requisition Updated.
+
+2026-09-08 12:26:00 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Manufacturing PO Created | Info: Sales Order Created.
+
+2026-09-08 12:27:05 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Quotation Created | Info: Quotation Created.
+

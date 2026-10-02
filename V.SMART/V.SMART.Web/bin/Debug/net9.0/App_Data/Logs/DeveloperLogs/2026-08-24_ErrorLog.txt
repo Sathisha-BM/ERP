@@ -1,0 +1,252 @@
+2026-08-24 10:03:08 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 10:03:08 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 10:03:08 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 10:27:06 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 10:27:06 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 10:27:06 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 10:36:31 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 10:36:31 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 10:36:31 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 10:46:09 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 10:46:10 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 10:46:10 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 11:21:31 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 327
+2026-08-24 11:21:41 | Level: INFO | Source:  | Message: Invalid login attempt: Administrator
+2026-08-24 11:21:58 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 11:21:58 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 11:21:58 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 11:21:58 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 327
+2026-08-24 11:44:42 | Level: ERROR | Source: [AdjustGRNBalance] Validation failed in Labour Dc Create | Message: EXCEPTION: Labour Dc Create: Qty cannot exceed PO ProdCompBalQty.
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 996
+2026-08-24 11:44:42 | Level: ERROR | Source: Failed to upsert Production Issue Component | Message: EXCEPTION: Labour Dc Create: Qty cannot exceed PO ProdCompBalQty.
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 996
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 1008
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.UpsertProdIssueComp(ProductionIssueCompVM issueVM, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 748
+2026-08-24 11:47:54 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 327
+2026-08-24 11:48:26 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 11:48:27 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 11:48:28 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 11:59:29 | Level: ERROR | Source: [AdjustGRNBalance] Validation failed in Labour Dc Create | Message: EXCEPTION: Labour Dc Create: Qty cannot exceed PO ProdCompBalQty.
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 996
+2026-08-24 11:59:30 | Level: ERROR | Source: Failed to upsert Production Issue Component | Message: EXCEPTION: Labour Dc Create: Qty cannot exceed PO ProdCompBalQty.
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 996
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 1008
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.UpsertProdIssueComp(ProductionIssueCompVM issueVM, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 748
+2026-08-24 11:59:30 | Level: ERROR | Source: Upsert Production Issue Component failed. | Message: EXCEPTION: Labour Dc Create: Qty cannot exceed PO ProdCompBalQty.
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 996
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 1008
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.UpsertProdIssueComp(ProductionIssueCompVM issueVM, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 748
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.UpsertProdIssueComp(ProductionIssueCompVM issueVM, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 804
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.UpsertProdIssueComp(ProductionIssueCompVM issueVM, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 805
+   at V.SMART.Shared.Pages.ProductionModule_pages.ProductionComp_Pages.ProductionIssueCompUpsert.UpsertProductionIssueComp() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\ProductionModule_pages\ProductionComp_Pages\ProductionIssueCompUpsert.razor:line 2824
+2026-08-24 12:01:01 | Level: ERROR | Source: Failed to load company logo. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.CompanyService.GetCompanyLogoUrlAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\CompanyService.cs:line 38
+   at V.SMART.Shared.Pages.Home.LoadCompanyLogoAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Home.razor:line 877
+2026-08-24 12:06:28 | Level: ERROR | Source: Failed to load company logo. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.CompanyService.GetCompanyLogoUrlAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\CompanyService.cs:line 38
+   at V.SMART.Shared.Pages.Home.LoadCompanyLogoAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Home.razor:line 877
+2026-08-24 12:18:04 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 327
+2026-08-24 12:18:18 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 12:18:18 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 12:18:18 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 12:18:18 | Level: ERROR | Source: Failed to load company logo. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.CompanyService.GetCompanyLogoUrlAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\CompanyService.cs:line 38
+   at V.SMART.Shared.Pages.Home.LoadCompanyLogoAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Home.razor:line 877
+2026-08-24 12:33:36 | Level: ERROR | Source: [AdjustGRNBalance] Validation failed in Labour Dc Create | Message: EXCEPTION: Labour Dc Create: Qty cannot exceed PO ProdCompBalQty.
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 996
+2026-08-24 12:33:37 | Level: ERROR | Source: Failed to upsert Production Issue Component | Message: EXCEPTION: Labour Dc Create: Qty cannot exceed PO ProdCompBalQty.
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 996
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 1008
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.UpsertProdIssueComp(ProductionIssueCompVM issueVM, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 748
+2026-08-24 12:33:37 | Level: ERROR | Source: Upsert Production Issue Component failed. | Message: EXCEPTION: Labour Dc Create: Qty cannot exceed PO ProdCompBalQty.
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 996
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 1008
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.UpsertProdIssueComp(ProductionIssueCompVM issueVM, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 748
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.UpsertProdIssueComp(ProductionIssueCompVM issueVM, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 804
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.UpsertProdIssueComp(ProductionIssueCompVM issueVM, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 805
+   at V.SMART.Shared.Pages.ProductionModule_pages.ProductionComp_Pages.ProductionIssueCompUpsert.UpsertProductionIssueComp() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\ProductionModule_pages\ProductionComp_Pages\ProductionIssueCompUpsert.razor:line 2824
+2026-08-24 12:41:18 | Level: ERROR | Source: [AdjustGRNBalance] Validation failed in Labour Dc Create | Message: EXCEPTION: Labour Dc Create: Qty cannot exceed PO ProdCompBalQty.
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 996
+2026-08-24 12:41:19 | Level: ERROR | Source: Failed to upsert Production Issue Component | Message: EXCEPTION: Labour Dc Create: Qty cannot exceed PO ProdCompBalQty.
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 996
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 1008
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.UpsertProdIssueComp(ProductionIssueCompVM issueVM, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 748
+2026-08-24 12:41:19 | Level: ERROR | Source: Upsert Production Issue Component failed. | Message: EXCEPTION: Labour Dc Create: Qty cannot exceed PO ProdCompBalQty.
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 996
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 1008
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.UpsertProdIssueComp(ProductionIssueCompVM issueVM, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 748
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.UpsertProdIssueComp(ProductionIssueCompVM issueVM, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 804
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.UpsertProdIssueComp(ProductionIssueCompVM issueVM, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 805
+   at V.SMART.Shared.Pages.ProductionModule_pages.ProductionComp_Pages.ProductionIssueCompUpsert.UpsertProductionIssueComp() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\ProductionModule_pages\ProductionComp_Pages\ProductionIssueCompUpsert.razor:line 2824
+2026-08-24 12:43:20 | Level: ERROR | Source: Error in EinvoiceCancelOption() | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.SalesService.MfgQuotationService.BatchNoOption() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SalesService\MfgQuotationService.cs:line 1658
+2026-08-24 12:43:20 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-08-24 12:43:32 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 12:43:32 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 12:43:32 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 12:43:32 | Level: ERROR | Source: Failed to load company logo. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.CompanyService.GetCompanyLogoUrlAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\CompanyService.cs:line 38
+   at V.SMART.Shared.Pages.Home.LoadCompanyLogoAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Home.razor:line 877
+2026-08-24 12:58:12 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 327
+2026-08-24 12:58:37 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 12:58:38 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 12:58:38 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 12:59:30 | Level: ERROR | Source: [AdjustGRNBalance] Validation failed in Labour Dc Create | Message: EXCEPTION: Labour Dc Create: Qty cannot exceed PO ProdCompBalQty.
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 996
+2026-08-24 12:59:30 | Level: ERROR | Source: Failed to upsert Production Issue Component | Message: EXCEPTION: Labour Dc Create: Qty cannot exceed PO ProdCompBalQty.
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 996
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 1008
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.UpsertProdIssueComp(ProductionIssueCompVM issueVM, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 748
+2026-08-24 12:59:30 | Level: ERROR | Source: Upsert Production Issue Component failed. | Message: EXCEPTION: Labour Dc Create: Qty cannot exceed PO ProdCompBalQty.
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 996
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.AdjustGrnOutBalanceAsync(Nullable`1 refGRnSubId, Decimal oldQty, Decimal newQty, String context) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 1008
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.UpsertProdIssueComp(ProductionIssueCompVM issueVM, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 748
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.UpsertProdIssueComp(ProductionIssueCompVM issueVM, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 804
+   at V.SMART.Shared.BusinessLayer.BusinessService.ProductionService.ProductionIssueCompService.UpsertProdIssueComp(ProductionIssueCompVM issueVM, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ProductionService\ProductionIssueCompService.cs:line 805
+   at V.SMART.Shared.Pages.ProductionModule_pages.ProductionComp_Pages.ProductionIssueCompUpsert.UpsertProductionIssueComp() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\ProductionModule_pages\ProductionComp_Pages\ProductionIssueCompUpsert.razor:line 2824
+2026-08-24 13:01:19 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 13:01:19 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 13:01:19 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 13:01:19 | Level: ERROR | Source: Failed to load company logo. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.CompanyService.GetCompanyLogoUrlAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\CompanyService.cs:line 38
+   at V.SMART.Shared.Pages.Home.LoadCompanyLogoAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Home.razor:line 877
+2026-08-24 13:04:45 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 327
+2026-08-24 13:05:05 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 13:05:05 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 13:05:05 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 13:05:05 | Level: ERROR | Source: Failed to load company logo. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.CompanyService.GetCompanyLogoUrlAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\CompanyService.cs:line 38
+   at V.SMART.Shared.Pages.Home.LoadCompanyLogoAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Home.razor:line 877
+2026-08-24 13:17:51 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 13:17:51 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 13:17:51 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 15:07:18 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 15:07:18 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 15:07:18 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 15:27:33 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 15:27:33 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 15:27:33 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 15:40:43 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 15:40:43 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 15:40:43 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 15:49:50 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 15:49:50 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 15:49:50 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 15:59:17 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 15:59:17 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 15:59:17 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 16:06:21 | Level: INFO | Source:  | Message: Invalid login attempt: Administrator
+2026-08-24 16:06:33 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 16:06:33 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 16:06:33 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 16:07:31 | Level: ERROR | Source: Failed to load company logo. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.CompanyService.GetCompanyLogoUrlAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\CompanyService.cs:line 38
+   at V.SMART.Shared.Pages.Home.LoadCompanyLogoAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Home.razor:line 877
+2026-08-24 17:06:07 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 17:06:07 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 17:06:07 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 17:06:57 | Level: ERROR | Source: Error in EinvoiceCancelOption() | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.SalesService.MfgQuotationService.BatchNoOption() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SalesService\MfgQuotationService.cs:line 1658
+2026-08-24 17:06:57 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-08-24 17:16:11 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 17:16:11 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 17:16:11 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 17:19:24 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 17:19:24 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 17:19:24 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 17:23:03 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 17:23:03 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 17:23:03 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 17:35:53 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 17:35:53 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 17:35:53 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 17:43:12 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 17:43:12 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 17:43:12 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 17:50:06 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 17:50:07 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 17:50:07 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 17:56:45 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 17:56:45 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 17:56:45 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-08-24 18:05:29 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-08-24 18:05:29 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-08-24 18:05:29 | Level: INFO | Source:  | Message: User logged in successfully: Administrator

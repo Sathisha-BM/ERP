@@ -1,0 +1,54 @@
+2026-09-01 09:42:09 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: UserRights | Action: UserRights OnUserChanged to Abhishek | Info: UserName: Abhishek
+2026-09-01 09:57:54 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Material Requisition Created | Info: Material Requisition Created.
+
+2026-09-01 10:00:37 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Purchase Order | Action: Purchase PO update | Info: Purchase Order Created.
+
+2026-09-01 11:18:05 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Staff Master | Action: Staff data modified | Info: Img: 'null' → 'System.Byte[]'
+ModifiedBy: 'null' → 'Administrator'
+ModifiedDate: 'null' → '01/09/2026 11:18:05'
+
+2026-09-01 11:18:06 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Employee | Action: Updated Employee: Abhishek | Info: StaffID: 6
+2026-09-01 12:00:42 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Labour GRN | Action: Labour GRN  Updated | Info: Parent Changes:
+KindofAttention: 'null' → ''
+
+Child Updated - ItemCode 3647512810:
+ItemSpecification: 'null' → ''
+
+Child Updated - ItemCode NC19FENBR7D25:
+ItemSpecification: 'null' → ''
+BalQty: '0.000' → '0'
+
+Labour GRN Updated.
+
+2026-09-01 12:00:58 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Purchase SCN | Action: Purchase SCN  Updated | Info: Parent Changes:
+KindofAttention: 'null' → ''
+
+Child Updated - ItemCode NC19FENBR7D25:
+UnitConvert: '1.000' → 'null'
+
+Purchase SCN Updated.
+
+2026-09-01 12:01:29 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Purchase SCN | Action: Purchase SCN  Updated | Info: Parent Changes:
+KindofAttention: 'null' → ''
+
+Child Updated - ItemCode NC19FENBR7D25:
+UnitConvert: '0' → 'null'
+
+Purchase SCN Updated.
+
+2026-09-01 12:09:00 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Production SCN Assembly | Action: Deleted SCN No: 2 | Info: SCN Id: 3
+
+2026-09-01 12:09:15 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Production Return | Action: Deleted Production Return: 2 | Info: Production Id: 2
+Child Deleted - ReturnSubId: 2, Item: 3647512810
+Child Deleted - ReturnSubId: 3, Item: NC19FENBR7D25
+
+2026-09-01 12:09:22 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Production Issue Component | Action: Deleted Issue no: 2 | Info: Issue Id: 4
+
+2026-09-01 12:09:46 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Labour SCN | Action: Deleted SCN: 2 | Info: SCN Id: 5
+
+2026-09-01 12:10:27 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Purchase SCN | Action: Purchase SCN Created | Info: Labour SCN Created.
+
+2026-09-01 12:11:01 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Labour SCN | Action: Deleted SCN: 2 | Info: SCN Id: 6
+
+2026-09-01 12:11:10 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Labour GRN | Action: Deleted Labour GRN: 2 | Info: GRN Id: 4
+

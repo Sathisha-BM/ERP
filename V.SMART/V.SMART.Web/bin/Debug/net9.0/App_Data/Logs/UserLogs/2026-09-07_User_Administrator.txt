@@ -1,0 +1,125 @@
+2026-09-07 09:37:33 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Manufacturing PO Created | Info: Sales Order Created.
+
+2026-09-07 10:08:37 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Excel Upload | Action: Excel file loaded for Excel Upload | Info: 
+2026-09-07 10:21:00 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Excel Upload | Action: Excel file loaded for Excel Upload | Info: 
+2026-09-07 10:42:44 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Excel Upload | Action: Excel file loaded for Excel Upload | Info: 
+2026-09-07 10:53:29 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Excel Upload | Action: Excel file loaded for Excel Upload | Info: 
+2026-09-07 11:01:13 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Quotation Created | Info: Quotation Created.
+
+2026-09-07 11:41:27 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Excel Upload | Action: Excel file loaded for Excel Upload | Info: 
+2026-09-07 11:41:52 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Quotation Created | Info: Quotation Created.
+
+2026-09-07 11:56:46 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Excel Upload | Action: Excel file loaded for Excel Upload | Info: 
+2026-09-07 11:58:30 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Excel Upload | Action: Excel file loaded for Excel Upload | Info: 
+2026-09-07 12:03:12 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Excel Upload | Action: Excel file loaded for Excel Upload | Info: 
+2026-09-07 12:03:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Quotation Created | Info: Quotation Created.
+
+2026-09-07 12:04:58 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Excel Upload | Action: Excel file loaded for Excel Upload | Info: 
+2026-09-07 12:07:11 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Excel Upload | Action: Excel file loaded for Excel Upload | Info: 
+2026-09-07 12:31:57 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Excel Upload | Action: Excel file loaded for Excel Upload | Info: 
+2026-09-07 12:32:37 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Excel Upload | Action: Excel file loaded for Excel Upload | Info: 
+2026-09-07 12:41:00 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Excel Upload | Action: Excel file loaded for Excel Upload | Info: 
+2026-09-07 12:42:45 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Excel Upload | Action: Excel file loaded for Excel Upload | Info: 
+2026-09-07 16:28:54 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Material Requisition Created | Info: Material Requisition Created.
+
+2026-09-07 16:35:35 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Purchase Order | Action: Purchase PO update | Info: Purchase Order Created.
+
+2026-09-07 16:36:55 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Manufacturing PO Created | Info: Sales Order Created.
+
+2026-09-07 16:40:03 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Invoice Sales | Action: Invoice Created | Info: Invoice Created.
+
+2026-09-07 16:59:03 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Enquiry Sales Created | Info: Enquiry Created by Administrator. Enquiry Number: 101
+
+2026-09-07 16:59:37 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Cancelled EnquirySales No: 101 And ItemCode: ItemComp5 | Info: Reason: gggg
+2026-09-07 16:59:56 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Cancelled Enquiry Sales No: 101 | Info: Reason: gfht
+2026-09-07 17:00:31 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Reverted Enquiry Sales No: 101 | Info: 
+2026-09-07 17:04:41 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Reverted EnquirySales No: 101 And ItemCode: ItemComp5 | Info: Reason: 
+2026-09-07 17:05:43 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Quotation Created | Info: Quotation Created.
+
+2026-09-07 17:06:19 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Manufacturing Quotation | Action: Cancelled Quotation No: 14, ItemCode: ItemComp5 | Info: Reason: ry
+2026-09-07 17:07:10 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Manufacturing Quotation | Action: Reverted Quotation No: 14, ItemCode: ItemComp5 | Info: Item revert operation
+2026-09-07 17:07:13 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Quotation | Action: Cancelled Quotation: 14 | Info: Quotation Id: 24
+2026-09-07 17:07:32 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Quotation | Action: Reverted Quotation: 14 | Info: Quotation Id: 24
+2026-09-07 17:08:11 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Manufacturing PO Created | Info: Sales Order Created.
+
+2026-09-07 17:09:30 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Sales Order | Action: Cancelled PO No: 1, ItemCode: ItemComp5 | Info: Reason: dfg
+2026-09-07 17:09:55 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Sales Order | Action: Reverted PO No: 1, ItemCode: ItemComp5 | Info: Reason: Reverted
+2026-09-07 17:09:59 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Manufacturing PO | Action: Cancelled PO No: 1 | Info: PO Id: 1041
+2026-09-07 17:10:21 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Manufacturing PO | Action: Reverted PO No: 1 | Info: PO Id: 1041
+2026-09-07 17:34:43 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Manufacturing PO  Updated | Info: Parent Changes:
+KindOfAttention: 'null' → ''
+CurrId: 'null' → '1'
+TotalGrossAmount: '320.3200' → '320.3200000'
+TotalBasicAmount: '320.3200' → '320.3200000'
+TotalCGSTAmount: '0.0000' → '0.0000000000'
+TotalSGSTAmount: '0.0000' → '0.0000000000'
+TotalIGSTAmount: '0.0000' → '0.0000000000'
+TotalTaxable: '320.3200' → '320.3200000'
+RoundOff: '-0.3200' → '-0.3200000000'
+GrandTotal: '320.00' → '320'
+
+Child Updated - ItemCode ItemComp5:
+LineGross: '320.3200' → '320.3200000'
+LineBasicAmount: '320.3200' → '320.3200000'
+
+Sals Order Updated.
+
+2026-09-07 17:36:35 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Manufacturing PO  Updated | Info: Parent Changes:
+PONo: '1' → '15'
+
+Sals Order Updated.
+
+2026-09-07 17:37:59 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Manufacturing PO  Updated | Info: Parent Changes:
+PONo: '15' → '154'
+
+Sals Order Updated.
+
+2026-09-07 17:39:10 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Sales Order | Action: Cancelled PO No: 154, ItemCode: ItemComp5 | Info: Reason: fdg
+2026-09-07 17:40:05 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Sales Order | Action: Reverted PO No: 154, ItemCode: ItemComp5 | Info: Reason: Reverted
+2026-09-07 17:40:10 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Manufacturing PO | Action: Cancelled PO No: 154 | Info: PO Id: 1041
+2026-09-07 17:40:29 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Manufacturing PO | Action: Reverted PO No: 154 | Info: PO Id: 1041
+2026-09-07 17:41:28 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Manufacturing Dc Created | Info: Manufacturing DC Created.
+
+2026-09-07 17:42:16 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Manufacturing Dc | Action: Cancelled Dc No: 8 And ItemCode: ItemComp5 | Info: Reason: fg
+2026-09-07 17:42:59 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Manufacturing Dc | Action: Reverted Dc No: 8 And ItemCode: ItemComp5 | Info: Reason: 
+2026-09-07 17:43:03 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Manufacturing DC | Action: Cancelled Manufacturing DC No: 8 | Info: DC Id: 9
+2026-09-07 17:43:22 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Manufacturing DC | Action: Reverted Manufacturing DC No: 8 | Info: DC Id: 9
+2026-09-07 17:49:39 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Manufacturing PO  Updated | Info: Parent Changes:
+MfgORLab: 'True' → 'False'
+TodayVal: '0.0000' → '0'
+TotalGrossAmount: '100.0000' → '100.0000000'
+TotalBasicAmount: '100.0000' → '100.0000000'
+TotalCGSTAmount: '9.0000' → '9.0000000000'
+TotalSGSTAmount: '9.0000' → '9.0000000000'
+TotalIGSTAmount: '0.0000' → '0.0000000000'
+TotalTaxable: '100.0000' → '100.0000000'
+RoundOff: '0.0000' → '0.0000000000'
+GrandTotal: '118.00' → '118'
+
+Child Updated - ItemCode Car:
+LineGross: '100.0000' → '100.0000000'
+LineBasicAmount: '100.0000' → '100.0000000'
+
+Sals Order Updated.
+
+2026-09-07 17:51:26 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Manufacturing PO | Action: Reverted PO No: 1233 | Info: PO Id: 1036
+2026-09-07 17:51:29 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Manufacturing PO | Action: Cancelled PO No: 1233 | Info: PO Id: 1036
+2026-09-07 17:52:00 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Manufacturing PO | Action: Reverted PO No: 1233 | Info: PO Id: 1036
+2026-09-07 17:52:33 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Sales Order | Action: Cancelled PO No: 1233, ItemCode: Car | Info: Reason: gf
+2026-09-07 17:52:51 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Sales Order | Action: Reverted PO No: 1233, ItemCode: Car | Info: Reason: Reverted
+2026-09-07 17:53:27 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Labour GRN | Action: Labour GRN Created | Info: Labour GRN Created.
+
+2026-09-07 17:54:11 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Labour GRN | Action: Cancelled Labour GRN No:8 And ItemCode: Car | Info: GRN No: 8
+2026-09-07 17:54:52 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Labour GRN | Action: Reverted Labour GRN No: 8 And ItemCode: Car | Info: Reason: 
+2026-09-07 17:55:16 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Labour GRN | Action: Reverted Labour GRN No: 8 And ItemCode: Bspl-Sub-Comp-1 Rectangle Plate Aluminium AL-6061-T6 1070x160x25 | Info: Reason: 
+2026-09-07 17:55:20 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Labour GRN | Action: Reverted Labour GRN No: 8 And ItemCode: Bspl-Sub-Comp-2 Rectangle Plate Aluminium AL-6061-T6 1070x160x25 | Info: Reason: 
+2026-09-07 17:55:44 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Purchase SCN | Action: Purchase SCN Created | Info: Labour SCN Created.
+
+2026-09-07 18:01:11 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: SCN Gen Created | Info: SCN General Created.
+
+2026-09-07 18:02:37 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Store Transfer Note (Addition) | Action: Deleted SCNGen no: 13 | Info: SCNGen Id: 13
+
+2026-09-07 18:03:01 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: SCN Gen Created | Info: SCN General Created.
+
+2026-09-07 18:08:09 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Purchase SCN | Action: Purchase SCN Created | Info: Labour SCN Created.
+

@@ -1,0 +1,3647 @@
+﻿@page "/ProductionReport"
+@rendermode InteractiveServer
+
+@using System
+@using System.Collections.Generic
+@using System.Linq
+@using System.Globalization
+@using System.IO
+@using System.Text.Json
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.JSInterop
+@using ClosedXML.Excel
+
+
+@using V.SMART.Shared.BusinessLayer.BusinessService.IBusinessService.IReportService.ITrackReportService
+@using V.SMART.Shared.ViewModels.ReportViewModel.ProdAssStatusVM
+@inherits BaseUserRightsComponent
+@inject IProductionReportService ProductionReportService
+@inject NavigationManager _navigation
+@inject IJSRuntime JS
+
+
+@if (isProcessing)
+{
+    <ProcessingOverlay Visible="@isProcessing" Message="Please wait..." />
+}
+else if (!CanView)
+{
+    <RedirectToLogin />
+    return;
+}
+else
+{
+    <div class="container-fluid px-2 px-md-4 mt-4">
+
+        <div class="card shadow-sm border-1">
+
+            <PageHeader TitleText="@PageTitle"
+                        TitleIcon="bi bi-receipt-cutoff"
+                        Breadcrumbs="@PoBreadcrumbs" />
+
+            <div class="card-body">
+
+                <!-- ===================================================== -->
+                <!-- FILTER SECTION -->
+                <!-- ===================================================== -->
+
+                <div class="row g-3 mb-4 align-items-end">
+
+                    <!-- FROM DATE -->
+                    <div class="col-12 col-md-2">
+
+                        <label class="fw-bold mb-2">
+                            From Date
+                        </label>
+
+                        <InputDate class="form-control"
+                                   @bind-Value="FromDate"
+                                   @bind-Value:after="OnFromDateChanged" />
+
+                    </div>
+
+
+                    <!-- TO DATE -->
+                    <div class="col-12 col-md-2">
+
+                        <label class="fw-bold mb-2">
+                            To Date
+                        </label>
+
+                        <InputDate class="form-control"
+                                   @bind-Value="ToDate"
+                                   @bind-Value:after="OnToDateChanged" />
+
+                    </div>
+
+
+                    <!-- SEARCH -->
+                    <div class="col-12 col-md-3">
+
+                        <label class="fw-bold mb-2">
+                            Search
+                        </label>
+
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Search..."
+                               @bind="searchText"
+                               @bind:event="oninput"
+                               @bind:after="OnSearchChanged" />
+
+                    </div>
+
+
+                    <!-- REPORT TYPE -->
+                    <div class="col-12 col-md-4">
+
+                        <label class="fw-bold mb-2 d-block">
+                            Report Type
+                        </label>
+
+                        <div class="report-type-options">
+
+                            <label class="radio-option">
+
+                                <input type="radio"
+                                       name="reportType"
+                                       value="DAILY"
+                                       checked="@(selectedReportType == "DAILY")"
+                                       @onchange="ReportTypeChanged" />
+
+                                <span>
+                                    Daily Production
+                                </span>
+
+                            </label>
+
+
+                            <label class="radio-option">
+
+                                <input type="radio"
+                                       name="reportType"
+                                       value="SUBCONTRACT"
+                                       checked="@(selectedReportType == "SUBCONTRACT")"
+                                       @onchange="ReportTypeChanged" />
+
+                                <span>
+                                    Sub Contract
+                                </span>
+
+                            </label>
+
+
+                            <label class="radio-option">
+
+                                <input type="radio"
+                                       name="reportType"
+                                       value="PRODUCTIONISSUE"
+                                       checked="@(selectedReportType == "PRODUCTIONISSUE")"
+                                       @onchange="ReportTypeChanged" />
+
+                                <span>
+                                    Production Component
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- COLUMN MENU -->
+                    <!-- ================================================= -->
+
+                    <div class="col-12 col-md-1 d-flex justify-content-end">
+
+                        <div class="dropdown">
+
+                            <button class="btn btn-outline-primary dropdown-toggle column-button"
+                                    type="button"
+                                    data-bs-toggle="dropdown"
+                                    data-bs-auto-close="outside">
+
+                                <i class="bi bi-layout-three-columns me-1"></i>
+
+                                Columns
+
+                            </button>
+
+
+                            <div class="dropdown-menu dropdown-menu-end p-3 column-menu">
+
+                                <div class="d-flex justify-content-between mb-2">
+
+                                    <strong>
+                                        Select Columns
+                                    </strong>
+
+                                    <button type="button"
+                                            class="btn btn-sm btn-link p-0"
+                                            @onclick="SelectAllColumns">
+
+                                        Select All
+
+                                    </button>
+
+                                </div>
+
+
+                                <hr />
+
+
+                                @foreach (var column in CurrentColumns)
+                                {
+                                    <div class="form-check mb-2">
+
+                                        <input class="form-check-input"
+                                               type="checkbox"
+                                               id="@($"col_{column.Key}")"
+                                               checked="@column.Value"
+                                               @onchange="e => ToggleColumn(column.Key, e)" />
+
+                                        <label class="form-check-label"
+                                               for="@($"col_{column.Key}")">
+
+                                            @column.Key
+
+                                        </label>
+
+                                    </div>
+                                }
+
+
+                                <hr />
+
+
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-secondary w-100"
+                                        @onclick="ResetColumns">
+
+                                    Reset Columns
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ===================================================== -->
+                <!-- LOADING -->
+                <!-- ===================================================== -->
+                @if (isProcessing)
+                {
+                    <div class="text-center p-4">
+
+                        <div class="spinner-border text-primary"
+                             role="status">
+
+                            <span class="visually-hidden">
+                                Loading...
+                            </span>
+
+                        </div>
+
+                        <div class="mt-2">
+                            Loading data...
+                        </div>
+
+                    </div>
+                }
+
+
+                <!-- ===================================================== -->
+                <!-- DAILY PRODUCTION -->
+                <!-- ===================================================== -->
+                @if (!isProcessing && selectedReportType == "DAILY")
+                {
+                    @if (FilteredProductionDetails.Any())
+                    {
+                        <div class="table-responsive border rounded production-table">
+
+                            <table class="table table-bordered table-sm mb-0 align-middle"
+                                   style="min-width:1900px; white-space:nowrap;">
+
+                                <thead class="custom-blue text-center align-middle sticky-top">
+
+                                    <tr>
+
+                                        @foreach (var column in DailyColumns)
+                                        {
+                                            if (IsColumnVisible(column.Key))
+                                            {
+                                                <th>
+                                                    @column.Key
+                                                </th>
+                                            }
+                                        }
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody>
+
+                                    @{
+                                        int displaySlNo = 1;
+                                    }
+
+                                    @foreach (var item in FilteredProductionDetails)
+                                    {
+                                        <tr>
+
+                                            @if (IsColumnVisible("Sl No"))
+                                            {
+                                                <td>@displaySlNo</td>
+                                            }
+
+                                            @if (IsColumnVisible("Production Date"))
+                                            {
+                                                <td>
+                                                    @item.ProductionDate.ToString("dd/MM/yyyy")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Production No"))
+                                            {
+                                                <td>@item.ProductionNo</td>
+                                            }
+
+                                            @if (IsColumnVisible("Customer"))
+                                            {
+                                                <td>@item.Customer</td>
+                                            }
+
+                                            @if (IsColumnVisible("Route Card"))
+                                            {
+                                                <td>@item.RouteCardNo</td>
+                                            }
+
+                                            @if (IsColumnVisible("PO No"))
+                                            {
+                                                <td>@item.PONo</td>
+                                            }
+
+                                            @if (IsColumnVisible("PO Line No"))
+                                            {
+                                                <td>@item.POLineNo</td>
+                                            }
+
+                                            @if (IsColumnVisible("PO Date"))
+                                            {
+                                                <td>@FormatDate(item.PODate)</td>
+                                            }
+
+                                            @if (IsColumnVisible("Mfg / Labour"))
+                                            {
+                                                <td>
+
+                                                    @if (item.MfgOrLab == "Manufacturing")
+                                                    {
+                                                        <span class="badge bg-success">
+                                                            Manufacturing
+                                                        </span>
+                                                    }
+                                                    else if (item.MfgOrLab == "Labour")
+                                                    {
+                                                        <span class="badge bg-warning text-dark">
+                                                            Labour
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        @item.MfgOrLab
+                                                    }
+
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Entry Type"))
+                                            {
+                                                <td>@item.EntryType</td>
+                                            }
+
+                                            @if (IsColumnVisible("Item Code"))
+                                            {
+                                                <td>@item.ItemCode</td>
+                                            }
+
+                                            @if (IsColumnVisible("Process"))
+                                            {
+                                                <td>@item.Process</td>
+                                            }
+
+                                            @if (IsColumnVisible("Shift"))
+                                            {
+                                                <td>@item.Shift</td>
+                                            }
+
+                                            @if (IsColumnVisible("Machine"))
+                                            {
+                                                <td>@item.Machine</td>
+                                            }
+
+                                            @if (IsColumnVisible("From Time"))
+                                            {
+                                                <td>@FormatTime(item.FromTime)</td>
+                                            }
+
+                                            @if (IsColumnVisible("To Time"))
+                                            {
+                                                <td>@FormatTime(item.ToTime)</td>
+                                            }
+
+                                            @if (IsColumnVisible("Worked Hrs"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.WorkedHours.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Operator"))
+                                            {
+                                                <td>@item.Operator</td>
+                                            }
+
+                                            @if (IsColumnVisible("Target Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.TargetQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Expected Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.ExpectedTargetQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Issued Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.IssuedQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Produceable Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.ProduceableQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Accepted Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.AcceptedQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Rejected Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.RejectedQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Rework Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.ReworkQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Bal Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.BalQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Remarks"))
+                                            {
+                                                <td>@item.LogDetail</td>
+                                            }
+
+                                            @if (IsColumnVisible("Idle Time"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.MachineIdleTime.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Operator Efficiency"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.OperatorEfficiency.ToString("0.00") %
+                                                </td>
+                                            }
+
+                                        </tr>
+
+                                        displaySlNo++;
+                                    }
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning mt-4">
+                            No Daily Production records found.
+                        </div>
+                    }
+                }
+
+
+                <!-- ===================================================== -->
+                <!-- SUB CONTRACT -->
+                <!-- ===================================================== -->
+                @if (!isProcessing && selectedReportType == "SUBCONTRACT")
+                {
+                    @if (FilteredProductionDetails.Any())
+                    {
+                        <div class="table-responsive border rounded production-table">
+
+                            <table class="table table-bordered table-sm mb-0 align-middle"
+                                   style="min-width:1800px; white-space:nowrap;">
+
+                                <thead class="custom-blue text-center sticky-top">
+
+                                    <tr>
+
+                                        @foreach (var column in SubContractColumns)
+                                        {
+                                            if (IsColumnVisible(column.Key))
+                                            {
+                                                <th>
+                                                    @column.Key
+                                                </th>
+                                            }
+                                        }
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody>
+
+                                    @{
+                                        int displaySlNo = 1;
+                                    }
+
+                                    @foreach (var item in FilteredProductionDetails)
+                                    {
+                                        <tr>
+
+                                            @if (IsColumnVisible("Sl No"))
+                                            {
+                                                <td>@displaySlNo</td>
+                                            }
+
+                                            @if (IsColumnVisible("DC Date"))
+                                            {
+                                                <td>
+                                                    @item.ProductionDate.ToString("dd/MM/yyyy")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("DC No"))
+                                            {
+                                                <td>@item.ProductionNo</td>
+                                            }
+
+                                            @if (IsColumnVisible("Vendor"))
+                                            {
+                                                <td>@item.Customer</td>
+                                            }
+
+                                            @if (IsColumnVisible("PO No"))
+                                            {
+                                                <td>@item.PONo</td>
+                                            }
+
+                                            @if (IsColumnVisible("PO Date"))
+                                            {
+                                                <td>@FormatDate(item.PODate)</td>
+                                            }
+
+                                            @if (IsColumnVisible("Trans Type"))
+                                            {
+                                                <td>
+
+                                                    @if (item.TransType == "In")
+                                                    {
+                                                        <span class="badge bg-success">
+                                                            In
+                                                        </span>
+                                                    }
+                                                    else if (item.TransType == "Out")
+                                                    {
+                                                        <span class="badge bg-danger">
+                                                            Out
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        @item.TransType
+                                                    }
+
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Route Card No"))
+                                            {
+                                                <td>@item.RouteCardNo</td>
+                                            }
+
+                                            @if (IsColumnVisible("Item Code"))
+                                            {
+                                                <td>@item.ItemCode</td>
+                                            }
+
+                                            @if (IsColumnVisible("Process"))
+                                            {
+                                                <td>@item.Process</td>
+                                            }
+
+                                            @if (IsColumnVisible("Machine"))
+                                            {
+                                                <td>@item.Machine</td>
+                                            }
+
+                                            @if (IsColumnVisible("Issued Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.IssuedQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("GRN No"))
+                                            {
+                                                <td>@item.GRNNo</td>
+                                            }
+
+                                            @if (IsColumnVisible("Produceable Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.ProduceableQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("SCN No"))
+                                            {
+                                                <td>@item.SCNNo</td>
+                                            }
+
+                                            @if (IsColumnVisible("Accepted Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.AcceptedQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Rejected Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.RejectedQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Rework Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.ReworkQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Bal Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.BalQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Remarks"))
+                                            {
+                                                <td>@item.LogDetail</td>
+                                            }
+
+                                            @if (IsColumnVisible("Status"))
+                                            {
+                                                <td>
+
+                                                    @if (item.Status == "Cancelled")
+                                                    {
+                                                        <span class="badge bg-danger">
+                                                            Cancelled
+                                                        </span>
+                                                    }
+                                                    else if (item.Status == "Short Closed")
+                                                    {
+                                                        <span class="badge bg-secondary">
+                                                            Short Closed
+                                                        </span>
+                                                    }
+                                                    else if (item.Status == "Pending")
+                                                    {
+                                                        <span class="badge bg-warning text-dark">
+                                                            Pending
+                                                        </span>
+                                                    }
+                                                    else if (item.Status == "Complete")
+                                                    {
+                                                        <span class="badge bg-success">
+                                                            Complete
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        @item.Status
+                                                    }
+
+                                                </td>
+                                            }
+
+                                        </tr>
+
+                                        displaySlNo++;
+                                    }
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning mt-4">
+                            No Sub Contract records found.
+                        </div>
+                    }
+                }
+
+
+                <!-- ===================================================== -->
+                <!-- PRODUCTION COMPONENT -->
+                <!-- ===================================================== -->
+                @if (!isProcessing &&  selectedReportType == "PRODUCTIONISSUE")
+                {
+                    @if (FilteredProductionDetails.Any())
+                    {
+                        <div class="table-responsive border rounded production-table">
+
+                            <table class="table table-bordered table-sm mb-0 align-middle"
+                                   style="min-width:1800px; white-space:nowrap;">
+
+                                <thead class="custom-blue text-center sticky-top">
+
+                                    <tr>
+
+                                        @foreach (var column in ProductionIssueColumns)
+                                        {
+                                            if (IsColumnVisible(column.Key))
+                                            {
+                                                <th>
+                                                    @column.Key
+                                                </th>
+                                            }
+                                        }
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody>
+
+                                    @{
+                                        int displaySlNo = 1;
+                                    }
+
+                                    @foreach (var item in FilteredProductionDetails)
+                                    {
+                                        <tr>
+
+                                            @if (IsColumnVisible("Sl No"))
+                                            {
+                                                <td>@displaySlNo</td>
+                                            }
+
+                                            @if (IsColumnVisible("Issue Date"))
+                                            {
+                                                <td>
+                                                    @item.ProductionDate.ToString("dd/MM/yyyy")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Issue No"))
+                                            {
+                                                <td>@item.ProductionNo</td>
+                                            }
+
+                                            @if (IsColumnVisible("Customer"))
+                                            {
+                                                <td>@item.Customer</td>
+                                            }
+
+                                            @if (IsColumnVisible("Route Card"))
+                                            {
+                                                <td>@item.RouteCardNo</td>
+                                            }
+
+                                            @if (IsColumnVisible("PO No"))
+                                            {
+                                                <td>@item.PONo</td>
+                                            }
+
+                                            @if (IsColumnVisible("PO Line No"))
+                                            {
+                                                <td>@item.POLineNo</td>
+                                            }
+
+                                            @if (IsColumnVisible("PO Date"))
+                                            {
+                                                <td>@FormatDate(item.PODate)</td>
+                                            }
+
+                                            @if (IsColumnVisible("Item Code"))
+                                            {
+                                                <td>@item.ItemCode</td>
+                                            }
+
+                                            @if (IsColumnVisible("Trans Type"))
+                                            {
+                                                <td>
+
+                                                    @if (item.TransType == "In")
+                                                    {
+                                                        <span class="badge bg-success">
+                                                            In
+                                                        </span>
+                                                    }
+                                                    else if (item.TransType == "Out")
+                                                    {
+                                                        <span class="badge bg-danger">
+                                                            Out
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        @item.TransType
+                                                    }
+
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Process"))
+                                            {
+                                                <td>@item.Process</td>
+                                            }
+
+                                            @if (IsColumnVisible("Machine"))
+                                            {
+                                                <td>@item.Machine</td>
+                                            }
+
+                                            @if (IsColumnVisible("Issued Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.IssuedQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("GRN No"))
+                                            {
+                                                <td>@item.GRNNo</td>
+                                            }
+
+                                            @if (IsColumnVisible("Produceable Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.ProduceableQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("SCN No"))
+                                            {
+                                                <td>@item.SCNNo</td>
+                                            }
+
+                                            @if (IsColumnVisible("Accepted Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.AcceptedQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Rejected Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.RejectedQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Rework Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.ReworkQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Bal Qty"))
+                                            {
+                                                <td class="text-end">
+                                                    @item.BalQty.ToString("0.00")
+                                                </td>
+                                            }
+
+                                            @if (IsColumnVisible("Remarks"))
+                                            {
+                                                <td>@item.LogDetail</td>
+                                            }
+
+                                            @if (IsColumnVisible("Status"))
+                                            {
+                                                <td>
+
+                                                    @if (item.Status == "Cancelled")
+                                                    {
+                                                        <span class="badge bg-danger">
+                                                            Cancelled
+                                                        </span>
+                                                    }
+                                                    else if (item.Status == "Pending")
+                                                    {
+                                                        <span class="badge bg-warning text-dark">
+                                                            Pending
+                                                        </span>
+                                                    }
+                                                    else if (item.Status == "Complete")
+                                                    {
+                                                        <span class="badge bg-success">
+                                                            Complete
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        @item.Status
+                                                    }
+
+                                                </td>
+                                            }
+
+                                        </tr>
+
+                                        displaySlNo++;
+                                    }
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning mt-4">
+                            No Production Component records found.
+                        </div>
+                    }
+                }
+
+
+                <!-- ===================================================== -->
+                <!-- CHART TYPE + EXPORT -->
+                <!-- ===================================================== -->
+                @if (!isProcessing && FilteredProductionDetails.Any())
+                {
+                    <div class="chart-export-row mt-2 mb-2">
+
+                        <div class="chart-type-section">
+
+                            <label class="fw-bold mb-2 d-block">
+                                Chart Type
+                            </label>
+
+                            <select class="form-select chart-type-select"
+                                    value="@selectedChartType"
+                                    @onchange="ChartTypeChanged">
+
+                                <option value="PIE">
+                                    Pie Chart
+                                </option>
+
+                                <option value="BAR">
+                                    Bar Chart
+                                </option>
+
+                                <option value="LINE">
+                                    Line Chart
+                                </option>
+
+                                <option value="FINANCIAL">
+                                    Financial Chart
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="export-section">
+
+                            <button type="button"
+                                    class="btn btn-primary export-button"
+                                    @onclick="OnPrintPendingTrack"
+                                    disabled="@isProcessing">
+
+                                <i class="bi bi-file-earmark-excel-fill me-1"></i>
+                                Export Excel
+
+                            </button>
+
+                        </div>
+
+                    </div>
+                }
+
+
+                <!-- ===================================================== -->
+                <!-- SUMMARY -->
+                <!-- ===================================================== -->
+                @if (!isProcessing && FilteredProductionDetails.Any())
+                {
+                    <div class="row mt-4 g-3">
+
+                        <div class="col-12 col-md-4">
+
+                            <div class="summary-card accepted-card">
+
+                                <div class="summary-icon">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                </div>
+
+                                <div>
+
+                                    <div class="summary-title">
+                                        Total Accepted Qty
+                                    </div>
+
+                                    <div class="summary-value">
+                                        @TotalAcceptedQty.ToString("0.00")
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-12 col-md-4">
+
+                            <div class="summary-card rejected-card">
+
+                                <div class="summary-icon">
+                                    <i class="bi bi-x-circle-fill"></i>
+                                </div>
+
+                                <div>
+
+                                    <div class="summary-title">
+                                        Total Rejected Qty
+                                    </div>
+
+                                    <div class="summary-value">
+                                        @TotalRejectedQty.ToString("0.00")
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-12 col-md-4">
+
+                            <div class="summary-card rework-card">
+
+                                <div class="summary-icon">
+                                    <i class="bi bi-arrow-repeat"></i>
+                                </div>
+
+                                <div>
+
+                                    <div class="summary-title">
+                                        Total Rework Qty
+                                    </div>
+
+                                    <div class="summary-value">
+                                        @TotalReworkQty.ToString("0.00")
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- CHART -->
+                    <!-- ================================================= -->
+
+                    <div class="row mt-4">
+
+                        <div class="col-12">
+
+                            <div class="card shadow-sm">
+
+                                <div class="card-header custom-blue">
+
+                                    <div class="d-flex justify-content-between align-items-center">
+
+                                        <strong>
+                                            @ChartTitle
+                                        </strong>
+
+                                        <span class="badge bg-light text-dark">
+                                            Total: @TotalQty.ToString("0.00")
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="card-body">
+
+                                    @if (selectedChartType == "PIE")
+                                    {
+                                        <div class="row align-items-center">
+
+                                            <div class="col-md-6">
+
+                                                <div class="pie-chart-container">
+
+                                                    <div class="pie-chart"
+                                                         style="@PieChartStyle">
+
+                                                        <div class="pie-chart-center">
+
+                                                            <strong>
+                                                                @TotalQty.ToString("0.00")
+                                                            </strong>
+
+                                                            <small>
+                                                                Total Qty
+                                                            </small>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-md-6">
+
+                                                <div class="chart-legend">
+
+                                                    <div class="legend-item">
+
+                                                        <span class="legend-color accepted-color"></span>
+
+                                                        <div class="legend-content">
+
+                                                            <span>
+                                                                Accepted Qty
+                                                            </span>
+
+                                                            <strong>
+                                                                @TotalAcceptedQty.ToString("0.00")
+                                                            </strong>
+
+                                                        </div>
+
+                                                        <span class="legend-percent">
+                                                            @AcceptedPercentage.ToString("0.00")%
+                                                        </span>
+
+                                                    </div>
+
+
+                                                    <div class="legend-item">
+
+                                                        <span class="legend-color rejected-color"></span>
+
+                                                        <div class="legend-content">
+
+                                                            <span>
+                                                                Rejected Qty
+                                                            </span>
+
+                                                            <strong>
+                                                                @TotalRejectedQty.ToString("0.00")
+                                                            </strong>
+
+                                                        </div>
+
+                                                        <span class="legend-percent">
+                                                            @RejectedPercentage.ToString("0.00")%
+                                                        </span>
+
+                                                    </div>
+
+
+                                                    <div class="legend-item">
+
+                                                        <span class="legend-color rework-color"></span>
+
+                                                        <div class="legend-content">
+
+                                                            <span>
+                                                                Rework Qty
+                                                            </span>
+
+                                                            <strong>
+                                                                @TotalReworkQty.ToString("0.00")
+                                                            </strong>
+
+                                                        </div>
+
+                                                        <span class="legend-percent">
+                                                            @ReworkPercentage.ToString("0.00")%
+                                                        </span>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="chart-wrapper">
+
+                                            <canvas id="productionChartCanvas"></canvas>
+
+                                        </div>
+                                    }
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+}
+
+
+<!-- ============================================================= -->
+<!-- STYLE -->
+<!-- ============================================================= -->
+
+<style>
+
+    .custom-blue {
+        background-color: #2382b8 !important;
+        color: white !important;
+    }
+
+    .report-type-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        min-height: 38px;
+    }
+
+    .radio-option {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        cursor: pointer;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .radio-option input {
+        cursor: pointer;
+    }
+
+    .column-button {
+        white-space: nowrap;
+    }
+
+    .column-menu {
+        min-width: 280px;
+        max-height: 500px;
+        overflow-y: auto;
+    }
+
+    .production-table {
+        max-height: 600px;
+        overflow: auto;
+    }
+
+    .table td,
+    .table th {
+        vertical-align: middle;
+    }
+
+    .production-table thead th {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    .chart-export-row {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 12px;
+    }
+
+    .chart-type-section {
+        width: 290px;
+        max-width: 100%;
+    }
+
+    .chart-type-select {
+        width: 100%;
+    }
+
+    .export-button {
+        min-width: 140px;
+        height: 38px;
+        flex-shrink: 0;
+    }
+
+    .summary-card {
+        border-radius: 12px;
+        padding: 18px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background: white;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.10);
+        border-left: 5px solid;
+    }
+
+    .accepted-card {
+        border-left-color: #198754;
+    }
+
+    .rejected-card {
+        border-left-color: #dc3545;
+    }
+
+    .rework-card {
+        border-left-color: #ffc107;
+    }
+
+    .summary-icon {
+        font-size: 35px;
+    }
+
+    .accepted-card .summary-icon {
+        color: #198754;
+    }
+
+    .rejected-card .summary-icon {
+        color: #dc3545;
+    }
+
+    .rework-card .summary-icon {
+        color: #ffc107;
+    }
+
+    .summary-title {
+        font-size: 14px;
+        color: #666;
+        font-weight: 600;
+    }
+
+    .summary-value {
+        font-size: 25px;
+        font-weight: 700;
+    }
+
+    .pie-chart-container {
+        width: 100%;
+        min-height: 350px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pie-chart {
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        position: relative;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .pie-chart-center {
+        position: absolute;
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        background: white;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+    }
+
+    .pie-chart-center strong {
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+    .pie-chart-center small {
+        color: #666;
+        font-size: 12px;
+    }
+
+    .chart-legend {
+        padding: 20px;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 15px;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        background-color: #f8f9fa;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+    }
+
+    .legend-color {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        flex-shrink: 0;
+    }
+
+    .accepted-color {
+        background-color: #198754;
+    }
+
+    .rejected-color {
+        background-color: #dc3545;
+    }
+
+    .rework-color {
+        background-color: #ffc107;
+    }
+
+    .legend-content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .legend-percent {
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+    .chart-wrapper {
+        position: relative;
+        width: 100%;
+        height: 450px;
+        min-height: 450px;
+    }
+
+    #productionChartCanvas {
+        display: block;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+</style>
+
+
+<!-- ============================================================= -->
+<!-- CHART.JS -->
+<!-- ============================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+
+<script>
+
+    /* =============================================================
+       PRODUCTION CHART
+       ============================================================= */
+
+    window.productionChart = null;
+
+
+    window.destroyProductionChart = function () {
+
+        try {
+
+            if (window.productionChart !== null) {
+
+                window.productionChart.destroy();
+
+                window.productionChart = null;
+            }
+
+        }
+        catch (error) {
+
+            console.error(
+                "Error destroying production chart:",
+                error
+            );
+
+            window.productionChart = null;
+        }
+
+    };
+
+
+    window.createProductionChart = function (
+        chartType,
+        accepted,
+        rejected,
+        rework
+    ) {
+
+        try {
+
+            if (typeof Chart === "undefined") {
+
+                console.error(
+                    "Chart.js is not loaded."
+                );
+
+                return false;
+            }
+
+
+            const canvas =
+                document.getElementById(
+                    "productionChartCanvas"
+                );
+
+
+            if (!canvas) {
+
+                console.error(
+                    "productionChartCanvas not found."
+                );
+
+                return false;
+            }
+
+
+            if (window.productionChart !== null) {
+
+                try {
+
+                    window.productionChart.destroy();
+
+                }
+                catch (error) {
+
+                    console.warn(
+                        "Old chart destroy error:",
+                        error
+                    );
+
+                }
+
+                window.productionChart = null;
+            }
+
+
+            accepted = Number(accepted) || 0;
+            rejected = Number(rejected) || 0;
+            rework = Number(rework) || 0;
+
+
+            let type = "bar";
+            let indexAxis = "x";
+            let title = "Production Quantity";
+
+
+            switch (chartType) {
+
+                case "BAR":
+
+                    type = "bar";
+                    indexAxis = "x";
+                    title = "Production Quantity";
+
+                    break;
+
+
+                case "LINE":
+
+                    type = "line";
+                    indexAxis = "x";
+                    title = "Production Trend";
+
+                    break;
+
+
+                case "FINANCIAL":
+
+                    type = "bar";
+                    indexAxis = "y";
+                    title = "Production Financial Chart";
+
+                    break;
+
+
+                default:
+
+                    return false;
+            }
+
+
+            const dataset =
+            {
+                label: title,
+
+                data:
+                [
+                    accepted,
+                    rejected,
+                    rework
+                ],
+
+                backgroundColor:
+                [
+                    "rgba(25, 135, 84, 0.75)",
+                    "rgba(220, 53, 69, 0.75)",
+                    "rgba(255, 193, 7, 0.75)"
+                ],
+
+                borderColor:
+                [
+                    "#198754",
+                    "#dc3545",
+                    "#ffc107"
+                ],
+
+                borderWidth: 2,
+
+                borderRadius:
+                    type === "bar"
+                        ? 6
+                        : 0,
+
+                tension:
+                    type === "line"
+                        ? 0.35
+                        : 0,
+
+                pointRadius:
+                    type === "line"
+                        ? 6
+                        : 0,
+
+                pointHoverRadius:
+                    type === "line"
+                        ? 8
+                        : 0,
+
+                fill: false
+            };
+
+
+            const config =
+            {
+                type: type,
+
+                data:
+                {
+                    labels:
+                    [
+                        "Accepted",
+                        "Rejected",
+                        "Rework"
+                    ],
+
+                    datasets:
+                    [
+                        dataset
+                    ]
+                },
+
+                options:
+                {
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    animation:
+                    {
+                        duration: 600
+                    },
+
+                    indexAxis: indexAxis,
+
+                    interaction:
+                    {
+                        intersect: false,
+                        mode: "index"
+                    },
+
+                    plugins:
+                    {
+                        legend:
+                        {
+                            display: true,
+                            position: "top"
+                        },
+
+                        tooltip:
+                        {
+                            enabled: true,
+
+                            callbacks:
+                            {
+                                label:
+                                    function (context) {
+
+                                        const value =
+                                            Number(
+                                                context.raw
+                                            ) || 0;
+
+                                        return (
+                                            context.dataset.label +
+                                            ": " +
+                                            value.toFixed(2)
+                                        );
+                                    }
+                            }
+                        }
+                    },
+
+                    scales:
+                    {
+                        x:
+                        {
+                            beginAtZero: true,
+
+                            ticks:
+                            {
+                                precision: 0
+                            }
+                        },
+
+                        y:
+                        {
+                            beginAtZero: true,
+
+                            ticks:
+                            {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            };
+
+
+            const context =
+                canvas.getContext("2d");
+
+
+            if (!context) {
+
+                return false;
+            }
+
+
+            window.productionChart =
+                new Chart(
+                    context,
+                    config
+                );
+
+
+            return true;
+
+        }
+        catch (error) {
+
+            console.error(
+                "Production chart creation failed:",
+                error
+            );
+
+            window.productionChart = null;
+
+            return false;
+        }
+
+    };
+
+
+    /* =============================================================
+       EXCEL DOWNLOAD
+       ============================================================= */
+
+    window.downloadExcelFile = function (
+        base64,
+        fileName
+    ) {
+
+        try {
+
+            const link =
+                document.createElement("a");
+
+
+            link.href =
+                "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,"
+                + base64;
+
+
+            link.download =
+                fileName;
+
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            document.body.removeChild(link);
+
+        }
+        catch (error) {
+
+            console.error(
+                "Excel download error:",
+                error
+            );
+
+        }
+
+    };
+
+
+    /* =============================================================
+       COLUMN SETTINGS - LOCAL STORAGE
+       ============================================================= */
+
+    window.saveProductionColumnSettings = function (
+        key,
+        json
+    ) {
+
+        try {
+
+            localStorage.setItem(
+                key,
+                json
+            );
+
+            return true;
+
+        }
+        catch (error) {
+
+            console.error(
+                "Unable to save column settings:",
+                error
+            );
+
+            return false;
+        }
+
+    };
+
+
+    window.loadProductionColumnSettings = function (
+        key
+    ) {
+
+        try {
+
+            return localStorage.getItem(
+                key
+            );
+
+        }
+        catch (error) {
+
+            console.error(
+                "Unable to load column settings:",
+                error
+            );
+
+            return null;
+        }
+
+    };
+
+
+    window.clearProductionColumnSettings = function (
+        key
+    ) {
+
+        try {
+
+            localStorage.removeItem(
+                key
+            );
+
+            return true;
+
+        }
+        catch (error) {
+
+            console.error(
+                "Unable to clear column settings:",
+                error
+            );
+
+            return false;
+        }
+
+    };
+
+</script>
+
+
+@code
+{
+
+    // =============================================================
+    // BASIC VARIABLES
+    // =============================================================
+    protected override string ScreenName => "Daily Log Summary";
+    private bool isProcessing = true;
+
+    private bool chartRenderPending = false;
+
+    private bool columnSettingsLoaded = false;
+
+
+    private DateTime? FromDate =
+        DateTime.Today.AddMonths(-1);
+
+
+    private DateTime? ToDate =
+        DateTime.Today;
+
+
+    private string searchText =
+        string.Empty;
+
+
+    private string selectedReportType =
+        "DAILY";
+
+
+    private string selectedChartType =
+        "PIE";
+
+
+    private List<ProductionReportVM>
+        ProductionDetails = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await LoadRightsAsync();
+
+            if (!CanView)
+            {
+                _navigation.NavigateTo("/access-denied");
+                return;
+            }
+            await LoadData();
+        }
+        catch (Exception ex)
+        {
+
+            throw;
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+
+    // =============================================================
+    // LOCAL STORAGE KEY
+    // =============================================================
+
+    private const string ColumnStorageKey =
+        "ProductionReport_ColumnSettings";
+
+
+    // =============================================================
+    // COLUMN DEFINITIONS
+    // =============================================================
+
+    private readonly Dictionary<string, bool>
+        DailyColumns = new()
+        {
+            ["Sl No"] = true,
+            ["Production Date"] = true,
+            ["Production No"] = true,
+            ["Customer"] = true,
+            ["Route Card"] = true,
+            ["PO No"] = true,
+            ["PO Line No"] = true,
+            ["PO Date"] = true,
+            ["Mfg / Labour"] = true,
+            ["Entry Type"] = true,
+            ["Item Code"] = true,
+            ["Process"] = true,
+            ["Shift"] = true,
+            ["Machine"] = true,
+            ["From Time"] = true,
+            ["To Time"] = true,
+            ["Worked Hrs"] = true,
+            ["Operator"] = true,
+            ["Target Qty"] = true,
+            ["Expected Qty"] = true,
+            ["Issued Qty"] = true,
+            ["Produceable Qty"] = true,
+            ["Accepted Qty"] = true,
+            ["Rejected Qty"] = true,
+            ["Rework Qty"] = true,
+            ["Bal Qty"] = true,
+            ["Remarks"] = true,
+            ["Idle Time"] = true,
+            ["Operator Efficiency"] = true
+        };
+
+
+    private readonly Dictionary<string, bool>
+        SubContractColumns = new()
+        {
+            ["Sl No"] = true,
+            ["DC Date"] = true,
+            ["DC No"] = true,
+            ["Vendor"] = true,
+            ["PO No"] = true,
+            ["PO Date"] = true,
+            ["Trans Type"] = true,
+            ["Route Card No"] = true,
+            ["Item Code"] = true,
+            ["Process"] = true,
+            ["Machine"] = true,
+            ["Issued Qty"] = true,
+            ["GRN No"] = true,
+            ["Produceable Qty"] = true,
+            ["SCN No"] = true,
+            ["Accepted Qty"] = true,
+            ["Rejected Qty"] = true,
+            ["Rework Qty"] = true,
+            ["Bal Qty"] = true,
+            ["Remarks"] = true,
+            ["Status"] = true
+        };
+
+
+    private readonly Dictionary<string, bool>
+        ProductionIssueColumns = new()
+        {
+            ["Sl No"] = true,
+            ["Issue Date"] = true,
+            ["Issue No"] = true,
+            ["Customer"] = true,
+            ["Route Card"] = true,
+            ["PO No"] = true,
+            ["PO Line No"] = true,
+            ["PO Date"] = true,
+            ["Item Code"] = true,
+            ["Trans Type"] = true,
+            ["Process"] = true,
+            ["Machine"] = true,
+            ["Issued Qty"] = true,
+            ["GRN No"] = true,
+            ["Produceable Qty"] = true,
+            ["SCN No"] = true,
+            ["Accepted Qty"] = true,
+            ["Rejected Qty"] = true,
+            ["Rework Qty"] = true,
+            ["Bal Qty"] = true,
+            ["Remarks"] = true,
+            ["Status"] = true
+        };
+
+
+    private Dictionary<string, bool>
+        CurrentColumns
+    {
+        get
+        {
+            return selectedReportType switch
+            {
+                "SUBCONTRACT" =>
+                    SubContractColumns,
+
+                "PRODUCTIONISSUE" =>
+                    ProductionIssueColumns,
+
+                _ =>
+                    DailyColumns
+            };
+        }
+    }
+
+
+    // =============================================================
+    // COLUMN PERSISTENCE
+    // =============================================================
+
+    private async Task LoadColumnSettings()
+    {
+        try
+        {
+            string? json =
+                await JS.InvokeAsync<string?>(
+                    "loadProductionColumnSettings",
+                    ColumnStorageKey);
+
+
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                columnSettingsLoaded = true;
+                return;
+            }
+
+
+            var savedSettings =
+                JsonSerializer.Deserialize<
+                    Dictionary<string,
+                    Dictionary<string, bool>>
+                >(json);
+
+
+            if (savedSettings == null)
+            {
+                columnSettingsLoaded = true;
+                return;
+            }
+
+
+            ApplySavedColumns(
+                "DAILY",
+                DailyColumns,
+                savedSettings);
+
+
+            ApplySavedColumns(
+                "SUBCONTRACT",
+                SubContractColumns,
+                savedSettings);
+
+
+            ApplySavedColumns(
+                "PRODUCTIONISSUE",
+                ProductionIssueColumns,
+                savedSettings);
+
+
+            columnSettingsLoaded = true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(
+                $"Column settings load error: {ex.Message}");
+
+            columnSettingsLoaded = true;
+        }
+    }
+
+
+    private void ApplySavedColumns(
+        string reportType,
+        Dictionary<string, bool> columns,
+        Dictionary<string, Dictionary<string, bool>> savedSettings)
+    {
+        if (!savedSettings.TryGetValue(
+                reportType,
+                out var savedColumns))
+        {
+            return;
+        }
+
+
+        foreach (var column in columns.Keys.ToList())
+        {
+            if (savedColumns.TryGetValue(
+                    column,
+                    out bool visible))
+            {
+                columns[column] = visible;
+            }
+        }
+    }
+
+
+    private async Task SaveColumnSettings()
+    {
+        try
+        {
+            var allSettings =
+                new Dictionary<string,
+                    Dictionary<string, bool>>
+                {
+                    ["DAILY"] =
+                        new Dictionary<string, bool>(
+                            DailyColumns),
+
+                    ["SUBCONTRACT"] =
+                        new Dictionary<string, bool>(
+                            SubContractColumns),
+
+                    ["PRODUCTIONISSUE"] =
+                        new Dictionary<string, bool>(
+                            ProductionIssueColumns)
+                };
+
+
+            string json =
+                JsonSerializer.Serialize(
+                    allSettings);
+
+
+            await JS.InvokeVoidAsync(
+                "saveProductionColumnSettings",
+                ColumnStorageKey,
+                json);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(
+                $"Column settings save error: {ex.Message}");
+        }
+    }
+
+
+    // =============================================================
+    // COLUMN HELPERS
+    // =============================================================
+
+    private bool IsColumnVisible(
+        string column)
+    {
+        return CurrentColumns.TryGetValue(
+            column,
+            out bool visible)
+            && visible;
+    }
+
+
+    private async Task ToggleColumn(
+        string column,
+        ChangeEventArgs e)
+    {
+        if (!CurrentColumns.ContainsKey(column))
+        {
+            return;
+        }
+
+
+        bool value = false;
+
+
+        if (e.Value is bool boolValue)
+        {
+            value = boolValue;
+        }
+        else
+        {
+            bool.TryParse(
+                e.Value?.ToString(),
+                out value);
+        }
+
+
+        CurrentColumns[column] =
+            value;
+
+
+        // SAVE IMMEDIATELY
+        await SaveColumnSettings();
+
+
+        await InvokeAsync(
+            StateHasChanged);
+    }
+
+
+    private async Task SelectAllColumns()
+    {
+        foreach (var key in
+                 CurrentColumns.Keys.ToList())
+        {
+            CurrentColumns[key] = true;
+        }
+
+
+        // SAVE
+        await SaveColumnSettings();
+
+
+        await InvokeAsync(
+            StateHasChanged);
+    }
+
+
+    private async Task ResetColumns()
+    {
+        foreach (var key in
+                 CurrentColumns.Keys.ToList())
+        {
+            CurrentColumns[key] = true;
+        }
+
+
+        // SAVE RESET STATE
+        await SaveColumnSettings();
+
+
+        await InvokeAsync(
+            StateHasChanged);
+    }
+
+
+    // =============================================================
+    // PAGE TITLE
+    // =============================================================
+
+    private string PageTitle
+    {
+        get
+        {
+            return selectedReportType switch
+            {
+                "SUBCONTRACT" =>
+                    "Sub Contract",
+
+                "PRODUCTIONISSUE" =>
+                    "Production Component",
+
+                _ =>
+                    "Daily Production Log"
+            };
+        }
+    }
+
+
+    // =============================================================
+    // FILTERED DATA
+    // =============================================================
+
+    private IEnumerable<ProductionReportVM>
+        FilteredProductionDetails
+    {
+        get
+        {
+            if (ProductionDetails == null)
+            {
+                return Enumerable.Empty<ProductionReportVM>();
+            }
+
+
+            if (string.IsNullOrWhiteSpace(
+                searchText))
+            {
+                return ProductionDetails;
+            }
+
+
+            string search =
+                searchText.Trim();
+
+
+            return ProductionDetails.Where(x =>
+
+                (x.ProductionNo?.Contains(
+                    search,
+                    StringComparison.OrdinalIgnoreCase)
+                    ?? false)
+
+                ||
+
+                (x.Customer?.Contains(
+                    search,
+                    StringComparison.OrdinalIgnoreCase)
+                    ?? false)
+
+                ||
+
+                (x.RouteCardNo?.Contains(
+                    search,
+                    StringComparison.OrdinalIgnoreCase)
+                    ?? false)
+
+                ||
+
+                (x.ItemCode?.Contains(
+                    search,
+                    StringComparison.OrdinalIgnoreCase)
+                    ?? false)
+
+                ||
+
+                (x.Process?.Contains(
+                    search,
+                    StringComparison.OrdinalIgnoreCase)
+                    ?? false)
+
+                ||
+
+                (x.Operator?.Contains(
+                    search,
+                    StringComparison.OrdinalIgnoreCase)
+                    ?? false)
+
+                ||
+
+                (x.Machine?.Contains(
+                    search,
+                    StringComparison.OrdinalIgnoreCase)
+                    ?? false)
+
+                ||
+
+                (x.PONo?.Contains(
+                    search,
+                    StringComparison.OrdinalIgnoreCase)
+                    ?? false)
+
+                ||
+
+                (x.MfgOrLab?.Contains(
+                    search,
+                    StringComparison.OrdinalIgnoreCase)
+                    ?? false)
+
+                ||
+
+                (x.Shift?.Contains(
+                    search,
+                    StringComparison.OrdinalIgnoreCase)
+                    ?? false)
+
+                ||
+
+                (x.Status?.Contains(
+                    search,
+                    StringComparison.OrdinalIgnoreCase)
+                    ?? false)
+
+                ||
+
+                (x.EntryType?.Contains(
+                    search,
+                    StringComparison.OrdinalIgnoreCase)
+                    ?? false)
+
+                ||
+
+                (x.TransType?.Contains(
+                    search,
+                    StringComparison.OrdinalIgnoreCase)
+                    ?? false)
+            );
+        }
+    }
+
+
+    // =============================================================
+    // TOTALS
+    // =============================================================
+
+    private decimal TotalAcceptedQty
+    {
+        get
+        {
+            var data =
+                FilteredProductionDetails;
+
+
+            if (selectedReportType ==
+                "PRODUCTIONISSUE")
+            {
+                return data
+                    .Where(x =>
+                        string.Equals(
+                            x.TransType,
+                            "In",
+                            StringComparison.OrdinalIgnoreCase))
+                    .Sum(x =>
+                        x.AcceptedQty);
+            }
+
+
+            return data.Sum(
+                x => x.AcceptedQty);
+        }
+    }
+
+
+    private decimal TotalRejectedQty
+    {
+        get
+        {
+            var data =
+                FilteredProductionDetails;
+
+
+            if (selectedReportType ==
+                "PRODUCTIONISSUE")
+            {
+                return data
+                    .Where(x =>
+                        string.Equals(
+                            x.TransType,
+                            "In",
+                            StringComparison.OrdinalIgnoreCase))
+                    .Sum(x =>
+                        x.RejectedQty);
+            }
+
+
+            return data.Sum(
+                x => x.RejectedQty);
+        }
+    }
+
+
+    private decimal TotalReworkQty
+    {
+        get
+        {
+            var data =
+                FilteredProductionDetails;
+
+
+            if (selectedReportType ==
+                "PRODUCTIONISSUE")
+            {
+                return data
+                    .Where(x =>
+                        string.Equals(
+                            x.TransType,
+                            "In",
+                            StringComparison.OrdinalIgnoreCase))
+                    .Sum(x =>
+                        x.ReworkQty);
+            }
+
+
+            return data.Sum(
+                x => x.ReworkQty);
+        }
+    }
+
+
+    private decimal TotalQty =>
+        TotalAcceptedQty +
+        TotalRejectedQty +
+        TotalReworkQty;
+
+
+    // =============================================================
+    // PERCENTAGES
+    // =============================================================
+
+    private decimal AcceptedPercentage =>
+        TotalQty == 0
+            ? 0
+            : TotalAcceptedQty /
+              TotalQty *
+              100;
+
+
+    private decimal RejectedPercentage =>
+        TotalQty == 0
+            ? 0
+            : TotalRejectedQty /
+              TotalQty *
+              100;
+
+
+    private decimal ReworkPercentage =>
+        TotalQty == 0
+            ? 0
+            : TotalReworkQty /
+              TotalQty *
+              100;
+
+
+    // =============================================================
+    // CHART TITLE
+    // =============================================================
+
+    private string ChartTitle
+    {
+        get
+        {
+            return selectedReportType switch
+            {
+                "DAILY" =>
+                    "Daily Production - Accepted / Rejected / Rework",
+
+                "SUBCONTRACT" =>
+                    "Sub Contract - Accepted / Rejected / Rework",
+
+                "PRODUCTIONISSUE" =>
+                    "Production Component - Accepted / Rejected / Rework",
+
+                _ =>
+                    "Production Summary"
+            };
+        }
+    }
+
+
+    // =============================================================
+    // PIE CHART STYLE
+    // =============================================================
+
+    private string PieChartStyle
+    {
+        get
+        {
+            decimal accepted =
+                AcceptedPercentage;
+
+            decimal rejected =
+                RejectedPercentage;
+
+            decimal rejectedEnd =
+                accepted +
+                rejected;
+
+
+            string a =
+                accepted.ToString(
+                    CultureInfo.InvariantCulture);
+
+
+            string r =
+                rejectedEnd.ToString(
+                    CultureInfo.InvariantCulture);
+
+
+            return
+                $"background: conic-gradient(" +
+                $"#198754 0% {a}%," +
+                $"#dc3545 {a}% {r}%," +
+                $"#ffc107 {r}% 100%);";
+        }
+    }
+
+
+
+    // =============================================================
+    // AFTER RENDER
+    // =============================================================
+
+    protected override async Task OnAfterRenderAsync(
+        bool firstRender)
+    {
+        if (firstRender)
+        {
+            /*
+            * IMPORTANT:
+             * JS localStorage is loaded after the component
+             * becomes interactive.
+             */
+
+    await LoadColumnSettings();
+
+            await InvokeAsync(
+                StateHasChanged);
+        }
+
+
+        if (!chartRenderPending)
+        {
+            return;
+        }
+
+
+        if (selectedChartType == "PIE")
+        {
+            chartRenderPending =
+                false;
+
+            return;
+        }
+
+
+        if (!FilteredProductionDetails.Any())
+        {
+            chartRenderPending =
+                false;
+
+            return;
+        }
+
+
+        chartRenderPending =
+            false;
+
+
+        await DrawSelectedChart();
+    }
+
+
+    // =============================================================
+    // FROM DATE
+    // =============================================================
+
+    private async Task OnFromDateChanged()
+    {
+        await LoadData();
+    }
+
+
+    // =============================================================
+    // TO DATE
+    // =============================================================
+
+    private async Task OnToDateChanged()
+    {
+        await LoadData();
+    }
+
+
+    // =============================================================
+    // SEARCH
+    // =============================================================
+
+    private async Task OnSearchChanged()
+    {
+        if (selectedChartType == "PIE")
+        {
+            return;
+        }
+
+
+        chartRenderPending =
+            true;
+
+
+        await InvokeAsync(
+            StateHasChanged);
+    }
+
+
+    // =============================================================
+    // REPORT TYPE
+    // =============================================================
+
+    private async Task ReportTypeChanged(ChangeEventArgs e)
+    {
+
+        try
+        {
+            selectedReportType = e.Value?.ToString() ?? "DAILY";
+
+            searchText = string.Empty;
+
+
+            selectedChartType = "PIE";
+
+
+            chartRenderPending = false;
+
+            await LoadData();
+
+            await JS.InvokeVoidAsync("destroyProductionChart");
+        }
+        catch(Exception ex)
+        {
+            throw;
+        }
+
+    }
+
+
+    // =============================================================
+    // CHART TYPE
+    // =============================================================
+
+    private async Task ChartTypeChanged(ChangeEventArgs e)
+    {
+        try
+        {
+            selectedChartType =
+                e.Value?.ToString()
+                ?? "PIE";
+
+
+            await JS.InvokeVoidAsync(
+                "destroyProductionChart");
+
+
+            if (selectedChartType ==
+                "PIE")
+            {
+                chartRenderPending =
+                    false;
+
+
+                await InvokeAsync(
+                    StateHasChanged);
+
+                return;
+            }
+
+
+            chartRenderPending =
+                true;
+
+
+            await InvokeAsync(
+                StateHasChanged);
+        }
+        catch (Exception ex)
+        {
+            await JS.ToastrError(
+                $"Chart type error: {ex.Message}");
+        }
+    }
+
+
+    // =============================================================
+    // DRAW CHART
+    // =============================================================
+
+    private async Task DrawSelectedChart()
+    {
+        try
+        {
+            if (selectedChartType ==
+                "PIE")
+            {
+                return;
+            }
+
+
+            var data =
+                FilteredProductionDetails
+                    .ToList();
+
+
+            if (!data.Any())
+            {
+                return;
+            }
+
+
+            await Task.Yield();
+
+
+            bool created =
+                await JS.InvokeAsync<bool>(
+                    "createProductionChart",
+
+                    selectedChartType,
+
+                    (double)TotalAcceptedQty,
+
+                    (double)TotalRejectedQty,
+
+                    (double)TotalReworkQty
+                );
+
+
+            if (!created)
+            {
+                await JS.ToastrError(
+                    "Unable to create the selected chart.");
+            }
+        }
+        catch (Exception ex)
+        {
+            await JS.ToastrError(
+                $"Unable to display chart: {ex.Message}");
+        }
+    }
+
+
+    // =============================================================
+    // LOAD DATA
+    // =============================================================
+
+    private async Task LoadData()
+    {
+        try
+        {
+            isProcessing = true;
+
+            chartRenderPending =false;
+
+            ProductionDetails.Clear();
+
+            if (!FromDate.HasValue ||  !ToDate.HasValue)
+            {
+                return;
+            }
+
+
+            if (FromDate.Value.Date > ToDate.Value.Date)
+            {
+                await JS.ToastrWarning("From Date cannot be greater than To Date.");
+
+                return;
+            }
+
+
+            var result =await ProductionReportService.GetProductionReport(FromDate,ToDate,selectedReportType);
+
+            ProductionDetails = result ??new List<ProductionReportVM>();
+
+           @*  if (selectedChartType != "PIE" && ProductionDetails.Any())
+            {
+                chartRenderPending = true;
+            } *@
+
+
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (Exception ex)
+        {
+            ProductionDetails = new List<ProductionReportVM>();
+
+            chartRenderPending =false;
+
+            await JS.ToastrError($"Error loading report: {ex.Message}");
+        }
+        finally
+        {
+            isProcessing = false;
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+
+    // =============================================================
+    // FORMAT DATE
+    // =============================================================
+
+    private string FormatDate(object? value)
+    {
+        if (value == null)
+        {
+            return "";
+        }
+
+
+        if (value is DateTime date)
+        {
+            return date.ToString(
+                "dd/MM/yyyy");
+        }
+
+
+        return value.ToString() ?? "";
+    }
+
+
+    // =============================================================
+    // FORMAT TIME
+    // =============================================================
+
+    private string FormatTime(TimeSpan value)
+    {
+        return value.ToString(
+            @"hh\:mm\:ss");
+    }
+
+
+    // =============================================================
+    // EXCEL EXPORT
+    // =============================================================
+
+    private async Task OnPrintPendingTrack()
+    {
+        try
+        {
+            isProcessing = true;
+
+
+            await InvokeAsync(
+                StateHasChanged);
+
+
+            var data =
+                FilteredProductionDetails
+                    .ToList();
+
+
+            if (!data.Any())
+            {
+                await JS.ToastrWarning(
+                    "No records available to export.");
+
+                return;
+            }
+
+
+            string fileName;
+
+
+            if (selectedReportType == "DAILY")
+            {
+                fileName =
+                    "DailyProductionLog.xlsx";
+
+                await ExportToExcel(
+                    data,
+                    DailyColumns,
+                    fileName,
+                    "Daily Production Log");
+            }
+            else if (selectedReportType == "SUBCONTRACT")
+            {
+                fileName =
+                    "SubContract.xlsx";
+
+                await ExportToExcel(
+                    data,
+                    SubContractColumns,
+                    fileName,
+                    "Sub Contract");
+            }
+            else
+            {
+                fileName =
+                    "ProductionComponent.xlsx";
+
+                await ExportToExcel(
+                    data,
+                    ProductionIssueColumns,
+                    fileName,
+                    "Production Component");
+            }
+        }
+        catch (Exception ex)
+        {
+            await JS.ToastrError(
+                $"Excel export error: {ex.Message}");
+        }
+        finally
+        {
+            isProcessing =
+                false;
+
+
+            await InvokeAsync(
+                StateHasChanged);
+        }
+    }
+
+
+    // =============================================================
+    // COMMON EXCEL EXPORT
+    // =============================================================
+
+    private async Task ExportToExcel(
+        List<ProductionReportVM> data,
+        Dictionary<string, bool> columns,
+        string fileName,
+        string sheetName)
+    {
+        try
+        {
+            var selectedColumns =
+                columns
+                    .Where(x => x.Value)
+                    .Select(x => x.Key)
+                    .ToList();
+
+
+            if (!selectedColumns.Any())
+            {
+                await JS.ToastrWarning(
+                    "Please select at least one column.");
+
+                return;
+            }
+
+
+            using var workbook =
+                new XLWorkbook();
+
+
+            var worksheet =
+                workbook.Worksheets.Add(
+                    sheetName);
+
+
+            for (int i = 0;
+                 i < selectedColumns.Count;
+                 i++)
+            {
+                var cell =
+                    worksheet.Cell(
+                        1,
+                        i + 1);
+
+
+                cell.Value =
+                    selectedColumns[i];
+
+
+                cell.Style.Font.Bold =
+                    true;
+
+
+                cell.Style.Alignment.Horizontal =
+                    XLAlignmentHorizontalValues.Center;
+
+
+                cell.Style.Alignment.Vertical =
+                    XLAlignmentVerticalValues.Center;
+
+
+                cell.Style.Fill.BackgroundColor =
+                    XLColor.FromHtml(
+                        "#2382b8");
+
+
+                cell.Style.Font.FontColor =
+                    XLColor.White;
+            }
+
+
+            int rowNumber = 2;
+
+            int slNo = 1;
+
+
+            foreach (var item in data)
+            {
+                for (int col = 0;
+                     col < selectedColumns.Count;
+                     col++)
+                {
+                    string column =
+                        selectedColumns[col];
+
+
+                    var cell =
+                        worksheet.Cell(
+                            rowNumber,
+                            col + 1);
+
+
+                    SetExcelCellValue(
+                        cell,
+                        column,
+                        item,
+                        slNo);
+                }
+
+
+                rowNumber++;
+
+                slNo++;
+            }
+
+
+            worksheet.Row(1).Height =
+                25;
+
+
+            worksheet.SheetView.FreezeRows(
+                1);
+
+
+            if (rowNumber > 1 &&
+                selectedColumns.Count > 0)
+            {
+                var usedRange =
+                    worksheet.Range(
+                        1,
+                        1,
+                        rowNumber - 1,
+                        selectedColumns.Count);
+
+
+                usedRange.Style.Border.OutsideBorder =
+                    XLBorderStyleValues.Thin;
+
+
+                usedRange.Style.Border.InsideBorder =
+                    XLBorderStyleValues.Thin;
+            }
+
+
+            worksheet.Columns()
+                .AdjustToContents();
+
+
+            foreach (var column in
+                     worksheet.Columns())
+            {
+                if (column.Width > 40)
+                {
+                    column.Width =
+                        40;
+                }
+            }
+
+
+            using var stream =
+                new MemoryStream();
+
+
+            workbook.SaveAs(stream);
+
+
+            byte[] fileBytes =
+                stream.ToArray();
+
+
+            if (fileBytes.Length == 0)
+            {
+                await JS.ToastrError("Excel file was generated empty.");
+
+                return;
+            }
+
+
+            string base64 = Convert.ToBase64String(fileBytes);
+
+
+            await JS.InvokeVoidAsync("downloadExcelFile", base64, fileName);
+        }
+        catch (Exception ex)
+        {
+            await JS.ToastrError(
+                $"Excel generation failed: {ex.Message}");
+        }
+    }
+
+
+    // =============================================================
+    // SET EXCEL CELL VALUE
+    // =============================================================
+
+    private void SetExcelCellValue( IXLCell cell, string column,  ProductionReportVM x, int slNo)
+    {
+        switch (column)
+        {
+            case "Sl No":
+
+                cell.Value =
+                    slNo;
+
+                break;
+
+
+            case "Production Date":
+
+            case "DC Date":
+
+            case "Issue Date":
+
+                cell.Value =
+                    x.ProductionDate;
+
+                cell.Style.DateFormat.Format =
+                    "dd/MM/yyyy";
+
+                break;
+
+
+            case "Production No":
+
+            case "DC No":
+
+            case "Issue No":
+
+                cell.Value =
+                    x.ProductionNo ?? "";
+
+                break;
+
+
+            case "Customer":
+
+            case "Vendor":
+
+                cell.Value =
+                    x.Customer ?? "";
+
+                break;
+
+
+            case "Route Card":
+
+            case "Route Card No":
+
+                cell.Value =
+                    x.RouteCardNo ?? "";
+
+                break;
+
+
+            case "PO No":
+
+                cell.Value =
+                    x.PONo ?? "";
+
+                break;
+
+
+            case "PO Line No":
+
+                cell.Value =
+                    x.POLineNo;
+
+                break;
+
+
+            case "PO Date":
+
+                if (DateTime.TryParse(
+                    x.PODate,
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None,
+                    out DateTime poDate))
+                {
+                    cell.Value =
+                        poDate;
+
+                    cell.Style.DateFormat.Format =
+                        "dd/MM/yyyy";
+                }
+                else
+                {
+                    cell.Value =
+                        x.PODate ?? "";
+                }
+
+                break;
+
+
+            case "Mfg / Labour":
+
+                cell.Value =
+                    x.MfgOrLab ?? "";
+
+                break;
+
+
+            case "Entry Type":
+
+                cell.Value =
+                    x.EntryType ?? "";
+
+                break;
+
+
+            case "Item Code":
+
+                cell.Value =
+                    x.ItemCode ?? "";
+
+                break;
+
+
+            case "Process":
+
+                cell.Value =
+                    x.Process ?? "";
+
+                break;
+
+
+            case "Shift":
+
+                cell.Value =
+                    x.Shift ?? "";
+
+                break;
+
+
+            case "Machine":
+
+                cell.Value =
+                    x.Machine ?? "";
+
+                break;
+
+
+            case "From Time":
+
+                cell.Value =
+                    x.ProductionDate.Date
+                        .Add(x.FromTime);
+
+                cell.Style.DateFormat.Format =
+                    "dd/MM/yyyy hh:mm AM/PM";
+
+                break;
+
+
+            case "To Time":
+
+                cell.Value =
+                    x.ProductionDate.Date
+                        .Add(x.ToTime);
+
+                cell.Style.DateFormat.Format =
+                    "dd/MM/yyyy hh:mm AM/PM";
+
+                break;
+
+
+            case "Worked Hrs":
+
+                cell.Value =
+                    (double)x.WorkedHours;
+
+                cell.Style.NumberFormat.Format =
+                    "0.00";
+
+                break;
+
+
+            case "Operator":
+
+                cell.Value =
+                    x.Operator ?? "";
+
+                break;
+
+
+            case "Target Qty":
+
+                cell.Value =
+                    (double)x.TargetQty;
+
+                cell.Style.NumberFormat.Format =
+                    "0.00";
+
+                break;
+
+
+            case "Expected Qty":
+
+                cell.Value =
+                    (double)x.ExpectedTargetQty;
+
+                cell.Style.NumberFormat.Format =
+                    "0.00";
+
+                break;
+
+
+            case "Issued Qty":
+
+                cell.Value =
+                    (double)x.IssuedQty;
+
+                cell.Style.NumberFormat.Format =
+                    "0.00";
+
+                break;
+
+
+            case "Produceable Qty":
+
+                cell.Value =
+                    (double)x.ProduceableQty;
+
+                cell.Style.NumberFormat.Format =
+                    "0.00";
+
+                break;
+
+
+            case "Accepted Qty":
+
+                cell.Value =
+                    (double)x.AcceptedQty;
+
+                cell.Style.NumberFormat.Format =
+                    "0.00";
+
+                break;
+
+
+            case "Rejected Qty":
+
+                cell.Value =
+                    (double)x.RejectedQty;
+
+                cell.Style.NumberFormat.Format =
+                    "0.00";
+
+                break;
+
+
+            case "Rework Qty":
+
+                cell.Value =
+                    (double)x.ReworkQty;
+
+                cell.Style.NumberFormat.Format =
+                    "0.00";
+
+                break;
+
+
+            case "Bal Qty":
+
+                cell.Value =
+                    (double)x.BalQty;
+
+                cell.Style.NumberFormat.Format =
+                    "0.00";
+
+                break;
+
+
+            case "Remarks":
+
+                cell.Value =
+                    x.LogDetail ?? "";
+
+                break;
+
+
+            case "Idle Time":
+
+                cell.Value =
+                    (double)x.MachineIdleTime;
+
+                cell.Style.NumberFormat.Format =
+                    "0.00";
+
+                break;
+
+
+            case "Operator Efficiency":
+
+                cell.Value =
+                    (double)x.OperatorEfficiency;
+
+                cell.Style.NumberFormat.Format =
+                    "0.00";
+
+                break;
+
+
+            case "Trans Type":
+
+                cell.Value =
+                    x.TransType ?? "";
+
+                break;
+
+
+            case "GRN No":
+
+                cell.Value =
+                    x.GRNNo ?? "";
+
+                break;
+
+
+            case "SCN No":
+
+                cell.Value =
+                    x.SCNNo ?? "";
+
+                break;
+
+
+            case "Status":
+
+                cell.Value =
+                    x.Status ?? "";
+
+                break;
+
+
+            default:
+
+                cell.Value =
+                    "";
+
+                break;
+        }
+    }
+
+
+    // =============================================================
+    // BREADCRUMB
+    // =============================================================
+
+    private List<PageHeader.BreadcrumbItem>
+        PoBreadcrumbs = new()
+        {
+            new()
+            {
+                Text = "Report"
+            },
+
+            new()
+            {
+                Text = "Production Report",
+                IsLast = true
+            }
+        };
+
+}

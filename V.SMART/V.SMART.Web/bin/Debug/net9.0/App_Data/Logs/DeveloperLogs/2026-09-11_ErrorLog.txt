@@ -1,0 +1,208 @@
+2026-09-11 09:14:16 | Level: INFO | Source:  | Message: User logged in successfully: Abhishek
+2026-09-11 09:15:28 | Level: ERROR | Source: An error occurred while handling the OnInitializedAsync() Method for User | Message: EXCEPTION: Exception of type 'Microsoft.AspNetCore.Components.NavigationException' was thrown.
+STACKTRACE:    at Microsoft.AspNetCore.Components.Server.Circuits.RemoteNavigationManager.NavigateToCore(String uri, NavigationOptions options)
+   at Microsoft.AspNetCore.Components.NavigationManager.NavigateToCore(String uri, Boolean forceLoad)
+   at V.SMART.Shared.Pages.Master_Module_pages.Identity_Pages.Logout.OnInitializedAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Master_Module_pages\Identity_Pages\Logout.razor:line 69
+2026-09-11 09:17:32 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-11 09:17:33 | Level: ERROR | Source: Error in EinvoiceCancelOption() | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.SalesService.MfgQuotationService.BatchNoOption() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SalesService\MfgQuotationService.cs:line 1666
+2026-09-11 09:17:33 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-11 09:17:52 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 09:17:52 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 09:17:52 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 09:26:01 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-11 09:26:02 | Level: ERROR | Source: Error in EinvoiceCancelOption() | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.SalesService.MfgQuotationService.BatchNoOption() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SalesService\MfgQuotationService.cs:line 1666
+2026-09-11 09:26:03 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-11 09:26:18 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 09:26:29 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 09:26:29 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 10:42:14 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 10:42:14 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 10:42:14 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 10:53:21 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 10:53:22 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 10:53:22 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 13:04:17 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 13:04:18 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 13:04:18 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 13:11:36 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 13:11:36 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 13:11:36 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 13:13:24 | Level: ERROR | Source: Error in ReportService.Generate_Report() | Message: EXCEPTION: No usable Digital Signature Certificate was found. Please connect the USB DSC token.
+STACKTRACE:    at DigitalSignatureService.GetValidDigitalSignatureCertificate() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\DigitalSignatureService\DigitalSignatureService.cs:line 192
+   at DigitalSignatureService.Cetificatereturnasync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\DigitalSignatureService\DigitalSignatureService.cs:line 649
+   at V.SMART.Shared.Services.ReportViewer.ReportService.Generate_Report(Int32 id, String fileName, String parameter, Boolean cancel, String screenName, String procedureName) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Services\ReportViewer\ReportService.cs:line 108
+2026-09-11 13:13:24 | Level: ERROR | Source: Error in GenerateAndOpenPdf Manufacturing Invoice | Message: EXCEPTION: No usable Digital Signature Certificate was found. Please connect the USB DSC token.
+STACKTRACE:    at DigitalSignatureService.GetValidDigitalSignatureCertificate() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\DigitalSignatureService\DigitalSignatureService.cs:line 192
+   at DigitalSignatureService.Cetificatereturnasync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\DigitalSignatureService\DigitalSignatureService.cs:line 649
+   at V.SMART.Shared.Services.ReportViewer.ReportService.Generate_Report(Int32 id, String fileName, String parameter, Boolean cancel, String screenName, String procedureName) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Services\ReportViewer\ReportService.cs:line 108
+   at V.SMART.Shared.Services.ReportViewer.ReportService.Generate_Report(Int32 id, String fileName, String parameter, Boolean cancel, String screenName, String procedureName) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Services\ReportViewer\ReportService.cs:line 191
+   at V.SMART.Shared.Pages.SalesAndLabour_pages.MfgInv_Pages.MfgInvDetails.GenerateAndOpenPdf() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\SalesAndLabour_pages\MfgInv_Pages\MfgInvDetails.razor:line 575
+2026-09-11 13:14:06 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 13:14:06 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 13:14:06 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 13:17:40 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 13:17:40 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 13:17:40 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 13:31:20 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 13:31:20 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 13:31:20 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 13:32:22 | Level: ERROR | Source: Error in ReportService.Generate_Report() | Message: EXCEPTION: Diagnostic completed. Check the Output window.
+STACKTRACE:    at DigitalSignatureService.GetValidDigitalSignatureCertificate() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\DigitalSignatureService\DigitalSignatureService.cs:line 284
+   at DigitalSignatureService.Cetificatereturnasync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\DigitalSignatureService\DigitalSignatureService.cs:line 705
+   at V.SMART.Shared.Services.ReportViewer.ReportService.Generate_Report(Int32 id, String fileName, String parameter, Boolean cancel, String screenName, String procedureName) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Services\ReportViewer\ReportService.cs:line 108
+2026-09-11 13:32:23 | Level: ERROR | Source: Error in GenerateAndOpenPdf Manufacturing Invoice | Message: EXCEPTION: Diagnostic completed. Check the Output window.
+STACKTRACE:    at DigitalSignatureService.GetValidDigitalSignatureCertificate() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\DigitalSignatureService\DigitalSignatureService.cs:line 284
+   at DigitalSignatureService.Cetificatereturnasync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\DigitalSignatureService\DigitalSignatureService.cs:line 705
+   at V.SMART.Shared.Services.ReportViewer.ReportService.Generate_Report(Int32 id, String fileName, String parameter, Boolean cancel, String screenName, String procedureName) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Services\ReportViewer\ReportService.cs:line 108
+   at V.SMART.Shared.Services.ReportViewer.ReportService.Generate_Report(Int32 id, String fileName, String parameter, Boolean cancel, String screenName, String procedureName) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Services\ReportViewer\ReportService.cs:line 191
+   at V.SMART.Shared.Pages.SalesAndLabour_pages.MfgInv_Pages.MfgInvDetails.GenerateAndOpenPdf() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\SalesAndLabour_pages\MfgInv_Pages\MfgInvDetails.razor:line 575
+2026-09-11 13:33:06 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 13:33:06 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 13:33:06 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 13:38:09 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 13:38:09 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 13:38:09 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 15:00:15 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 15:00:15 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 15:00:15 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 15:04:19 | Level: ERROR | Source: Error in EinvoiceCancelOption() | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.SalesService.MfgQuotationService.BatchNoOption() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SalesService\MfgQuotationService.cs:line 1666
+2026-09-11 15:04:19 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-11 15:17:56 | Level: INFO | Source: ToggleGroupingAsync | Message: Grouping enabled and factors loaded.
+2026-09-11 15:21:51 | Level: INFO | Source: ToggleGroupingAsync | Message: Grouping enabled and factors loaded.
+2026-09-11 15:22:54 | Level: ERROR | Source: Failed to upsert Comp Master: moto Raw | Message: EXCEPTION: An error occurred while saving the entity changes. See the inner exception for details.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.UnitOfWork.SaveAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\UnitOfWork.cs:line 838
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.InventoryService.ItemService.HandleChildUpdatesAsync(CompMaster existingComponent, List`1 incomingSubVMs, StringBuilder changes) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\InventoryService\ItemService.cs:line 1058
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.InventoryService.ItemService.UpsertProcessFlow(CompMasterVM compVM) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\InventoryService\ItemService.cs:line 1010
+2026-09-11 15:29:19 | Level: ERROR | Source: Failed to upsert Comp Master: moto Raw | Message: EXCEPTION: An error occurred while saving the entity changes. See the inner exception for details.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.UnitOfWork.SaveAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\UnitOfWork.cs:line 838
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.InventoryService.ItemService.HandleChildUpdatesAsync(CompMaster existingComponent, List`1 incomingSubVMs, StringBuilder changes) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\InventoryService\ItemService.cs:line 1058
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.InventoryService.ItemService.UpsertProcessFlow(CompMasterVM compVM) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\InventoryService\ItemService.cs:line 1010
+2026-09-11 15:40:33 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 15:40:33 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 15:40:33 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 15:44:06 | Level: INFO | Source: ToggleGroupingAsync | Message: Grouping enabled and factors loaded.
+2026-09-11 16:03:47 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-11 16:07:02 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 16:07:03 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 16:07:03 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 16:08:19 | Level: INFO | Source: ToggleGroupingAsync | Message: Grouping enabled and factors loaded.
+2026-09-11 16:24:51 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 16:24:51 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 16:24:51 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 16:39:41 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 16:39:41 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 16:39:41 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 17:01:26 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 17:01:26 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 17:01:26 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 17:09:24 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 17:09:24 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 17:09:24 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 17:13:23 | Level: ERROR | Source: Error in ExportDataAsync() - PoPendingService | Message: EXCEPTION: Error while executing procedure: sp_Sales_Track
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.ReportService.TrackReportService.ReportExecutor.ExecuteAsync[T](String procedureName, SqlParameter[] parameters) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ReportService\TrackReportService\ReportExecutor.cs:line 43
+   at V.SMART.Shared.BusinessLayer.BusinessService.ReportService.TrackReportService.SalesTrackReportService.ExportDataAsync(Nullable`1 fromDate, Nullable`1 toDate, Nullable`1 customerId) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ReportService\TrackReportService\SalesTrackReportService.cs:line 67
+2026-09-11 17:13:51 | Level: ERROR | Source: Error in ExportDataAsync() - PoPendingService | Message: EXCEPTION: Error while executing procedure: sp_Sales_Track
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.ReportService.TrackReportService.ReportExecutor.ExecuteAsync[T](String procedureName, SqlParameter[] parameters) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ReportService\TrackReportService\ReportExecutor.cs:line 43
+   at V.SMART.Shared.BusinessLayer.BusinessService.ReportService.TrackReportService.SalesTrackReportService.ExportDataAsync(Nullable`1 fromDate, Nullable`1 toDate, Nullable`1 customerId) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ReportService\TrackReportService\SalesTrackReportService.cs:line 67
+2026-09-11 17:14:25 | Level: ERROR | Source: Error in ExportDataAsync() - PoPendingService | Message: EXCEPTION: Error while executing procedure: sp_Sales_Track
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.ReportService.TrackReportService.ReportExecutor.ExecuteAsync[T](String procedureName, SqlParameter[] parameters) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ReportService\TrackReportService\ReportExecutor.cs:line 43
+   at V.SMART.Shared.BusinessLayer.BusinessService.ReportService.TrackReportService.SalesTrackReportService.ExportDataAsync(Nullable`1 fromDate, Nullable`1 toDate, Nullable`1 customerId) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\ReportService\TrackReportService\SalesTrackReportService.cs:line 67
+2026-09-11 17:29:04 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: BeginExecuteReader requires an open and available Connection. The connection's current state is closed.
+STACKTRACE:    at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__211_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-11 17:31:04 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-11 17:31:05 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-11 17:31:05 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-11 17:35:55 | Level: INFO | Source: ToggleGroupingAsync | Message: Grouping enabled and factors loaded.

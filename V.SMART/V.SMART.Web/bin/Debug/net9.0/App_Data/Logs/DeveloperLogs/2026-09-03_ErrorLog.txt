@@ -1,0 +1,72 @@
+2026-09-03 09:36:06 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-03 09:36:06 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-03 09:36:06 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-03 09:51:10 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-03 09:51:10 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-03 09:51:10 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-03 09:58:08 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-03 09:58:08 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-03 09:58:08 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-03 10:16:06 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-03 10:16:06 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-03 10:16:06 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-03 10:23:41 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-03 10:23:41 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-03 10:23:41 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-03 10:52:40 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-03 10:52:40 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-03 10:52:40 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-03 11:02:46 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-03 11:02:46 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-03 11:02:46 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-03 11:10:29 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-03 11:10:29 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-03 11:10:29 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-03 11:10:34 | Level: ERROR | Source: Error fetching decimal places. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.CommonService.GetDecimalPlacesAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\CommonService.cs:line 97
+2026-09-03 12:43:58 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-03 12:44:00 | Level: ERROR | Source: [UserRights] Error while syncing rights for UserId: 1 | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.AnyAsync(Expression`1 predicate) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 177
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.AdminService.UserRightService.SyncRightsForUserAsync(Int32 userId) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\AdminService\UserRightService.cs:line 38
+2026-09-03 12:44:00 | Level: ERROR | Source: Error in HandleLogin() | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.AnyAsync(Expression`1 predicate) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 177
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.AdminService.UserRightService.SyncRightsForUserAsync(Int32 userId) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\AdminService\UserRightService.cs:line 38
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.AdminService.UserRightService.SyncRightsForUserAsync(Int32 userId) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\AdminService\UserRightService.cs:line 86
+   at V.SMART.Shared.Pages.Master_Module_pages.Identity_Pages.Login.HandleLogin() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Master_Module_pages\Identity_Pages\Login.razor:line 387
+2026-09-03 12:44:03 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-03 12:44:03 | Level: INFO | Source:  | Message: [UserRights] 1 rights created for UserId: 1
+2026-09-03 12:44:03 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-03 12:51:11 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-03 12:51:11 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-03 12:51:11 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-03 12:51:11 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-03 13:52:59 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-03 13:52:59 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-03 13:52:59 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-03 13:53:28 | Level: ERROR | Source: OnQuoteChanged | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.OutSourcingService.MaterialRequisitionService.MaterialReqService.GetQuoteDetails(Int32 quoteid) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\OutSourcingService\MaterialRequisitionService\MaterialReqService.cs:line 1827
+   at V.SMART.Shared.Components.QuotationDetials.OnQuoteChanged(ChangeEventArgs e) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Components\QuotationDetials.razor:line 273
+2026-09-03 14:34:37 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-03 14:34:37 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-03 14:34:37 | Level: INFO | Source:  | Message: User logged in successfully: Administrator

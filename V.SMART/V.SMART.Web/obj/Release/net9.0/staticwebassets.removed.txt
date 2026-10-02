@@ -1,0 +1,2 @@
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Web\wwwroot\css\site.css
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Web\wwwroot\uploads\localhost\json\EInv.json

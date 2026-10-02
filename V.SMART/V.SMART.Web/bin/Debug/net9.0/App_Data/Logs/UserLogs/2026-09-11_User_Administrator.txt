@@ -1,0 +1,71 @@
+2026-09-11 15:00:33 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Stores | Action: User Created a new record for Factors. BsplSteel | Info: FactorName: BsplSteel
+2026-09-11 15:05:48 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User created a new grouping | Info: 
+2026-09-11 15:09:33 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping List | Action: Deleted FRC: 002 | Info: Grouping Id: 2
+
+2026-09-11 15:10:34 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User created a new grouping | Info: 
+2026-09-11 15:10:51 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping List | Action: Deleted FRC: 002 | Info: Grouping Id: 3
+
+2026-09-11 15:11:48 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User created a new grouping | Info: 
+2026-09-11 15:12:04 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping Master | Action: Grouping data modified | Info: ModifiedBy: 'null' → 'Administrator'
+ModifiedDate: 'null' → '11/09/2026 15:12:04'
+
+2026-09-11 15:12:04 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User deleted old sub-records for grouping | Info: Grouping ID: 4
+2026-09-11 15:12:28 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping Master | Action: Grouping data modified | Info: ModifiedDate: '11/09/2026 09:42:04' → '11/09/2026 15:12:28'
+
+2026-09-11 15:12:28 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User deleted old sub-records for grouping | Info: Grouping ID: 4
+2026-09-11 15:12:55 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping Master | Action: Grouping data modified | Info: ModifiedDate: '11/09/2026 09:42:28' → '11/09/2026 15:12:55'
+
+2026-09-11 15:12:55 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User deleted old sub-records for grouping | Info: Grouping ID: 4
+2026-09-11 15:13:23 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping List | Action: Deleted FRC: 002 | Info: Grouping Id: 4
+
+2026-09-11 15:13:55 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User created a new grouping | Info: 
+2026-09-11 15:14:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping List | Action: Deleted FRC: 002 | Info: Grouping Id: 5
+
+2026-09-11 15:15:17 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User created a new grouping | Info: 
+2026-09-11 15:15:32 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping List | Action: Deleted FRC: 002 | Info: Grouping Id: 6
+
+2026-09-11 15:15:48 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User created a new grouping | Info: 
+2026-09-11 15:15:58 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping List | Action: Deleted FRC: 002 | Info: Grouping Id: 7
+
+2026-09-11 15:16:42 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User created a new grouping | Info: 
+2026-09-11 15:21:41 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Item | Action: Raw-Material and Process Flow Created | Info: Raw-Material and Process Allocated to the Component.
+
+2026-09-11 16:10:07 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Item | Action: Raw-Material and Process Flow Updated | Info: Parent Changes:
+ProcessFlowCharts: 'System.Collections.Generic.List`1[V.SMART.Shared.Data.Master.Inventory_module.ProcessFlowChart]' → 'System.Collections.Generic.List`1[V.SMART.Shared.ViewModels.ProcessFlowChartVM]'
+
+Child Added - Process: Cutting, Unit Price: 5
+Child Added - Process: Drilling, Unit Price: 5
+Child Added - Process: Molding, Unit Price: 5
+Child Added - Process: Painting, Unit Price: 5
+Raw-Material and Process Allocated to the Component Updated.
+
+2026-09-11 16:40:07 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Stores | Action: User Created a new record for Factors. BsplRod | Info: FactorName: BsplRod
+2026-09-11 16:42:17 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User created a new grouping | Info: 
+2026-09-11 16:45:28 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping Master | Action: Grouping data modified | Info: ModifiedBy: 'null' → 'Administrator'
+ModifiedDate: 'null' → '11/09/2026 16:45:20'
+
+2026-09-11 16:45:49 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User deleted old sub-records for grouping | Info: Grouping ID: 9
+2026-09-11 16:47:57 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Process | Action: User tried to create duplicate Process. Packing | Info: ProcessName: Packing
+2026-09-11 16:48:38 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping Master | Action: Grouping data modified | Info: ModifiedDate: '11/09/2026 11:15:28' → '11/09/2026 16:48:38'
+
+2026-09-11 16:48:38 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User deleted old sub-records for grouping | Info: Grouping ID: 9
+2026-09-11 16:49:14 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping Master | Action: Grouping data modified | Info: ModifiedDate: '11/09/2026 11:18:38' → '11/09/2026 16:49:08'
+
+2026-09-11 16:49:14 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User deleted old sub-records for grouping | Info: Grouping ID: 9
+2026-09-11 17:02:13 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping Master | Action: Grouping data modified | Info: ModifiedDate: '11/09/2026 11:19:14' → '11/09/2026 17:02:13'
+
+2026-09-11 17:02:13 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User deleted old sub-records for grouping | Info: Grouping ID: 9
+2026-09-11 17:10:46 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping Master | Action: Grouping data modified | Info: ModifiedDate: '11/09/2026 11:32:13' → '11/09/2026 17:10:32'
+
+2026-09-11 17:10:59 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User deleted old sub-records for grouping | Info: Grouping ID: 9
+2026-09-11 17:12:01 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping Master | Action: Grouping data modified | Info: ModifiedDate: '11/09/2026 11:40:46' → '11/09/2026 17:11:58'
+
+2026-09-11 17:12:18 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User deleted old sub-records for grouping | Info: Grouping ID: 9
+2026-09-11 17:12:52 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping Master | Action: Grouping data modified | Info: ModifiedDate: '11/09/2026 11:42:01' → '11/09/2026 17:12:52'
+
+2026-09-11 17:12:52 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User deleted old sub-records for grouping | Info: Grouping ID: 9
+2026-09-11 17:33:39 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping Master | Action: Grouping data modified | Info: ModifiedDate: '11/09/2026 11:42:52' → '11/09/2026 17:33:39'
+
+2026-09-11 17:33:39 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Grouping | Action: User deleted old sub-records for grouping | Info: Grouping ID: 9
+2026-09-11 17:35:44 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Item | Action: Raw-Material and Process Flow Created | Info: Raw-Material and Process Allocated to the Component.
+

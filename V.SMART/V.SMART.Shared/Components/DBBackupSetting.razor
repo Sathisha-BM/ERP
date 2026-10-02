@@ -1,0 +1,1204 @@
+﻿@page "/database-backup-settings"
+
+@using Microsoft.Extensions.Configuration
+@using V.SMART.Shared.BusinessLayer.BusinessService.IBusinessService.IDBBackupSetting_Service
+@using V.SMART.Shared.ViewModels.BackupSettingVM
+@using V.SMART.Shared.Services.Database_Backup
+
+@inject ILoggingService LoggingService
+@inject NavigationManager _navigationManager
+@inject IJSRuntime _js
+@inject IDBBackupSettingService DBBackupSettingService
+@inject IConfiguration _configuration
+
+<PageTitle>Database Backup Settings</PageTitle>
+
+@if (isProcessing)
+{
+    <ProcessingOverlay Visible="@isProcessing" Message="Please wait..." />
+}
+else
+{
+    <div class="backup-page">
+
+        <!-- ================= PAGE HEADER ================= -->
+
+        <div class="backup-page-header">
+
+            <div class="backup-title-section">
+
+                <div class="backup-title-icon">
+                    <i class="bi bi-database-fill-check"></i>
+                </div>
+
+                <div>
+                    <h4>Database Backup Settings</h4>
+                    <span>Configure client system database backup</span>
+                </div>
+
+            </div>
+
+            <div class="backup-status">
+
+                @if (Model.IsEnabled)
+                {
+                    <span class="backup-status-badge enabled">
+                        <i class="bi bi-check-circle-fill"></i>
+                        Backup Enabled
+                    </span>
+                }
+                else
+                {
+                    <span class="backup-status-badge disabled">
+                        <i class="bi bi-pause-circle-fill"></i>
+                        Backup Disabled
+                    </span>
+                }
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= MAIN CARD ================= -->
+
+        <div class="backup-card">
+
+            <div class="backup-card-header">
+
+                <div>
+                    <i class="bi bi-gear-fill"></i>
+                    Backup Configuration
+                </div>
+
+                <small>
+                    Client System
+                </small>
+
+            </div>
+
+
+            <div class="backup-card-body">
+
+                @if (!string.IsNullOrWhiteSpace(Message))
+                {
+                    <div class="alert @MessageCss mb-4">
+                        <i class="@MessageIcon"></i>
+                        @Message
+                    </div>
+                }
+
+
+                <!-- ================= DATABASE ================= -->
+
+                <div class="backup-section">
+
+                    <div class="backup-section-title">
+                        <i class="bi bi-database"></i>
+                        Database Information
+                    </div>
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+
+                            <label class="backup-label">
+                                System
+                            </label>
+
+                            <input type="text"
+                                   class="form-control backup-input"
+                                   value="@SystemName"
+                                   readonly />
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="backup-label">
+                                Database Name
+                                <span class="required">*</span>
+                            </label>
+
+                            <input type="text"
+                                   class="form-control backup-input"
+                                   @bind="Model.DatabaseName"
+                                   placeholder="Enter database name" />
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= BACKUP LOCATION ================= -->
+
+                <div class="backup-section">
+
+                    <div class="backup-section-title">
+
+                        <i class="bi bi-folder-fill"></i>
+
+                        Backup Location
+
+                    </div>
+
+
+                    <div class="backup-help-text mb-3">
+
+                        <i class="bi bi-info-circle"></i>
+
+                        Add one or more backup locations.
+
+                    </div>
+
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered backup-path-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th style="width:70px;">
+                                        SlNo
+                                    </th>
+
+                                    <th>
+                                        Database Path
+                                    </th>
+
+                                    <th style="width:100px;">
+                                        Action
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                @if (BackupPaths.Count == 0)
+                                {
+                                    <tr>
+
+                                        <td colspan="3"
+                                            class="text-center text-muted">
+
+                                            No backup path configured.
+
+                                        </td>
+
+                                    </tr>
+                                }
+                                else
+                                {
+                                    @for (int i = 0; i < BackupPaths.Count; i++)
+                                    {
+                                        int index = i;
+
+                                        <tr>
+
+                                            <td class="text-center">
+                                                @(index + 1)
+                                            </td>
+
+                                            <td>
+
+                                                <input type="text"
+                                                       class="form-control backup-input"
+                                                       @bind="BackupPaths[index]"
+                                                       placeholder="Example: E:\" />
+
+                                            </td>
+
+                                            <td class="text-center">
+
+                                                <button type="button"
+                                                        class="btn btn-sm btn-danger"
+                                                        @onclick="() => RemoveBackupPath(index)"
+                                                        title="Remove">
+
+                                                    <i class="bi bi-trash"></i>
+
+                                                </button>
+
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <button type="button"
+                            class="btn backup-browse-button"
+                            @onclick="AddBackupPath">
+
+                        <i class="bi bi-plus-circle"></i>
+
+                        Add Backup Path
+
+                    </button>
+
+
+                    <div class="backup-help-text mt-2">
+
+                        <i class="bi bi-info-circle"></i>
+
+                        Example: E:\, D:\, F:\
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= SCHEDULE ================= -->
+
+                <div class="backup-section">
+
+                    <div class="backup-section-title">
+
+                        <i class="bi bi-calendar-check"></i>
+
+                        Backup Schedule
+
+                    </div>
+
+
+                    <div class="row g-3">
+
+                        <!-- Backup Type -->
+
+                        <div class="col-md-4">
+
+                            <label class="backup-label">
+                                Backup Type
+                            </label>
+
+                            <select class="form-select backup-input"
+                                    @bind="Model.BackupType">
+
+                                <option value="FULL">
+                                    Full Backup
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Frequency -->
+
+                        <div class="col-md-4">
+
+                            <label class="backup-label">
+                                Frequency
+                            </label>
+
+                            <select class="form-select backup-input"
+                                    @bind="Model.Frequency">
+
+                                <option value="DAILY">
+                                    Daily
+                                </option>
+
+                                <option value="WEEKLY">
+                                    Weekly
+                                </option>
+
+                                <option value="MONTHLY">
+                                    Monthly
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Backup Time -->
+
+                        <div class="col-md-4">
+                            <label class="backup-label">
+                                <i class="bi bi-clock"></i>
+                                Backup Time
+                            </label>
+
+                            <input type="time"
+                                   class="form-control backup-input"
+                                   value="@BackupTime"
+                                   @onchange="OnBackupTimeChanged" />
+                        </div>
+
+                    </div>
+
+
+                    <div class="row g-3 mt-1">
+
+                        <!-- Enable Backup -->
+
+                        <div class="col-md-8">
+
+                            <div class="backup-enable-box">
+
+                                <div class="backup-enable-icon">
+
+                                    @if (Model.IsEnabled)
+                                    {
+                                        <i class="bi bi-check-circle-fill"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="bi bi-pause-circle-fill"></i>
+                                    }
+
+                                </div>
+
+
+                                <div class="backup-enable-content">
+
+                                    <strong>
+                                        Automatic Backup
+                                    </strong>
+
+                                    <small>
+                                        Enable automatic database backup on this client system.
+                                    </small>
+
+                                </div>
+
+
+                                <div class="form-check form-switch">
+
+                                    <input class="form-check-input backup-switch"
+                                           type="checkbox"
+                                           @bind="Model.IsEnabled" />
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- ================= BUTTONS ================= -->
+
+                <div class="backup-actions">
+
+                    <button type="button"
+                            class="btn backup-btn-secondary"
+                            @onclick="Reset">
+
+                        <i class="bi bi-arrow-counterclockwise"></i>
+
+                        Reset
+
+                    </button>
+
+
+                    <button type="button"
+                            class="btn backup-btn-primary"
+                            disabled="@IsSaving"
+                            @onclick="Save">
+
+                        @if (IsSaving)
+                        {
+                            <span class="spinner-border spinner-border-sm me-2"></span>
+
+                            <span>Saving...</span>
+                        }
+                        else
+                        {
+                            <i class="bi bi-save me-1"></i>
+
+                            <span>Save Settings</span>
+                        }
+
+                    </button>
+
+
+                    <button type="button"
+                            class="btn backup-btn-success"
+                            disabled="@IsBackingUp"
+                            @onclick="BackupNow">
+
+                        @if (IsBackingUp)
+                        {
+                            <span class="spinner-border spinner-border-sm me-2"></span>
+
+                            <span>Backing Up...</span>
+                        }
+                        else
+                        {
+                            <i class="bi bi-database-fill-up me-1"></i>
+
+                            <span>Backup Now</span>
+                        }
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+     
+
+    <style>
+
+        .backup-page {
+            padding: 20px;
+            background: #f5f7fb;
+            min-height: 100%;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        .backup-page-header {
+            background: #ffffff;
+            border: 1px solid #e1e5eb;
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .backup-title-section {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .backup-title-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eef4ff;
+            color: #315f9d;
+            font-size: 22px;
+        }
+
+        .backup-title-section h4 {
+            margin: 0;
+            color: #26364a;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .backup-title-section span {
+            display: block;
+            margin-top: 3px;
+            color: #7a8797;
+            font-size: 13px;
+        }
+
+        .backup-status-badge {
+            padding: 7px 13px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+            .backup-status-badge.enabled {
+                background: #eaf8ef;
+                color: #218838;
+            }
+
+            .backup-status-badge.disabled {
+                background: #f1f3f5;
+                color: #6c757d;
+            }
+
+        .backup-card {
+            background: #ffffff;
+            border: 1px solid #e1e5eb;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .backup-card-header {
+            padding: 14px 20px;
+            background: #34495e;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+            .backup-card-header i {
+                margin-right: 8px;
+            }
+
+            .backup-card-header small {
+                font-size: 11px;
+                font-weight: 400;
+                opacity: .75;
+            }
+
+        .backup-card-body {
+            padding: 24px;
+        }
+
+        .backup-section {
+            padding-bottom: 22px;
+            margin-bottom: 22px;
+            border-bottom: 1px solid #edf0f4;
+        }
+
+            .backup-section:last-of-type {
+                border-bottom: none;
+            }
+
+        .backup-section-title {
+            margin-bottom: 15px;
+            color: #34495e;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .backup-section-title i {
+                color: #4d79a8;
+            }
+
+        .backup-label {
+            display: block;
+            margin-bottom: 6px;
+            color: #465568;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .required {
+            color: #dc3545;
+        }
+
+        .backup-input {
+            height: 38px;
+            border: 1px solid #d6dce4;
+            border-radius: 7px;
+            font-size: 13px;
+            color: #26364a;
+            box-shadow: none;
+        }
+
+            .backup-input:focus {
+                border-color: #7899bd;
+                box-shadow: 0 0 0 2px rgba(78,121,168,.10);
+            }
+
+            .backup-input:read-only {
+                background: #f5f7fa;
+                color: #687789;
+            }
+
+        .backup-path-table {
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+            .backup-path-table thead th {
+                background: #1565C0;
+                color: #ffffff;
+                font-weight: 600;
+                vertical-align: middle;
+                border-color: #1565C0;
+            }
+
+            .backup-path-table td {
+                vertical-align: middle;
+            }
+
+        .backup-browse-button {
+            height: 38px;
+            background: #edf2f7;
+            border: 1px solid #d3dae3;
+            color: #42566d;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+            .backup-browse-button:hover {
+                background: #e2e8f0;
+                color: #26364a;
+            }
+
+        .backup-help-text {
+            margin-top: 5px;
+            color: #8793a1;
+            font-size: 11px;
+        }
+
+            .backup-help-text i {
+                margin-right: 4px;
+            }
+
+        .backup-enable-box {
+            min-height: 72px;
+            padding: 12px 15px;
+            background: #f8fafc;
+            border: 1px solid #e3e8ef;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .backup-enable-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: #e9f6ee;
+            color: #28a745;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .backup-enable-content {
+            flex: 1;
+        }
+
+            .backup-enable-content strong {
+                display: block;
+                color: #35475b;
+                font-size: 13px;
+            }
+
+            .backup-enable-content small {
+                display: block;
+                margin-top: 2px;
+                color: #8995a3;
+                font-size: 11px;
+            }
+
+        .backup-switch {
+            width: 38px !important;
+            height: 20px !important;
+            cursor: pointer;
+        }
+
+        .last-backup-panel {
+            background: #f8fafc;
+            border: 1px solid #e3e8ef;
+            border-radius: 9px;
+            padding: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            gap: 15px;
+        }
+
+        .last-backup-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            min-width: 0;
+        }
+
+        .last-backup-label {
+            color: #8995a3;
+            font-size: 11px;
+        }
+
+        .last-backup-item strong {
+            color: #34495e;
+            font-size: 13px;
+        }
+
+        .backup-file-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .last-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+            .last-status.success {
+                color: #218838;
+            }
+
+            .last-status.failed {
+                color: #dc3545;
+            }
+
+            .last-status.pending {
+                color: #7b8794;
+            }
+
+        .backup-message {
+            margin-top: 10px;
+            padding: 9px 12px;
+            border-radius: 7px;
+            background: #f4f7fb;
+            color: #657487;
+            font-size: 12px;
+        }
+
+            .backup-message i {
+                margin-right: 5px;
+            }
+
+        .backup-actions {
+            padding-top: 5px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+            .backup-actions .btn {
+                height: 38px;
+                padding: 0 18px;
+                border-radius: 7px;
+                font-size: 13px;
+                font-weight: 500;
+            }
+
+        .backup-btn-primary {
+            background: #4d79a8;
+            border: 1px solid #4d79a8;
+            color: white;
+        }
+
+            .backup-btn-primary:hover {
+                background: #3f668e;
+                border-color: #3f668e;
+                color: white;
+            }
+
+        .backup-btn-success {
+            background: #2f8f5b;
+            border: 1px solid #2f8f5b;
+            color: white;
+        }
+
+            .backup-btn-success:hover {
+                background: #267849;
+                border-color: #267849;
+                color: white;
+            }
+
+        .backup-btn-secondary {
+            background: white;
+            border: 1px solid #d4dae2;
+            color: #5d6b7a;
+        }
+
+            .backup-btn-secondary:hover {
+                background: #f5f7fa;
+            }
+
+        .backup-card-body .alert {
+            padding: 10px 14px;
+            border-radius: 7px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        @@media (max-width: 768px) {
+
+            .backup-page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .backup-card-body {
+                padding: 16px;
+            }
+
+            .last-backup-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .backup-actions {
+                flex-direction: column;
+            }
+
+                .backup-actions .btn {
+                    width: 100%;
+                }
+        }
+
+    </style>
+    
+}
+
+
+
+@code {
+
+
+    private bool isProcessing = true;
+    private DBBackupSettingVM Model = new();
+
+    private DBBackupSettingVM? OriginalModel;
+
+    private bool IsSaving;
+
+    private bool IsBackingUp;
+
+    private string SystemName = Environment.MachineName;
+
+    private string Message = string.Empty;
+
+    private string MessageCss = "alert-info";
+
+    private string MessageIcon = "bi bi-info-circle";
+
+
+    // UI list only.
+    // No extra Model/ViewModel.
+    private List<string> BackupPaths = new();
+
+    private string BackupTime = string.Empty;
+
+    private void OnBackupTimeChanged(ChangeEventArgs e)
+    {
+        BackupTime = e.Value?.ToString() ?? string.Empty;
+
+        if (TimeOnly.TryParseExact(
+            BackupTime,
+            "HH:mm",
+            out var time))
+        {
+            Model.BackupTime = time;
+        }
+        else
+        {
+            Model.BackupTime = null;
+        }
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await LoadSettings();
+        }
+        catch (Exception ex)
+        {
+
+            await LoggingService.LogDeveloperError(ex, "OnInitializedAsync failed.");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+
+    }
+
+
+    private async Task LoadSettings()
+    {
+        try
+        {
+            Message = string.Empty;
+
+            // Replace with your actual SystemId
+            int systemId = 2;
+
+            var result =await DBBackupSettingService.GetBySystemIdAsync(systemId);
+
+            if (result != null)
+            {
+                Model = result;
+
+                await LoadBackupPaths();
+
+                OriginalModel = new DBBackupSettingVM
+                {
+                    Id = result.Id,
+                    SystemId = result.SystemId,
+                    DatabaseName = result.DatabaseName,
+                    BackupPath = result.BackupPath,
+                    BackupType = result.BackupType,
+                    Frequency = result.Frequency,
+                    BackupTime = result.BackupTime,
+                    RetentionDays = result.RetentionDays,
+                    IsEnabled = result.IsEnabled,
+                    LastBackupDate = result.LastBackupDate,
+                    LastBackupFile = result.LastBackupFile,
+                    LastBackupStatus = result.LastBackupStatus,
+                    LastBackupMessage = result.LastBackupMessage
+                };
+            }
+            else
+            {
+                Model = new DBBackupSettingVM
+                {
+                    SystemId = systemId,
+                    DatabaseName = string.Empty,
+                    BackupType = "FULL",
+                    Frequency = "DAILY",
+                    RetentionDays = 30,
+                    IsEnabled = true
+                };
+
+                BackupPaths = new List<string>();
+            }
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Error while in LoadSettings method");
+            await _js.ToastrError("Failed to load LoadSettings method()");
+        }
+    }
+
+
+    private async Task LoadBackupPaths()
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(Model.BackupPath))
+            {
+                BackupPaths = new List<string>();
+                return;
+            }
+
+            BackupPaths = Model.BackupPath
+                .Split(
+                    ';',
+                    StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => x.Trim())
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .ToList();
+
+        }
+        catch (Exception ex)
+        {
+
+            await LoggingService.LogDeveloperError(ex, "Error while in LoadBackupPaths method");
+            await _js.ToastrError("Failed to load LoadBackupPaths method()");
+        }
+    }
+
+
+    private void AddBackupPath()
+    {
+        BackupPaths.Add(string.Empty);
+    }
+
+
+    private void RemoveBackupPath(int index)
+    {
+        if (index >= 0 && index < BackupPaths.Count)
+        {
+            BackupPaths.RemoveAt(index);
+        }
+    }
+
+
+    private void PrepareBackupPaths()
+    {
+        BackupPaths = BackupPaths
+            .Select(x => x.Trim())
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        Model.BackupPath =string.Join(";", BackupPaths);
+    }
+
+
+    private async Task Save()
+    {
+        if (string.IsNullOrWhiteSpace(Model.DatabaseName))
+        {
+            await _js.ToastrWarning("Please enter database name.");
+            return;
+        }
+
+
+        PrepareBackupPaths();
+
+
+        if (BackupPaths.Count == 0)
+        {
+            await _js.ToastrWarning("Please enter at least one backup path.");
+            return;
+        }
+
+
+        if (Model.RetentionDays <= 0)
+        {
+            await _js.ToastrWarning("Retention days must be greater than zero.");
+            return;
+        }
+
+
+        try
+        {
+            isProcessing = true;
+
+            Model =await DBBackupSettingService.SaveAsync(Model);
+
+            await LoadBackupPaths();
+
+            await _js.ToastrWarning("Backup settings saved successfully.");
+        }
+        catch (Exception ex)
+        {
+            await _js.ToastrError("Error while in Save  method");
+            await LoggingService.LogDeveloperError(ex, "Error while in Save method");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+
+    private async Task BackupNow()
+    {
+         PrepareBackupPaths();
+        if (BackupPaths.Count == 0)
+        {
+            await _js.ToastrError("Please configure at least one backup path first.");
+
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(Model.DatabaseName))
+        {
+            await _js.ToastrWarning("Please configure database name first.");
+
+            return;
+        }
+
+
+        try
+        {
+            IsBackingUp = true;
+
+            var sourceBackupPath = GetSourceBackupPath();
+            await DBBackupSettingService.BackupDatabaseToClientPathsAsync(sourceBackupPath,Model.BackupPath,Model.RetentionDays);
+
+            Model.LastBackupDate = DateTime.Now;
+            Model.LastBackupStatus = "SUCCESS";
+            Model.LastBackupFile = "Latest backup";
+            Model.LastBackupMessage = "Backup copied successfully to all configured paths.";
+           
+
+            await Task.Delay(500);
+
+            Model.LastBackupDate = DateTime.Now;
+
+            Model.LastBackupStatus = "SUCCESS";
+
+            Model.LastBackupMessage ="Backup completed successfully.";
+
+
+            await _js.ToastrSuccess("Database backup completed successfully.");
+        }
+        catch (Exception ex)
+        {
+            Model.LastBackupDate = DateTime.Now;
+            Model.LastBackupStatus = "FAILED";
+            Model.LastBackupMessage = ex.Message;
+
+
+            await _js.ToastrWarning($"Database backup failed: {ex.Message}");
+        }
+        finally
+        {
+            IsBackingUp = false;
+        }
+    }
+
+    private string GetSourceBackupPath()
+    {
+        var configuredPath = _configuration["DatabaseBackup:BackupFolder"];
+
+        if (string.IsNullOrWhiteSpace(configuredPath))
+            throw new Exception("Database backup folder is not configured.");
+
+        return Environment.ExpandEnvironmentVariables(configuredPath);
+    }
+
+
+    private async Task BrowseBackupFolder()
+    {
+        await Task.CompletedTask;
+    }
+
+
+    private async Task Reset()
+    {
+        try
+        {
+            if (OriginalModel != null)
+            {
+                Model = new DBBackupSettingVM
+                {
+                    Id = OriginalModel.Id,
+                    SystemId = OriginalModel.SystemId,
+                    DatabaseName = OriginalModel.DatabaseName,
+                    BackupPath = OriginalModel.BackupPath,
+                    BackupType = OriginalModel.BackupType,
+                    Frequency = OriginalModel.Frequency,
+                    BackupTime = OriginalModel.BackupTime,
+                    RetentionDays = OriginalModel.RetentionDays,
+                    IsEnabled = OriginalModel.IsEnabled,
+                    LastBackupDate = OriginalModel.LastBackupDate,
+                    LastBackupFile = OriginalModel.LastBackupFile,
+                    LastBackupStatus = OriginalModel.LastBackupStatus,
+                    LastBackupMessage = OriginalModel.LastBackupMessage
+                };
+
+                await LoadBackupPaths();
+            }
+            else
+            {
+                Model = new DBBackupSettingVM();
+
+                BackupPaths = new List<string>();
+            }
+
+            Message = string.Empty;
+
+        }
+        catch (Exception ex)
+        {
+            
+            await LoggingService.LogDeveloperError(ex, "Error while in Reset method");
+            await _js.ToastrError("Failed to load Reset method()");
+        }
+    }
+
+
+
+}

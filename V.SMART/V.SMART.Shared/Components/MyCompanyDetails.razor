@@ -1,0 +1,92 @@
+﻿@using Microsoft.Extensions.Configuration
+@inject ICommonService _commonService
+@inject ILoggingService _logs
+@inject IConfiguration Configuration
+
+@if (company != null)
+{
+    <div class="row align-items-center mb-4 g-4">
+        <div class="col-12 col-lg-3 text-center">
+            @if (!string.IsNullOrEmpty(company.LogoUrl))
+            {
+                <img src="@(IsDesktop?LogoImageSource:company.LogoUrl)" class="img-fluid rounded-3" style="max-height:120px;" />
+            }
+        </div>
+
+        <div class="col-12 col-lg-9 text-lg-start text-center">
+            <h2 class="text-primary fw-bold mb-1">@company.CompanyName</h2>
+            <p class="text-muted mb-1">@company.RegisteredAddress</p>
+            <p class="text-muted mb-0"><strong>GST No:</strong> @company.GSTIN</p>
+        </div>
+    </div>
+}
+
+@code {
+    private Companydetails? company;
+    private string LogoImageSource { get; set; } = string.Empty;
+    private bool IsDesktop => Configuration["AppEnvironment"] == "Desktop";
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            company = await _commonService.GetCompanyDetailsAsync();
+
+            await LoadLogoAsync();
+        }
+        catch (Exception ex)
+        {
+            await _logs.LogDeveloperError(ex, "Error Occured while Loading OnInitializedAsync()");
+        }
+    }
+
+    private async Task LoadLogoAsync()
+    {
+        try
+        {
+            LogoImageSource = string.Empty;
+            var companyLogoPath = company.LogoPath;
+
+
+            // No logo path configured
+            if (string.IsNullOrWhiteSpace(companyLogoPath))
+                return ;
+
+            // Logo file does not exist
+            if (!File.Exists(companyLogoPath))
+            {
+                Console.WriteLine($"Logo file not found: {companyLogoPath}");
+                return;
+            }
+
+            var bytes = await File.ReadAllBytesAsync(companyLogoPath);
+
+            if (bytes.Length == 0)
+                return;
+
+            var extension = Path.GetExtension(companyLogoPath)
+                .ToLowerInvariant();
+
+            var contentType = extension switch
+            {
+                ".png" => "image/png",
+                ".jpg" => "image/jpeg",
+                ".jpeg" => "image/jpeg",
+                ".gif" => "image/gif",
+                ".webp" => "image/webp",
+                ".bmp" => "image/bmp",
+                ".svg" => "image/svg+xml",
+                _ => "image/png"
+            };
+
+            LogoImageSource = $"data:{contentType};base64,{Convert.ToBase64String(bytes)}";
+        }
+        catch (Exception ex)
+        {
+           
+            throw;
+        }
+
+
+    }
+}
+

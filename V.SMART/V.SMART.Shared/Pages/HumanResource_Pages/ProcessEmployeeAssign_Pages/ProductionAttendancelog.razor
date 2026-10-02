@@ -1,0 +1,651 @@
+﻿@page "/productionattendance/create"
+@page "/productionattendance/update/{Id:int}"
+
+
+
+@using V.SMART.Shared.BusinessLayer.BusinessService.IBusinessService.IProductionService.IProductionAttendancelogService
+@using V.SMART.Shared.Services.ReportViewer
+@using V.SMART.Shared.ViewModels.HumanResourceViewModel.ProcessEmployeeAssignVM
+
+@inject IProductionAttendancelogService _productionAttendanceService
+@inject NavigationManager _navigation
+@inject ILabourInvoiceService _LabourInvoiceService
+@inject ILoggingService LoggingService
+@inherits BaseUserRightsComponent
+@inject IJSRuntime _js
+@inject ReportService reportService
+
+    <style >
+
+    .table thead th {
+        position: sticky;
+        white-space: nowrap;
+        top: 0;
+        z-index: 5;
+    }
+
+    .table td {
+        vertical-align: middle;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .form-control {
+        border-radius: 10px;
+    }
+
+    .form-select {
+        border-radius: 10px;
+    }
+
+    tbody tr:hover {
+        background: #f8fbff;
+    }
+
+    .table-responsive {
+        max-height: 650px;
+        overflow: auto;
+    }
+
+</style>
+
+@if (isProcessing)
+{
+    <ProcessingOverlay Visible="@isProcessing" Message="Please wait..." />
+}
+else if (!CanView)
+{
+    <RedirectToLogin />
+    return;
+}
+else
+{
+     <div class="container-fluid px-2 px-md-4 mt-4">
+
+        <div class="card shadow-sm border-1">
+
+            <PageHeader TitleText="Process Employee Assignment"
+                        TitleIcon="bi bi-calendar-week-fill"
+                        Breadcrumbs="@LabourPendingBreadcrumbs" />
+
+            <EditForm Model="@Model" OnValidSubmit="SaveAsync">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+                    <div class="card-body P-4">
+
+                            <!-- Filter -->
+
+                           <div class="card shadow-sm border-0 mb-3">
+
+                           <div class="card-body">
+
+                            <div class="row g-3">
+
+                                <div class="col-md-5">
+
+                                    <label class="fw-bold">
+                                        Week
+                                    </label>
+                                    @if(Id > 0)
+                                    {
+                                        <InputText class="form-control form-control-lg"
+                                               @bind-Value="Model.WeekName"
+                                               readonly />
+                                    }
+                                    else
+                                    {
+                                        <select class="form-select form-select-lg"
+                                                @bind="Model.WeekNo"
+                                                @bind:after="OnWeekChanged">
+
+                                            <option value="">--select week--</option>
+                                            @foreach (var week in Weeks)
+                                            {
+                                                <option value="@week.WeekNo">@week.WeekName</option>
+                                            }
+
+                                        </select>
+                                    }
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <label class="fw-bold">
+                                        Process
+                                    </label>
+
+                                    <InputText class="form-control form-control-lg"
+                                               @bind-Value="Model.ProcessName"
+                                               readonly />
+
+                                </div>
+
+                                <div class="col-md-3">
+
+                                    <label class="fw-bold">
+                                        Employees
+                                    </label>
+
+                                    <input class="form-control form-control-lg"
+                                           readonly
+                                           value="@EmployeeAttendance.Count" />
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                             <hr />
+
+                      <div class="card border-0 shadow-sm mb-3">
+
+                        <div class="card-header bg-light">
+
+                            <b>
+                                <i class="bi bi-lightning-fill text-warning"></i>
+
+                                Bulk Attendance
+
+                            </b>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="row g-3">
+
+                                <div class="col-md-2">
+
+                                    <label>Status</label>
+
+                                    <select class="form-select"
+                                            @bind="SelectedStatus">
+
+                                        <option>P</option>
+
+                                        <option>A</option>
+
+                                        <option>L</option>
+
+                                        <option>HD</option>
+
+                                        <option>WO</option>
+
+                                    </select>
+
+                                </div>
+
+                                <div class="col-md-2">
+
+                                    <label>In Time</label>
+
+                                    <input type="text"
+                                           class="form-control"
+                                           @bind="SelectedInTime" />
+
+                                </div>
+
+                                <div class="col-md-2">
+
+                                    <label>Out Time</label>
+
+                                    <input type="text"
+                                           class="form-control"
+                                           @bind="SelectedOutTime" />
+
+                                </div>
+
+                                <div class="col-md-6 d-flex align-items-end">
+
+                                    <span class="text-muted">
+
+                                        Double-click any day header to fill all employees.
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                      </div>
+
+                      <div class="alert alert-primary d-flex justify-content-between align-items-center mb-2">
+
+                        <div>
+                            <i class="bi bi-calendar-check-fill me-2"></i>
+                            Weekly Attendance Entry
+                        </div>
+
+                        <div>
+
+                            <span class="badge bg-success">P</span> Present
+
+                            <span class="badge bg-danger ms-2">A</span> Absent
+
+                            <span class="badge bg-warning text-dark ms-2">HD</span> Half Day
+
+                            <span class="badge bg-info text-dark ms-2">L</span> Leave
+
+                            <span class="badge bg-secondary ms-2">WO</span> Week Off
+
+                            <span class="badge bg-primary ms-2">OD</span> On Duty
+
+                        </div>
+
+                    </div>
+
+                            <!-- Attendance -->
+
+                    <div class="table-responsive" style="overflow-x:auto; white-space:nowrap;">
+
+                                <table class="table table-bordered table-sm text-center align-middle" style="table-layout:fixed;">
+
+                                   <thead class="table-dark text-center sticky-top">
+
+                                        <tr>
+                                            <th style="width:60px;">Sl No.</th>
+
+                                            <th style="width:250px;">Employee Name</th>
+
+                                            <th style="width:120px;">Attendence</th>
+
+                                            @for (int i = 0; i < WeekDates.Count; i++)
+                                            {
+                                                var dayIndex = i;
+
+                                                <th style="min-width:110px;background:#0d6efd;color:white;">
+
+                                                    <div @ondblclick="@(() => OnHeaderDoubleClick(dayIndex))">
+
+                                                       <div class="fw-bold fs-6">
+                                                            @WeekDates[dayIndex].ToString("ddd")
+                                                        </div>
+
+                                                <div class="small text-warning">
+                                                            @WeekDates[dayIndex].ToString("dd MMM")
+                                                        </div>
+
+                                                    </div>
+
+                                                </th>
+                                            }
+
+                                        </tr>
+
+                                    </thead>
+
+                                    <tbody>
+
+                                        @foreach (var emp in EmployeeAttendance)
+                                        {
+                                        <tr>
+
+                                            <td rowspan="4">@emp.StaffId</td>
+
+                                            <td rowspan="4" class="align-middle fw-bold bg-light">
+
+                                                <i class="bi bi-person-fill text-primary"></i>
+
+                                                @emp.StaffName
+
+                                            </td>
+
+                                            <td>Status</td>
+
+                                            @foreach (var day in emp.Days)
+                                            {
+                                                <td>
+
+
+                                                    <input class="form-control form-control-sm"
+                                                                   @bind="day.Status" />
+
+                                                </td>
+                                            }
+
+                                        </tr>
+
+                                        <tr>
+
+                                            <td>In Time</td>
+
+                                            @foreach (var day in emp.Days)
+                                            {
+                                                <td>
+
+                                                    <input class="form-control form-control-sm"
+                                                           @bind="day.InTime" />
+
+                                                </td>
+                                            }
+
+                                        </tr>
+
+                                        <tr>
+
+                                            <td>Out Time</td>
+
+                                            @foreach (var day in emp.Days)
+                                            {
+                                            <td>
+
+                                                <input class="form-control form-control-sm"
+                                                       @bind="day.OutTime" />
+
+                                            </td>
+                                            }
+
+                                        </tr>
+
+                                        <tr>
+
+                                            <td>OT</td>
+
+                                            @foreach (var day in emp.Days)
+                                            {
+                                                <td class="bg-warning-subtle fw-bold text-danger">
+
+                                                    @day.OT hrs
+
+                                                </td>
+                                            }
+
+                                        </tr>
+                                        }
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                           <hr />
+                    </div>
+
+                    <div class="row g-2 row-cols-2 row-cols-md-5 ms-2 mb-2">
+
+                        @if (CanCreate || CanEdit)
+                        {
+
+                            <div>
+                                <button type="submit" class="btn btn-primary w-100 rounded-3" disabled="@isProcessing">
+                                    <i class="bi bi-floppy2-fill me-1"></i>@(Model.Id > 0 ? "Update" : "Create")
+                                </button>
+                            </div>
+
+                        }
+                        @if (Model.Id > 0)
+                        {
+                            <button class="btn btn-outline-success" @onclick="GenerateAttendancePdf">
+                                    <i class="bi bi-printer"></i> Print
+                                </button>
+                        }
+                        
+                        <div>
+                            <SmartBackButton Url="@($"productionattendanceloglist?currentPage={currentPage}")" />
+                        </div>
+
+                    </div>
+
+
+            </EditForm>
+        </div>
+     </div>
+}
+
+@code {
+
+    protected override string ScreenName => "Attendance";
+
+    [Parameter]
+    public int? Id { get; set; }
+
+    [SupplyParameterFromQuery]
+    public int currentPage { get; set; } = 1;
+
+    private List<PageHeader.BreadcrumbItem> LabourPendingBreadcrumbs = new()
+    {
+        new() { Text = "Human-Resource" },
+
+        new() { Text = "Production Attendance", IsLast = true }
+    };
+
+    private List<DateTime> WeekDates = new();
+
+    private string SelectedStatus = "P";
+
+    private string SelectedInTime = "09:00";
+    private string SelectedOutTime = "18:00";
+    private DateTime startDate = DateTime.Today; // Default to today, can be set based on selected week
+    private bool isProcessing = true;
+    private string? pdfBase64;
+
+    public class YearVM
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+    }
+
+    private ProductionAttendancelogVM Model = new();
+
+    private List<YearVM> Years = new();
+
+    private List<ProcessEmployeeAssignVM> Weeks = new();
+
+    private List<ProductionAttendancelogVM> EmployeeAttendance = new(); 
+
+
+
+    private void CalculateOT(AttendanceDayVM day)
+    {
+        if (TimeSpan.TryParse(day.InTime, out var inTime) &&
+            TimeSpan.TryParse(day.OutTime, out var outTime))
+        {
+            var workedHours = outTime - inTime;
+
+            day.OT = workedHours.TotalHours > 8
+                ? (workedHours.TotalHours - 8).ToString("0.00")
+                : "0.00";
+        }
+        else
+        {
+            day.OT = "0.00";
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await LoadRightsAsync();
+
+            if (!CanView)
+            {
+                _navigation.NavigateTo("/access-denied");
+                return;
+            }
+
+            Weeks = await _productionAttendanceService.GetAllWeeks();
+
+            foreach (var item in Weeks)
+            {
+                item.WeekName = $"Week {item.WeekNo} ({item.fromDate:dd MMM yyyy} - {item.toDate:dd MMM yyyy})";
+            }
+
+            LoadWeekDates();
+
+            if (Id > 0)
+            {
+                await LoadForEdit();
+            }
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Error in OnInitializedAsync");
+            await _js.ToastrError("An error occurred while initializing the page.");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+        isProcessing = false;
+    }
+
+    private async Task LoadAttendance()
+    {
+        EmployeeAttendance = await _productionAttendanceService
+            .GetAssignedEmployeesAsync(Model.WeekNo ?? 0, Model.ProcessId);
+    }
+
+
+    private void LoadWeekDates()
+    {
+        WeekDates.Clear();
+
+        for (int i = 0; i < 7; i++)
+        {
+            WeekDates.Add(startDate.AddDays(i));
+        }
+    }
+
+    private async Task OnHeaderDoubleClick(int dayIndex)
+    {
+        foreach (var emp in EmployeeAttendance)
+        {
+            emp.Days[dayIndex].Status = SelectedStatus;
+            emp.Days[dayIndex].InTime = SelectedInTime;
+            emp.Days[dayIndex].OutTime = SelectedOutTime;
+
+            CalculateOT(emp.Days[dayIndex]);
+        }
+
+        StateHasChanged();
+    }
+
+    private async Task OnWeekChanged()
+    {
+        var selectedWeek = Weeks.FirstOrDefault(x => x.WeekNo == Model.WeekNo);
+
+        if (selectedWeek != null)
+        {
+            Model.WeekName = selectedWeek.WeekName ?? "";
+
+            startDate = selectedWeek.fromDate.ToDateTime(TimeOnly.MinValue);
+
+            // Generate the Mon/Tue/Wed... headers
+            LoadWeekDates();
+
+            // Optionally reload assigned employees if a process is already selected
+            Model.ProcessName = selectedWeek.ProcessName ?? "";
+            Model.ProcessId = selectedWeek.ProcessId;
+            if (Model.ProcessId > 0)
+            {
+                await LoadAttendance();
+            }
+
+            StateHasChanged();
+        }
+    }
+
+    private async Task GenerateAttendancePdf()
+    {
+        try
+        {
+            isProcessing = true;
+
+            pdfBase64 = null;
+            var pdfBytes = await reportService.Generate_Report(Model.WeekNo??0, "ProductionlogAttendance.frx", "WeekNo", false, "Attendance", "Sp_Print_ProductionAttendance");
+            if (pdfBytes == null || pdfBytes.Length == 0)
+            {
+                await _js.ToastrError("PDF generation failed.");
+                return;
+            }
+
+            pdfBase64 = Convert.ToBase64String(pdfBytes);
+            await _js.InvokeVoidAsync("openPdfFromBase64", pdfBase64);
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Error in GenerateAttendancePdf");
+            await _js.ToastrError("An error occurred while generating the PDF.");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+
+
+    private async Task SaveAsync()
+    {
+        try
+        {
+            isProcessing = true;
+
+            var result = await _productionAttendanceService.SaveAttendanceAsync(EmployeeAttendance);
+
+            if (result > 0)
+            {
+                await _js.ToastrSuccess("Attendance saved successfully.");
+            }
+            else
+            {
+                await _js.ToastrError("Failed to save attendance.");
+            }
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Save Attendance");
+            await _js.ToastrError("Something went wrong.");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    private async Task LoadForEdit()
+    {
+        try
+        {
+            EmployeeAttendance = await _productionAttendanceService.GetByIdAsync(Id ?? 0);
+
+            if (EmployeeAttendance == null || !EmployeeAttendance.Any())
+                return;
+
+            // Take common details from first employee
+            var first = EmployeeAttendance.First();
+
+            Model.Id = first.Id;
+            Model.WeekNo = first.WeekNo;
+            Model.ProcessId = first.ProcessId;
+            Model.ProcessName = first.ProcessName;
+            var allweeks = await _productionAttendanceService.GetAllExistsWeeks();
+            var selectedWeek = allweeks.FirstOrDefault(x => x.WeekNo == first.WeekNo);
+
+            if (selectedWeek != null)
+            {
+                Model.WeekName = $"Week {selectedWeek.WeekNo} ({selectedWeek.fromDate:dd MMM yyyy} - {selectedWeek.toDate:dd MMM yyyy})";
+                startDate = selectedWeek.fromDate.ToDateTime(TimeOnly.MinValue);
+            }
+
+            LoadWeekDates();
+
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Load For Edit");
+            await _js.ToastrError("An error occurred while loading attendance.");
+        }
+    }
+}

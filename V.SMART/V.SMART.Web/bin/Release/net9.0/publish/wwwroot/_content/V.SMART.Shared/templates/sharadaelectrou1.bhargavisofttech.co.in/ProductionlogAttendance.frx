@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" DoublePass="true" ReportInfo.Created="01/12/2026 17:47:30" ReportInfo.Modified="08/06/2026 17:07:09" ReportInfo.CreatorVersion="2026.1.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlq2C5rfBekhIxQouaddX4EjwAuvpzuVmLRp+80E8RE0yTkKI0fWgP2Pm+sp6F6gh3UFbtHHaCtxsB6PV9V34e+z41kxSlaYL/sw/+TvulCwTZ1ntNE9GkOl8vEPIerO0QFgqsGcG8ONj/NE4fRUUS31C84eMr1jAocfGswJ8zGnQ15adwtevRCIml0pKYlcI/WBMzrt2OfkKndncFYzDSA7gnQRCALrNnpwUkdXfd1XTk=">
+      <ProcedureDataSource Name="Sp_Print_ProductionAttendance" DataType="System.Int32" Enabled="true" TableName="Sp_Print_ProductionAttendance" SelectCommand="Sp_Print_ProductionAttendance">
+        <Column Name="StaffID" DataType="System.Int32"/>
+        <Column Name="StaffName" DataType="System.String"/>
+        <Column Name="Department" DataType="System.String"/>
+        <Column Name="Img" DataType="System.Byte[]" BindableControl="Picture"/>
+        <Column Name="Header1" DataType="System.String"/>
+        <Column Name="Header2" DataType="System.String"/>
+        <Column Name="Header3" DataType="System.String"/>
+        <Column Name="Header4" DataType="System.String"/>
+        <Column Name="Header5" DataType="System.String"/>
+        <Column Name="Header6" DataType="System.String"/>
+        <Column Name="Header7" DataType="System.String"/>
+        <Column Name="Day1" DataType="System.String"/>
+        <Column Name="Day2" DataType="System.String"/>
+        <Column Name="Day3" DataType="System.String"/>
+        <Column Name="Day4" DataType="System.String"/>
+        <Column Name="Day5" DataType="System.String"/>
+        <Column Name="Day6" DataType="System.String"/>
+        <Column Name="Day7" DataType="System.String"/>
+        <ProcedureParameter Name="@ProcessId" DataType="8" DefaultValue="1" Direction="Input"/>
+        <ProcedureParameter Name="@WeekNo" DataType="8" DefaultValue="1" Direction="Input"/>
+      </ProcedureDataSource>
+      <ProcedureDataSource Name="Sp_Print_CompanyDetails" DataType="System.Int32" Enabled="true" TableName="Sp_Print_CompanyDetails" SelectCommand="Sp_Print_CompanyDetails">
+        <Column Name="CompanyName" DataType="System.String"/>
+        <Column Name="RegisteredAddress" DataType="System.String"/>
+        <Column Name="BillingAddress" DataType="System.String"/>
+        <Column Name="ShippingAddress" DataType="System.String"/>
+        <Column Name="City" DataType="System.String"/>
+        <Column Name="StateName" DataType="System.String"/>
+        <Column Name="Country" DataType="System.String"/>
+        <Column Name="ZipCode" DataType="System.String"/>
+        <Column Name="PhoneNumber" DataType="System.String"/>
+        <Column Name="MobileNumber" DataType="System.String"/>
+        <Column Name="EmailId" DataType="System.String"/>
+        <Column Name="Website" DataType="System.String"/>
+        <Column Name="GSTIN" DataType="System.String"/>
+        <Column Name="PAN" DataType="System.String"/>
+        <Column Name="IECNumber" DataType="System.String"/>
+        <Column Name="IsEOURegistered" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="LUTNumber" DataType="System.String"/>
+        <Column Name="BankAuthorizedDealerCode" DataType="System.String"/>
+        <Column Name="EOURegistrationNo" DataType="System.String"/>
+        <Column Name="EOURegistrationDate" DataType="System.DateTime"/>
+        <Column Name="EOUStatus" DataType="System.String"/>
+        <Column Name="EOUValidityTill" DataType="System.DateTime"/>
+        <Column Name="FinancialYearType" DataType="System.String"/>
+        <Column Name="OpeningBalance" DataType="System.Decimal"/>
+        <Column Name="OpeningBalanceDate" DataType="System.DateTime"/>
+        <Column Name="LogoPath" DataType="System.String"/>
+        <Column Name="LogoUrl" DataType="System.String"/>
+        <Column Name="IsoLogoPath" DataType="System.String"/>
+        <Column Name="IsoLogoUrl" DataType="System.String"/>
+        <Column Name="CurrencyCode" DataType="System.Int32"/>
+        <Column Name="TimeZone" DataType="System.String"/>
+        <Column Name="CIN" DataType="System.String"/>
+        <Column Name="TIN" DataType="System.String"/>
+        <Column Name="BankName" DataType="System.String"/>
+        <Column Name="BankBranch" DataType="System.String"/>
+        <Column Name="BankAccountNumber" DataType="System.String"/>
+        <Column Name="BankAddress" DataType="System.String"/>
+        <Column Name="BankCity" DataType="System.String"/>
+        <Column Name="BankState" DataType="System.String"/>
+        <Column Name="AccountType" DataType="System.String"/>
+        <Column Name="IFSCCode" DataType="System.String"/>
+        <Column Name="MICRCode" DataType="System.String"/>
+        <Column Name="SWIFTCode" DataType="System.String"/>
+        <Column Name="UdyamNumber" DataType="System.String"/>
+        <Column Name="PFRegistrationNumber" DataType="System.String"/>
+        <Column Name="ESIRegistrationNumber" DataType="System.String"/>
+        <Column Name="ShopEstablishmentNumber" DataType="System.String"/>
+        <Column Name="ExciseRegistrationNumber" DataType="System.String"/>
+        <Column Name="SEZRegistrationNumber" DataType="System.String"/>
+        <Column Name="CustomsRegistrationNumber" DataType="System.String"/>
+        <Column Name="AlternateEmail" DataType="System.String"/>
+        <Column Name="ContactPersonName" DataType="System.String"/>
+        <Column Name="CustomFinancialYearType" DataType="System.String"/>
+        <Column Name="CustomBusinessType" DataType="System.String"/>
+        <Column Name="CustomIndustryType" DataType="System.String"/>
+        <Column Name="IsActive" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="DecimalPlaces" DataType="System.Int32"/>
+        <Column Name="CreatedBy" DataType="System.String"/>
+        <Column Name="CreatedDate" DataType="System.DateTime"/>
+        <Column Name="ModifiedBy" DataType="System.String"/>
+        <Column Name="ModifiedDate" DataType="System.DateTime"/>
+      </ProcedureDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" Border.Lines="All" Watermark.Enabled="true" Watermark.Font="Arial, 60pt">
+    <PageHeaderBand Name="PageHeader1" Width="1047.06" Height="24.68" Guides="18.9">
+      <TextObject Name="Text2" Left="335.6" Top="2" Width="410.72" Height="22.68" Text="Attendance" HorzAlign="Center" VertAlign="Center" Font="Calibri, 18pt, style=Bold"/>
+      <TextObject Name="Text42" Left="-8844.53" Top="-9448.91" Width="74" Height="34.02" Border.Lines="Right" Text="D2" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Calibri, 11pt, style=Bold"/>
+      <TextObject Name="Text43" Left="-8770.53" Top="-9448.91" Width="74" Height="34.02" Border.Lines="Right" Text="D3" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Calibri, 11pt, style=Bold"/>
+      <TextObject Name="Text53" Left="-8696.53" Top="-9448.91" Width="74" Height="34.02" Border.Lines="Right" Text="D4" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Calibri, 11pt, style=Bold"/>
+      <TextObject Name="D1" Left="-8918.53" Top="-9448.91" Width="74" Height="34.02" Border.Lines="Right" Text="D1" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Calibri, 11pt, style=Bold"/>
+      <TextObject Name="Text142" Left="-8622.53" Top="-9448.8" Width="74" Height="34.02" Border.Lines="Right" Text="D5" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Calibri, 11pt, style=Bold"/>
+      <TextObject Name="Text143" Left="-8548.53" Top="-9448.8" Width="74" Height="34.02" Border.Lines="Right" Text="D6" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Calibri, 11pt, style=Bold"/>
+      <TextObject Name="Text144" Left="-8474.53" Top="-9448.8" Width="74" Height="34.02" Text="D7" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Calibri, 11pt, style=Bold"/>
+      <TextObject Name="Text178" Left="-9450" Top="-9450" Width="87.5" Height="37.8" Border.Lines="Right" Text="Emp. Code " HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text179" Left="-9363.15" Top="-9450" Width="119.5" Height="37.8" Text="Name" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text180" Left="-9244.1" Top="-9449" Width="135.5" Height="37.8" Text="Photo" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text181" Left="-9110.8" Top="-9450" Width="89.5" Height="37.8" Text="Department" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text182" Left="-9017.3" Top="-9449.55" Width="94.5" Height="37.9" Border.Lines="Right" Text="Time" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+    </PageHeaderBand>
+    <ColumnHeaderBand Name="ColumnHeader1" Top="28.68" Width="1047.06" Height="38.66" Border.Lines="Top, Bottom">
+      <TextObject Name="Text183" Left="610.47" Top="0.64" Width="77" Height="37.02" Border.Lines="Right" Text="[Sp_Print_ProductionAttendance.Header2]" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Calibri, 11pt, style=Bold"/>
+      <TextObject Name="Text184" Left="687.47" Top="0.64" Width="68" Height="37.02" Border.Lines="Right" Text="[Sp_Print_ProductionAttendance.Header3]" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Calibri, 11pt, style=Bold"/>
+      <TextObject Name="Text185" Left="756.47" Top="1.64" Width="67" Height="36.02" Border.Lines="Right" Text="[Sp_Print_ProductionAttendance.Header4]" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Calibri, 11pt, style=Bold"/>
+      <TextObject Name="Text186" Left="529.47" Top="0.64" Width="80" Height="38.02" Border.Lines="Right" Text="[Sp_Print_ProductionAttendance.Header1]" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Calibri, 11pt, style=Bold"/>
+      <TextObject Name="Text187" Left="824.47" Top="0.75" Width="77" Height="37.02" Border.Lines="Right" Text="[Sp_Print_ProductionAttendance.Header5]" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Calibri, 11pt, style=Bold"/>
+      <TextObject Name="Text188" Left="901.47" Top="0.75" Width="69" Height="37.02" Border.Lines="Right" Text="[Sp_Print_ProductionAttendance.Header6]" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Calibri, 11pt, style=Bold"/>
+      <TextObject Name="Text189" Left="971.47" Top="0.75" Width="78" Height="37.02" Text="[Sp_Print_ProductionAttendance.Header7]" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Calibri, 11pt, style=Bold"/>
+      <TextObject Name="Text190" Top="-0.45" Width="87.5" Height="37.8" Border.Lines="Right" Text="Emp. Code " HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text191" Left="86.85" Top="-0.45" Width="119.5" Height="37.8" Border.Lines="Right" Text="Staff Name" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text192" Left="205.9" Top="0.55" Width="135.5" Height="37.8" Border.Lines="Right" Text="Photo" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text193" Left="339.2" Top="-0.45" Width="94.5" Height="38.8" Border.Lines="Right" Text="Department" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text194" Left="434.7" Width="96.5" Height="37.9" Border.Lines="Right" Text="Time" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="71.34" Width="1047.06" Height="144.35" Border.Lines="Top, Bottom" CanGrow="true" CanShrink="true" CanBreak="true" DataSource="Sp_Print_ProductionAttendance" KeepTogether="true" KeepDetail="true">
+      <TextObject Name="Text195" Left="89.05" Top="0.45" Width="116.5" Height="142.9" Border.Lines="Right" Text="[Sp_Print_ProductionAttendance.StaffName]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text196" Top="0.45" Width="87.5" Height="143.9" Border.Lines="Right" Text="[Sp_Print_ProductionAttendance.StaffID]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <PictureObject Name="Picture1" Left="209.35" Top="6" Width="127.6" Height="133.6" DataColumn="Sp_Print_ProductionAttendance.Img"/>
+      <TextObject Name="Text205" Left="341.2" Top="1.45" Width="92.5" Height="141.9" Border.Lines="Left, Right" Text="[Sp_Print_ProductionAttendance.Department]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TableObject Name="Table1" Left="434.7" Width="613.35" Height="144.1">
+        <TableColumn Name="Column1" Width="96.64"/>
+        <TableColumn Name="Column2" Width="77.74"/>
+        <TableColumn Name="Column3" Width="77.74"/>
+        <TableColumn Name="Column4" Width="68.29"/>
+        <TableColumn Name="Column5" Width="68.3"/>
+        <TableColumn Name="Column6" Width="78.03"/>
+        <TableColumn Name="Column7" Width="68.58"/>
+        <TableColumn Name="Column8" Width="78.03"/>
+        <TableRow Name="Row1" Height="31.3">
+          <TableCell Name="Cell1" Border.Lines="Right, Bottom" Text="In Time" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell2" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell3" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell4" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell5" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell26" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell27" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell28" Border.Lines="Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+        <TableRow Name="Row2" Height="40.75">
+          <TableCell Name="Cell6" Border.Lines="Right, Bottom" Text="In Time Sign" VertAlign="Center" Font="Arial, 10pt" LineHeight="15"/>
+          <TableCell Name="Cell7" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt" LineHeight="15"/>
+          <TableCell Name="Cell8" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt" LineHeight="15"/>
+          <TableCell Name="Cell9" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt" LineHeight="15"/>
+          <TableCell Name="Cell10" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt" TabWidth="30" LineHeight="15"/>
+          <TableCell Name="Cell29" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt" LineHeight="15"/>
+          <TableCell Name="Cell30" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt" LineHeight="15"/>
+          <TableCell Name="Cell31" Border.Lines="Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt" LineHeight="15"/>
+        </TableRow>
+        <TableRow Name="Row3" Height="31.3">
+          <TableCell Name="Cell11" Border.Lines="Right, Bottom" Text="Out Time" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell12" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell13" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell14" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell15" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell32" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell33" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell34" Border.Lines="Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row4" Height="40.75">
+          <TableCell Name="Cell16" Border.Lines="Right" Text="Out Time Sign" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell17" Border.Lines="Right" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell18" Border.Lines="Right" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell19" Border.Lines="Right" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell20" Border.Lines="Right" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell35" Border.Lines="Right" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell36" Border.Lines="Right" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell37" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="219.69" Width="1047.06" Height="18.9" Border.Lines="Top">
+      <TextObject Name="Text3" Left="435.25" Width="151.2" Height="18.9" Text="[PageNofM]" HorzAlign="Center" VertAlign="Center" Font="Calibri, 12pt, style=Bold"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

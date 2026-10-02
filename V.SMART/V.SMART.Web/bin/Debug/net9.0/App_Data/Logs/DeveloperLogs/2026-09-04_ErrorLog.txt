@@ -1,0 +1,24 @@
+2026-09-04 10:34:42 | Level: INFO | Source:  | Message: Invalid login attempt: Administrator
+2026-09-04 10:34:49 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-04 10:34:49 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-04 10:34:49 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-04 10:35:19 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-04 10:35:19 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-04 10:35:19 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-04 10:36:10 | Level: ERROR | Source: Error in EinvoiceCancelOption() | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.SalesService.MfgQuotationService.BatchNoOption() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SalesService\MfgQuotationService.cs:line 1668
+2026-09-04 10:36:10 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 325
+2026-09-04 11:46:21 | Level: INFO | Source:  | Message: Invalid login attempt: Administrator
+2026-09-04 11:46:38 | Level: INFO | Source:  | Message: Invalid login attempt: Administrator
+2026-09-04 11:46:43 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-04 11:46:43 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-04 11:46:43 | Level: INFO | Source:  | Message: User logged in successfully: Administrator

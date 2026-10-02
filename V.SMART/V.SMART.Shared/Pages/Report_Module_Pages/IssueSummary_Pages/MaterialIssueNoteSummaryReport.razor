@@ -1,0 +1,1049 @@
+﻿@page "/matIssueNoteSummaryReport"
+@using V.SMART.Shared.BusinessLayer.BusinessService.IBusinessService.IReportService.IMatIssueNoteSumService
+@using V.SMART.Shared.ViewModels.ReportViewModel.SummaryViewModel
+
+
+ @inherits BaseUserRightsComponent 
+
+@inject ILoggingService _logs
+@inject CurrentUserService _userService
+@inject IJSRuntime _js
+@inject NavigationManager _navigation
+@inject IExcelTemplateService excelTemplateService
+@inject ExcelExportService ExcelExportService
+@inject IColumnPreferenceService PreferenceService
+@inject CurrentUserService CurrentUserService
+@inject IUnitOfWork _unitOfWork
+@inject IMaterialIssueNoteSummaryService _matIssueNoteReportService
+
+
+<BsModal OnModalConfirmation="@HandleModalConfirmation"
+         ButtonBootstrapStyle="@btnColor"
+         ButtonText="@btnText"
+         Title=@ModalTitle>
+</BsModal>
+
+@if (isProcessing)
+{
+    <ProcessingOverlay Visible="@isProcessing" Message="Please wait..." />
+}
+else if (!CanView)
+{
+    <RedirectToLogin />
+    return;
+}
+else
+{
+    <div class="container-fluid px-2 px-md-5 mt-4">
+        <div class="card shadow-sm border-1">
+
+            <PageHeader TitleText="MaterialIssue Report"
+                        TitleIcon="bi bi-list-check"
+                        Breadcrumbs="@MatIssueNoteSumBreadcrumbs" />
+
+            <!-- FILTER CARD -->
+            <div class="card-body py-3">
+
+                <div class="row g-3 align-items-end">
+
+                    <!-- FROM DATE -->
+                    <div class="col-12 col-sm-6 col-xl-2">
+
+                        <label class="form-label small fw-semibold text-muted mb-1">
+                            From Date
+                        </label>
+
+                        <InputDate class="form-control form-control-sm"
+                                   @bind-Value="FromDate" />
+
+                    </div>
+
+
+                    <!-- TO DATE -->
+                    <div class="col-12 col-sm-6 col-xl-2">
+
+                        <label class="form-label small fw-semibold text-muted mb-1">
+                            To Date
+                        </label>
+
+                        <InputDate class="form-control form-control-sm"
+                                   @bind-Value="ToDate" />
+
+                    </div>
+
+
+                    <!-- ISSUE TO WHOM -->
+                    <div class="col-12 col-sm-6 col-xl-2">
+                        <label class="form-label">Issue To Whom</label>
+
+                        <InputSelect class="form-select"
+                                     @bind-Value="ToWhom"
+                                     @bind-Value:after="OnEmployeeChanged">
+
+                            <option value="">All</option>
+
+                            @foreach (var emp in Employees)
+                            {
+                                <option value="@emp">@emp</option>
+                            }
+
+                        </InputSelect>
+
+                    </div>
+
+
+                    <!-- TOTAL ISSUES -->
+                    <div class="col-12 col-sm-6 col-xl-2">
+
+                        <div class="card border shadow-sm h-100">
+
+                            <div class="card-body py-2 px-3">
+
+                                <div class="d-flex justify-content-between align-items-center">
+
+                                    <div>
+                                        <small class="text-muted d-block">
+                                            Total Issues
+                                        </small>
+
+                                        <h5 class="fw-bold text-primary mb-0">
+                                            @TotalIssues
+                                        </h5>
+                                    </div>
+
+                                    <i class="bi bi-receipt text-primary fs-4 opacity-50"></i>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TOTAL QUANTITY -->
+                    <div class="col-12 col-sm-6 col-xl-2">
+
+                        <div class="card border shadow-sm h-100">
+
+                            <div class="card-body py-2 px-3">
+
+                                <div class="d-flex justify-content-between align-items-center">
+
+                                    <div>
+                                        <small class="text-muted d-block">
+                                            Total Quantity
+                                        </small>
+
+                                        <h5 class="fw-bold text-success mb-0">
+                                            @TotalIssueQty.ToString("N2")
+                                        </h5>
+                                    </div>
+
+                                    <i class="bi bi-box-seam text-success fs-4 opacity-50"></i>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TOTAL AMOUNT -->
+                    <div class="col-12 col-sm-6 col-xl-2">
+
+                        <div class="card border shadow-sm h-100">
+
+                            <div class="card-body py-2 px-3">
+
+                                <div class="d-flex justify-content-between align-items-center">
+
+                                    <div>
+                                        <small class="text-muted d-block">
+                                            Total Amount
+                                        </small>
+
+                                        <h5 class="fw-bold text-danger mb-0">
+                                            ₹ @TotalAmount.ToString("N2")
+                                        </h5>
+                                    </div>
+
+                                    <i class="bi bi-currency-rupee text-danger fs-4 opacity-50"></i>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- TABLE -->
+            @if (IsLoading)
+            {
+                <div class="d-flex justify-content-center align-items-center py-5">
+                    <div class="spinner-grow text-primary"></div>
+
+                    <span class="ms-3 fw-semibold">
+                        Fetching Issue records...
+                    </span>
+                </div>
+            }
+            else if (FilteredMatIssueNoteSummaryData != null && FilteredMatIssueNoteSummaryData.Any())
+            {
+                <!-- HEADER -->
+                <div class="card-header border-0 py-3 px-4"
+                     style="background: linear-gradient(135deg, #eefcff, #d9f7ff);
+                        border-bottom:1px solid #c6eff7;">
+
+                    <div class="row g-3 align-items-center">
+
+                        <!-- TITLE -->
+                        <div class="col-12 col-xl-3">
+                            <div class="d-flex align-items-center">
+
+                                <div class="rounded-circle bg-primary bg-opacity-10 p-2 me-3">
+                                    <i class="bi bi-receipt-cutoff text-primary fs-5"></i>
+                                </div>
+
+                                <div>
+                                    <div class="fw-bold text-dark">
+                                        Material IssueNote Summary
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- SEARCH -->
+                        <div class="col-12 col-xl-3">
+                            <div class="input-group shadow-sm rounded-3 overflow-hidden border">
+
+                                <span class="input-group-text bg-white border-0">
+                                    <i class="bi bi-search text-muted"></i>
+                                </span>
+
+                                <input type="text"
+                                       class="form-control border-start-0"
+                                       placeholder="Search IssueNo,ItemCode,StoreName,ToWhom,Type"
+                                       @bind="searchText"
+                                       @bind:event="oninput" />
+
+                            </div>
+                        </div>
+
+                        <!-- COLUMN MENU -->
+                        <div class="col-12 col-xl-3">
+
+                            <div class="dropdown w-100">
+
+                                <button class="btn btn-outline-primary rounded-3 w-100 fw-semibold shadow-sm dropdown-toggle"
+                                        type="button"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+
+                                    <i class="bi bi-layout-three-columns me-2"></i>
+
+                                    <span class="d-none d-md-inline">
+                                        Manage Columns
+                                    </span>
+
+                                    <span class="d-inline d-md-none">
+                                        Columns
+                                    </span>
+
+                                </button>
+
+                                <ul class="dropdown-menu p-3 shadow border-0 rounded-4"
+                                    style="max-height:400px; overflow:auto; min-width:260px;">
+
+                                    @foreach (var col in Columns)
+                                    {
+                                        <li class="mb-2">
+
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       checked="@col.IsVisible"
+                                                       @onchange="async e =>
+                                                       {
+                                                           await OnColumnChanged(col, e.Value);
+                                                       }" />
+
+                                                <label class="form-check-label small fw-semibold">
+                                                    @col.Title
+                                                </label>
+
+                                            </div>
+
+                                        </li>
+                                    }
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                        <!-- PRINT -->
+                        <div class="col-12 col-xl-3">
+
+                            <button class="btn btn-success rounded-3 shadow-sm fw-semibold w-100"
+                                    id="btnPrint"
+                                    @onclick="Print">
+
+                                <i class="bi bi-file-earmark-excel-fill me-2"></i>
+                                Print
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- TABLE -->
+                <div class="card-body p-2">
+
+                    <div class="table-responsive border rounded-4 overflow-auto"
+                         style="max-height:650px;">
+
+                        <table class="table table-hover table-bordered align-middle text-center mb-0"
+                               style="min-width:1900px; white-space:nowrap;">
+
+                            <thead class="custom-blue position-sticky top-0 z-3">
+                                <tr>
+                                    @if (IsColumnVisible("SlNo"))
+                                    {
+                                        <th>Sl No</th>
+                                    }
+
+                                    @if (IsColumnVisible("IssueNo"))
+                                    {
+                                        <th>Issue No.</th>
+                                    }
+                                    @if (IsColumnVisible("IssueDate"))
+                                    {
+                                        <th>Issue Date</th>
+                                    }
+                                    @if (IsColumnVisible("Type"))
+                                    {
+                                        <th>Type</th>
+                                    }
+                                    @if (IsColumnVisible("ToWhom"))
+                                    {
+                                        <th>To Whom</th>
+                                    }
+                                    @if (IsColumnVisible("NoOfItems"))
+                                    {
+                                        <th>NoOfItems</th>
+                                    }
+                                    @if (IsColumnVisible("StoreName"))
+                                    {
+                                        <th>Store Name</th>
+                                    }
+                                    @if (IsColumnVisible("AssemblyName"))
+                                    {
+                                        <th>Assembly Name</th>
+                                    }
+                                    @if (IsColumnVisible("SubAssyName"))
+                                    {
+                                        <th>SubAssy Name</th>
+                                    }
+                                    @if (IsColumnVisible("SubAssyName2"))
+                                    {
+                                        <th>SubAssy Name 2</th>
+                                    }
+                                    @if (IsColumnVisible("SubAssyName3"))
+                                    {
+                                        <th>SubAssy Name 3</th>
+                                    }
+                                    @if (IsColumnVisible("ItemCode"))
+                                    {
+                                        <th>Item Code</th>
+                                    }
+                                    @if (IsColumnVisible("ItemName"))
+                                    {
+                                        <th>Item Name</th>
+                                    }
+                                    @if (IsColumnVisible("IssueQty"))
+                                    {
+                                        <th>Issue Qty</th>
+                                    }
+                                    @if (IsColumnVisible("Rate"))
+                                    {
+                                        <th>Rate</th>
+                                    }
+                                    @if (IsColumnVisible("Amount"))
+                                    {
+                                        <th>Amount</th>
+                                    }
+                                    @if (IsColumnVisible("CreatedBy"))
+                                    {
+                                        <th>Created By</th>
+                                    }
+                                    @if (IsColumnVisible("CreatedDate"))
+                                    {
+                                        <th>Created Date</th>
+                                    }
+                                    
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @foreach (var item in FilteredMaterialIssueNoteSummaryData)
+                                {
+                                    <tr>
+                                        @if (IsColumnVisible("SlNo"))
+                                        {
+                                            <td>@item.SlNo</td>
+                                        }
+                                        @if (IsColumnVisible("IssueNo"))
+                                        {
+                                            <td>@item.IssueNo</td>
+                                        }
+                                        @if (IsColumnVisible("IssueDate"))
+                                        {
+                                            <td>@item.IssueDate?.ToString("dd/MM/yyyy")</td>
+                                        }
+                                        @if (IsColumnVisible("Type"))
+                                        {
+                                            <td>
+                                                <span class="badge px-3 py-2 text-white"
+                                                      style="@(item.Type == "BOM"
+                                                        ? "background:linear-gradient(135deg,#06B6D4,#22D3EE);"
+                                                        : item.Type == "NON BOM"
+                                                        ? "background:linear-gradient(135deg,#EF4444,#5c73b9);"
+                                                        : "background:linear-gradient(135deg,#6B7280,#9CA3AF);")">
+
+                                                     @item.Type
+                                                </span>
+                                            </td>
+                                        }
+                                        @if (IsColumnVisible("ToWhom"))
+                                        {
+                                            <td>@item.ToWhom</td>
+                                        }
+                                        @if (IsColumnVisible("NoOfItems"))
+                                        {
+                                            <td>@item.NoOfItems</td>
+                                        }
+                                        @if (IsColumnVisible("StoreName"))
+                                        {
+                                            <td>@item.StoreName</td>
+                                        }
+                                        @if (IsColumnVisible("AssemblyName"))
+                                        {
+                                            <td>@item.AssemblyName</td>
+                                        }
+                                        @if (IsColumnVisible("SubAssyName"))
+                                        {
+                                            <td>@item.SubAssemblyName</td>
+                                        }
+                                        @if (IsColumnVisible("SubAssyName2"))
+                                        {
+                                            <td>@item.SubAssemblyName2</td>
+                                        }
+                                        @if (IsColumnVisible("SubAssyName3"))
+                                        {
+                                            <td>@item.SubAssemblyName3</td>
+                                        }
+                                        @if (IsColumnVisible("ItemCode"))
+                                        {
+                                            <td>@item.ItemCode</td>
+                                        }
+                                        @if (IsColumnVisible("ItemName"))
+                                        {
+                                            <td>@item.ItemName</td>
+                                        }
+                                        @if (IsColumnVisible("IssueQty"))
+                                        {
+                                            <td class="text-end">@item.IssueQty</td>
+                                        }
+                                        @if (IsColumnVisible("Rate"))
+                                        {
+                                            <td class="text-end">@item.Rate</td>
+                                        }
+                                        @if (IsColumnVisible("Amount"))
+                                        {
+                                            <td class="text-end">@item.Amount?.ToString("F3")</td>
+
+                                        }
+                                        @if (IsColumnVisible("CreatedBy"))
+                                        {
+                                            <td>@item.CreatedBy</td>
+                                        }
+                                        @if (IsColumnVisible("CreatedDate"))
+                                        {
+                                            <td>@item.CreatedDate?.ToString("dd/MM/yyyy")</td>
+                                        }
+                                        
+                                    </tr>
+                                 }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <!-- NO DATA -->
+                <div class="col-12 mt-4">
+
+                    <div class="card border-0 shadow-sm rounded-4">
+
+                        <div class="card-body text-center py-5">
+
+                            <div class="mb-3">
+                                <i class="bi bi-inbox text-secondary"
+                                   style="font-size:55px;"></i>
+                            </div>
+
+                            <h5 class="fw-bold text-dark">
+                                No Data Available
+                            </h5>
+
+                            <p class="text-muted mb-0">
+                                Select issueNo, name and date range to load invoice records.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    </div>
+}
+
+@code
+{
+    protected override string ScreenName => "MaterialIssueNote Report";
+    private bool isProcessing = true;
+    private string searchText = string.Empty;
+    private bool IsDetailView { get; set; }
+    private List<PageHeader.BreadcrumbItem> MatIssueNoteSumBreadcrumbs { get; set; } = new()
+    {
+        new PageHeader.BreadcrumbItem { Text = "Reports",Url="reports-home" },
+        new PageHeader.BreadcrumbItem { Text = "StockIssue" ,Url="reports-home"},
+        new PageHeader.BreadcrumbItem { Text = "MaterialIssue Note Summary", IsLast = true }
+    };
+    private List<Customer> Customers = new();
+    public string ReportType { get; set; } = "0";
+    // Modal properties
+    private string ModalTitle = string.Empty;
+    private string btnText = string.Empty;
+    private string confirmation = string.Empty;
+    private string btnColor = string.Empty;
+    private string? SelectedEmployee;
+    private int? SelectedEmployeeId { get; set; }
+    private List<string> Employees = new();
+    private string? ToWhom { get; set; } = string.Empty;
+    private List<MaterialIssueReportVM> FilteredMatIssueNoteSummaryData = new();
+    private List<MaterialIssueReportVM> AllMatIssueNoteSummaryData = new();
+    private List<MaterialIssueReportVM> FilteredMatIssueNoteReportList = new();
+    private decimal TotalIssueQty =>
+    FilteredMaterialIssueNoteSummaryData?.Sum(x => x.IssueQty) ?? 0;
+
+    private decimal TotalAmount => FilteredMaterialIssueNoteSummaryData?.Sum(x => x.Amount) ?? 0;
+    private int TotalIssues => FilteredMaterialIssueNoteSummaryData?.Select(x => x.IssueNo).Distinct().Count() ?? 0;
+
+    // Modal state
+    private bool isModalVisible = false;
+    private string ActiveModal = "";
+    private string MasterModalTitle = "";
+
+    private bool IsLoading = false;
+    public List<MaterialIssueReportVM> MaterialIssueReportVMs { get; set; } = new();
+
+    private string SelectedTopic = "";
+    public DateTime? FromDate = DateTime.Today.AddMonths(-1);
+    public DateTime? ToDate = DateTime.Today;
+    private string? UserName;
+    private int screenCode { get; set; }
+    private List<GridColumn> Columns = new();
+    private string UserId = "";
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await LoadRightsAsync();
+            if (!CanView)
+            {
+                _navigation.NavigateTo("/access-denied");
+                return;
+            }
+            await InitializeColumns(IsHidden);
+            screenCode = await _matIssueNoteReportService.GetScreenCodeByScreenNameAsync(ScreenName);
+            UserName = await CurrentUserService.GetUsernameAsync();
+            await LoadEmployees();
+            await LoadColumnPreferences(UserName);
+            await OnEmployeeChanged();
+        }
+        catch (Exception ex)
+        {
+            await _logs.LogDeveloperError(ex, "OnInitializedAsync in Stock Positions");
+
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    private async Task LoadEmployees()
+    {
+        try
+        {
+            var staffList = await _unitOfWork.Staffs.GetAllAsync();
+
+            Employees = staffList
+                .Where(x => !string.IsNullOrWhiteSpace(x.StaffName))
+                .Select(x => x.StaffName.Trim())
+                .Distinct()
+                .OrderBy(x => x)
+                .ToList();
+        }
+        catch (Exception ex)
+        {
+            Employees = new List<string>();
+
+            await _logs.LogDeveloperError(ex,"Error while loading employee names");
+        }
+    }
+
+    private async Task OnEmployeeChanged()
+    {
+        try
+        {
+            IsLoading = true;
+
+            var result = await _matIssueNoteReportService.GetMINSummaryReportAsync(FromDate,ToDate,ToWhom);
+
+            FilteredMatIssueNoteSummaryData = result?.ToList() ?? new List<MaterialIssueReportVM>();
+        }
+        catch (Exception ex)
+        {
+            FilteredMatIssueNoteSummaryData = new List<MaterialIssueReportVM>();
+
+            await _logs.LogDeveloperError(
+                ex,
+                "Error in OnEmployeeChanged");
+        }
+        finally
+        {
+            IsLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task InitializeColumns(bool Hidden)
+    {
+        try
+        {
+            Columns = new List<GridColumn>
+        {
+            // ================= MAIN COLUMNS =================
+            new() { Title = "SlNo", Field = "SlNo", IsVisible = true },
+            new() { Title = "Issue No.", Field = "IssueNo", IsVisible = true },
+            new() { Title = "Issue Date", Field = "IssueDate", IsVisible = true },
+            new() { Title = "Type", Field = "Type", IsVisible = true },
+            new() { Title = "ToWhom", Field = "ToWhom", IsVisible = true },
+            new() { Title = "NoOfItems", Field = "NoOfItems", IsVisible = true },
+            new() { Title = "Store Name", Field = "StoreName", IsVisible = true },
+            new() { Title = "Created By", Field = "CreatedBy", IsVisible = true },
+            new() { Title = "Created Date", Field = "CreatedDate", IsVisible = true },
+            new() { Title = "Assembly Name", Field = "AssemblyName", IsVisible = true },
+            new() { Title = "SubAssy Name", Field = "SubAssyName", IsVisible = true },
+            new() { Title = "SubAssy Name2", Field = "SubAssyName2", IsVisible = true },
+            new() { Title = "SubAssy Name3", Field = "SubAssyName3", IsVisible = true },
+            new() { Title = "Item Code", Field = "ItemCode", IsVisible = true },
+            new() { Title = "Item Name", Field = "ItemName", IsVisible = true },
+            new() { Title = "Issue Qty", Field = "IssueQty", IsVisible = true },
+            new() { Title = "Rate", Field = "Rate", IsVisible = true },
+            new() { Title = "Amount", Field = "Amount", IsVisible = true },
+
+        };
+
+            await LoadColumnPreferences(UserName);
+        }
+        catch (Exception ex)
+        {
+            await _logs.LogDeveloperError(ex, "Error in InitializeColumns()");
+        }
+    }
+
+    private async Task LoadColumnPreferences(string UserName)
+    {
+        try
+        {
+            var saved = await PreferenceService.LoadPreferencesAsync(ScreenName, UserName);
+
+            if (saved != null && saved.Any())
+            {
+                foreach (var col in Columns)
+                {
+                    var match = saved.FirstOrDefault(x => x.Field == col.Field);
+                    if (match != null)
+                        col.IsVisible = match.IsVisible;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await _logs.LogDeveloperError(ex, "Error loading column preferences for JobOrderList");
+            await _js.ToastrError("Failed to load column preferences.");
+        }
+    }
+
+    private async Task HandleColumnChange(List<GridColumn> updated)
+    {
+        try
+        {
+            Columns = updated;
+            await PreferenceService.SavePreferencesAsync(ScreenName, UserName, Columns);
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await _logs.LogDeveloperError(ex, "Error in HandleColumnChange()");
+        }
+    }
+
+    private async Task OnColumnChanged(GridColumn column, object value)
+    {
+        try
+        {
+            column.IsVisible = Convert.ToBoolean(value);
+            await PreferenceService.SavePreferencesAsync(ScreenName, UserName, Columns);
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await _logs.LogDeveloperError(ex, "Error changing column");
+        }
+    }
+
+    private bool IsColumnVisible(string field)
+    {
+        return Columns.Any(x => x.Field == field && x.IsVisible);
+    }
+
+    IEnumerable<MaterialIssueReportVM> FilteredMaterialIssueNoteSummaryData
+    {
+        get
+        {
+            var search = searchText?.Trim();
+
+            var filtered = (FilteredMatIssueNoteSummaryData
+                            ?? Enumerable.Empty<MaterialIssueReportVM>())
+                .Where(s =>
+                    string.IsNullOrWhiteSpace(search)
+
+                    || (!string.IsNullOrWhiteSpace(s.IssueNo)
+                        && s.IssueNo.Contains(search, StringComparison.OrdinalIgnoreCase))
+
+                    || (!string.IsNullOrWhiteSpace(s.ItemCode)
+                        && s.ItemCode.Contains(search, StringComparison.OrdinalIgnoreCase))
+
+                    || (!string.IsNullOrWhiteSpace(s.ItemName)
+                        && s.ItemName.Contains(search, StringComparison.OrdinalIgnoreCase))
+
+                    || (!string.IsNullOrWhiteSpace(s.StoreName)
+                        && s.StoreName.Contains(search, StringComparison.OrdinalIgnoreCase))
+
+                    || (!string.IsNullOrWhiteSpace(s.ToWhom)
+                        && s.ToWhom.Contains(search, StringComparison.OrdinalIgnoreCase))
+
+                    || (!string.IsNullOrWhiteSpace(s.Type)
+                        && s.Type.Trim().Contains(search, StringComparison.OrdinalIgnoreCase))
+                )
+                .ToList();
+
+            // Reset Sl No after filtering
+            for (int i = 0; i < filtered.Count; i++)
+            {
+                filtered[i].SlNo = i + 1;
+            }
+
+            return filtered;
+        }
+    }
+
+    #region For Item Attachments
+
+    private async Task HandleModalConfirmation(bool isConfirmed)
+    {
+        try
+        {
+            await _js.InvokeVoidAsync("HideConfirmationModal");
+
+            if (!isConfirmed)
+                return;
+
+            else if (confirmation == "Export")
+            {
+                await ExportMatIssueNoteSummaryDataToExcel(isConfirmed);
+            }
+            else
+            {
+                await _js.ToastrWarning("Unknown confirmation action.");
+            }
+        }
+        catch (Exception ex)
+        {
+            await _logs.LogDeveloperError(ex, $"HandleModalConfirmation failed for action: {confirmation}");
+
+            await _js.ToastrError("An error occurred while processing your action. Please try again.");
+        }
+    }
+
+    private async Task Print()
+    {
+        if (FilteredMaterialIssueNoteSummaryData == null || !FilteredMaterialIssueNoteSummaryData.Any())
+        {
+            await _js.ToastrWarning("Sorry, no data available to print");
+            return;
+        }
+
+        ModalTitle = "Are you sure you want to export data to Excel?";
+        btnColor = "btn-success";
+        btnText = "Yes";
+        confirmation = "Export";
+        await _js.InvokeVoidAsync("ShowConfirmationModal");
+    }
+
+    private async Task confirmation_Click(bool isConfirmed)
+    {
+        try
+        {
+            await _js.InvokeVoidAsync("HideConfirmationModal");
+
+            if (isConfirmed && confirmation == "Export")
+            {
+                await ExportMatIssueNoteSummaryDataToExcel(isConfirmed);
+                confirmation = "";
+            }
+        }
+        catch (Exception ex)
+        {
+            await _logs.LogDeveloperError(ex, "Error while handling confirmation_Click");
+
+            await _js.ToastrError("Error while exporting MaterialIssueNote Summary.");
+        }
+    }
+
+    #endregion
+
+    private async Task OnInputChanged(ChangeEventArgs e)
+    {
+        try
+        {
+            searchText = e.Value?.ToString() ?? "";
+
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await _logs.LogDeveloperError(ex, "Error while searching");
+        }
+    }
+
+    // private async Task DateChanged()
+    // {
+    //     if (!string.IsNullOrEmpty(SelectedTopic))
+    //     {
+    //        // await OnReportTypeChanged(SelectedTopic);
+    //     }
+    // }
+
+
+    private async Task ExportMatIssueNoteSummaryDataToExcel(bool isConfirm)
+    {
+        try
+        {
+            isProcessing = true;
+
+            await _js.InvokeVoidAsync("HideConfirmationModal");
+
+            if (!isConfirm)
+                return;
+
+            if (FilteredMaterialIssueNoteSummaryData == null || !FilteredMaterialIssueNoteSummaryData.Any())
+            {
+                await _js.ToastrWarning("No data available");
+                return;
+            }
+
+            int i = 1;
+
+            foreach (var item in FilteredMaterialIssueNoteSummaryData)
+            {
+                item.SlNo = i++;
+            }
+
+            List<Dictionary<string, object>> exportData = new();
+
+            foreach (var item in FilteredMaterialIssueNoteSummaryData)
+            {
+                Dictionary<string, object> row = new();
+
+                // =========================
+                // MAIN COLUMNS
+                // =========================
+
+                if (IsColumnVisible("SlNo"))
+                    row.Add("SlNo", item.SlNo);
+
+                if (IsColumnVisible("IssueNo"))
+                    row.Add("Issue No.", item.IssueNo);
+   
+                if (IsColumnVisible("IssueDate"))
+                    row.Add("Issue Date", item.IssueDate?.ToString("dd/MM/yyyy"));
+
+                if (IsColumnVisible("Type"))
+                    row.Add("Type", item.Type);
+
+                if (IsColumnVisible("ToWhom"))
+                    row.Add("To Whom", item.ToWhom);
+
+                if (IsColumnVisible("NoOfItems"))
+                    row.Add("NoOfItems", item.NoOfItems);
+
+                if (IsColumnVisible("StoreName"))
+                    row.Add("Store Name", item.StoreName);
+
+                if (IsColumnVisible("CreatedBy"))
+                    row.Add("Created By", item.CreatedBy);
+
+                if (IsColumnVisible("CreatedDate"))
+                    row.Add("Created Date", item.IssueDate?.ToString("dd/MM/yyyy"));
+
+                if (IsColumnVisible("AssemblyName"))
+                    row.Add("Assembly Name", item.AssemblyName);
+
+                if (IsColumnVisible("SubAssyName"))
+                    row.Add("SubAssy Name", item.SubAssemblyName);
+
+                if (IsColumnVisible("SubAssyName2"))
+                    row.Add("SubAssy Name2", item.SubAssemblyName2);
+
+                if (IsColumnVisible("SubAssyName3"))
+                    row.Add("SubAssy Name3", item.SubAssemblyName3);
+
+                if (IsColumnVisible("ItemCode"))
+                    row.Add("Item Code", item.ItemCode);
+
+                if (IsColumnVisible("ItemName"))
+                    row.Add("Item Name", item.ItemName);
+
+                if (IsColumnVisible("IssueQty"))
+                    row.Add("Issue Qty", item.IssueQty);
+
+                if (IsColumnVisible("Rate"))
+                    row.Add("Rate", item.Rate);
+
+                if (IsColumnVisible("Amount"))
+                    row.Add("Amount", item.Amount);
+
+                exportData.Add(row);
+            }
+
+            if (!exportData.Any())
+            {
+                await _js.ToastrWarning("No data found for export");
+
+                return;
+            }
+
+            var bytes = await ExcelExportService.ExportPendingListToExcel(exportData, "MaterialIssueNoteSummary", "MaterialIssueNote Summary List");
+            var base64 = Convert.ToBase64String(bytes);
+            await _js.DownloadExcelAsync(base64, "MaterialIssueNoteSummary.xlsx");
+            await _js.ToastrSuccess("Excel exported successfully");
+        }
+        catch (Exception ex)
+        {
+            await _logs.LogDeveloperError(ex, "ExportMaterialIssueNoteSummaryDataToExcel");
+            await _js.ToastrError("Error while exporting Material IssueNote Summary Report!");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    public async Task<byte[]> CreateTemplateAsync(string sheetName, string[] headers, IEnumerable<object> data)
+    {
+        try
+        {
+            using var workbook = new XLWorkbook();
+
+            var worksheet = workbook.Worksheets.Add(sheetName);
+
+            // HEADER
+            for (int col = 0; col < headers.Length; col++)
+            {
+                var cell = worksheet.Cell(1, col + 1);
+
+                cell.Value = headers[col];
+
+                cell.Style.Font.Bold = true;
+                cell.Style.Fill.BackgroundColor = XLColor.Yellow;
+            }
+
+            int rowIndex = 2;
+
+            foreach (var obj in data)
+            {
+                for (int col = 0; col < headers.Length; col++)
+                {
+                    var header = headers[col];
+
+                    object? value = null;
+
+                    // PROPERTY MATCH
+                    var prop = obj.GetType().GetProperty(header);
+
+                    if (prop != null)
+                    {
+                        value = prop.GetValue(obj);
+                    }
+
+                    worksheet.Cell(rowIndex, col + 1).Value =
+                        value?.ToString() ?? "";
+                }
+
+                rowIndex++;
+            }
+
+            worksheet.Columns().AdjustToContents();
+
+            using var stream = new MemoryStream();
+
+            workbook.SaveAs(stream);
+
+            return stream.ToArray();
+        }
+        catch (Exception ex)
+        {
+            await _logs.LogDeveloperError(ex, "CreateTemplateAsync");
+
+            await _js.ToastrError("Excel creation failed");
+
+            return Array.Empty<byte>();
+        }
+    }
+}

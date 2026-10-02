@@ -1,0 +1,181 @@
+wwwroot\app.css
+wwwroot\bootstrap\bootstrap.min.css
+wwwroot\bootstrap\bootstrap.min.css.map
+wwwroot\bspllogo.jpg
+wwwroot\css\Dashboard.css
+wwwroot\css\DiscardPopUp.css
+wwwroot\favicon.png
+wwwroot\images\authorize-denied.jpg
+wwwroot\images\bsplimage.png
+wwwroot\images\bsplimage_1.png
+wwwroot\images\bspllogo.jpg
+wwwroot\images\BSPLLOGOANIMATED.gif
+wwwroot\images\eway.jpg
+wwwroot\images\loading.gif
+wwwroot\images\logout.jpg
+wwwroot\js\autoSelect.js
+wwwroot\js\common.js
+wwwroot\js\DeviceInfo.js
+wwwroot\js\downloadExcel.js
+wwwroot\js\downloadJsonFile.js
+wwwroot\js\emailEditor.js
+wwwroot\js\idleTimer.js
+wwwroot\js\internet_status.js
+wwwroot\js\isNumericWithDot.js
+wwwroot\js\navigation.js
+wwwroot\js\navigationGuard.js
+wwwroot\js\notification.js
+wwwroot\js\openFile.js
+wwwroot\js\pdfHelper.js
+wwwroot\templates\acucom.bhargavisofttech.co.in\CreditNote.frx
+wwwroot\templates\acucom.bhargavisofttech.co.in\DebitNote.frx
+wwwroot\templates\acucom.bhargavisofttech.co.in\Enquiry.frx
+wwwroot\templates\acucom.bhargavisofttech.co.in\JobOrder.frx
+wwwroot\templates\acucom.bhargavisofttech.co.in\LabDC.frx
+wwwroot\templates\acucom.bhargavisofttech.co.in\LabInvoice.frx
+wwwroot\templates\acucom.bhargavisofttech.co.in\MfgDC.frx
+wwwroot\templates\acucom.bhargavisofttech.co.in\MfgInvoice.frx
+wwwroot\templates\acucom.bhargavisofttech.co.in\MfgQuote.frx
+wwwroot\templates\acucom.bhargavisofttech.co.in\PaymentVoucher.frx
+wwwroot\templates\acucom.bhargavisofttech.co.in\PendingBills.frx
+wwwroot\templates\acucom.bhargavisofttech.co.in\PerformaInvoice.frx
+wwwroot\templates\acucom.bhargavisofttech.co.in\PurchaseOrder.frx
+wwwroot\templates\acucom.bhargavisofttech.co.in\PurchReq.frx
+wwwroot\templates\acucom.bhargavisofttech.co.in\Quotation.frx
+wwwroot\templates\acucom.bhargavisofttech.co.in\SubConDC.frx
+wwwroot\templates\Bin_QR-Code.xlsx
+wwwroot\templates\BOMLabour.xlsx
+wwwroot\templates\ByraveshwaraEnggEnts.bhargavisofttech.co.in\PendingBills.frx
+wwwroot\templates\default\AppointmentLetter.frx
+wwwroot\templates\default\Attendance.frx
+wwwroot\templates\default\ContractReview.frx
+wwwroot\templates\default\CreditNote.frx
+wwwroot\templates\default\DebitNote.frx
+wwwroot\templates\default\EmptyRouteCard.frx
+wwwroot\templates\default\Enquiry.frx
+wwwroot\templates\default\EnquiryFeasibility.frx
+wwwroot\templates\default\ExpInv.frx
+wwwroot\templates\default\ExportInvoice.frx
+wwwroot\templates\default\FinalMultipleProcessInspection.frx
+wwwroot\templates\default\FinalSingleProcessInspection.frx
+wwwroot\templates\default\Form22Salary.frx
+wwwroot\templates\default\HorizontSalary.frx
+wwwroot\templates\default\JobOrder.frx
+wwwroot\templates\default\LabDC.frx
+wwwroot\templates\default\LabGRNPrintingStickerLabel.frx
+wwwroot\templates\default\LabInvoice.frx
+wwwroot\templates\default\LabInvPrintingStickerLabel.frx
+wwwroot\templates\default\LabourGRN.frx
+wwwroot\templates\default\LabourSCN.frx
+wwwroot\templates\default\LeaveApplication.frx
+wwwroot\templates\default\MaterialIssueNoteReduction.frx
+wwwroot\templates\default\MfgDC.frx
+wwwroot\templates\default\MfgInvoice.frx
+wwwroot\templates\default\MfgQuote.frx
+wwwroot\templates\default\Offerletter.frx
+wwwroot\templates\default\OrderAccept.frx
+wwwroot\templates\default\PackingListExp.frx
+wwwroot\templates\default\PackList.frx
+wwwroot\templates\default\PaymentVoucher.frx
+wwwroot\templates\default\PendingBills.frx
+wwwroot\templates\default\PerformaInvoice.frx
+wwwroot\templates\default\ProdAssyGRN.frx
+wwwroot\templates\default\ProdAssySCN.frx
+wwwroot\templates\default\ProdCompGRN.frx
+wwwroot\templates\default\ProdCompSCN.frx
+wwwroot\templates\default\ProdMtlIssNoteAssy.frx
+wwwroot\templates\default\ProdMtlIssNoteComp.frx
+wwwroot\templates\default\PurchaseGRN.frx
+wwwroot\templates\default\PurchaseOrder.frx
+wwwroot\templates\default\PurchaseOrder_Old.frx
+wwwroot\templates\default\PurchaseSCN.frx
+wwwroot\templates\default\PurchReq.frx
+wwwroot\templates\default\Receipt.frx
+wwwroot\templates\default\RouteCard.frx
+wwwroot\templates\default\SalarySlip.frx
+wwwroot\templates\default\SalarySlipMultiple.frx
+wwwroot\templates\default\SalesEnquiry.frx
+wwwroot\templates\default\StoreInterTransfer.frx
+wwwroot\templates\default\SubConDC.frx
+wwwroot\templates\default\SubContractGRN.frx
+wwwroot\templates\default\ToolCribIssueNote.frx
+wwwroot\templates\default\ToolCribReturnNote.frx
+wwwroot\templates\default\WeeklyAttendance.frx
+wwwroot\templates\default\WeeklyEmptyAttendance.frx
+wwwroot\templates\GSTR1_Excel_Workbook_Template_V2.0.xlsx
+wwwroot\templates\ITC_04_Offline_Utility.xlsx
+wwwroot\templates\Master BOM Upload.xlsx
+wwwroot\templates\MasterTemplate.xlsm
+wwwroot\templates\rrforgspl.bhargavisofttech.co.in\PendingBills.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\CreditNote.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\FinalMultipleProcessInspection.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\FinalSingleProcessInspection.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\FinalSpecialProcessInspection.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\IncomingInspection.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\LabDC.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\LabGRNPrintingStickerLabel.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\LabInvoice.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\LabInvPrintingStickerLabel.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\LabourGRN.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\LabourSCN.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\MfgQuote.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\PaymentVoucher.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\PendingBills.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\ProdMtlIssNoteComp.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\ProductionlogAttendance.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\PurchaseGRN.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\PurchaseInspection.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\PurchaseOrder.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\PurchaseSCN.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\Receipt.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\SubConDC.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\SubconGRN.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\SubconSCN.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\VendorQuote.frx
+wwwroot\templates\sharadaelectrou1.bhargavisofttech.co.in\WeeklyEmptyAttendance.frx
+wwwroot\templates\sns.bhargavisofttech.co.in\JobOrder.frx
+wwwroot\templates\sns.bhargavisofttech.co.in\LabDC.frx
+wwwroot\templates\sns.bhargavisofttech.co.in\LabInvoice.frx
+wwwroot\templates\sns.bhargavisofttech.co.in\MfgDC.frx
+wwwroot\templates\sns.bhargavisofttech.co.in\MfgInvoice.frx
+wwwroot\templates\sns.bhargavisofttech.co.in\PaymentVoucher.frx
+wwwroot\templates\sns.bhargavisofttech.co.in\PendingBills.frx
+wwwroot\templates\sns.bhargavisofttech.co.in\PerformaInvoice.frx
+wwwroot\templates\sns.bhargavisofttech.co.in\PurchaseOrder.frx
+wwwroot\templates\sns.bhargavisofttech.co.in\Quotation.frx
+wwwroot\templates\sns.bhargavisofttech.co.in\SubConDC.frx
+wwwroot\templates\srinuenggind.bhargavisofttech.co.in\ContractReview.frx
+wwwroot\templates\srinuenggind.bhargavisofttech.co.in\EmptyRouteCard.frx
+wwwroot\templates\srinuenggind.bhargavisofttech.co.in\ExportInvoice.frx
+wwwroot\templates\srinuenggind.bhargavisofttech.co.in\LabDC.frx
+wwwroot\templates\srinuenggind.bhargavisofttech.co.in\LabInvoice.frx
+wwwroot\templates\srinuenggind.bhargavisofttech.co.in\MfgDC.frx
+wwwroot\templates\srinuenggind.bhargavisofttech.co.in\MfgInvoice.frx
+wwwroot\templates\srinuenggind.bhargavisofttech.co.in\MfgQuote.frx
+wwwroot\templates\srinuenggind.bhargavisofttech.co.in\OrderAccept.frx
+wwwroot\templates\srinuenggind.bhargavisofttech.co.in\Pack.frx
+wwwroot\templates\srinuenggind.bhargavisofttech.co.in\PackList.frx
+wwwroot\templates\srinuenggind.bhargavisofttech.co.in\PendingBills.frx
+wwwroot\templates\srinuenggind.bhargavisofttech.co.in\PerformaInvoice.frx
+wwwroot\templates\srinuenggind.bhargavisofttech.co.in\PurchaseOrder.frx
+wwwroot\templates\srinuenggind.bhargavisofttech.co.in\RouteCard.frx
+wwwroot\templates\srinuenggind.bhargavisofttech.co.in\SubConDC.frx
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\app.css
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\bootstrap\bootstrap.min.css
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\bootstrap\bootstrap.min.css.map
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\css\Dashboard.css
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\css\DiscardPopUp.css
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\js\autoSelect.js
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\js\common.js
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\js\DeviceInfo.js
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\js\downloadExcel.js
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\js\downloadJsonFile.js
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\js\emailEditor.js
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\js\idleTimer.js
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\js\internet_status.js
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\js\isNumericWithDot.js
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\js\navigation.js
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\js\navigationGuard.js
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\js\notification.js
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\js\openFile.js
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\wwwroot\js\pdfHelper.js

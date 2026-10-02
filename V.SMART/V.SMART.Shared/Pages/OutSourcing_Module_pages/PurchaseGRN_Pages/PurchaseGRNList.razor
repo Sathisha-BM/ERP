@@ -1,0 +1,1411 @@
+﻿@page "/purchaseGRNList"
+@using V.SMART.Shared.BusinessLayer.BusinessService.IBusinessService.IOutSourcingService.IPurchaseGRN_Service
+@using V.SMART.Shared.ViewModels.OutSourcingViewModel.PurchaseGRNVM
+@using static V.SMART.Shared.Components.DetailsModal
+
+@inherits BaseUserRightsComponent
+
+@inject ILoggingService LoggingService
+@inject CurrentUserService CurrentUserService
+@inject IJSRuntime _JS
+@inject IColumnPreferenceService PreferenceService
+@inject NavigationManager _navigation
+@inject ExcelExportService ExcelExportService
+
+@inject IPurchaseGRNService purchaseGrnService
+@inject NavigationStateService NavigationState
+
+<MasterModal IsVisible="isModalVisible" Title="@MasterModalTitle" MaxWidth="800px" OnClose="CloseModal">
+    @if (ActiveModal == "InstantSearch")
+    {
+        <InstantSearch 
+            isModelVisible="true" 
+            Screen="@ScreenName" 
+            Filters="SearchFilters"
+            OnClose="CloseModal"
+            OnSearch="ApplySearchFilters" />
+    }
+</MasterModal>
+
+<BsModal OnModalConfirmation="HandleModalConfirmation"
+         Title="@ModalTitle"
+         ButtonBootstrapStyle="@btnColor"
+         ButtonText="@btnText"
+         ShowReasonBox="@showCancelReasonBox"
+         Reason="@cancelReason"
+         OnReasonChanged="(value) => cancelReason = value">
+</BsModal>
+
+<DetailsModal Title="Purchase Po Details"
+              Columns="@PoColumns"
+              ColumnFields="@PoFields"
+              HiddenColumns="@PoHiddenColumns"
+              Data="@PurchPoData"
+              IsVisible="@IsPurchPoModalVisible"
+              IsVisibleChanged="@((val) => IsPurchPoModalVisible = val)"
+              SelectionValidation="SelectionValidationType.Vendor"
+              OnSelectedItems="OnPoSelectedAsync">
+</DetailsModal>
+
+
+<style>
+    .table-responsive {
+        max-height: 600px;
+        overflow-y: auto;
+    }
+
+    .quickgrid th {
+        position: sticky;
+        top: 0;
+        background: white;
+        z-index: 10;
+    }
+</style>
+
+
+@if (isProcessing)
+{
+    <ProcessingOverlay Visible="@isProcessing" Message="Please wait..." />
+}
+else if (!CanView)
+{
+    <RedirectToLogin />
+    return;
+}
+else
+{
+    <div class="container-fluid px-2 px-md-5 mt-4">
+        <div class="card shadow-sm border-1">
+
+            <PageHeader TitleText="Purchase GRN List"
+                        TitleIcon="bi bi-receipt-cutoff"
+                        Breadcrumbs="@GrnBreadcrumbs" />
+
+            <div class="card-body p-4">
+
+                 <div class="row g-2 g-md-3 mb-3">
+                    <!-- Column Settings -->
+                    <div class="col-6 col-md-2">
+                        <ColumnMenu Columns="Columns"
+                                    ScreenName="@ScreenName"
+                                    UserId="@UserName"
+                                    MaxVisible=int.MaxValue
+                                    OnChanged="HandleColumnChange" />
+                    </div>
+
+                    <div class="col-6 col-md-2">
+                        <button type="button" class="btn btn-outline-danger btn-sm w-100 shadow-sm"
+                                 @onclick='() => OpenModal("InstantSearch")'>
+                            <i class="bi bi-search"></i> Search
+                        </button>
+                    </div>
+
+                    <div class="col-6 col-md-2">
+                        <button type="button" class="btn btn-outline-secondary btn-sm w-100 shadow-sm"
+                                @onclick="RefreshPage">
+                            <i class="bi bi-arrow-clockwise"></i> Refresh
+                        </button>
+                    </div>
+
+                    <div class="col-6 col-md-2 text-end">
+                        <select class="form-select form-select-sm shadow-sm w-100"
+                                value="@pageSize"
+                                @onchange="OnPageSizeChanged">
+                            <option value="10" selected>10 per page</option>
+                            <option value="20">20 per page</option>
+                            <option value="50">50 per page</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6 col-md-2">
+                        <select class="form-select form-select-sm shadow-sm"
+                                 value="@selectedStatus"
+                                @onchange="OnStatusChanged"
+                                title="Select item status">
+
+                            <option value="">All</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Cancelled">Cancelled</option>
+                            <option value="Short Closed">Short Closed</option>
+                        </select>
+                    </div>
+
+                    @if (CanCreate)
+                    {
+                       <div class="col-6 col-md-2 ms-md-auto text-end">
+                            <button class="btn btn-success btn-sm shadow-sm d-block d-md-inline-block w-100 w-md-auto"
+                                    @onclick="AddNewPo">
+                                <i class="bi bi-plus-square me-1"></i> Add New
+                            </button>
+                       </div>
+                    }
+
+                </div>
+
+                @if (PurchaseGRNVMs.Any())
+                {
+                    <div class="table-responsive">
+
+                        <QuickGrid Items="PurchaseGRNVMs.AsQueryable()"
+                                   Class="quickgrid table table-bordered text-wrap">
+
+                            @if (Columns.Any(c => c.IsVisible))
+                            {
+                                @foreach (var col in Columns.Where(c => c.IsVisible))
+                                {
+                                    <div>
+                                        @switch (col.Field)
+                                        {
+                                            case "GRNId":
+                                                <PropertyColumn Title="GRN ID" Property="@(c => c.GRNId)" />
+                                                break;
+
+                                            case "GRNNo":
+                                                <PropertyColumn Title="GRN No"
+                                                                Property="@(c => $"{c.GRNNo}{c.Suffix ?? string.Empty}")"
+                                                                Sortable="true" />
+                                                break;
+
+                                            case "GRNDate":
+                                                <PropertyColumn Title="GRN Date"
+                                                                Property="@(c => c.GRNDate)"
+                                                                Format="dd/MM/yyyy"
+                                                                Sortable="true" />
+                                                break;
+
+                                            case "GRNDateNow":
+                                                <PropertyColumn Title="GRN Date (Now)"
+                                                                Property="@(c => c.GRNDateNow)"
+                                                                Format="dd/MM/yyyy" />
+                                                break;
+
+                                            case "IsWithoutPoGRN":
+                                                <TemplateColumn Title="Without PO" Context="c">
+                                                    @if (c.IsWithoutPoGRN)
+                                                    {
+                                                        <span class="badge text-bg-success rounded-pill px-3 py-1">
+                                                            <i class="bi bi-check-circle me-1"></i> Yes
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge text-bg-secondary rounded-pill px-3 py-1">
+                                                            <i class="bi bi-x-circle me-1"></i> No
+                                                        </span>
+                                                    }
+                                                </TemplateColumn>
+                                                break;
+
+                                            case "IsWithoutInspection":
+                                                <TemplateColumn Title="Without Inspection" Context="c">
+                                                    @if (c.IsWithoutInspection)
+                                                    {
+                                                        <span class="badge text-bg-warning rounded-pill px-3 py-1">
+                                                            <i class="bi bi-exclamation-triangle me-1"></i> Without Inspection
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge text-bg-success rounded-pill px-3 py-1">
+                                                            <i class="bi bi-check-circle me-1"></i> Inspected
+                                                        </span>
+                                                    }
+                                                </TemplateColumn>
+                                                break;
+
+                                            case "VendorName":
+                                                <PropertyColumn Title="Vendor Name" Property="@(c => c.VendorName)" />
+                                                break;
+
+                                            case "VendorCode":
+                                                <PropertyColumn Title="Vendor Code" Property="@(c => c.VendorCode)" />
+                                                break;
+
+                                            case "VendorAddress":
+                                                <PropertyColumn Title="Vendor Address" Property="@(c => c.VendorAddress)" />
+                                                break;
+
+                                            case "VendorContactNo":
+                                                <PropertyColumn Title="Contact No" Property="@(c => c.VendorContactNo)" />
+                                                break;
+
+                                            case "VendorGstNo":
+                                                <PropertyColumn Title="GST No" Property="@(c => c.VendorGstNo)" />
+                                                break;
+
+                                            case "KindofAttention":
+                                                <PropertyColumn Title="Kind Of Attention" Property="@(c => c.KindofAttention)" />
+                                                break;
+
+                                            case "AddStoreId":
+                                                <PropertyColumn Title="Store ID" Property="@(c => c.AddStoreId)" />
+                                                break;
+
+                                            case "StoreName":
+                                                <PropertyColumn Title="Store Name" Property="@(c => c.StoreName)" />
+                                                break;
+
+                                            case "RefDcNo":
+                                                <PropertyColumn Title="Ref DC No" Property="@(c => c.RefDcNo)" />
+                                                break;
+
+                                            case "RefDcDate":
+                                                <PropertyColumn Title="Ref DC Date"
+                                                                Property="@(c => c.RefDcDate)"
+                                                                Format="dd/MM/yyyy" />
+                                                break;
+
+                                            case "RefInvNo":
+                                                <PropertyColumn Title="Ref Invoice No" Property="@(c => c.RefInvNo)" />
+                                                break;
+
+                                            case "RefInvDate":
+                                                <PropertyColumn Title="Ref Invoice Date"
+                                                                Property="@(c => c.RefInvDate)"
+                                                                Format="dd/MM/yyyy" />
+                                                break;
+
+                                            case "NoOfItems":
+                                                <PropertyColumn Title="No Of Items" Property="@(c => c.NoOfItems)" />
+                                                break;
+
+                                            case "TotalQty":
+                                                <PropertyColumn Title="Total Qty" Property="@(c => c.TotalQty)" Format="N2" />
+                                                break;
+
+                                            case "TotalBalQty":
+                                                <PropertyColumn Title="Total Balance Qty" Property="@(c => c.TotalBalQty)" Format="N2" />
+                                                break;
+
+                                            case "AverageUnitPrice":
+                                                <PropertyColumn Title="Avg Unit Price" Property="@(c => c.AverageUnitPrice)" Format="N2" />
+                                                break;
+
+                                            case "MainRemarks":
+                                                <PropertyColumn Title="Remarks" Property="@(c => c.MainRemarks)" />
+                                                break;
+
+                                            case "Status":
+                                                <TemplateColumn Title="GRN Status" Context="c">
+                                                    @if (c.GRNCancel)
+                                                    {
+                                                        <span class="badge text-bg-danger bg-gradient shadow-sm px-3 py-1 rounded-pill">
+                                                            <i class="bi bi-x-circle me-1"></i> Cancelled
+                                                        </span>
+                                                    }
+                                                    else if (c.ShortClose)
+                                                    {
+                                                        <span class="badge text-bg-secondary bg-gradient shadow-sm px-3 py-1 rounded-pill">
+                                                            <i class="bi bi-slash-circle me-1"></i> Short Closed
+                                                        </span>
+                                                    }
+                                                    else if (c.GRNTally)
+                                                    {
+                                                        <span class="badge text-bg-success bg-gradient shadow-sm px-3 py-1 rounded-pill">
+                                                            <i class="bi bi-check-circle me-1"></i> Completed
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge text-bg-warning bg-gradient shadow-sm px-3 py-1 rounded-pill">
+                                                            <i class="bi bi-hourglass-split me-1"></i> Pending
+                                                        </span>
+                                                    }
+                                                </TemplateColumn>
+                                                break;
+
+                                            case "CancelDate":
+                                                <PropertyColumn Title="Cancel Date" Property="@(c => c.CancelDate)" Format="dd/MM/yyyy" />
+                                                break;
+
+                                            case "CancelReason":
+                                                <PropertyColumn Title="Cancel Reason" Property="@(c => c.CancelReason)" />
+                                                break;
+
+                                            case "CancelBy":
+                                                <PropertyColumn Title="Cancel By" Property="@(c => c.CancelBy)" />
+                                                break;
+
+                                            case "CreatedBy":
+                                                <PropertyColumn Title="Created By" Property="@(c => c.CreatedBy)" />
+                                                break;
+
+                                            case "CreatedDate":
+                                                <PropertyColumn Title="Created Date" Property="@(c => c.CreatedDate)" Format="dd/MM/yyyy" />
+                                                break;
+
+                                            case "ModifiedBy":
+                                                <PropertyColumn Title="Modified By" Property="@(c => c.ModifiedBy)" />
+                                                break;
+
+                                            case "ModifiedDate":
+                                                <PropertyColumn Title="Modified Date" Property="@(c => c.ModifiedDate)" Format="dd/MM/yyyy" />
+                                                break;
+                                        }
+                                    </div>
+                                }
+                            }
+
+                            <!-- Actions -->
+                            <TemplateColumn Title="Actions" Context="c">
+                                <div class="d-flex gap-2">
+                                    @if (CanEdit)
+                                    {
+                                        <a href="@($"purchaseGRN/update/{c.GRNId}?currentPage={currentPage}")"
+                                           class="btn btn-sm btn-outline-primary"
+                                           title="Edit GRN">
+                                           <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                    }
+
+                                    @if (CanView)
+                                    {
+                                        <a href="@($"purchaseGRN/details/{c.GRNId}?currentPage={currentPage}")"
+                                           class="btn btn-sm btn-outline-info"
+                                           title="View GRN">
+                                           <i class="bi bi-eye"></i>
+                                        </a>
+                                    }
+
+                                    @if (CanDelete)
+                                    {
+                                        <button class="btn btn-sm btn-outline-danger"
+                                                title="Delete GRN"
+                                                @onclick="() => HandleDelete(c.GRNId)">
+                                            <i class="bi bi-trash3"></i>
+                                        </button>
+                                    }
+                                </div>
+                            </TemplateColumn>
+
+                        </QuickGrid>
+                    </div>
+
+                    @* <div class="pagination-fixed bg-white shadow-sm py-2 border-top">
+
+                        <div class="container-fluid">
+
+                            <div class="d-flex align-items-center justify-content-center gap-2 flex-wrap">
+
+                                <button class="btn btn-outline-primary btn-sm"
+                                        @onclick="FirstPage"
+                                        disabled="@(currentPage == 1)">
+                                    <i class="bi bi-skip-backward-fill"></i>
+                                </button>
+
+                                <button class="btn btn-outline-primary btn-sm"
+                                        @onclick="PreviousPage"
+                                        disabled="@(currentPage == 1)">
+                                    <i class="bi bi-arrow-left-circle"></i>
+                                </button>
+
+                                <span class="fw-semibold small px-1">
+                                    Page @currentPage of @totalPages
+                                </span>
+
+                                <button class="btn btn-outline-primary btn-sm"
+                                        @onclick="NextPage"
+                                        disabled="@(currentPage >= totalPages)">
+                                    <i class="bi bi-arrow-right-circle"></i>
+                                </button>
+
+                                <button class="btn btn-outline-primary btn-sm"
+                                        @onclick="LastPage"
+                                        disabled="@(currentPage >= totalPages)">
+                                    <i class="bi bi-skip-forward-fill"></i>
+                                </button>
+
+                                <button class="btn btn-success btn-sm d-flex align-items-center ms-5"
+                                        @onclick="HandleExport">
+
+                                    <i class="bi bi-download me-1"></i>
+                                    Export GRN's
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div> *@
+                    <div class="pagination-fixed bg-white shadow-sm py-2 border-top">
+
+                        <div class="container-fluid">
+
+                            <div class="d-flex align-items-center justify-content-center gap-2 flex-wrap">
+
+                                <button class="btn btn-outline-primary btn-sm"
+                                        @onclick="FirstPage"
+                                        disabled="@(currentPage == 1)">
+                                    <i class="bi bi-skip-backward-fill"></i>
+                                </button>
+
+                                <button class="btn btn-outline-primary btn-sm"
+                                        @onclick="PreviousPage"
+                                        disabled="@(currentPage == 1)">
+                                    <i class="bi bi-arrow-left-circle"></i>
+                                </button>
+
+                                <span class="fw-semibold small px-1">
+                                    Page @currentPage of @totalPages
+                                </span>
+
+                                <button class="btn btn-outline-primary btn-sm"
+                                        @onclick="NextPage"
+                                        disabled="@(currentPage >= totalPages)">
+                                    <i class="bi bi-arrow-right-circle"></i>
+                                </button>
+
+                                <button class="btn btn-outline-primary btn-sm"
+                                        @onclick="LastPage"
+                                        disabled="@(currentPage >= totalPages)">
+                                    <i class="bi bi-skip-forward-fill"></i>
+                                </button>
+
+                                <button class="btn btn-success btn-sm d-flex align-items-center ms-5"
+                                        @onclick="HandleExport">
+
+                                    <i class="bi bi-download me-1"></i>
+                                    Export GRN's
+
+                                </button>
+                                <!-- From Date -->
+                                <div class="d-flex align-items-center gap-1">
+                                    <label class="fw-semibold mb-0">From:</label>
+                                    <input type="date" @bind="GrnFromDate"
+                                           @bind:after="OnDateChanged"
+                                           class="form-control form-control-sm" />
+                                </div>
+
+                                <!-- To Date -->
+                                <div class="d-flex align-items-center gap-1">
+                                    <label class="fw-semibold mb-0">To:</label>
+
+                                    <input type="date" @bind="GrnToDate"
+                                           @bind:after="OnDateChanged"
+                                           class="form-control form-control-sm" />
+                                </div>
+
+                                <!-- Pending Details -->
+                                <button type="button"
+                                        class="btn btn-outline-warning btn-sm shadow-sm"
+                                        @onclick="OpenPurchPoPendingDetails">
+                                    <i class="bi bi-hourglass-split me-1"></i>
+                                    PurchasePO Pending Details
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                }
+                else
+                {
+                    <p class="text-center">No Item available.</p>
+                }
+
+            </div>
+        </div>
+    </div>
+}
+
+
+@code {
+
+    #region === Screen Configuration ===
+
+    protected override string ScreenName => "Purchase GRN";
+
+    private bool isProcessing = true;
+    private bool preferencesLoaded = false;
+    private string? UserName;
+    private int DeleteGrnId = 0;
+    private string searchText = string.Empty;
+    private string selectedStatus = "";
+
+    private List<PurchaseGRNVM> PurchaseGRNVMs = new();
+
+    //Sathish
+    [SupplyParameterFromQuery]
+    public int currentPage { get; set; } = 1;
+
+    // === Paging & Search ===
+    private int totalItems;
+    //private int currentPage = 1;
+    private int pageSize { get; set; } = 10;
+
+    private int totalPages => (int)Math.Ceiling((double)totalItems / pageSize);
+
+    public List<GridColumn> Columns { get; set; }
+
+    // === Modal State ===
+    private bool isModalVisible = false;
+    private string ActiveModal = "";
+    private string MasterModalTitle = "";
+
+    private string ModalTitle = string.Empty;
+    private string btnText = string.Empty;
+    private string confirmation = string.Empty;
+    private string btnColor = string.Empty;
+    private bool showCancelReasonBox = false;
+    public string? cancelReason { get; set; }
+
+    private int screenCode{ get; set; }
+
+    // Instant Search filter parameter
+    [Parameter,SupplyParameterFromQuery] public string? Filter { get; set; }
+    private Dictionary<string, object>? SearchFilters { get; set; } = new();
+
+    private List<PageHeader.BreadcrumbItem> GrnBreadcrumbs = new()
+    {
+        new PageHeader.BreadcrumbItem { Text = "Outsourcing",Url="purchase-home" },
+        new PageHeader.BreadcrumbItem { Text = "Purchase",Url="purchase-home" },
+        new PageHeader.BreadcrumbItem { Text = "Goods Recive Note-(GRN)", IsLast = true }
+    };
+    private DateTime GrnFromDate { get; set; } = DateTime.Today.Month >= 4
+    ? new DateTime(DateTime.Today.Year, 4, 1)
+    : new DateTime(DateTime.Today.Year - 1, 4, 1);
+
+    private DateTime GrnToDate { get; set; } =
+        DateTime.Today;
+    private bool IsPurchPoModalVisible = false;
+    private List<Dictionary<string, object>>? PurchPoData;
+
+    // 🔹 Visible Column Titles
+    private List<string> PoColumns = new()
+{
+   "Vendor","Vendorcode", "PoSubId", "IsOpenPo","Po No", "Po Date", "ItemId",
+    "Item Code", "Item Name", "UOM", "HSN Code","Category Name",
+    "Qty", "Bal Qty", "Unit Price", "Po Due Date","CostCenterId",
+    "Project No", "Remark"
+};
+
+    // 🔹 Field Names (backend binding)
+    private List<string> PoFields = new()
+{
+   "Vendor","Vendorcode", "PoSubId", "IsOpenPo","PoNo", "PoDate", "ItemId",
+    "ItemCode", "ItemName", "UOM", "HSNCode","CategoryName",
+    "Qty", "BalQty", "UnitPrice", "PoDuedate", "CostCenterId",
+    "ProjectNo", "Remark"
+};
+
+    // 🔹 Hidden Columns (IDs and internal refs)
+    private List<string> PoHiddenColumns = new()
+{
+    "Vendorcode","PoSubId","ItemId", "CostCenterId"
+};
+    private PurchaseGRNVM PurchaseGRNVM { get; set; } = new();
+
+    #endregion
+
+    #region === initilization ===
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await LoadRightsAsync();
+
+            if (!CanView)
+            {
+                _navigation.NavigateTo("/access-denied");
+                return;
+            }
+
+            await InitializeColumns(IsHidden);
+
+            screenCode = await purchaseGrnService.GetScreenCodeByScreenNameAsync(ScreenName);
+            UserName = await CurrentUserService.GetUsernameAsync();
+
+            if (!string.IsNullOrEmpty(Filter))
+            {
+                SearchFilters = JsonSerializer.Deserialize<Dictionary<string, object>>(Filter);
+            }
+            //Sathish
+            if (currentPage < 1)
+            {
+                currentPage = 1;
+            }
+
+            await LoadAllGRNs();
+            await LoadColumnPreferences(UserName);
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Error in OnInitializedAsync()");
+        }
+        finally
+        {
+            isProcessing = false;
+            preferencesLoaded = true;
+        }
+    }
+
+    #endregion
+
+    #region === Data Loading ===
+
+    private async Task LoadAllGRNs()
+    {
+        try
+        {
+            var result = await purchaseGrnService.SearchWithDynamicFilterAsync(
+                pageNumber: currentPage,
+                pageSize: pageSize,
+                filters: SearchFilters
+            );
+
+            PurchaseGRNVMs = result.grnVMs;
+            totalItems = result.TotalCount;
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Error loading data in Purchase GRN List");
+            await _JS.ToastrError("Failed to load Purchase GRN List.");
+        }
+    }
+
+    private void AddNewPo()
+    {
+        var returnUrl = Uri.EscapeDataString("purchaseGRN/create/{id}");
+        _navigation.NavigateTo($"/Vendor/Select?ReturnUrl={returnUrl}");
+    }
+
+    #endregion
+
+
+
+    #region ===  Columns ===
+
+    public async Task InitializeColumns(bool Hidden)
+    {
+        try
+        {
+            Columns = new List<GridColumn>
+            {
+                new() { Title = "GRN ID", Field = "GRNId", IsVisible = false },
+
+                new() { Title = "GRN No", Field = "GRNNo", IsVisible = true },
+                new() { Title = "GRN Date", Field = "GRNDate", IsVisible = true },
+                new() { Title = "GRN Date (Now)", Field = "GRNDateNow", IsVisible = false },
+
+                new() { Title = "Without PO", Field = "IsWithoutPoGRN", IsVisible = false },
+                new() { Title = "Without Inspection", Field = "IsWithoutInspection", IsVisible = false },
+
+                new() { Title = "Vendor Code", Field = "VendorCode", IsVisible = false },
+                new() { Title = "Vendor Name", Field = "VendorName", IsVisible = true },
+                new() { Title = "Vendor Address", Field = "VendorAddress", IsVisible = false },
+                new() { Title = "GST No", Field = "VendorGstNo", IsVisible = false },
+                new() { Title = "Contact No", Field = "VendorContactNo", IsVisible = false },
+                new() { Title = "Kind Of Attention", Field = "KindofAttention", IsVisible = false },
+
+                new() { Title = "Store ID", Field = "AddStoreId", IsVisible = false },
+                new() { Title = "Store Name", Field = "StoreName", IsVisible = true },
+
+                new() { Title = "Ref DC No", Field = "RefDcNo", IsVisible = false },
+                new() { Title = "Ref DC Date", Field = "RefDcDate", IsVisible = false },
+
+                new() { Title = "Ref Invoice No", Field = "RefInvNo", IsVisible = false },
+                new() { Title = "Ref Invoice Date", Field = "RefInvDate", IsVisible = false },
+
+                new() { Title = "No Of Items", Field = "NoOfItems", IsVisible = true },
+                new() { Title = "Total Qty", Field = "TotalQty", IsVisible = false },
+                new() { Title = "Total Balance Qty", Field = "TotalBalQty", IsVisible = false },
+                new() { Title = "Avg Unit Price", Field = "AverageUnitPrice", IsVisible = false },
+
+                new() { Title = "Remarks", Field = "MainRemarks", IsVisible = false },
+
+                new() { Title = "GRN Status", Field = "Status", IsVisible = false },
+
+                new() { Title = "Cancel Date", Field = "CancelDate", IsVisible = false },
+                new() { Title = "Cancel Reason", Field = "CancelReason", IsVisible = false },
+                new() { Title = "Cancel By", Field = "CancelBy", IsVisible = false },
+
+                
+                new() { Title = "Created By", Field = "CreatedBy", IsVisible = true },
+                new() { Title = "Created Date", Field = "CreatedDate", IsVisible = true },
+                new() { Title = "Modified By", Field = "ModifiedBy", IsVisible = false },
+                new() { Title = "Modified Date", Field = "ModifiedDate", IsVisible = false },
+            };
+
+            if (!Hidden)
+            {
+                // Columns.AddRange(new[]
+                // {
+                //     new GridColumn { Title = "Extra Column 1", Field = "Extra1", IsVisible = false },
+                //     new GridColumn { Title = "Extra Column 2", Field = "Extra2", IsVisible = false },
+                // });
+            }
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Error in InitializeColumns()");
+        }
+    }
+
+    private async Task LoadColumnPreferences(string UserName)
+    {
+        try
+        {
+            var saved = await PreferenceService.LoadPreferencesAsync(ScreenName, UserName);
+
+            if (saved != null && saved.Any())
+            {
+                foreach (var col in Columns)
+                {
+                    var match = saved.FirstOrDefault(x => x.Field == col.Field);
+                    if (match != null)
+                        col.IsVisible = match.IsVisible;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Error loading column preferences for Purchase GRN List");
+            await _JS.ToastrError("Failed to load column preferences.");
+        }
+    }
+
+    private async Task HandleColumnChange(List<GridColumn> updated)
+    {
+        try
+        {
+            Columns = updated;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "An error occurred while handling the Purchase GRN List HandleColumnChange() Method");
+        }
+    }
+
+    #endregion
+
+
+    #region PAGINATION
+
+    private async Task FirstPage()
+    {
+        try
+        {
+            isProcessing = true;
+            if (currentPage != 1)
+            {
+                currentPage = 1;
+                await LoadAllGRNs();
+            }
+        }
+        catch (Exception ex)
+        {
+
+            await LoggingService.LogDeveloperError(ex, "Error navigating to first page in Purchase GRN List");
+            await _JS.ToastrError("Failed to navigate to first page.");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    private async Task PreviousPage()
+    {
+        try
+        {
+            isProcessing = true;
+            if (currentPage > 1)
+            {
+                currentPage--;
+                await LoadAllGRNs();
+            }
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Error navigating to previous page in Purchase GRN List");
+            await _JS.ToastrError("Failed to navigate to previous page.");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    private async Task NextPage()
+    {
+        try
+        {
+            isProcessing = true;
+            if (currentPage < totalPages)
+            {
+                currentPage++;
+                await LoadAllGRNs();
+            }
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Error navigating to next page in Purchase GRN List");
+            await _JS.ToastrError("Failed to navigate to next page.");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    private async Task LastPage()
+    {
+        try
+        {
+            isProcessing = true;
+            if (currentPage != totalPages)
+            {
+                currentPage = totalPages;
+                await LoadAllGRNs();
+            }
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Error navigating to last page in Purchase GRN List");
+            await _JS.ToastrError("Failed to navigate to last page.");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    private async Task OnPageSizeChanged(ChangeEventArgs e)
+    {
+        try
+        {
+            isProcessing = true;
+            pageSize = int.Parse(e.Value?.ToString() ?? "10");
+            currentPage = 1;
+            await LoadAllGRNs();
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Error changing page size in Purchase GRN List");
+            await _JS.ToastrError("Failed to change page size.");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    private async Task RefreshPage()
+    {
+        try
+        {
+            isProcessing = true;
+            SearchFilters = new Dictionary<string, object>();
+            await LoadAllGRNs();
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Error refreshing Purchase GRN List page");
+            await _JS.ToastrError("Failed to refresh page.");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    #endregion
+
+
+    #region === Deletion Flow ===
+
+    private async Task HandleDelete(int grnId)
+    {
+        try
+        {
+            
+            var (canDelete, message) = await purchaseGrnService.CanDeleteGRNAsync(grnId, screenCode);
+
+            if (!canDelete)
+            {
+                await _JS.ToastrWarning(message);
+                return;
+            }
+
+            DeleteGrnId = grnId;
+
+
+            ModalTitle = "Are you sure you want to delete this Purchase GRN";
+            btnColor = "btn-danger";
+            btnText = "Yes! Delete";
+            confirmation = "Delete";
+            showCancelReasonBox = false;
+
+            await _JS.InvokeVoidAsync("ShowConfirmationModal");
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"Error initiating delete for GRNId: {grnId}");
+            await _JS.ToastrError("Failed to initiate delete operation.");
+        }
+    }
+
+    private async Task ConfirmDelete_Click(bool isConfirmed)
+    {
+        try
+        {
+            if (!isConfirmed) return;
+
+            isProcessing = true;
+           
+            var deleted = await purchaseGrnService.DeletePurchaseGRNByIdAsync(DeleteGrnId,screenCode);
+
+            if (deleted)
+            {
+                await _JS.ToastrSuccess("Purchase GRN deleted successfully.");
+                await LoadAllGRNs();
+                await InvokeAsync(StateHasChanged);
+            }
+            else
+            {
+                await _JS.ToastrWarning("GRN could not be deleted. It may not exist or has dependencies.");
+            }
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"Error deleting GRNId: {DeleteGrnId}");
+            await _JS.ToastrError("Failed to delete Purchase GRN.");
+        }
+        finally
+        {
+            DeleteGrnId = 0;
+            isProcessing = false;
+        }
+    }
+
+    #endregion
+
+
+    #region === Modal Management ===
+
+    private async Task HandleModalConfirmation(bool isConfirmed)
+    {
+        try
+        {
+            await _JS.InvokeVoidAsync("HideConfirmationModal");
+
+            if (!isConfirmed)
+                return;
+
+            if (confirmation == "Delete")
+                await ConfirmDelete_Click(isConfirmed);
+            else if (confirmation == "Export")
+            {
+                await ExportToExcel(isConfirmed);
+            }
+            else
+                await _JS.ToastrWarning("Unknown confirmation action.");
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"HandleModalConfirmation failed for action: {confirmation}");
+            await _JS.ToastrError("An error occurred while processing your action. Please try again.");
+        }
+    }
+
+    private async Task OpenModal(string type)
+    {
+        try
+        {
+            ActiveModal = type;
+            MasterModalTitle = type switch
+            {
+                "InstantSearch" => "Instant Search",
+                _ => "Modal"
+            };
+            isModalVisible = true;
+
+            await Task.CompletedTask;
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"OpenModal failed for type: {type}");
+            await _JS.ToastrError("Failed to open modal. Please try again.");
+        }
+    }
+
+    private async Task CloseModal()
+    {
+        try
+        {
+            isModalVisible = false;
+            ActiveModal = "";
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"CloseModal failed for type: {ActiveModal}");
+            await _JS.ToastrError("Failed to close modal. Please try again.");
+        }
+    }
+
+    #endregion
+
+
+    #region SEARCH FILTERS
+
+    private async Task ApplySearchFilters(Dictionary<string, object> filters)
+    {
+        try
+        {
+            isProcessing = true;
+            SearchFilters = filters;
+            currentPage = 1;
+            await LoadAllGRNs();
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Error applying search filters in Purchase GRN List");
+            await _JS.ToastrError("Failed to apply search filters.");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+
+    }
+
+    #endregion
+
+
+    #region Job order Status Changes
+
+    private async Task OnStatusChanged(ChangeEventArgs e)
+    {
+        try
+        {
+            isProcessing = true;
+
+            SearchFilters = new();
+            selectedStatus = e.Value?.ToString() ?? "";
+
+           if (string.IsNullOrWhiteSpace(selectedStatus))
+                SearchFilters.Remove("Status");
+            else
+                SearchFilters["Status"] = selectedStatus;
+
+
+            currentPage = 1;
+            await LoadAllGRNs();
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Error OnStatusChanged in Purchase GRN List");
+            await _JS.ToastrError("Failed to Load Purchase GRN List filters.");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    #endregion 
+
+    private async Task HandleExport()
+    {
+        selectedStatus = selectedStatus == "" ? "All" : selectedStatus;
+
+        ModalTitle = "Are you sure you want to export data to Excel?";
+        btnColor = "btn-success";
+        btnText = "Yes";
+        confirmation = "Export";
+        await _JS.InvokeVoidAsync("ShowConfirmationModal");
+    }
+
+    private async Task ExportToExcel(bool isConfirm)
+    {
+        try
+        {
+            isProcessing = true;
+            await _JS.InvokeVoidAsync("HideConfirmationModal");
+            if (!isConfirm) return;
+
+
+            var exportData = await purchaseGrnService.GetPurchaseGRNsStatusListAsync(selectedStatus);
+
+
+            var bytes = await ExcelExportService.ExportPendingListToExcel(exportData, "PurchaseGRN", "Purchase GRN's Pending List");
+
+            var base64 = Convert.ToBase64String(bytes);
+            await _JS.DownloadExcelAsync(base64, "PurchaseGRNExport.xlsx");
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex,
+                "Error in ExportToExcel (PurchaseGRN)");
+            await _JS.ToastrError("Error while exporting PurchaseGRN!");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+    //---------------12082026-------------------
+    private async Task OpenPurchPoPendingDetails()
+    {
+        try
+        {
+            isProcessing = true;
+            var fromDate = GrnFromDate;
+            var toDate = GrnToDate;
+            // Get pending enquiry details
+            PurchPoData = await purchaseGrnService.GetPendingPurchPoDetailsAsync(fromDate, toDate);
+            IsPurchPoModalVisible = true;
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(
+                ex,
+                "Error loading Enquiry Pending Details");
+
+            await _JS.ToastrError(
+                "Failed to load enquiry pending details.");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+    private async Task OnPoSelectedAsync(List<Dictionary<string, object>> selectedItems)
+    {
+        try
+        {
+            if (PurchaseGRNVM.PurchaseGRNSubVMs == null)
+                PurchaseGRNVM.PurchaseGRNSubVMs = new List<PurchaseGRNSubVM>();
+            var MapStoreForDc = await purchaseGrnService.GetMappedStoreForFormAsync("GRNForm");
+
+            if (MapStoreForDc.StoreId > 0)
+            {
+                PurchaseGRNVM.AddStoreId = MapStoreForDc.StoreId;
+                PurchaseGRNVM.StoreName = MapStoreForDc.StoreName;
+            }
+            if (PurchaseGRNVM.AddStoreId == null || PurchaseGRNVM.AddStoreId.Value == 0)
+            {
+                await _JS.ToastrWarning("Please select Purchase Store before loading PO items.");
+                return;
+            }
+            PurchaseGRNVM.VendorCode = selectedItems
+                     .Where(i => i.ContainsKey("VendorCode") && i["VendorCode"] != null)
+                     .Select(i => Convert.ToInt32(i["VendorCode"]))
+                     .FirstOrDefault(id => id > 0);
+
+            foreach (var item in selectedItems)
+            {
+                decimal GetDecimal(string key) =>
+                    item.TryGetValue(key, out var val) &&
+                    decimal.TryParse(Convert.ToString(val), out var result)
+                        ? result
+                        : 0;
+
+                int? GetInt(string key) =>
+                    item.TryGetValue(key, out var val) &&
+                    int.TryParse(Convert.ToString(val), out var result)
+                        ? result
+                        : (int?)null;
+
+                string GetString(string key) =>
+                    item.TryGetValue(key, out var val)
+                        ? Convert.ToString(val) ?? string.Empty
+                        : string.Empty;
+
+                DateTime? GetDate(string key) =>
+                    item.TryGetValue(key, out var val) &&
+                    DateTime.TryParse(Convert.ToString(val), out var result)
+                        ? result
+                        : (DateTime?)null;
+
+                bool GetBoolFromYesNo(string key)
+                {
+                    if (!item.TryGetValue(key, out var val) || val == null)
+                        return false;
+
+                    return Convert.ToString(val)
+                        .Trim()
+                        .Equals("YES", StringComparison.OrdinalIgnoreCase);
+                }
+
+                int itemId = GetInt("ItemId") ?? 0;
+                int? poSubId = GetInt("PoSubId");
+
+                decimal qty = GetDecimal("Qty");
+                decimal totalQty = GetDecimal("TotalQty");
+                decimal lineGross = GetDecimal("LineGross");
+
+                decimal subDiscPercent = GetDecimal("SubDiscPercent");
+                decimal subDiscAmt = GetDecimal("SubDiscAmt");
+                decimal mainDiscPercent = GetDecimal("MainDiscPercent");
+                decimal mainDiscAmt = GetDecimal("MainDiscAmt");
+
+                decimal packingPercent = GetDecimal("PackingPercent");
+                decimal packingAmt = GetDecimal("PackingAmt");
+
+                decimal insurancePercent = GetDecimal("InsurancePercent");
+                decimal insuranceAmt = GetDecimal("InsuranceAmt");
+
+                decimal freightAmt = GetDecimal("FreightAmt");
+                decimal totalBasicAmt = GetDecimal("TotalBasicAmt");
+                decimal todayVal = GetDecimal("TodayVal");
+                decimal unitPrice = GetDecimal("UnitPrice");
+
+                bool isOpenPo = GetBoolFromYesNo("IsOpenPo");
+
+                decimal stockValue = !isOpenPo
+                    ? CalculateLandedStockPrice(
+                        qty, totalQty, lineGross,
+                        subDiscPercent, subDiscAmt,
+                        mainDiscPercent, mainDiscAmt,
+                        packingPercent, packingAmt,
+                        insurancePercent, insuranceAmt,
+                        freightAmt, totalBasicAmt, todayVal)
+                    : unitPrice;
+
+
+                if (PurchaseGRNVM.PurchaseGRNSubVMs
+                    .Any(x => x.ItemId == itemId && x.RefPoSubId == poSubId))
+                    continue;
+
+                var subVm = new PurchaseGRNSubVM
+                {
+                    RefPoSubId = poSubId,
+                    RefPoNo = GetString("PoNo"),
+                    RefPoDate = GetDate("PoDate"),
+
+                    ItemId = itemId,
+                    ItemCode = GetString("ItemCode"),
+                    ItemName = GetString("ItemName"),
+                    MeasureUnit = GetString("UOM"),
+                    HSNCode = GetString("HSNCode"),
+                    Category = GetString("CategoryName"),
+
+                    DNQty = qty,
+                    Qty = qty,
+                    BalQty = qty,
+                    POBalQty = qty,
+
+                    UnitPrice = stockValue,
+                    IsOpenPo = isOpenPo,
+
+                    CostId = GetInt("CostCenterId"),
+                    ProjectNo = GetString("ProjectNo"),
+                    PoDueDate = GetDate("PoDuedate"),
+
+                    IsEditable = true
+                };
+
+                PurchaseGRNVM.PurchaseGRNSubVMs.Add(subVm);
+            }
+
+            await ResetSlno();
+            StateHasChanged();
+            PurchaseGRNVM.Suffix = FinancialYearHelper.GetFinancialYearSuffix(DateTime.Now);
+            PurchaseGRNVM.GRNNo = await purchaseGrnService.GetGRNnNumberAsync(PurchaseGRNVM.Suffix);
+
+
+            NavigationState.Set("PurchaseGRN", PurchaseGRNVM);
+            _navigation.NavigateTo(
+                $"/purchaseGRN/create/{PurchaseGRNVM.VendorCode}");
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "OnPoSelectedAsync failed.");
+            await _JS.ToastrError("Error processing selected PO items.");
+        }
+    }
+    private decimal CalculateLandedStockPrice(decimal qty, decimal totalQty, decimal itemBasicWithoutDisc, decimal subDiscPercent,
+   decimal subDiscAmt, decimal mainDiscPercent, decimal mainDiscAmt, decimal packingPercent,
+   decimal packingAmt, decimal insurancePercent, decimal insuranceAmt, decimal freightAmt, decimal totalBasicAmt, decimal todayVal)
+    {
+        if (qty <= 0) return 0;
+
+        decimal itemBasic = itemBasicWithoutDisc;
+
+        if (subDiscAmt > 0)
+            itemBasic -= subDiscAmt;
+        else if (subDiscPercent > 0)
+            itemBasic -= (itemBasicWithoutDisc * subDiscPercent / 100);
+
+        if (subDiscAmt == 0 && subDiscPercent == 0)
+        {
+            if (mainDiscAmt > 0 && totalBasicAmt > 0)
+            {
+                decimal proportion = itemBasicWithoutDisc / totalBasicAmt;
+                itemBasic -= proportion * mainDiscAmt;
+            }
+            else if (mainDiscPercent > 0)
+            {
+                itemBasic -= (itemBasicWithoutDisc * mainDiscPercent / 100);
+            }
+        }
+
+        if (packingAmt > 0 && totalBasicAmt > 0)
+            itemBasic += (itemBasicWithoutDisc / totalBasicAmt) * packingAmt;
+        else if (packingPercent > 0)
+            itemBasic += (itemBasicWithoutDisc * packingPercent / 100);
+
+        if (insuranceAmt > 0 && totalBasicAmt > 0)
+            itemBasic += (itemBasicWithoutDisc / totalBasicAmt) * insuranceAmt;
+        else if (insurancePercent > 0)
+            itemBasic += (itemBasicWithoutDisc * insurancePercent / 100);
+
+        if (freightAmt > 0 && totalQty > 0)
+            itemBasic += (qty / totalQty) * freightAmt;
+
+        decimal unitPrice = itemBasic / qty;
+
+        if (todayVal > 1)
+            unitPrice *= todayVal;
+
+        return unitPrice = Math.Round(unitPrice, 3, MidpointRounding.AwayFromZero);
+    }
+
+    private async Task ResetSlno()
+    {
+        try
+        {
+            int counter = 1;
+            foreach (var sub in PurchaseGRNVM.PurchaseGRNSubVMs)
+            {
+                sub.SlNo = counter++;
+            }
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "ResetSlno failed.");
+            await _JS.ToastrError("Failed to reset row serial numbers.");
+        }
+    }
+    private async Task OnDateChanged()
+    {
+        try
+        {
+            if (GrnFromDate > GrnToDate)
+                return;
+
+            await LoadAllGRNs();
+
+
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(
+                ex,
+                "Error loading Mfg Quotation Pending Details");
+
+            await _JS.ToastrError(
+                "Failed to load Mfg Quotation Pending details.");
+        }
+    }
+}

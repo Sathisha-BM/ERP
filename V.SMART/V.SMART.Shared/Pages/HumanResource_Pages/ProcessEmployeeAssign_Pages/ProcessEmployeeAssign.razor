@@ -1,0 +1,429 @@
+﻿@page "/processemployeeassign/create"
+@page "/processemployeeassign/update/{AssignId:int}"
+
+@using MudBlazor
+@using V.SMART.Shared.BusinessLayer.BusinessService.IBusinessService.IHumanResourceService.IProcessEmployeeAssignService
+@using V.SMART.Shared.ViewModels.HumanResourceViewModel.ProcessEmployeeAssignVM
+
+@inject NavigationManager _navigation
+@inject ILabourInvoiceService _LabourInvoiceService
+@inject ILoggingService LoggingService
+@inherits BaseUserRightsComponent
+@inject IJSRuntime _js
+@inject IProcessEmployeeAssignService _processEmployeeAssignService
+
+<style>
+    .small-autocomplete .mud-input-control {
+        min-height: 32px;
+    }
+
+    .small-autocomplete .mud-input-slot {
+        min-height: 32px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+
+    .small-autocomplete input {
+        padding: 4px 8px !important;
+        font-size: 13px;
+    }
+</style>
+
+@if (isProcessing)
+{
+    <ProcessingOverlay Visible="@isProcessing" Message="Please wait..." />
+}
+else if (!CanView)
+{
+    <RedirectToLogin />
+    return;
+}
+else
+{
+    <div class="container-fluid px-2 px-md-4 mt-4">
+
+        <div class="card shadow-sm border-1">
+
+            <PageHeader TitleText="Process Employee Assignment"
+                        TitleIcon="bi bi-calendar-week-fill"
+                        Breadcrumbs="@LabourPendingBreadcrumbs" />
+
+            <EditForm Model="@Model" OnValidSubmit="SaveAsync">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="card-body p-4">
+                <div class="row g-3 mb-3 align-items-end">
+
+                    <!-- FROM DATE -->
+                    <div class="col-md-2">
+                        <label class="fw-bold mb-2">From Date</label>
+                            <InputDate class="form-control" @bind-Value="Model.fromDate" />
+                    </div>
+
+                    <!-- TO DATE -->
+                    <div class="col-md-2">
+                        <label class="fw-bold mb-2">To Date</label>
+                        <InputDate class="form-control" @bind-Value="Model.toDate" />
+                    </div>
+
+                    <!-- DOC TYPE -->
+                    <div class="col-md-4">
+                        <label class="fw-bold mb-2">Week</label>
+                        <input type="text" class="form-control border-start-0" @bind-value="Model.WeekName" readonly />
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <label class="fw-bold mb-2">Process</label>
+                        <MudBlazor.MudAutocomplete T="Process"
+                                                   Class="small-autocomplete"
+                                                   Value="@SelectedProcess"
+                                                   ValueChanged="@OnProcessChanged"
+                                                   SearchFunc="@SearchProcess"
+                                                   ToStringFunc="@(new Func<Process?, string>(x => x?.ProcessName ?? string.Empty))"
+                                                   Placeholder="Search or select process"
+                                                   Variant="MudBlazor.Variant.Outlined"
+                                                   Dense="true"
+                                                   Clearable="true" />
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-2 align-items-end">
+                    <div class="col-md-4">
+                        <!-- Search -->
+                        <input type="text"
+                                class="form-control "
+                                placeholder="Search Employees Here..."
+                                @bind="SearchTerm"
+                                @bind:event="oninput" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="text-muted small">
+                             Showing @FilteredData.Count() Employee(s)
+                        </div>
+                    </div>
+                </div>
+
+                @if (StaffList != null && StaffList.Any())
+                {
+                    <!-- Desktop Table -->
+                    <div class="table-responsive d-none d-md-block mt-3" style="max-height: 500px; overflow:auto;">
+                        <table class="table table-bordered table-hover align-middle text-center">
+                            <thead class="table-dark sticky-top">
+
+                                <tr>
+                                    <th>Select</th>
+                                    <th>Staff ID</th>
+                                    <th>Staff code</th>
+                                    <th>Staff Name</th>
+                                    <th>Designation</th>
+                                    <th>Department</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                    @if (FilteredData != null && FilteredData.Any())
+                                    {
+                                        @foreach (var item in FilteredData)
+                                        {
+
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" @bind="item.IsSelected" />
+                                                    </td>
+
+                                                    <td>@item.StaffID</td>
+
+                                                    <td>@item.StaffRefId</td>
+
+                                                    <td>@item.StaffName</td>
+
+                                                    <td>@item.Designation</td>
+
+                                                    <td>@item.Department</td>
+                                                </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="10" class="text-center">
+                                                No Records Found
+                                            </td>
+                                        </tr>
+                                    }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+
+            </div>
+          
+            <div class="row g-2 row-cols-2 row-cols-md-5 ms-2 mb-2">
+
+                @if (CanCreate || CanEdit)
+                {
+                   
+                    <div>
+                            <button type="submit" class="btn btn-primary w-100 rounded-3" disabled="@isProcessing">
+                                <i class="bi bi-floppy2-fill me-1"></i>@(Model.AssignmentId > 0 ? "Update" : "Create")
+                            </button>
+                    </div>
+
+                }
+
+                <div>
+                        <SmartBackButton Url="@($"processemployeeassignlist?currentPage={currentPage}")" />
+                </div>
+
+            </div>
+
+            </EditForm>
+        </div>
+   </div>
+}
+@code
+{
+    protected override string ScreenName => "Attendance";
+
+    [Parameter]
+    public int? AssignId { get; set; }
+
+    [SupplyParameterFromQuery]
+    public int currentPage { get; set; } = 1;
+
+    private bool isProcessing = true;
+    private ProcessEmployeeAssignVM Model = new();
+
+    private Process SelectedProcess;
+
+    private string SearchTerm { get; set; } = string.Empty;
+
+    private List<PageHeader.BreadcrumbItem> LabourPendingBreadcrumbs = new()
+    {
+        new() { Text = "Human-Resource" },
+
+        new() { Text = "Process Employee Assignment", IsLast = true }
+    };
+
+    private List<EmployeeVM> StaffList;
+
+    private class EmployeeVM
+    {
+        public int? StaffID { get; set; }
+        public string? StaffRefId { get; set; }
+        public string? StaffName { get; set; }
+        public string? Designation { get; set; }
+        public string? Department { get; set; }
+        public bool IsSelected { get; set; }
+    }
+
+    private IEnumerable<EmployeeVM> FilteredData
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(SearchTerm))
+                return StaffList;
+
+            return StaffList.Where(r =>
+                (!string.IsNullOrEmpty(r.StaffName) &&
+                 r.StaffName.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+
+                ||
+
+                (!string.IsNullOrEmpty(r.StaffRefId) &&
+                 r.StaffRefId.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+
+                ||
+
+                (!string.IsNullOrEmpty(r.Department) &&
+                 r.Department.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+
+                ||
+
+                (!string.IsNullOrEmpty(r.Designation) &&
+                 r.Designation.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+
+                ||
+
+                r.StaffID.ToString().Contains(SearchTerm, StringComparison.OrdinalIgnoreCase)
+            );
+        }
+    }
+
+    private async Task<IEnumerable<Process>> SearchProcess(string value, CancellationToken token)
+    {
+        if (string.IsNullOrWhiteSpace(value) || value.Length < 3)
+            return Enumerable.Empty<Process>();
+
+        try
+        {
+            var results = await _LabourInvoiceService.SearchProcessAsync(value);
+            return results?.Take(50) ?? Enumerable.Empty<Process>();
+        }
+        catch (OperationCanceledException)
+        {
+            return Enumerable.Empty<Process>();
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, $"SearchCustomers failed for value: {value}");
+            await _js.ToastrError("Failed to search customers. Please try again.");
+            return Enumerable.Empty<Process>();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await LoadRightsAsync();
+
+            if (!CanView)
+            {
+                _navigation.NavigateTo("/access-denied");
+                return;
+            }
+
+            var staffs = await _processEmployeeAssignService.GetAllStaffAsync();
+
+            StaffList = staffs.Select(s => new EmployeeVM
+                {
+                    StaffID = s.StaffID,
+                    StaffRefId = s.StaffRefId,
+                    StaffName = s.StaffName,
+                    Designation = s.Designation,
+                    Department = s.Department,
+                    IsSelected = false
+                }).ToList();
+
+            if (AssignId.HasValue && AssignId > 0)
+            {
+               await LoadItems();
+            }
+            else
+            {
+                Model.WeekNo = await _processEmployeeAssignService.GetNextWeekNo();
+                Model.WeekName = $"Week {Model.WeekNo} ({Model.fromDate.ToString("dd MMM yyyy")} - {Model.toDate.ToString("dd MMM yyyy")})";
+            }
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Error in OnInitializedAsync");
+            await _js.ToastrError("An error occurred while initializing the page.");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+
+
+        isProcessing = false;
+    }
+
+    private async Task OnProcessChanged(Process? process)
+    {
+        try
+        {
+            Model.ProcessId = process?.ProcessId ?? 0;
+            SelectedProcess = process;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error in OnProcessChanged: {ex}");
+            await LoggingService.LogDeveloperError(ex, "Error in OnProcessChanged");
+            await _js.ToastrError("Error while selecting");
+        }
+    }
+
+    private async Task SaveAsync()
+    {
+        try
+        {
+            isProcessing = true;
+
+            if (Model.ProcessId == 0)
+            {
+                await _js.ToastrError("Please select Process.");
+                return;
+            }
+
+            Model.SelectedStaffIds = StaffList.Where(x => x.IsSelected).Select(x => x.StaffID!.Value).ToList();
+
+            if (!Model.SelectedStaffIds.Any())
+            {
+                await _js.ToastrError("Please select at least one employee.");
+                return;
+            }
+
+            await _processEmployeeAssignService.UpsertprocessEmployee(Model);
+
+
+            await _js.ToastrSuccess("Process Assignment Saved Successfully.");
+
+            await _js.InvokeVoidAsync("NavigationGuard.clear");
+
+            _navigation.NavigateTo("/processemployeeassignlist");
+
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Process Employee Assignment");
+
+            await _js.ToastrError("Something went wrong.");
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    private async Task Clear()
+    {
+        Model = new ProcessEmployeeAssignVM();
+
+        SelectedProcess = null;
+
+        Model.WeekNo = await _processEmployeeAssignService.GetNextWeekNo();
+
+        Model.WeekName = $"Week {Model.WeekNo} ({Model.fromDate:dd MMM yyyy} - {Model.toDate:dd MMM yyyy})";
+
+        foreach (var emp in StaffList)
+        {
+            emp.IsSelected = false;
+        }
+    }
+
+    private async Task LoadItems()
+    {
+        try
+        {
+            if (AssignId > 0)
+            {
+                var existing = await _processEmployeeAssignService.GetProcessEmployeeAssignByIdAsync(AssignId.Value);
+                if (existing != null)
+                {
+                    Model = existing;
+                    Model.WeekName = $"Week {Model.WeekNo} ({Model.fromDate.ToString("dd MMM yyyy")} - {Model.toDate.ToString("dd MMM yyyy")})";
+                    SelectedProcess = new Process
+                    {
+                        ProcessId = existing.ProcessId,
+                        ProcessName = existing.ProcessName
+                    };
+
+                    foreach (var staff in StaffList)
+                    {
+                        staff.IsSelected = existing.SelectedStaffIds.Contains(staff.StaffID!.Value);
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await LoggingService.LogDeveloperError(ex, "Error in LoadItems in Item Upsert");
+            await _js.ToastrError("Error while loading Item details");
+        }
+    }
+}

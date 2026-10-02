@@ -1,0 +1,1777 @@
+﻿@page "/messenger"
+
+@using MudBlazor
+@using V.SMART.Shared.BusinessLayer.BusinessService.IBusinessService.IMasterServices.IChatBox
+@using V.SMART.Shared.BusinessLayer.BusinessService.MasterService.AdminService
+@using V.SMART.Shared.Data.Master.ChatBox_Module
+@using V.SMART.Shared.Repository
+
+
+@using V.SMART.Shared.ViewModels.MasterViewModel.ChatBoxViewModel
+
+@using Microsoft.AspNetCore.Components.Forms
+@using MudBlazor
+
+
+@inject IFileOpener fileOpener
+@inject IUnitOfWork _unitOfWork
+@inject CurrentUserService CurrentUserService
+@inject ILoggingService loggingService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JS
+@inject ISnackbar Snackbar
+
+
+@inject IMessengerService MessengerService
+@inherits BaseUserRightsComponent
+@inject ApplicationDbContext _context
+
+
+
+<style>
+    /* =========================================================
+           MAIN MESSENGER
+           ========================================================= */
+
+    .messenger-container {
+        width: 100%;
+        height: calc(100vh - 120px);
+        min-height: 500px;
+        display: flex;
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
+    }
+
+
+    /* =========================================================
+           LEFT SIDEBAR - DESKTOP
+           ========================================================= */
+
+    .chat-sidebar {
+        width: 340px;
+        min-width: 340px;
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid #dee2e6;
+        background: #fff;
+    }
+
+    .sidebar-header {
+        height: 70px;
+        min-height: 70px;
+        padding: 12px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #eee;
+    }
+
+        .sidebar-header h5 {
+            font-weight: 600;
+        }
+
+
+    /* =========================================================
+           SEARCH
+           ========================================================= */
+
+    .search-box {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .search-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+        .search-wrapper > i {
+            position: absolute;
+            left: 12px;
+            color: #888;
+            z-index: 2;
+        }
+
+        .search-wrapper input {
+            width: 100%;
+            padding-left: 35px;
+            padding-right: 35px;
+            border-radius: 20px;
+            background: #f5f6f7;
+            border: none;
+        }
+
+            .search-wrapper input:focus {
+                box-shadow: none;
+                background: #eef0f2;
+            }
+
+    .search-clear {
+        position: absolute;
+        right: 8px;
+        border: none;
+        background: transparent;
+        color: #777;
+        cursor: pointer;
+    }
+
+
+    /* =========================================================
+           USER LIST
+           ========================================================= */
+
+    .user-list {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .user-item {
+        min-height: 72px;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        border-bottom: 1px solid #f0f0f0;
+        transition: background .15s ease;
+    }
+
+        .user-item:hover {
+            background: #f5f6f7;
+        }
+
+        .user-item.selected {
+            background: #e9f2ff;
+        }
+
+
+    /* =========================================================
+           AVATAR
+           ========================================================= */
+
+    .avatar-wrapper {
+        position: relative;
+        width: 46px;
+        min-width: 46px;
+        height: 46px;
+    }
+
+    .avatar {
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #0d6efd;
+        color: white;
+        font-weight: 600;
+        font-size: 17px;
+    }
+
+    .online-dot {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        right: 0;
+        bottom: 0;
+        border-radius: 50%;
+        background: #20c997;
+        border: 2px solid white;
+    }
+
+    .avatar-user {
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-size: 21px;
+        box-shadow: 0 4px 10px rgba(102, 126, 234, 0.25);
+        border: 2px solid rgba(255,255,255,0.9);
+        transition: all .2s ease;
+    }
+
+        .avatar-user:hover {
+            transform: scale(1.06);
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.35);
+        }
+
+    .avatar-online {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        right: -1px;
+        bottom: -1px;
+        border-radius: 50%;
+        background: #20c997;
+        border: 2px solid white;
+        box-shadow: 0 1px 4px rgba(0,0,0,.2);
+    }
+
+    .avatar-purple {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+
+    .avatar-blue {
+        background: linear-gradient(135deg, #2193b0, #6dd5ed);
+    }
+
+    .avatar-green {
+        background: linear-gradient(135deg, #11998e, #38ef7d);
+    }
+
+    .avatar-orange {
+        background: linear-gradient(135deg, #f7971e, #ffd200);
+    }
+
+    .avatar-pink {
+        background: linear-gradient(135deg, #ee0979, #ff6a00);
+    }
+
+    .avatar-cyan {
+        background: linear-gradient(135deg, #00c6ff, #0072ff);
+    }
+
+
+    /* =========================================================
+           USER DETAILS
+           ========================================================= */
+
+    .user-info {
+        flex: 1;
+        min-width: 0;
+        margin-left: 10px;
+    }
+
+    .user-top,
+    .user-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        min-width: 0;
+    }
+
+    .user-name {
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
+    }
+
+    .message-date {
+        font-size: 11px;
+        color: #999;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .last-message {
+        display: block;
+        max-width: 220px;
+        color: #777;
+        font-size: 13px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .unread-badge {
+        min-width: 20px;
+        height: 20px;
+        padding: 0 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        background: #0d6efd;
+        color: white;
+        font-size: 11px;
+        font-weight: 600;
+        flex-shrink: 0;
+    }
+
+    .no-users {
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #999;
+        gap: 8px;
+    }
+
+        .no-users i {
+            font-size: 30px;
+        }
+
+
+    /* =========================================================
+           CHAT AREA - DESKTOP
+           ========================================================= */
+
+    .chat-area {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        background: #f7f8fa;
+    }
+
+    .chat-header {
+        height: 70px;
+        min-height: 70px;
+        padding: 10px 16px;
+        display: flex;
+        align-items: center;
+        background: white;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .chat-user-details {
+        margin-left: 10px;
+        min-width: 0;
+    }
+
+    .chat-user-name {
+        font-weight: 600;
+        font-size: 15px;
+    }
+
+    .chat-user-status {
+        font-size: 12px;
+        color: #888;
+    }
+
+    .online-text {
+        color: #20a464;
+    }
+
+    .status-dot {
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        margin-right: 4px;
+        border-radius: 50%;
+        background: #20c997;
+    }
+
+    .chat-actions {
+        margin-left: auto;
+        display: flex;
+        gap: 5px;
+        flex-shrink: 0;
+    }
+
+        .chat-actions button {
+            border: none;
+            background: transparent;
+        }
+
+
+    /* =========================================================
+           MESSAGES - PENCIL / DOODLE BACKGROUND
+           ========================================================= */
+
+    .messages-area {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 20px 25px;
+        position: relative;
+        background-color: #f7f6f2;
+        /*
+               Light notebook/paper lines
+            */
+        background-image: repeating-linear-gradient( 0deg, transparent 0px, transparent 59px, rgba(80, 80, 80, 0.035) 60px ),
+        /*
+                   Pencil circle doodle
+                */
+        radial-gradient( circle at 15% 20%, transparent 0px, transparent 12px, rgba(70, 70, 70, 0.10) 13px, rgba(70, 70, 70, 0.10) 14px, transparent 15px ), radial-gradient( circle at 75% 70%, transparent 0px, transparent 9px, rgba(70, 70, 70, 0.09) 10px, rgba(70, 70, 70, 0.09) 11px, transparent 12px ),
+        /*
+                   Pencil X doodle
+                */
+        linear-gradient( 45deg, transparent 48%, rgba(70, 70, 70, 0.07) 49%, transparent 51% ), linear-gradient( -45deg, transparent 48%, rgba(70, 70, 70, 0.07) 49%, transparent 51% );
+        background-size: 100% 60px, 220px 220px, 260px 260px, 180px 180px, 200px 200px;
+    }
+
+    .message-row {
+        display: flex;
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+        .message-row.mine {
+            justify-content: flex-end;
+        }
+
+        .message-row.theirs {
+            justify-content: flex-start;
+        }
+
+    .message-bubble {
+        max-width: 65%;
+        min-width: 80px;
+        padding: 8px 11px 6px;
+        border-radius: 12px;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+    }
+    /* //Colour */
+    .message-row.mine .message-bubble {
+        background: #3A86FF;
+        color: white;
+        border-bottom-right-radius: 3px;
+    }
+
+    .message-row.theirs .message-bubble {
+        background: white;
+        color: #222;
+        border: 1px solid #e3e3e3;
+        border-bottom-left-radius: 3px;
+    }
+
+    .message-text {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .message-meta {
+        margin-top: 3px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 4px;
+        font-size: 10px;
+        opacity: .7;
+    }
+
+    .read-check,
+    .sent-check {
+        font-size: 14px;
+    }
+
+    .message-attachments {
+        max-width: 100%;
+        overflow: hidden;
+        margin-top: 5px;
+    }
+
+        .message-attachments img {
+            max-width: 300px;
+            max-height: 300px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            display: block;
+        }
+
+    .chat-attachment {
+        max-width: 100%;
+        word-break: break-word;
+    }
+
+
+    /* =========================================================
+           MESSAGE INPUT - DESKTOP
+           ========================================================= */
+
+    .message-input-area {
+        min-height: 64px;
+        padding: 10px 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: white;
+        border-top: 1px solid #dee2e6;
+        position: relative;
+    }
+
+    .message-input-wrapper {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .message-input {
+        width: 100%;
+        height: 42px;
+        padding: 0 15px;
+        border: 1px solid #ddd;
+        border-radius: 22px;
+        outline: none;
+        box-sizing: border-box;
+    }
+
+        .message-input:focus {
+            border-color: #86b7fe;
+            box-shadow: 0 0 0 2px rgba(13, 110, 253, .08);
+        }
+
+    .input-action,
+    .send-button {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .input-action {
+        background: transparent;
+        color: #666;
+    }
+
+        .input-action:hover {
+            background: #f1f3f5;
+        }
+
+    .send-button {
+        background: #0d6efd;
+        color: white;
+    }
+
+        .send-button:disabled {
+            opacity: .45;
+            cursor: not-allowed;
+        }
+
+
+    /* =========================================================
+           EMPTY CHAT
+           ========================================================= */
+
+    .empty-chat {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #888;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .empty-chat-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #e9f2ff;
+        color: #0d6efd;
+        font-size: 35px;
+        margin-bottom: 15px;
+    }
+
+    .empty-chat h4 {
+        color: #555;
+    }
+
+    .empty-chat p {
+        font-size: 14px;
+    }
+
+    .no-messages {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #999;
+        text-align: center;
+    }
+
+    .no-message-icon {
+        font-size: 35px;
+        margin-bottom: 10px;
+    }
+
+    .no-messages p {
+        font-size: 13px;
+    }
+
+
+    /* =========================================================
+           TABLET / MOBILE
+           ========================================================= */
+
+    @@media (max-width: 768px) {
+
+        .messenger-container {
+            width: 100%;
+            height: calc(100vh - 70px);
+            min-height: 0;
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
+        }
+
+        .chat-sidebar {
+            width: 42%;
+            min-width: 42%;
+            height: 100%;
+        }
+
+        .chat-area {
+            width: 58%;
+            min-width: 0;
+            height: 100%;
+            flex: 1;
+        }
+
+        .sidebar-header {
+            height: 60px;
+            min-height: 60px;
+            padding: 8px 10px;
+        }
+
+            .sidebar-header h5 {
+                font-size: 14px;
+            }
+
+            .sidebar-header small {
+                font-size: 9px;
+            }
+
+        .search-box {
+            padding: 8px;
+        }
+
+        .search-wrapper input {
+            height: 36px;
+            font-size: 11px;
+            padding-left: 30px;
+            padding-right: 25px;
+        }
+
+        .user-item {
+            min-height: 64px;
+            padding: 8px;
+        }
+
+        .avatar-wrapper {
+            width: 40px;
+            min-width: 40px;
+            height: 40px;
+        }
+
+        .avatar,
+        .avatar-user {
+            width: 40px;
+            min-width: 40px;
+            height: 40px;
+        }
+
+        .avatar-user {
+            font-size: 16px;
+        }
+
+        .avatar-online,
+        .online-dot {
+            width: 10px;
+            height: 10px;
+        }
+
+        .user-info {
+            margin-left: 7px;
+        }
+
+        .user-name {
+            font-size: 11px;
+        }
+
+        .last-message {
+            max-width: 100px;
+            font-size: 9px;
+        }
+
+        .message-date {
+            font-size: 8px;
+        }
+
+        .unread-badge {
+            min-width: 16px;
+            height: 16px;
+            padding: 0 4px;
+            font-size: 9px;
+        }
+        /* CHAT HEADER */
+
+        .chat-header {
+            height: 58px;
+            min-height: 58px;
+            padding: 7px 8px;
+        }
+
+            .chat-header .avatar-wrapper {
+                width: 34px;
+                min-width: 34px;
+                height: 34px;
+            }
+
+            .chat-header .avatar {
+                width: 34px;
+                min-width: 34px;
+                height: 34px;
+                font-size: 13px;
+            }
+
+        .chat-user-details {
+            margin-left: 6px;
+        }
+
+        .chat-user-name {
+            font-size: 12px;
+        }
+
+        .chat-user-status {
+            font-size: 9px;
+        }
+
+        .chat-actions {
+            display: none;
+        }
+        /* MESSAGES */
+
+        .messages-area {
+            padding: 10px 7px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .message-row {
+            width: 100%;
+        }
+
+        .message-bubble {
+            max-width: 85%;
+            min-width: 50px;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .message-text {
+            font-size: 11px;
+        }
+        /* IMAGES */
+
+        .message-attachments {
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+            .message-attachments img {
+                max-width: 100% !important;
+                max-height: 200px !important;
+                width: auto !important;
+                height: auto !important;
+            }
+        /* INPUT */
+
+        .message-input-area {
+            min-height: 56px;
+            padding: 6px;
+            gap: 4px;
+        }
+
+        .message-input-wrapper {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .message-input {
+            width: 100%;
+            min-width: 0;
+            height: 38px;
+            font-size: 11px;
+            padding: 0 10px;
+        }
+
+        .input-action,
+        .send-button {
+            width: 34px;
+            min-width: 34px;
+            height: 34px;
+        }
+    }
+
+
+    /* =========================================================
+           SMALL MOBILE
+           ========================================================= */
+
+    @@media (max-width: 480px) {
+
+        .messenger-container {
+            width: 100%;
+            height: calc(100vh - 60px);
+        }
+
+        .chat-sidebar {
+            width: 40%;
+            min-width: 40%;
+        }
+
+        .chat-area {
+            width: 60%;
+            min-width: 0;
+        }
+        /* HEADER */
+
+        .sidebar-header {
+            height: 52px;
+            min-height: 52px;
+            padding: 7px;
+        }
+
+            .sidebar-header h5 {
+                font-size: 12px;
+            }
+
+            .sidebar-header small {
+                font-size: 8px;
+            }
+        /* SEARCH */
+
+        .search-box {
+            padding: 6px;
+        }
+
+        .search-wrapper input {
+            height: 32px;
+            font-size: 9px;
+            padding-left: 27px;
+        }
+        /* USERS */
+
+        .user-item {
+            min-height: 56px;
+            padding: 6px;
+        }
+
+        .avatar-wrapper {
+            width: 34px;
+            min-width: 34px;
+            height: 34px;
+        }
+
+        .avatar,
+        .avatar-user {
+            width: 34px;
+            min-width: 34px;
+            height: 34px;
+        }
+
+        .avatar-user {
+            font-size: 13px;
+        }
+
+        .user-info {
+            margin-left: 5px;
+        }
+
+        .user-name {
+            font-size: 9px;
+        }
+
+        .last-message {
+            max-width: 65px;
+            font-size: 8px;
+        }
+
+        .message-date {
+            display: none;
+        }
+
+        .unread-badge {
+            min-width: 14px;
+            height: 14px;
+            padding: 0 3px;
+            font-size: 8px;
+        }
+        /* CHAT HEADER */
+
+        .chat-header {
+            height: 50px;
+            min-height: 50px;
+            padding: 5px;
+        }
+
+            .chat-header .avatar-wrapper {
+                width: 30px;
+                min-width: 30px;
+                height: 30px;
+            }
+
+            .chat-header .avatar {
+                width: 30px;
+                min-width: 30px;
+                height: 30px;
+                font-size: 11px;
+            }
+
+        .chat-user-details {
+            margin-left: 4px;
+        }
+
+        .chat-user-name {
+            font-size: 10px;
+        }
+
+        .chat-user-status {
+            font-size: 8px;
+        }
+        /* MESSAGES */
+
+        .messages-area {
+            padding: 6px 4px;
+        }
+
+        .message-bubble {
+            max-width: 90%;
+            min-width: 40px;
+            padding: 6px 8px;
+        }
+
+        .message-text {
+            font-size: 9px;
+        }
+
+        .message-meta {
+            font-size: 8px;
+        }
+        /* IMAGE */
+
+        .message-attachments img {
+            max-width: 100% !important;
+            max-height: 140px !important;
+        }
+        /* INPUT */
+
+        .message-input-area {
+            min-height: 48px;
+            padding: 5px 4px;
+            gap: 3px;
+        }
+
+        .message-input {
+            height: 32px;
+            font-size: 9px;
+            padding: 0 8px;
+        }
+
+        .input-action,
+        .send-button {
+            width: 30px;
+            min-width: 30px;
+            height: 30px;
+        }
+    }
+</style>
+
+
+
+
+
+
+@if (isProcessing)
+{
+    <ProcessingOverlay Visible="@isProcessing" Message="Please wait..." />
+}
+else
+{
+
+    @if (!CanView)
+    {
+        <RedirectToLogin />
+    }
+    else
+    {
+
+        <div class="messenger-container">
+
+            <!-- LEFT SIDEBAR -->
+            <div class="chat-sidebar">
+
+                <div class="sidebar-header">
+                    <div>
+                        <h5 class="mb-0">
+                            <i class="bi bi-chat-dots-fill me-2"></i>
+                            @userName
+                        </h5>
+                        <small class="text-muted">User Messages</small>
+                    </div>
+
+
+                </div>
+
+                <!-- SEARCH -->
+                <div class="search-box">
+                    <div class="search-wrapper">
+                        <i class="bi bi-search"></i>
+
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Search users..."
+                               @bind="SearchText"
+                               @bind:event="oninput" />
+
+                        @if (!string.IsNullOrWhiteSpace(SearchText))
+                        {
+                            <button class="search-clear"
+                                    @onclick="ClearSearch">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        }
+                    </div>
+                </div>
+
+                <!-- USER LIST -->
+                <div class="user-list">
+
+                    @if (!FilteredUsers.Any())
+                    {
+                        <div class="no-users">
+                            <i class="bi bi-person-x"></i>
+                            <span>No users found</span>
+                        </div>
+                    }
+                    else
+                    {
+                        @foreach (var user in FilteredUsers)
+                        {
+                            <div class="user-item @(SelectedUser?.UserId == user.UserId ? "selected" : "")"
+                                 @onclick="() => SelectUser(user)">
+
+                                <!-- AVATAR -->
+                                <div class="avatar-wrapper">
+
+                                    <div class="avatar avatar-user @GetAvatarClass(user.UserId)">
+                                        <i class="bi bi-person-fill"></i>
+
+                                        @if (user.IsOnline)
+                                        {
+                                            <span class="avatar-online"></span>
+                                        }
+                                    </div>
+
+                                    @if (user.IsOnline)
+                                    {
+                                        <span class="online-dot"></span>
+                                    }
+
+                                </div>
+
+                                <!-- USER DETAILS -->
+                                <div class="user-info">
+
+                                    <div class="user-top">
+
+                                        <span class="user-name">
+                                            @user.UserName
+                                        </span>
+
+                                        @if (user.LastMessageDate.HasValue)
+                                        {
+                                            <span class="message-date">
+                                                @FormatMessageDate(user.LastMessageDate.Value)
+                                            </span>
+                                        }
+
+                                </div>
+
+                                <div class="user-bottom">
+
+                                    <span class="last-message">
+                                        @(string.IsNullOrWhiteSpace(user.LastMessage)
+                                                                    ? "No messages yet"
+                                                                    : user.LastMessage)
+                        </span>
+
+                        @if (user.UnreadCount > 0)
+                                        {
+                                            <span class="unread-badge">
+                                                @user.UnreadCount
+                                            </span>
+                                        }
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        }
+                    }
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT CHAT AREA -->
+            <div class="chat-area">
+
+                @if (SelectedUser == null)
+                {
+                    <!-- EMPTY CHAT -->
+                    <div class="empty-chat">
+
+                        <div class="empty-chat-icon">
+                            <i class="bi bi-chat-square-text-fill"></i>
+                        </div>
+
+                        <h4>Welcome to Messenger</h4>
+
+                        <p>
+                            Select an User from the left to start a conversation.
+                        </p>
+
+                    </div>
+                }
+                else
+                {
+                    <!-- CHAT HEADER -->
+                    <div class="chat-header">
+
+                        <div class="avatar-wrapper">
+
+                            <div class="avatar">
+                                @GetInitial(SelectedUser.UserName)
+                            </div>
+
+                            @if (SelectedUser.IsOnline)
+                            {
+                                <span class="online-dot"></span>
+                            }
+
+                        </div>
+
+                        <div class="chat-user-details">
+
+                            <div class="chat-user-name">
+                                @SelectedUser.UserName
+                            </div>
+
+                            <div class="chat-user-status">
+
+                                @if (SelectedUser.IsOnline)
+                                {
+                                    <span style="display:inline-flex; align-items:center;">
+                                        <strong>@SelectedUser.UserName</strong>
+
+                                        <span style="
+                            display:inline-block;
+                            width:8px;
+                            height:8px;
+                            min-width:8px;
+                            min-height:8px;
+                            margin-left:6px;
+                            background-color:green;
+                            border-radius:50%;">
+                                        </span>
+                                    </span>
+                                }
+                                else
+                                {
+
+                                    <span style="display:inline-flex; align-items:center;">
+                                        <strong></strong>
+
+                                        <span style="
+                                            display:inline-block;
+                                            width:8px;
+                                            height:8px;
+                                            min-width:8px;
+                                            min-height:8px;
+                                            margin-left:6px;
+                                            background-color:green;
+                                            border-radius:50%;">
+                                        </span>
+                                    </span>
+                                }
+
+                            </div>
+
+                        </div>
+
+                        <div class="chat-actions">
+                            @* For Chat Search *@
+                            @* <button class="btn btn-sm btn-light"
+                                    title="Search">
+                                <i class="bi bi-search"></i>
+                            </button> *@
+                            @* For More Options *@
+                            <button class="btn btn-sm btn-light"
+                                    title="More">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MESSAGES -->
+                    <div class="messages-area" @ref="MessagesContainer">
+
+                        @if (!Messages.Any())
+                        {
+                            <div class="no-messages">
+
+                                <div class="no-message-icon">
+                                    <i class="bi bi-chat-heart"></i>
+                                </div>
+
+                                <h6>No messages yet</h6>
+
+                                <p>
+                                    Send a message to @SelectedUser.UserName
+                                </p>
+
+                            </div>
+                        }
+                        else
+                        {
+                            @foreach (var message in Messages)
+                            {
+                                <div class="message-row @(message.IsMine ? "mine" : "theirs")">
+
+                                    <div class="message-bubble">
+
+                                        <div class="message-text">
+                                            @message.Message
+                                            @* @if (message.Attachments != null && message.Attachments.Any())
+                                            {
+                                                <div class="message-attachments">
+                                                    @foreach (var attachment in message.Attachments)
+                                                    {
+                                                        <a href="@attachment.FilePath"
+                                                           target="_blank"
+                                                           class="chat-attachment">
+
+                                                            @if (attachment.ContentType.StartsWith("image/"))
+                                                            {
+                                                                <img src="@attachment.FilePath"
+                                                                     alt="@attachment.FileName"
+                                                                     style="max-width:300px; max-height:300px; width:auto; height:auto; object-fit:contain; border-radius:8px;" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <a href="@attachment.FilePath"
+                                                                   target="_blank">
+                                                                    📎 @attachment.FileName
+                                                                </a>
+                                                            }
+
+                                                        </a>
+                                                    }
+                                                </div>
+                                            } *@
+                                            @if (message.Attachments != null && message.Attachments.Any())
+                                            {
+                                                <div class="message-attachments">
+
+                                                    @foreach (var attachment in message.Attachments)
+                                                    {
+                                                        @if (attachment.ContentType.StartsWith("image/"))
+                                                        {
+                                                            <img src="@GetFileDataUrl(attachment)"
+                                                                 alt="@attachment.FileName"
+                                                                 style="max-width:300px;
+                                                            max-height:300px;
+                                                            width:auto;
+                                                            height:auto;
+                                                            object-fit:contain;
+                                                            border-radius:8px;" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <button type="button"
+                                                                    class="btn btn-sm btn-outline-primary"
+                                                                    @onclick="() => OpenAttachment(attachment)">
+                                                                📎 @attachment.FileName
+                                                            </button>
+                                                        }
+                                                    }
+
+                                                </div>
+                                            }
+                                        </div>
+
+                                        <div class="message-meta">
+
+                                            <span>
+                                                @message.SentDate.ToString("hh:mm tt")
+                                            </span>
+
+                                            @if (message.IsMine)
+                                            {
+                                                @if (message.IsRead)
+                                                {
+                                                    <i class="bi bi-check2-all read-check"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="bi bi-check2 sent-check"></i>
+                                                }
+                                            }
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            }
+                        }
+
+                    </div>
+
+
+                    <!-- MESSAGE INPUT -->
+                    <div class="message-input-area">
+
+                        @* <label for="chatFileInput">
+                            <MudIconButton Icon="@Icons.Material.Filled.AttachFile"
+                                           Color="Color.Default"
+                                           Size="Size.Small"
+                                           OnClick="OpenFilePicker" />
+                        </label> *@
+
+
+
+                        @* <label for="chatFileInput" style="cursor:pointer;">
+                            <button type="button"
+                                    class="btn btn-link p-0">
+                                <i class="bi bi-paperclip"></i>
+                            </button>
+                        </label> *@
+
+
+                        @* <InputFile id="chatFileInput"
+                                   OnChange="HandleFilesSelected"
+                                   multiple
+                                   accept=".jpg,.jpeg,.png,.pdf,.xlsx,.xls,.doc,.docx"
+                                   style="display:none;" /> *@
+
+                        @* <InputFile id="chatFileInput"
+                                   OnChange="HandleFilesSelected"
+                                   multiple
+                                   accept=".jpg,.jpeg,.png,.pdf,.xlsx,.xls,.doc,.docx"
+                                   style="opacity:0; position:absolute; width:1px; height:1px;" /> *@
+
+                        <label class="btn btn-link p-0" style="cursor:pointer;">
+                            <MudIcon Icon="@Icons.Material.Filled.AttachFile" />
+
+                            <InputFile OnChange="HandleFilesSelected"
+                                       multiple
+                                       accept=".jpg,.jpeg,.png,.pdf,.xlsx,.xls,.doc,.docx"
+                                       class="d-none" />
+                        </label>
+
+                        <div class="message-input-wrapper">
+
+                            <input type="text"
+                                   class="message-input"
+                                   placeholder="Type a message..."
+                                   @bind="MessageText"
+                                   @bind:event="oninput"
+                                   @onkeydown="HandleKeyDown" />
+
+                        </div>
+
+                        @if (selectedFiles.Any())
+                        {
+                            <MudPaper Class="pa-2 mb-2">
+
+                                @foreach (var file in selectedFiles)
+                                {
+                                    <MudChip T="string"
+                                             Color="Color.Primary"
+                                             Closeable="true"
+                                             OnClose="@(() => RemoveSelectedFile(file))">
+                                        @file.Name
+                                    </MudChip>
+                                }
+
+                            </MudPaper>
+                        }
+
+                        <button class="input-action"
+                                title="Emoji"
+                                type="button"
+                                @onclick="ToggleEmojiPicker">
+
+                            <i class="bi bi-emoji-smile"></i>
+
+                        </button>
+                        @if (showEmojiPicker)
+                        {
+                            <div class="emoji-picker">
+
+                                @foreach (var emoji in Emojis)
+                                {
+                                    <button type="button"
+                                            class="emoji-item"
+                                            @onclick="() => AddEmoji(emoji)">
+                                        @emoji
+                                    </button>
+                                }
+
+                            </div>
+                        }
+                        <button class="send-button"
+                                @onclick="SendMessage"
+                                disabled="@string.IsNullOrWhiteSpace(MessageText)"
+                                title="Send">
+
+                            <i class="bi bi-send-fill"></i>
+
+                        </button>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    }
+}
+@code
+{
+
+    protected override string ScreenName => "ERPScreenChatNotification";
+
+    private bool isProcessing = true;
+    private List<ChatUserVM> Users = new();
+
+    private List<ChatMessageVM> Messages = new();
+
+    private ChatUserVM? SelectedUser;
+
+    private string SearchText = "";
+
+    private string MessageText = "";
+
+    private int CurrentUserId;
+    private ElementReference MessagesContainer;
+
+    private string userName = "";
+   
+
+
+    private IEnumerable<ChatUserVM> FilteredUsers =>
+        string.IsNullOrWhiteSpace(SearchText)
+            ? Users
+            : Users.Where(x =>
+                x.UserName.Contains(
+                    SearchText,
+                    StringComparison.OrdinalIgnoreCase));
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadRightsAsync();
+
+        if (!CanView)
+        {
+            NavigationManager.NavigateTo("/access-denied");
+            return;
+        }
+        // Replace this with your existing logged-in user ID.
+        CurrentUserId = await _userService.GetUserIdAsync();
+
+        userName = await _userService.GetUsernameAsync();
+        // CurrentUserId;
+
+        // Users =await MessengerService.GetUsersAsync(CurrentUserId);
+
+        await LoadUsers();
+        isProcessing = false;
+    }
+
+    private async Task LoadUsers()
+    {
+        // Replace Users table/entity with your ERP user table.
+
+        Users = await _unitOfWork.Users
+            .GetQueryable()
+            .Where(x => x.UserId != CurrentUserId)
+            .Select(x => new ChatUserVM
+            {
+                UserId = x.UserId,
+                UserName = x.UserName
+            })
+            .ToListAsync();
+
+        foreach (var user in Users)
+        {
+            // Users = await MessengerService.GetUsersAsync(CurrentUserId);
+            var conversation =await GetConversation(CurrentUserId,user.UserId);
+
+            if (conversation != null)
+            {
+                var lastMessage =
+                    await _unitOfWork.ChatMessages
+                        .GetQueryable()
+                        .Where(x =>
+                            x.ConversationId ==
+                            conversation.Id)
+                        .OrderByDescending(
+                            x => x.SentDate)
+                        .FirstOrDefaultAsync();
+
+                if (lastMessage != null)
+                {
+                    user.LastMessage =
+                        lastMessage.Message;
+
+                    user.LastMessageDate =
+                        lastMessage.SentDate;
+
+                    user.UnreadCount =
+                        await _unitOfWork.ChatMessages
+                            .GetQueryable()
+                            .CountAsync(x =>
+                                x.ConversationId ==
+                                conversation.Id &&
+                                x.SenderId !=
+                                CurrentUserId &&
+                                !x.IsRead);
+                }
+            }
+        }
+
+        Users = Users
+            .OrderByDescending(
+                x => x.LastMessageDate)
+            .ToList();
+    }
+    private async Task<ChatConversation?> GetConversation(
+    int user1,
+    int user2)
+    {
+        return await _unitOfWork.ChatConversations
+            .GetQueryable()
+            .FirstOrDefaultAsync(x =>
+                (x.User1Id == user1 &&
+                 x.User2Id == user2)
+                ||
+                (x.User1Id == user2 &&
+                 x.User2Id == user1));
+    }
+
+    private List<IBrowserFile> selectedFiles = new();
+
+    // private void HandleFilesSelected(InputFileChangeEventArgs e)
+    // {
+    //     selectedFiles = e.GetMultipleFiles(10).ToList();
+    // }
+
+    private void HandleFilesSelected(InputFileChangeEventArgs e)
+    {
+        selectedFiles = e.GetMultipleFiles(10).ToList();
+
+        Console.WriteLine($"Files selected: {selectedFiles.Count}");
+
+        foreach (var file in selectedFiles)
+        {
+            Console.WriteLine($"File: {file.Name}");
+        }
+    }
+    private async Task OpenFilePicker()
+    {
+        await JS.InvokeVoidAsync("openChatFilePicker");
+    }
+    
+    private void RemoveSelectedFile(IBrowserFile file)
+    {
+        selectedFiles.Remove(file);
+    }
+
+
+
+
+    private async Task SelectUser(ChatUserVM user)
+    {
+        SelectedUser = user;
+
+        Messages =
+            await MessengerService.GetMessagesAsync(
+                CurrentUserId,
+                user.UserId);
+
+        await MessengerService.MarkMessagesAsReadAsync(
+            CurrentUserId,
+            user.UserId);
+
+        user.UnreadCount = 0;
+    }
+    private string GetAvatarClass(int userId)
+    {
+        var colors = new[]
+        {
+        "avatar-purple",
+        "avatar-blue",
+        "avatar-green",
+        "avatar-orange",
+        "avatar-pink",
+        "avatar-cyan"
+    };
+
+        return colors[userId % colors.Length];
+    }
+
+
+    private async Task SendMessage()
+    {
+        if (SelectedUser == null)
+            return;
+
+        if (string.IsNullOrWhiteSpace(MessageText) && !selectedFiles.Any())
+            return;
+
+        var vm = new ChatMessageVM
+        {
+            SenderId = CurrentUserId,
+            ReceiverId = SelectedUser.UserId,
+            Message = MessageText?.Trim() ?? string.Empty,
+            SentDate = DateTime.Now,
+            IsRead = false,
+            IsMine = true
+        };
+
+        try
+        {
+            var result = await MessengerService.SendMessageAsync(
+                vm,
+                selectedFiles);
+
+            Messages.Add(result);
+
+            SelectedUser.LastMessage = vm.Message;
+            SelectedUser.LastMessageDate = vm.SentDate;
+
+            MessageText = "";
+            selectedFiles.Clear();
+        }
+        catch (InvalidOperationException ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+        }
+        catch (Exception)
+        {
+            Snackbar.Add(
+                "Failed to send message or upload attachment.",
+                Severity.Error);
+        }
+    }
+
+
+    private async Task HandleKeyDown(
+        Microsoft.AspNetCore.Components.Web.KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            await SendMessage();
+        }
+    }
+
+
+    private string GetInitial(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            return "?";
+
+        return name.Substring(0, 1).ToUpper();
+    }
+    private void ClearSearch()
+    {
+        SearchText = "";
+    }
+
+    private string FormatMessageDate(DateTime date)
+    {
+        if (date.Date == DateTime.Today)
+            return date.ToString("hh:mm tt");
+
+        if (date.Date == DateTime.Today.AddDays(-1))
+            return "Yesterday";
+
+        return date.ToString("dd/MM/yyyy");
+    }
+
+    private bool showEmojiPicker = false;
+
+    private void ToggleEmojiPicker()
+    {
+        showEmojiPicker = !showEmojiPicker;
+    }
+    private List<string> Emojis = new()
+{
+    "😀", "😃", "😄", "😁", "😆", "😅",
+    "😂", "🤣", "😊", "😇", "🙂", "🙃",
+    "😉", "😌", "😍", "🥰", "😘", "😗",
+    "😎", "🤩", "🥳", "😢", "😭", "😡",
+    "😱", "🤔", "👍", "👎", "👏", "🙏",
+    "❤️", "💔", "🔥", "🎉", "✅", "❌",
+    "⭐", "💯", "😴", "🤝", "👌", "💪"
+};
+    private void AddEmoji(string emoji)
+    {
+        MessageText += emoji;
+
+        showEmojiPicker = false;
+    }
+
+    private string GetFileDataUrl(ChatMessageAttachment attachment)
+    {
+        if (attachment.Image == null || attachment.Image.Length == 0)
+            return string.Empty;
+
+        return $"data:{attachment.ContentType};base64,{Convert.ToBase64String(attachment.Image)}";
+    }
+
+    private async Task OpenAttachment(ChatMessageAttachment attachment)
+    {
+        if (attachment.Image == null || attachment.Image.Length == 0)
+            return;
+
+        // var base64 = Convert.ToBase64String(attachment.Image);
+
+        // var dataUrl =
+        //     $"data:{attachment.ContentType};base64,{base64}";
+
+        // await JS.InvokeVoidAsync(
+        //     "openChatAttachment",
+        //     dataUrl,
+        //     attachment.FileName);
+
+   
+
+        ///var base64 = Convert.ToBase64String(CorrespondenceList.Image);
+
+        await fileOpener.OpenAsync(attachment.Image, attachment.FileName, attachment.ContentType);
+    }
+
+}

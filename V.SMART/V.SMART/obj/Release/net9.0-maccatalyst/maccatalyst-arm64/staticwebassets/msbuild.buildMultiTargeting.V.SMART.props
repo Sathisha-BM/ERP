@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\V.SMART.props" />
+</Project>

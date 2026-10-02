@@ -1,0 +1,254 @@
+﻿  @page "/qrlogin/{token:guid}"
+@using System.Reflection
+@using Microsoft.Extensions.Configuration
+@using V.SMART.Services
+
+@inject NavigationManager Nav
+@inject IUserRepository UserRepository
+@inject AuthenticationStateProvider AuthStateProvider
+@inject IUserService UserService
+@inject IJSRuntime JSRuntime
+@inject IProductionLogService ProductionLogService
+@inject UserSession session
+@inject IConfiguration Configuration
+@inject IAppVersionService AppVersionService
+<h3>Please wait...</h3>
+
+@code
+{
+    [Parameter]
+    public Guid token { get; set; }
+
+    private bool _processed;
+    //11072026----------------------------------------------------------
+    private bool IsDesktop => Configuration["AppEnvironment"] == "Desktop";
+    //-----------------------------------------------------------------------
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender || _processed)
+            return;
+
+        _processed = true;
+
+        try
+        {
+            if (token == Guid.Empty)
+            {
+                Nav.NavigateTo("/login");
+                return;
+            }
+
+            var user = await UserRepository.GetUserByQrToken(token);
+
+            if (user == null)
+            {
+                await JSRuntime.ToastrError("Invalid QR Code");
+                Nav.NavigateTo("/login");
+                return;
+            }
+
+            //11072026----------------------------------------------------------
+            if (!IsDesktop && user.UserId > 1 && user != null && user.TrialDays > 0 && user.ExpiryDate.HasValue && DateTime.Today > user.ExpiryDate.Value.Date)
+            {
+                await JSRuntime.ToastrWarning("Your trial period has expired. Please contact Administrator.");
+                return;
+            }
+
+
+            if (user.UserId > 1 && (user.IsMobile || user.IsDesktop))
+            {
+                var deviceId = await JSRuntime.InvokeAsync<string>("deviceHelper.getDeviceId");
+                var isMobile = await JSRuntime.InvokeAsync<bool>("deviceHelper.isMobile");
+
+                if (isMobile)
+                {
+                    if (!user.IsMobile)
+                    {
+                        await JSRuntime.ToastrError("Mobile login is not allowed.");
+                        return;
+                    }
+
+                    // First Login
+                    if (string.IsNullOrWhiteSpace(user.MobileDeviceId))
+                    {
+                        await UserService.UpdateUserDeviceAsync(user.UserId, IsDesktop);
+                    }
+                    // Existing Device Validation
+                    else if (user.MobileDeviceId != deviceId)
+                    {
+                        await JSRuntime.ToastrError("This account is already registered on another mobile device.");
+                        return;
+                    }
+                }
+                else
+                {
+                    if (!user.IsDesktop)
+                    {
+                        await JSRuntime.ToastrError("Desktop login is not allowed.");
+                        return;
+                    }
+
+                    // First Login
+                    if (string.IsNullOrWhiteSpace(user.DesktopDeviceId))
+                    {
+                        await UserService.UpdateUserDeviceAsync(user.UserId, IsDesktop);
+                    }
+                    // Existing Device Validation
+                    else if (user.DesktopDeviceId != deviceId)
+                    {
+                        await JSRuntime.ToastrError("This account is already registered on another desktop.");
+                        return;
+                    }
+                }
+            }
+            
+
+
+            if (IsDesktop)
+            {
+                if (!await CheckDesktopAppVersionAsync())
+                {
+                    return;
+                }
+            }
+            //-----------------------------------------------------------------------
+
+            if (!user.IsQrEnabled)
+            {
+                await JSRuntime.ToastrError("QR Login Disabled");
+                Nav.NavigateTo("/login");
+                return;
+            }
+
+            if (user.QrExpiryDate.HasValue &&
+                user.QrExpiryDate.Value < DateTime.Now)
+            {
+                await JSRuntime.ToastrError("QR Code Expired");
+                Nav.NavigateTo("/login");
+                return;
+            }
+
+            bool isProductionLog =
+                await UserService.IsProductionLogEnabledAsync(user.UserId);
+
+            session.UserName = user.UserName;
+            session.UserId = user.UserId;
+
+            if (AuthStateProvider is CustomAuthStateProvider customAuth)
+            {
+                customAuth.MarkUserAsAuthenticated(
+                    user.UserName,
+                    user.UserId,
+                    user.Role?.ToString() ?? string.Empty,
+                    true,
+                    isProductionLog);
+            }
+
+            await JSRuntime.ToastrSuccess("Login Successful");
+
+            if (isProductionLog)
+            {
+                var pendingLogId =
+                    await ProductionLogService.GetPendingProductionLogIdAsync(
+                        user.UserName.Trim());
+
+                if (pendingLogId.HasValue)
+                {
+                    Nav.NavigateTo(
+                        $"/productionLog/update/{pendingLogId.Value}/true");
+                }
+                else
+                {
+                    Nav.NavigateTo("/productionLog/create/true");
+                }
+            }
+            else
+            {
+                Nav.NavigateTo("/");
+            }
+        }
+        catch (NavigationException)
+        {
+            // Expected during navigation
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+
+            await JSRuntime.ToastrError(
+                $"Unable to login using QR. {ex.Message}");
+
+            Nav.NavigateTo("/login");
+        }
+    }
+
+    private async Task<bool> CheckDesktopAppVersionAsync()
+    {
+        try
+        {
+            // Web application: skip version check
+            if (!IsDesktop)
+                return true;
+
+            string? databaseVersion = await AppVersionService.GetLatestVersionAsync();
+
+            string currentVersion = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "0.0.0.0";
+
+            if (string.IsNullOrWhiteSpace(databaseVersion))
+                return true;
+
+            if (Version.TryParse(databaseVersion, out var latest) && Version.TryParse(currentVersion, out var current) && latest > current)
+            {
+                bool updateNow = await JSRuntime.InvokeAsync<bool>(
+                    "confirm",
+                    $"A new application update is available.\n\n" +
+                    $"Current Version: {currentVersion}\n" +
+                    $"Latest Version: {databaseVersion}\n\n" +
+                    $"Would you like to install the update now?");
+
+                if (updateNow)
+                {
+                    // Start installer
+                    try
+                    {
+                        string setupPath = Configuration["UpdateSettings:SetupPath"] ?? "";
+
+                        if (!File.Exists(setupPath))
+                        {
+                            await JSRuntime.ToastrError("Setup file not found.");
+                            return false;
+                        }
+
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = setupPath,
+                            UseShellExecute = true
+                        });
+
+                        
+                        Environment.Exit(0);
+                    }
+                    catch (Exception ex)
+                    {
+                        await JSRuntime.ToastrError($"Unable to start installer.\n{ex.Message}");
+                    }
+
+                    // Stop login/navigation
+                    return false;
+                }
+
+                // User selected No → continue login
+                return true;
+            }
+
+            return true;
+
+        }
+        catch (Exception ex)
+        {
+
+            throw;
+        }
+    }
+}

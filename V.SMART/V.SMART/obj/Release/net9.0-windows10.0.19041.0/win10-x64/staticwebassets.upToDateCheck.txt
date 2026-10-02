@@ -1,0 +1,6 @@
+D:\SATHISH\New  Letest ERP\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\wwwroot\index.html
+D:\SATHISH\New  Letest ERP\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\wwwroot\config\tenant.json
+D:\SATHISH\New  Letest ERP\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\wwwroot\app.css
+wwwroot\app.css
+wwwroot\config\tenant.json
+wwwroot\index.html

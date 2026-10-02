@@ -1,0 +1,52 @@
+﻿<Project>
+  <ItemGroup>
+    <StaticWebAssetEndpoint Include="app.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\app.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-kvxr5N5e6J\u002B3DU9SSaul1EOlxkbSB\u002BURTwREKP2LZlI="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1120"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022kvxr5N5e6J\u002B3DU9SSaul1EOlxkbSB\u002BURTwREKP2LZlI=\u0022"},{"Name":"Last-Modified","Value":"Sat, 11 Apr 2026 08:29:32 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="app.yr4lo8c4bw.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\app.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"yr4lo8c4bw"},{"Name":"integrity","Value":"sha256-kvxr5N5e6J\u002B3DU9SSaul1EOlxkbSB\u002BURTwREKP2LZlI="},{"Name":"label","Value":"app.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1120"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022kvxr5N5e6J\u002B3DU9SSaul1EOlxkbSB\u002BURTwREKP2LZlI=\u0022"},{"Name":"Last-Modified","Value":"Sat, 11 Apr 2026 08:29:32 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="config/tenant.3bxyn8kva2.json">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\config\tenant.json'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"3bxyn8kva2"},{"Name":"integrity","Value":"sha256-4YvbTsLBvIm5wTVmEl93EI9YN8yyVYz8GEC\u002B9yknTJ4="},{"Name":"label","Value":"config/tenant.json"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"147"},{"Name":"Content-Type","Value":"application/json"},{"Name":"ETag","Value":"\u00224YvbTsLBvIm5wTVmEl93EI9YN8yyVYz8GEC\u002B9yknTJ4=\u0022"},{"Name":"Last-Modified","Value":"Sat, 25 Apr 2026 06:08:16 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="config/tenant.json">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\config\tenant.json'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-4YvbTsLBvIm5wTVmEl93EI9YN8yyVYz8GEC\u002B9yknTJ4="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"147"},{"Name":"Content-Type","Value":"application/json"},{"Name":"ETag","Value":"\u00224YvbTsLBvIm5wTVmEl93EI9YN8yyVYz8GEC\u002B9yknTJ4=\u0022"},{"Name":"Last-Modified","Value":"Sat, 25 Apr 2026 06:08:16 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="index.e7zc5ctqb5.html">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"e7zc5ctqb5"},{"Name":"integrity","Value":"sha256-xp2wmyJPPEb/DHc26q/ZwG61HeDJgUvZVbjFXUau8yc="},{"Name":"label","Value":"index.html"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"3282"},{"Name":"Content-Type","Value":"text/html"},{"Name":"ETag","Value":"\u0022xp2wmyJPPEb/DHc26q/ZwG61HeDJgUvZVbjFXUau8yc=\u0022"},{"Name":"Last-Modified","Value":"Wed, 02 Sep 2026 04:10:11 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="index.html">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-xp2wmyJPPEb/DHc26q/ZwG61HeDJgUvZVbjFXUau8yc="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"3282"},{"Name":"Content-Type","Value":"text/html"},{"Name":"ETag","Value":"\u0022xp2wmyJPPEb/DHc26q/ZwG61HeDJgUvZVbjFXUau8yc=\u0022"},{"Name":"Last-Modified","Value":"Wed, 02 Sep 2026 04:10:11 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="V.SMART.styles.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\V.SMART.styles.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-z6HtRwQ3BIDpiu5j35I\u002Bhsz5E0ETriSTcHtWJZHKykM="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"210"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022z6HtRwQ3BIDpiu5j35I\u002Bhsz5E0ETriSTcHtWJZHKykM=\u0022"},{"Name":"Last-Modified","Value":"Thu, 10 Sep 2026 11:09:24 GMT"},{"Name":"Link","Value":"\u003C_content/Microsoft.AspNetCore.Components.QuickGrid/Microsoft.AspNetCore.Components.QuickGrid.25o87uqmvr.bundle.scp.css\u003E; rel=\u0022preload\u0022; as=\u0022style\u0022, \u003C_content/V.SMART.Shared/V.SMART.Shared.kascw1f4r9.bundle.scp.css\u003E; rel=\u0022preload\u0022; as=\u0022style\u0022"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="V.SMART.thzas4emyx.styles.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\V.SMART.styles.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"thzas4emyx"},{"Name":"integrity","Value":"sha256-z6HtRwQ3BIDpiu5j35I\u002Bhsz5E0ETriSTcHtWJZHKykM="},{"Name":"label","Value":"V.SMART.styles.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"210"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022z6HtRwQ3BIDpiu5j35I\u002Bhsz5E0ETriSTcHtWJZHKykM=\u0022"},{"Name":"Last-Modified","Value":"Thu, 10 Sep 2026 11:09:24 GMT"},{"Name":"Link","Value":"\u003C_content/Microsoft.AspNetCore.Components.QuickGrid/Microsoft.AspNetCore.Components.QuickGrid.25o87uqmvr.bundle.scp.css\u003E; rel=\u0022preload\u0022; as=\u0022style\u0022, \u003C_content/V.SMART.Shared/V.SMART.Shared.kascw1f4r9.bundle.scp.css\u003E; rel=\u0022preload\u0022; as=\u0022style\u0022"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+  </ItemGroup>
+</Project>

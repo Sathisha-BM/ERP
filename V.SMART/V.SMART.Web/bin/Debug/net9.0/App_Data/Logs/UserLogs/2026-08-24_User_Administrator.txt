@@ -1,0 +1,4 @@
+2026-08-24 13:06:00 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Purchase GRN | Action: Production Issue Component Created | Info: Production Issue Component Created.
+
+2026-08-24 13:06:11 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Production Issue Component | Action: Deleted Issue no: 3 | Info: Issue Id: 1031
+

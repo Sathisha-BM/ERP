@@ -1,0 +1,467 @@
+﻿@page "/MessengerScreenUserSetting"
+
+@using MudBlazor
+@using V.SMART.Shared.BusinessLayer.BusinessService.IBusinessService.IMasterServices
+@using V.SMART.Shared.Data.Master.Admin
+@using V.SMART.Shared.Data.Master.MasterScreeenManagement
+@using V.SMART.Shared.Data.Master.MasterScreeenManagement_Module
+
+@inherits BaseUserRightsComponent
+
+@inject NavigationManager NavigationManager
+@inject IMessengerScreenUserSettingService MessengerSettingService
+@inject IUserService UserService
+@inject IUnitOfWork _unitOfWork
+@inject IJSRuntime _js
+
+@if (isProcessing)
+{
+    <ProcessingOverlay Visible="@isProcessing"
+                       Message="Please wait..." />
+}
+else if (!CanView)
+{
+    <RedirectToLogin />
+}
+else
+{
+    <div class="container-fluid px-2 px-md-5 mt-4">
+
+        <div class="card shadow-sm border-1">
+
+            <!-- PAGE HEADER -->
+            <PageHeader TitleText="Messenger Screen Settings"
+                        TitleIcon="bi bi-chat-dots"
+                        Breadcrumbs="@gnrlSettingsFormBreadcrumbs" />
+
+            <div class="card-body">
+
+                <MudPaper Class="pa-4">
+
+                    <MudText Typo="Typo.h5" Class="mb-4">
+                        Messenger Screen Settings
+                    </MudText>
+
+                    <MudGrid>
+
+                        <!-- ========================= -->
+                        <!-- SCREEN -->
+                        <!-- ========================= -->
+
+                        <MudItem xs="12" md="4">
+
+                            @* <MudSelect T="int?"
+                                       Label="Select Screen"
+                                       Variant="Variant.Outlined"
+                                       Value="@selectedScreenId"
+                                       ValueChanged="OnScreenChanged"
+                                       FullWidth="true"
+                                       Clearable="true">
+
+                                @foreach (var screen in screens)
+                                {
+                                    <MudSelectItem T="int?"
+                                                   Value="@screen.ScreenCode">
+
+                                        @screen.ScreenName
+
+                                    </MudSelectItem>
+                                }
+
+                            </MudSelect> *@
+                            <MudAutocomplete T="int?"
+                                             Label="Select Screen"
+                                             Variant="Variant.Outlined"
+                                             Dense="true"
+                                             Clearable="true"
+                                             ResetValueOnEmptyText="true"
+                                             SearchFunc="SearchScreens"
+                                             ToStringFunc="@(id => GetScreenName(id))"
+                                             Value="@selectedScreenId"
+                                             ValueChanged="OnScreenChanged"
+                                             MaxItems="50" />
+
+                        </MudItem>
+
+
+                        <!-- ========================= -->
+                        <!-- FROM USER -->
+                        <!-- ========================= -->
+
+                        <MudItem xs="12" md="4">
+
+                            <MudSelect T="int?"
+                                       Label="From User"
+                                       Variant="Variant.Outlined"
+                                       Value="@selectedFromUserId"
+                                       ValueChanged="OnFromUserChanged"
+                                       FullWidth="true"
+                                       Clearable="true"
+                                       Disabled="@(!selectedScreenId.HasValue)">
+
+                                @foreach (var user in users)
+                                {
+                                    <MudSelectItem T="int?"
+                                                   Value="@user.UserId">
+
+                                        @user.UserName
+
+                                    </MudSelectItem>
+                                }
+
+                            </MudSelect>
+
+                        </MudItem>
+
+
+                        <!-- ========================= -->
+                        <!-- TO USERS -->
+                        <!-- ========================= -->
+
+                        <MudItem xs="12" md="4">
+
+                            <MudSelect T="int"
+                                       Label="Send Message To"
+                                       Variant="Variant.Outlined"
+                                       MultiSelection="true"
+                                       SelectedValues="@selectedUserIds"
+                                       SelectedValuesChanged="OnUsersChanged"
+                                       FullWidth="true"
+                                       Disabled="@(!selectedFromUserId.HasValue)">
+
+                                @foreach (var user in users)
+                                {
+                                    @if (user.UserId != selectedFromUserId)
+                                    {
+                                        <MudSelectItem T="int"
+                                                       Value="@user.UserId">
+
+                                            @user.UserName
+
+                                        </MudSelectItem>
+                                    }
+                                }
+
+                            </MudSelect>
+
+                        </MudItem>
+
+                    </MudGrid>
+
+
+                    <!-- ========================= -->
+                    <!-- SAVE -->
+                    <!-- ========================= -->
+
+                    <div class="d-flex justify-end mt-4">
+
+                        <MudButton Variant="Variant.Filled"
+                                   Color="Color.Primary"
+                                   Disabled="@(!CanSave)"
+                                   OnClick="SaveSettings">
+
+                            <MudIcon Icon="@Icons.Material.Filled.Save"
+                                     Class="mr-2" />
+
+                            Save
+
+                        </MudButton>
+
+                    </div>
+
+                </MudPaper>
+
+            </div>
+
+        </div>
+
+    </div>
+}
+
+
+@code {
+
+    protected override string ScreenName =>
+        "MessengerScreenUserSetting";
+
+
+    // =========================================================
+    // VARIABLES
+    // =========================================================
+
+    private bool isProcessing = true;
+
+
+    // =========================================================
+    // BREADCRUMB
+    // =========================================================
+
+    private List<PageHeader.BreadcrumbItem> gnrlSettingsFormBreadcrumbs = new()
+    {
+        new() { Text = "Master" },
+        new() { Text = "Settings" },
+        new()
+        {
+            Text = "Messenger Screen Settings",
+            IsLast = true
+        }
+    };
+
+
+    // =========================================================
+    // DATA
+    // =========================================================
+
+    private List<ScreensVM> screens = new();
+
+    private List<User> users = new();
+
+
+    // =========================================================
+    // SELECTED VALUES
+    // =========================================================
+
+    private int? selectedScreenId;
+
+    private int? selectedFromUserId;
+
+    private HashSet<int> selectedUserIds = new();
+
+
+    // =========================================================
+    // SAVE VALIDATION
+    // =========================================================
+
+    private bool CanSave =>
+        selectedScreenId.HasValue &&
+        selectedFromUserId.HasValue &&
+        selectedUserIds.Any();
+
+    
+
+    // =========================================================
+    // INITIALIZE
+    // =========================================================
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            isProcessing = true;
+
+            await LoadRightsAsync();
+
+            if (!CanView)
+            {
+                NavigationManager.NavigateTo("/access-denied");
+                return;
+            }
+
+            await LoadScreens();
+
+            await LoadUsers();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+
+    // =========================================================
+    // LOAD SCREENS
+    // =========================================================
+
+    private async Task LoadScreens()
+    {
+        var data = await _unitOfWork.Screens.GetAllAsync();
+
+        screens = data
+            .Select(x => new ScreensVM
+            {
+                ScreenCode = x.ScreenCode,
+                ScreenName = x.ScreenName
+            }).OrderBy(s=>s.ScreenName)
+            .ToList();
+    }
+
+
+    // =========================================================
+    // LOAD USERS
+    // =========================================================
+
+    private async Task LoadUsers()
+    {
+        users = await _unitOfWork.Users
+            .GetQueryable()
+            .Where(x => x.IsActive)
+            .Select(x => new User
+            {
+                UserId = x.UserId,
+                UserName = x.UserName
+            })
+            .ToListAsync();
+    }
+
+
+    // =========================================================
+    // SCREEN CHANGE
+    // =========================================================
+
+    private async Task OnScreenChanged(int? screenId)
+    {
+        selectedScreenId = screenId;
+
+        selectedFromUserId = null;
+
+        selectedUserIds.Clear();
+
+        if (!screenId.HasValue)
+        {
+            StateHasChanged();
+            return;
+        }
+
+        // Load existing settings for this screen
+        var settings =
+            await MessengerSettingService
+                .GetByScreenIdAsync(screenId.Value);
+
+        if (settings != null && settings.Any())
+        {
+            // Get From User
+            var firstSetting = settings.FirstOrDefault();
+
+            if (firstSetting?.FromUserId.HasValue == true)
+            {
+                selectedFromUserId =
+                    firstSetting.FromUserId.Value;
+            }
+
+            // Get To Users
+            foreach (var setting in settings)
+            {
+                if (setting.UserId.HasValue)
+                {
+                    selectedUserIds.Add(
+                        setting.UserId.Value);
+                }
+            }
+        }
+
+        StateHasChanged();
+    }
+
+
+    // =========================================================
+    // FROM USER CHANGE
+    // =========================================================
+
+    private Task OnFromUserChanged(int? userId)
+    {
+        selectedFromUserId = userId;
+
+        // Remove From User from receiver list
+        if (userId.HasValue)
+        {
+            selectedUserIds.Remove(userId.Value);
+        }
+
+        StateHasChanged();
+
+        return Task.CompletedTask;
+    }
+
+
+    // =========================================================
+    // TO USER CHANGE
+    // =========================================================
+
+    private Task OnUsersChanged(IEnumerable<int> values)
+    {
+        selectedUserIds = values.ToHashSet();
+
+        // Make sure From User is never a receiver
+        if (selectedFromUserId.HasValue)
+        {
+            selectedUserIds.Remove(
+                selectedFromUserId.Value);
+        }
+
+        return Task.CompletedTask;
+    }
+
+
+    // =========================================================
+    // SAVE
+    // =========================================================
+
+    private async Task SaveSettings()
+    {
+        if (!CanSave)
+            return;
+
+        try
+        {
+            isProcessing = true;
+
+            await MessengerSettingService.SaveAsync(
+                selectedScreenId!.Value,
+                selectedFromUserId!.Value,
+                selectedUserIds.ToList());
+
+            await _js.ToastrSuccess("Setting  saved successfully.");
+
+            // Reload settings
+            await OnScreenChanged(selectedScreenId);
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    private Task<IEnumerable<int?>> SearchScreens(string? value,CancellationToken cancellationToken)
+    {
+        try
+        {
+            IEnumerable<int?> result = screens
+            .Where(x =>
+                string.IsNullOrWhiteSpace(value) ||  x.ScreenName.Contains(value,StringComparison.OrdinalIgnoreCase))
+            .Select(x => (int?)x.ScreenCode);
+
+            return Task.FromResult(result);
+        }
+        catch (Exception ex)
+        {
+            
+            throw;
+        }
+    }
+
+    private string GetScreenName(int? screenCode)
+    {
+        try
+        {
+            if (!screenCode.HasValue)
+                return string.Empty;
+
+            return screens.FirstOrDefault(x => x.ScreenCode == screenCode.Value)?.ScreenName ?? string.Empty;
+
+        }
+        catch (Exception ex)
+        {
+            
+            throw;
+        }
+    }
+}

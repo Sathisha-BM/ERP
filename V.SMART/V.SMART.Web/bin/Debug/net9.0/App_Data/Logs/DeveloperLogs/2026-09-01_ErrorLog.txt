@@ -1,0 +1,81 @@
+2026-09-01 09:29:21 | Level: INFO | Source:  | Message: User logged in successfully: Abhishek
+2026-09-01 09:40:24 | Level: INFO | Source:  | Message: Invalid login attempt: Abhishek
+2026-09-01 09:40:36 | Level: INFO | Source:  | Message: User logged in successfully: Abhishek
+2026-09-01 09:41:47 | Level: ERROR | Source: An error occurred while handling the OnInitializedAsync() Method for User | Message: EXCEPTION: Exception of type 'Microsoft.AspNetCore.Components.NavigationException' was thrown.
+STACKTRACE:    at Microsoft.AspNetCore.Components.Server.Circuits.RemoteNavigationManager.NavigateToCore(String uri, NavigationOptions options)
+   at Microsoft.AspNetCore.Components.NavigationManager.NavigateToCore(String uri, Boolean forceLoad)
+   at V.SMART.Shared.Pages.Master_Module_pages.Identity_Pages.Logout.OnInitializedAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Master_Module_pages\Identity_Pages\Logout.razor:line 69
+2026-09-01 09:41:56 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-01 09:41:56 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-01 09:41:56 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-01 09:43:49 | Level: INFO | Source:  | Message: User logged in successfully: Abhishek
+2026-09-01 09:49:42 | Level: INFO | Source:  | Message: Invalid login attempt: Abhishek
+2026-09-01 09:49:51 | Level: INFO | Source:  | Message: User logged in successfully: Abhishek
+2026-09-01 09:57:21 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-01 09:57:21 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-01 09:57:21 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-01 10:01:33 | Level: INFO | Source:  | Message: User logged in successfully: Abhishek
+2026-09-01 10:45:56 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-01 10:45:56 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-01 10:45:56 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-01 11:03:19 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-01 11:03:19 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-01 11:03:19 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-01 11:17:49 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-01 11:17:49 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-01 11:17:49 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-01 11:51:02 | Level: ERROR | Source: Failed to DeleteHeaderAsync in QIMS Documnet | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at V.SMART.Shared.Repository.Repository`1.GetAllAsync(Boolean asNoTracking) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Repository\Repository.cs:line 47
+   at V.SMART.Shared.BusinessLayer.BusinessService.SettingsService.CustomScreenSettingService.GetNavigationMenuAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\SettingsService\CustomScreenSettingService.cs:line 327
+2026-09-01 11:52:17 | Level: INFO | Source:  | Message: [UserRights] Administrator login detected. Syncing rights for UserId: 1.
+2026-09-01 11:52:17 | Level: INFO | Source:  | Message: [UserRights] No missing rights for UserId: 1
+2026-09-01 11:52:17 | Level: INFO | Source:  | Message: User logged in successfully: Administrator
+2026-09-01 11:52:17 | Level: ERROR | Source: Failed to load company logo. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.CompanyService.GetCompanyLogoUrlAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\CompanyService.cs:line 38
+   at V.SMART.Shared.Pages.Home.LoadCompanyLogoAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Home.razor:line 877
+2026-09-01 12:00:58 | Level: ERROR | Source: Error in DeleteStockAddAsync | Message: EXCEPTION: Cannot delete. Stock already issued from this batch.
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.InventoryService.StockManagerService.DeleteStockAddAsync(Int32 addId) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\InventoryService\StockManagerService.cs:line 268
+2026-09-01 12:00:58 | Level: ERROR | Source: Failed to DeleteStockIssueAndTrackAsync in Purchase SCN | Message: EXCEPTION: Cannot delete. Stock already issued from this batch.
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.InventoryService.StockManagerService.DeleteStockAddAsync(Int32 addId) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\InventoryService\StockManagerService.cs:line 268
+   at V.SMART.Shared.BusinessLayer.BusinessService.InventoryService.StockManagerService.DeleteStockAddAsync(Int32 addId) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\InventoryService\StockManagerService.cs:line 276
+   at V.SMART.Shared.BusinessLayer.BusinessService.LabourServices.LabourSCNService.DeleteStockAddAsync(Int32 ScnSubId, Int32 itemId, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\LabourServices\LabourSCNService.cs:line 409
+2026-09-01 12:01:28 | Level: ERROR | Source: Error in DeleteStockAddAsync | Message: EXCEPTION: Cannot delete. Stock already issued from this batch.
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.InventoryService.StockManagerService.DeleteStockAddAsync(Int32 addId) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\InventoryService\StockManagerService.cs:line 268
+2026-09-01 12:01:28 | Level: ERROR | Source: Failed to DeleteStockIssueAndTrackAsync in Purchase SCN | Message: EXCEPTION: Cannot delete. Stock already issued from this batch.
+STACKTRACE:    at V.SMART.Shared.BusinessLayer.BusinessService.InventoryService.StockManagerService.DeleteStockAddAsync(Int32 addId) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\InventoryService\StockManagerService.cs:line 268
+   at V.SMART.Shared.BusinessLayer.BusinessService.InventoryService.StockManagerService.DeleteStockAddAsync(Int32 addId) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\InventoryService\StockManagerService.cs:line 276
+   at V.SMART.Shared.BusinessLayer.BusinessService.LabourServices.LabourSCNService.DeleteStockAddAsync(Int32 ScnSubId, Int32 itemId, Int32 screenCode) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\LabourServices\LabourSCNService.cs:line 409
+2026-09-01 12:06:47 | Level: ERROR | Source: Failed to load company logo. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.CompanyService.GetCompanyLogoUrlAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\CompanyService.cs:line 38
+   at V.SMART.Shared.Pages.Home.LoadCompanyLogoAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Home.razor:line 877
+2026-09-01 12:08:39 | Level: ERROR | Source: Failed to load company logo. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.CompanyService.GetCompanyLogoUrlAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\CompanyService.cs:line 38
+   at V.SMART.Shared.Pages.Home.LoadCompanyLogoAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Home.razor:line 877
+2026-09-01 12:09:14 | Level: INFO | Source:  | Message: [RollbackTracksAddIssueQtyAsync] Rollback completed successfully. RefReturnSubId=2
+2026-09-01 12:09:28 | Level: ERROR | Source: Failed to load company logo. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.MasterService.CompanyService.GetCompanyLogoUrlAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\MasterService\CompanyService.cs:line 38
+   at V.SMART.Shared.Pages.Home.LoadCompanyLogoAsync() in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\Pages\Home.razor:line 877
+2026-09-01 12:13:13 | Level: ERROR | Source: Error searching items with text='np1'. | Message: EXCEPTION: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+STACKTRACE:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at V.SMART.Shared.BusinessLayer.BusinessService.CommonService.SearchItemsAsync(String searchText, Nullable`1 customerId) in D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Shared\BusinessLayer\BusinessService\CommonService.cs:line 333
+2026-09-01 13:10:54 | Level: INFO | Source:  | Message: User logged in successfully: Abhishek

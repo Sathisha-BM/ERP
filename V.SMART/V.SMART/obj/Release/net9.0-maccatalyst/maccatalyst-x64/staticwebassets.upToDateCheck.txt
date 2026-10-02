@@ -1,0 +1,6 @@
+wwwroot\app.css
+wwwroot\config\tenant.json
+wwwroot\index.html
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\wwwroot\app.css
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\wwwroot\config\tenant.json
+D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART\wwwroot\index.html

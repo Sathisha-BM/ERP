@@ -1,0 +1,10 @@
+2026-08-31 15:54:30 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Tool Crib Issue | Action: Prouction Issue Assembly Created | Info: Production Issue Assembly Created.
+
+2026-08-31 16:00:25 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Production Return Assembly | Action: Production Return Assembly Created | Info: Production Return Assembly Created Successfully.
+
+2026-08-31 16:01:16 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Production Assembly SCN | Action: Production SCN Created | Info: Production SCN Created.
+
+2026-08-31 16:01:56 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Manufacturing Dc Created | Info: Manufacturing DC Created.
+
+2026-08-31 18:30:11 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Enquiry Sales | Action: Material Requisition Created | Info: Material Requisition Created.
+

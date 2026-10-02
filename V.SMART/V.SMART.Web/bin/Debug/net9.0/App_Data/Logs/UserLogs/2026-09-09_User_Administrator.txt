@@ -1,0 +1,19 @@
+2026-09-09 09:49:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Company Master | Action: Company data modified | Info: IsoLogoPath: 'C:\Users\Lenovo\AppData\Local\User Name\com.companyname.v.smart\Data\uploads/IsoLogos\localhost\9d457ca6-9af2-4064-9350-d6f661c39244.jpg' → 'null'
+IsoLogoUrl: '/uploads/IsoLogos/localhost/9d457ca6-9af2-4064-9350-d6f661c39244.jpg' → 'null'
+ModifiedDate: '08/09/2026 16:36:24' → '09/09/2026 09:49:40'
+
+2026-09-09 09:49:40 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Company | Action: Updated Company: Bhargavi Soft-Tech Pvt Ltd | Info: 
+2026-09-09 09:52:13 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Company Master | Action: Company data modified | Info: IsoLogoPath: 'null' → 'D:\Bhargavi V.SMART Web DotNet - Latest\V.SMART\V.SMART.Web\wwwroot\uploads/IsoLogos\localhost\564dbcc7-95ac-4915-8c25-0d0e171902b1.jpg'
+IsoLogoUrl: 'null' → '/uploads/IsoLogos/localhost/564dbcc7-95ac-4915-8c25-0d0e171902b1.jpg'
+ModifiedDate: '09/09/2026 09:49:40' → '09/09/2026 09:52:13'
+
+2026-09-09 09:52:13 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Company | Action: Updated Company: Bhargavi Soft-Tech Pvt Ltd | Info: 
+2026-09-09 09:52:16 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Company Master | Action: Company data modified | Info: ModifiedDate: '09/09/2026 09:52:13' → '09/09/2026 09:52:16'
+
+2026-09-09 09:52:16 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Company | Action: Updated Company: Bhargavi Soft-Tech Pvt Ltd | Info: 
+2026-09-09 12:27:42 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Purchase Invoice | Action: Deleted Purchase Invoice: 339 | Info: GRN Id: 2
+
+2026-09-09 12:42:15 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Purchase Invoice | Action: Purchase Invoice Created | Info: Purchase Invoice Created.
+
+2026-09-09 12:42:53 |UserName:Administrator | Machine:DESKTOP-R60MNGC | IP_Address:192.168.1.105 | Screen: Purchase Invoice | Action: Deleted Purchase Invoice: 333 | Info: GRN Id: 3
+
