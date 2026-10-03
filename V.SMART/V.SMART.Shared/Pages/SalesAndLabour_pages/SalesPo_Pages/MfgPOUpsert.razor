@@ -2573,13 +2573,13 @@ else
                         if (subitem.UnitPrice < subitem.LabourCost)
                         {
                             _js.ToastrWarning(
-                                $"Unit Price ({subitem.UnitPrice:0.00}) Is less than Labour Cost ({subitem.LabourCost:0.00})."
+                                $"Unit Price is ({subitem.UnitPrice:0.00}) Is less than Labour Cost ({subitem.LabourCost:0.00})."
                             );
                         }
                         else if (subitem.UnitPrice > subitem.LabourCost)
                         {
                             _js.ToastrWarning(
-                               $"Unit Price ({subitem.UnitPrice:0.00}) Is  Greater than than Labour Cost ({subitem.LabourCost:0.00})."
+                               $"Unit Price is ({subitem.UnitPrice:0.00}) Is  Greater than than Labour Cost ({subitem.LabourCost:0.00})."
                            );
 
                         }
